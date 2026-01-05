@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Pre-push hook for interface-docs
+# Validates docs-site build before push
+
+set -e
+
+echo "🔍 Running pre-push checks for interface-docs..."
+
+echo "🔍 Checking package-lock.json sync..."
+if ! npm ci --dry-run --silent > /dev/null 2>&1; then
+    echo "❌ package-lock.json is out of sync with package.json"
+    echo "💡 Run 'npm install' to fix this issue"
+    exit 1
+fi
+
+echo "📦 Installing dependencies..."
+npm ci --silent
+
+echo "🏗️  Building Next.js site..."
+npm run build
+
+echo "📋 Verifying build artifacts..."
+if [ ! -d ".next" ]; then
+    echo "❌ Build artifacts missing"
+    exit 1
+fi
+
+echo "✅ All pre-push checks passed!"
+
