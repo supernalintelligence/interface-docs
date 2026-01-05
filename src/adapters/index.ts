@@ -11,11 +11,13 @@
 
 import { 
   ChatUIAdapter,
-  createCopilotKitAdapter,
   createNativeAdapter,
   bridgeToolRegistry,
   createAuditTrail,
 } from "@supernal/interface-enterprise";
+
+// CopilotKit is available in enterprise
+import { createCopilotKitAdapter } from "@supernal/interface-enterprise";
 
 export type AdapterType = 'copilotkit' | 'native';
 
