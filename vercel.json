@@ -1,13 +1,20 @@
 {
-  "name": "supernal-interface",
+  "name": "supernal-interface-docs",
   "version": 2,
-  "buildCommand": "cd ../ && npm ci --include=dev && npm run build && cd demo && npm run build",
-  "installCommand": "cd ../ && npm ci --include=dev && cd demo && npm ci",
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
-    "TRUST_PROXY": "true",
-    "NEXT_PUBLIC_DASHBOARD_ENABLED": "false",
-    "NEXT_PUBLIC_ANALYTICS_ENABLED": "true"
+    "NPM_TOKEN": "@npm_token",
+    "NEXT_PUBLIC_DEMO_MODE": "true",
+    "NEXT_PUBLIC_ENABLE_ANALYTICS": "true",
+    "NEXT_PUBLIC_CONTACT_EMAIL": "hello@supernalintelligence.com"
+  },
+  "build": {
+    "env": {
+      "NPM_TOKEN": "@npm_token"
+    }
   },
   "headers": [
     {
@@ -24,8 +31,19 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/demo",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }
