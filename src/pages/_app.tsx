@@ -57,7 +57,8 @@ function GlobalChatWrapper() {
       router.push(targetRoute)
     })
     
-    initializeDemoArchitecture()
+    // Initialize architecture (registers containers and creates nav tools)
+    initializeDemoArchitecture().initialize()
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {
