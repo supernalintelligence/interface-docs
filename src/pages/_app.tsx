@@ -17,7 +17,7 @@ const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   : () => null;
 import { ChatBubble } from '../components/chat/ChatBubble'
 import { DemoAIInterface } from '../lib/AIInterface'
-import { NavigationGraph } from "@supernal/interface/browser"
+import { NavigationGraph } from "@supernal/interface-enterprise"
 import { initializeDemoArchitecture } from '../architecture'
 import { ToolManager } from '../lib/ToolManager'
 import { useRouter } from 'next/router'
@@ -58,7 +58,9 @@ function GlobalChatWrapper() {
     })
     
     // Initialize architecture (registers containers and creates nav tools)
-    initializeDemoArchitecture().initialize()
+    console.log('🚀 [_app] About to call initializeDemoArchitecture()')
+    const initResult = initializeDemoArchitecture()
+    console.log('🚀 [_app] initializeDemoArchitecture() returned:', initResult)
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {

@@ -9,7 +9,6 @@ import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { ArchitecturePage } from '../components/pages/ArchitecturePage';
 import { NavigationGraph } from "@supernal/interface/browser";
-import { initializeDemoArchitecture } from '../architecture';
 import { useSharedChat } from '../hooks/useSharedChat';
 import { DemoAIInterface } from '../lib/AIInterface';
 import { ToolManager } from '../lib/ToolManager';
@@ -22,24 +21,6 @@ export default function ArchitectureRoute() {
 
   useEffect(() => {
     // Set up navigation handler
-    NavigationGraph.getInstance().setNavigationHandler((page: string | any) => {
-      const pageStr = typeof page === 'string' ? page : (page?.name || page?.path || String(page));
-      const pageLower = pageStr.toLowerCase();
-      const routeMap: Record<string, string> = {
-        'home': '/',
-        'demo': '/demo/simple',
-        'architecture': '/architecture',
-        'dashboard': '/dashboard',
-        'docs': '/docs',
-        'examples': '/examples',
-        'blog': '/blog',
-      };
-      
-      const targetRoute = routeMap[pageLower] || '/';
-      router.push(targetRoute);
-    });
-    
-    initializeDemoArchitecture();
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {

@@ -10,7 +10,6 @@ import { ChatBubble } from '../components/chat/ChatBubble';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { ExamplesPage } from '../components/pages/ExamplesPage';
 import { NavigationGraph, useContainer } from "@supernal/interface/browser";
-import { initializeDemoArchitecture } from '../architecture';
 import { registerExampleTools } from '../tools/ExampleTools';
 import { useSharedChat } from '../hooks/useSharedChat';
 import { DemoAIInterface } from '../lib/AIInterface';
@@ -27,23 +26,7 @@ export default function ExamplesRoute() {
 
   useEffect(() => {
     // Set up navigation handler
-    NavigationGraph.getInstance().setNavigationHandler((page: string | any) => {
-      const pageLower = page.toLowerCase();
-      const routeMap: Record<string, string> = {
-        'home': '/',
-        'demo': '/demo/simple',
-        'architecture': '/architecture',
-        'dashboard': '/dashboard',
-        'docs': '/docs',
-        'examples': '/examples',
-        'blog': '/blog',
-      };
-      
-      const targetRoute = routeMap[pageLower] || '/';
-      router.push(targetRoute);
-    });
     
-    initializeDemoArchitecture();
     
     // Register example-specific tools
     registerExampleTools();

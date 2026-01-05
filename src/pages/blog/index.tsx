@@ -20,7 +20,6 @@ import { useSharedChat } from '../../hooks/useSharedChat';
 import { DemoAIInterface } from '../../lib/AIInterface';
 import { ToolManager } from '../../lib/ToolManager';
 import { NavigationGraph } from "@supernal/interface/browser";
-import { initializeDemoArchitecture } from '../../architecture';
 
 interface BlogIndexProps {
   posts: Post[];
@@ -39,23 +38,7 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
 
   useEffect(() => {
     // Set up navigation handler
-    NavigationGraph.getInstance().setNavigationHandler((page: string | any) => {
-      const pageLower = page.toLowerCase();
-      const routeMap: Record<string, string> = {
-        'home': '/',
-        'demo': '/demo/simple',
-        'architecture': '/architecture',
-        'dashboard': '/dashboard',
-        'docs': '/docs',
-        'examples': '/examples',
-        'blog': '/blog',
-      };
-      
-      const targetRoute = routeMap[pageLower] || '/';
-      router.push(targetRoute);
-    });
     
-    initializeDemoArchitecture();
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {

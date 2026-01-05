@@ -9,7 +9,6 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { NavigationGraph } from "@supernal/interface/browser";
-import { initializeDemoArchitecture } from '../architecture';
 import { useSharedChat } from '../hooks/useSharedChat';
 import { DemoAIInterface } from '../lib/AIInterface';
 import { ToolManager } from '../lib/ToolManager';
@@ -81,24 +80,7 @@ export default function HeroPage() {
   
   useEffect(() => {
     // Set up navigation handler
-    NavigationGraph.getInstance().setNavigationHandler((page: string | any) => {
-      const pageLower = page.toLowerCase();
-      const routeMap: Record<string, string> = {
-        'home': '/',
-        'demo': '/demo/simple',
-        'demos': '/demo/simple',
-        'architecture': '/architecture',
-        'dashboard': '/dashboard',
-        'docs': '/docs',
-        'examples': '/examples',
-        'blog': '/blog',
-      };
-      
-      const targetRoute = routeMap[pageLower] || '/';
-      router.push(targetRoute);
-    });
     
-    initializeDemoArchitecture();
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {
