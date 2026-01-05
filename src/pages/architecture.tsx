@@ -3,14 +3,11 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { ArchitecturePage } from '../components/pages/ArchitecturePage';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Header } from '../components/Header';
-import { ChatBubble } from '../components/chat/ChatBubble';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
-// ArchitecturePage disabled - uses unpublished ArchitectureGraph
-// import { ArchitecturePage } from '../components/pages/ArchitecturePage';
+import { ArchitecturePage } from '../components/pages/ArchitecturePage';
 import { NavigationGraph } from "@supernal/interface/browser";
 import { initializeDemoArchitecture } from '../architecture';
 import { useSharedChat } from '../hooks/useSharedChat';
@@ -77,10 +74,7 @@ export default function ArchitectureRoute() {
       <div className="min-h-screen bg-gray-50">
         <Header onEarlyAccessClick={() => setShowEarlyAccessModal(true)} />
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-4">Architecture Visualization</h1>
-        <p className="text-gray-600">Architecture visualization is temporarily disabled during migration.</p>
-      </div>
+          <ArchitecturePage />
         </div>
         
         {/* Chat is now global in _app.tsx */}

@@ -4,7 +4,8 @@
  * This actually uses the ToolRegistry to find and execute tools.
  */
 
-import { ToolRegistry, ToolMetadata, TreeBuilder, NavigationGraph } from "@supernal/interface/browser";
+import { ToolRegistry, ToolMetadata } from "@supernal/interface/browser";
+import { RuntimeTreeBuilder, NavigationGraph } from "@supernal/interface-enterprise";
 import { Components } from '../architecture';
 import { subscribeToStateChanges } from './UIWidgetComponents';
 import { ToolManager, ToolExecutionResult } from './ToolManager';
@@ -522,21 +523,21 @@ export class DemoAIInterface {
       if (!element) {
         // Navigation: Check if tool needs us to be on a different page
         if (elementId) {
-          const toolContainer = (TreeBuilder as any).getToolContainer?.(elementId);
-          const currentContainer = (TreeBuilder as any).getCurrentContainer?.();
+          const toolContainer = RuntimeTreeBuilder.getInstance().getToolContainer(elementId);
+          const currentContainer = RuntimeTreeBuilder.getInstance().getCurrentContainer();
           console.log(`🔍 [AIInterface] Element not found. Tool container: ${toolContainer}, Current: ${currentContainer}`);
           console.log(`🔍 [AIInterface] Tool elementId: ${elementId}`);
-          console.log(`🔍 [AIInterface] TreeBuilder exists: ${!!TreeBuilder}`);
+          console.log(`🔍 [AIInterface] TreeBuilder exists: ${!!RuntimeTreeBuilder}`);
           console.log(`🔍 [AIInterface] NavigationGraph exists: ${!!NavigationGraph}`);
           
           if (toolContainer && toolContainer !== currentContainer) {
             const graph = NavigationGraph.getInstance();
             console.log(`🗺️  [Navigation] Computing path from "${currentContainer}" to "${toolContainer}"`);
-            const path = (graph as any).computePath?.(currentContainer, toolContainer);
+            const path = graph.computePath(currentContainer, toolContainer);
             console.log(`🗺️  [Navigation] Path result:`, path);
             
             if (path && path.steps.length > 0) {
-              console.log(`🗺️  [Navigation] Path: ${path.steps.map((s: any) => s.from).join(' → ')} → ${path.to}`);
+              console.log(`🗺️  [Navigation] Path: ${path.steps.map(s => s.from).join(' → ')} → ${path.to}`);
               
               // Execute navigation steps by finding and executing navigation tools
               for (const step of path.steps) {
