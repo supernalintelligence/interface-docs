@@ -1,0 +1,31 @@
+{
+  "name": "supernal-interface",
+  "version": 2,
+  "buildCommand": "cd ../ && npm ci --include=dev && npm run build && cd demo && npm run build",
+  "installCommand": "cd ../ && npm ci --include=dev && cd demo && npm ci",
+  "env": {
+    "NODE_ENV": "production",
+    "TRUST_PROXY": "true",
+    "NEXT_PUBLIC_DASHBOARD_ENABLED": "false",
+    "NEXT_PUBLIC_ANALYTICS_ENABLED": "true"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}

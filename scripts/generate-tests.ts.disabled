@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+/**
+ * Generate component tests from within demo app context
+ * This runs AFTER tools are registered, avoiding decorator execution issues
+ * 
+ * Features:
+ * - Conflict detection (detects manual edits)
+ * - Automatic backups (timestamped)
+ * - Safe overwrite warnings
+ * - Cleanup of old backups
+ */
+
+import { ComponentTestGenerator } from "@supernal/interface-enterprise";
+import { registerExampleTools } from '../src/tools/ExampleTools';
+import path from 'path';
+
+async function main() {
+  // Register tools first
+  console.log('🔄 Registering example tools...\n');
+  registerExampleTools();
+
+  const outputDir = path.join(__dirname, '..', 'tests', 'generated', 'basic');
+
+  console.log('🧪 Generating component tests with conflict management...\n');
+
+  try {
+    const results = await ComponentTestGenerator.generateAndWriteTests(outputDir, {
+      force: false,           // Don't force overwrite - check for conflicts
+      createBackup: true,     // Create backups before overwriting
+      interactive: false,     // Non-interactive (CI-friendly)
+      keepBackups: 5,         // Keep last 5 backups per file
+    });
+
+    console.log(`\n📊 Results:`);
+    console.log(`   ✅ Success: ${results.success} file(s)`);
+    if (results.backedUp > 0) {
+      console.log(`   💾 Backed up: ${results.backedUp} file(s)`);
+    }
+    if (results.skipped > 0) {
+      console.log(`   ⏭️  Skipped: ${results.skipped} file(s)`);
+    }
+    if (results.errors > 0) {
+      console.log(`   ❌ Errors: ${results.errors} file(s)`);
+    }
+
+    console.log(`\n📍 Output: ${outputDir}`);
+    
+    if (results.backups.length > 0) {
+      console.log(`\n💾 Backups created:`);
+      results.backups.forEach(backup => {
+        console.log(`   ${path.basename(backup)}`);
+      });
+    }
+
+    console.log(`\n🧪 Run tests with: npx playwright test tests/generated/basic`);
+    
+    process.exit(results.errors > 0 ? 1 : 0);
+  } catch (error: any) {
+    console.error(`\n❌ Generation failed:`, error.message);
+    process.exit(1);
+  }
+}
+
+main();
+
