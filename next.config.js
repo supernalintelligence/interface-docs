@@ -24,6 +24,8 @@ const nextConfig = {
     '@copilotkit/react-ui',
     '@copilotkit/react-textarea',
     '@copilotkitnext/react',
+    '@supernal/interface',
+    '@supernal/interface-enterprise',
   ],
 
   // Optimize output for smaller serverless functions

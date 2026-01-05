@@ -12,7 +12,6 @@ import { Header } from '../../components/Header';
 import { 
   ChatUIProvider, 
   ChatUI,
-  createCopilotKitAdapter,
   createNativeAdapter,
   bridgeToolRegistry,
   createAuditTrail,
@@ -31,9 +30,8 @@ export default function ChatAdaptersExample() {
   
   // Create adapter when type changes
   useEffect(() => {
-    const newAdapter = adapterType === 'copilotkit'
-      ? createCopilotKitAdapter({ runtimeUrl: '/api/copilotkit' })
-      : createNativeAdapter();
+    // CopilotKit temporarily disabled - always use native
+    const newAdapter = createNativeAdapter();
     
     // Initialize adapter
     newAdapter.initialize?.().then(() => {
@@ -49,7 +47,7 @@ export default function ChatAdaptersExample() {
       });
       
       // Subscribe to executions for display
-      newAdapter.onToolExecution((execution) => {
+      newAdapter.onToolExecution((execution: any) => {
         setExecutions(prev => [execution, ...prev.slice(0, 9)]);
       });
       

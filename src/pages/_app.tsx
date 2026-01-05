@@ -2,15 +2,10 @@ import '@/styles/globals.css'
 // import 'reactflow/dist/style.css' // Disabled - reactflow not installed
 import 'highlight.js/styles/github-dark.css'
 import type { AppProps } from 'next/app'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { ChatInputProvider } from '../contexts/ChatInputContext'
 import { useSharedChat } from '../hooks/useSharedChat'
-// Conditionally import CopilotKit only if enabled
-// @ts-ignore - Dynamic import to avoid bundling if not used
-const CopilotKit = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true' 
-  ? require('@copilotkit/react-core').CopilotKit 
-  : ({ children }: { children: React.ReactNode }) => <>{children}</>;
 // @ts-ignore
 const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   ? require('../components/chat/CopilotChatWidget').CopilotChatWidget
@@ -116,7 +111,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [gtmId])
 
   return (
-    <CopilotKit runtimeUrl="/api/copilotkit">
+    <React.Fragment>
       <ChatInputProvider>
         {/* Google Tag Manager */}
         {gtmId && (
@@ -149,6 +144,6 @@ export default function App({ Component, pageProps }: AppProps) {
         {/* Global chat widget - persists across all pages */}
         <GlobalChatWrapper />
       </ChatInputProvider>
-    </CopilotKit>
+    </React.Fragment>
   )
 }

@@ -16,8 +16,9 @@ import {
   createAuditTrail,
 } from "@supernal/interface-enterprise";
 
-// CopilotKit is available in enterprise
-import { createCopilotKitAdapter } from "@supernal/interface-enterprise";
+// CopilotKit adapter - stubbed for now to avoid bundling
+// To enable: install @copilotkit packages and uncomment the real import
+const createCopilotKitAdapter = null as any;
 
 export type AdapterType = 'copilotkit' | 'native';
 
