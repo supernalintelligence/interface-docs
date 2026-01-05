@@ -1,6 +1,15 @@
-# @supernal-interface/core Demo
+# Supernal Interface Documentation & Demo
 
 **Live demonstration of AI-controllable React applications with @Tool decorators**
+
+## 📦 Packages
+
+This demo uses two packages:
+
+- **[@supernal/interface](https://github.com/supernalintelligence/interface)** - Open-source core package (PUBLIC)
+- **@supernal/interface-enterprise** - Enterprise features (PRIVATE)
+
+See [Repository Structure](#repository-structure) below for development workflow.
 
 ---
 
@@ -190,35 +199,31 @@ export const DemoContainer = {
 - Node.js 18+
 - npm or pnpm
 
-### Steps
+### Development Setup (Monorepo)
 
-1. **Build Core Package** (from monorepo root)
-```bash
-cd /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/core
-npm run build
-```
+When developing locally in the monorepo:
 
-2. **Install Demo Dependencies**
 ```bash
-   cd core/demo
+# From monorepo root (@supernal-interface/)
+cd docs-site
 npm install
-```
-
-3. **Start Demo Server**
-```bash
 npm run dev
 ```
 
-4. **Open Browser**
-   ```
-   http://localhost:3000
-   ```
+The demo uses local builds of `open-source/` and `enterprise/` packages via git submodules.
 
-5. **Try the Demo**
-   - Click widgets normally - they work as expected
-   - Use AI Tools buttons to see simulated AI control
-   - Watch the "Current State" section update as tools execute
-   - Open Chat bubble to try natural language commands
+### Standalone Setup (Public Repo)
+
+When cloned from the public repo:
+
+```bash
+git clone https://github.com/supernalintelligence/interface-docs.git
+cd interface-docs
+npm install  # Installs @supernal/interface from npm
+npm run dev
+```
+
+For enterprise features, you'll need access to the private `@supernal/interface-enterprise` package.
 
 ---
 
@@ -296,20 +301,51 @@ npx playwright test tests/phase1.spec.ts
 
 ## Documentation References
 
-- **Current Status**: `../../docs/STATUS.md`
-- **Implementation Guide**: `../../docs/TESTING_IMPLEMENTATION.md`
-- **Architecture**: `../../docs/architecture/`
-- **Master Plan**: `../../docs/SUPERNAL_INTERFACE_MASTER_PLAN.md`
-- **Component Naming Rules**: `../../.cursor/rules/component-naming.mdc`
+- **Open-Source Package**: [github.com/supernalintelligence/interface](https://github.com/supernalintelligence/interface)
+- **This Demo**: [github.com/supernalintelligence/interface-docs](https://github.com/supernalintelligence/interface-docs)
+- **npm Package**: [@supernal/interface](https://www.npmjs.com/package/@supernal/interface) (after publishing)
+
+---
+
+## Repository Structure
+
+This project is part of a multi-repository setup:
+
+```
+Development (Monorepo):
+  @supernal-interface/
+  ├── open-source/        (submodule → github.com/supernalintelligence/interface)
+  ├── enterprise/         (private, stays in monorepo)
+  └── docs-site/          (submodule → github.com/supernalintelligence/interface-docs)
+
+Published (Separate Repos):
+  - github.com/supernalintelligence/interface         (PUBLIC - npm: @supernal/interface)
+  - github.com/supernalintelligence/interface-docs    (PUBLIC - this repo)
+  - npm: @supernal/interface-enterprise               (PRIVATE)
+```
+
+### Working Between Repositories
+
+**During Development** (in monorepo):
+- Changes made in `open-source/` or `docs-site/` are in their respective git repos
+- Commit and push to their GitHub remotes independently
+- Enterprise package stays in the monorepo
+
+**Publishing Updates**:
+1. Make changes in monorepo (e.g., `open-source/src/...`)
+2. Commit to submodule: `cd open-source && git commit && git push`
+3. Publish to npm: `cd open-source && npm publish`
+4. Update monorepo to track new submodule commit: `cd .. && git add open-source && git commit`
+
+See [HANDOFF.md](./HANDOFF.md) for detailed workflow.
 
 ---
 
 ## Questions or Issues?
 
-See comprehensive documentation in `../../docs/` or check:
-- What is currently implemented: `../../docs/STATUS.md`
-- How the demo works: `../../docs/DEMO_IMPLEMENTATION.md`
-- Testing infrastructure: `../../docs/TESTING_IMPLEMENTATION.md`
+- **Open-Source Issues**: [interface/issues](https://github.com/supernalintelligence/interface/issues)
+- **Docs/Demo Issues**: [interface-docs/issues](https://github.com/supernalintelligence/interface-docs/issues)
+- **Enterprise Support**: Contact your account representative
 
 ---
 
