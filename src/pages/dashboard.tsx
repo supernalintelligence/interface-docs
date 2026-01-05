@@ -10,7 +10,6 @@ import { ChatBubble } from '../components/chat/ChatBubble';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { DashboardPage } from '../components/pages/DashboardPage';
 import { useNavigationHandler } from "@supernal/interface/react";
-import { initializeDemoArchitecture } from '../architecture';
 import { useSharedChat } from '../hooks/useSharedChat';
 import { DemoAIInterface } from '../lib/AIInterface';
 import { ToolManager } from '../lib/ToolManager';
@@ -25,7 +24,6 @@ export default function DashboardRoute() {
   useNavigationHandler(router);
 
   useEffect(() => {
-    initializeDemoArchitecture();
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {
