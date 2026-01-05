@@ -7,3 +7,12 @@ node_modules/
 .env
 .vercel
 .npmrc
+
+# Test results
+test-results/
+
+# Vercel deployment docs
+VERCEL_DEPLOYMENT.md
+
+# Environment examples
+env.example
