@@ -13,7 +13,7 @@ const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 import { ChatBubble } from '../components/chat/ChatBubble'
 import { DemoAIInterface } from '../lib/AIInterface'
 import { NavigationGraph } from "@supernal/interface-enterprise"
-import { initializeDemoArchitecture } from '../architecture'
+import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { ToolManager } from '../lib/ToolManager'
 import { useRouter } from 'next/router'
 
@@ -34,28 +34,17 @@ function GlobalChatWrapper() {
   const [aiInterface] = useState(() => new DemoAIInterface())
 
   useEffect(() => {
-    // Set up navigation handler
-    NavigationGraph.getInstance().setNavigationHandler((page: string | any) => {
-      const pageLower = page.toLowerCase()
-      const routeMap: Record<string, string> = {
-        'home': '/',
-        'demo': '/demo/simple',
-        'architecture': '/architecture',
-        'dashboard': '/dashboard',
-        'docs': '/docs',
-        'examples': '/examples',
-        'blog': '/blog',
-        'stories': '/stories',
-      }
-      
-      const targetRoute = routeMap[pageLower] || '/'
-      router.push(targetRoute)
-    })
+    console.log('🚀 [_app] useEffect triggered')
     
     // Initialize architecture (registers containers and creates nav tools)
-    console.log('🚀 [_app] About to call initializeDemoArchitecture()')
-    const initResult = initializeDemoArchitecture()
-    console.log('🚀 [_app] initializeDemoArchitecture() returned:', initResult)
+    // Even if already initialized, this is idempotent
+    console.log('🚀 [_app] Calling initializeDemoArchitecture()')
+    initializeDemoArchitecture()
+    
+    // Always set navigation handler (even on refresh)
+    const handler = createNavigationHandler(router)
+    NavigationGraph.getInstance().setNavigationHandler(handler)
+    console.log('✅ [_app] Navigation handler set')
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {
