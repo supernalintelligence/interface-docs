@@ -22,8 +22,8 @@ import {
   PresetTemplates,
   containerPreset,
   pathPreset,
-} from "@supernal/interface-enterprise";
-import { ToolCategory } from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
+import { ToolCategory } from "@supernalintelligence/interface-enterprise";
 
 // ============================================================================
 // Example 1: Basic AI Tools (No Preset)
