@@ -4,11 +4,6 @@
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
   "framework": "nextjs",
-  "build": {
-    "env": {
-      "GITHUB_PACKAGES_TOKEN": "@GITHUB_PACKAGES_TOKEN"
-    }
-  },
   "env": {
     "NODE_ENV": "production",
     "NEXT_PUBLIC_DEMO_MODE": "true",
