@@ -13,12 +13,17 @@ test-results/
 coverage/
 
 # Development files
-*.md
+# Exclude markdown files in specific locations, but keep blog posts and content
+README.md
+HANDOFF.md
+SCRIPTS_CLEANUP.md
 *.mdc
 docs/
 examples/
 scripts/generate-*
 scripts/test-*
+# Keep src/content/blog/*.md - needed for blog posts at build time
+# Keep content/docs/*.md - needed for documentation at build time
 
 # Build artifacts that don't need to be uploaded
 .next/cache/
