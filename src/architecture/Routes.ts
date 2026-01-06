@@ -19,7 +19,7 @@ export const Routes = {
   DemoHierarchical: '/demo/hierarchical',
   DemoAdvanced: '/demo/advanced',
   Blog: '/blog',
-  Blog:slug: '/blog/:slug'
+  'Blog:slug': '/blog/:slug'
 } as const;
 
 export type RouteName = keyof typeof Routes;
