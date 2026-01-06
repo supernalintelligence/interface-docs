@@ -12,14 +12,14 @@ export const Routes = {
   Dashboard: '/dashboard',
   Comparison: '/comparison',
   Architecture: '/architecture',
-  ExamplesChat-adapters: '/examples/chat-adapters',
+  'ExamplesChat-adapters': '/examples/chat-adapters',
   DemoStateful: '/demo/stateful',
   DemoSimple: '/demo/simple',
   Demo: '/demo',
   DemoHierarchical: '/demo/hierarchical',
   DemoAdvanced: '/demo/advanced',
   Blog: '/blog',
-  'Blog:slug': '/blog/:slug'
+  'BlogSlug': '/blog/:slug'
 } as const;
 
 export type RouteName = keyof typeof Routes;
