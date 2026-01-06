@@ -14,7 +14,7 @@ import {
   createNativeAdapter,
   bridgeToolRegistry,
   createAuditTrail,
-} from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
 
 // CopilotKit adapter - stubbed for now to avoid bundling
 // To enable: install @copilotkit packages and uncomment the real import

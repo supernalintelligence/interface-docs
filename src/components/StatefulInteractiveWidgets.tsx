@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { StateManager, StateManagers } from "@supernal/interface-enterprise";
+import { StateManager, StateManagers } from "@supernalintelligence/interface-enterprise";
 import { localStorageAdapter } from '../lib/storage';
 import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { 

@@ -12,10 +12,10 @@
  * - Only specify what CAN'T be inferred (examples)
  */
 
-import { ToolProvider, Tool } from "@supernal/interface-enterprise";
+import { ToolProvider, Tool } from "@supernalintelligence/interface-enterprise";
 import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { DemoContainers } from '../architecture/DemoContainers';
-import type { ToolOptions } from "@supernal/interface-enterprise";
+import type { ToolOptions } from "@supernalintelligence/interface-enterprise";
 
 // **NEW SHORTHAND SYNTAX** - Just pass containerId string!
 @ToolProvider(DemoContainers.DemoStateful.id)

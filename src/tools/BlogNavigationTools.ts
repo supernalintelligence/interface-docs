@@ -5,7 +5,7 @@
  * IMPORTANT: These tools are GLOBAL and work from any page
  */
 
-import { Tool, ToolProvider, ToolCategory } from "@supernal/interface-enterprise";
+import { Tool, ToolProvider, ToolCategory } from "@supernalintelligence/interface-enterprise";
 import { FuzzyMatcher } from '../lib/FuzzyMatcher';
 import { NavigationGraph } from "@supernal/interface/browser";
 

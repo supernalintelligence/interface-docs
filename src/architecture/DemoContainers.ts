@@ -4,7 +4,7 @@
  * Define all major navigation boundaries for the demo application.
  * These are automatically registered in NavigationGraph on app init.
  */
-import type { ContainerDefinition } from "@supernal/interface-enterprise";
+import type { ContainerDefinition } from "@supernalintelligence/interface-enterprise";
 
 /**
  * Demo Application Containers

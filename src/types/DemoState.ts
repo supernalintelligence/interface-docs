@@ -7,7 +7,7 @@
  * Extends ApplicationState to be compatible with StateManager's ComponentState constraint.
  */
 
-import { ApplicationState } from "@supernal/interface-enterprise";
+import { ApplicationState } from "@supernalintelligence/interface-enterprise";
 
 export interface DemoWidgetState extends ApplicationState {
   kind: 'application';

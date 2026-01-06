@@ -20,7 +20,7 @@ import {
   ToolCategory,
   Component,
   Tool,
-} from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
 import { Examples } from '../architecture/DemoComponentNames';
 
 // ============================================

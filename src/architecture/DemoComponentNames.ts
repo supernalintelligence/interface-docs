@@ -15,7 +15,7 @@
 // --- NEW PATTERN (Flexible Format System) ---
 // Uncomment to use zero-config architecture:
 /*
-import { createNames } from "@supernal/interface-enterprise";
+import { createNames } from "@supernalintelligence/interface-enterprise";
 
 export const GlobalNav = createNames('nav', [
   'home', 'demo', 'dashboard', 'architecture', 

@@ -5,7 +5,7 @@
  * This prevents creating multiple adapter instances unnecessarily.
  */
 
-import { LocalStorageAdapter } from "@supernal/interface-enterprise";
+import { LocalStorageAdapter } from "@supernalintelligence/interface-enterprise";
 
 /**
  * Singleton LocalStorageAdapter instance

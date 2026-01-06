@@ -16,8 +16,8 @@ import {
   bridgeToolRegistry,
   createAuditTrail,
   ChatUIAdapter,
-} from "@supernal/interface-enterprise";
-import type { ChatToolExecution } from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
+import type { ChatToolExecution } from "@supernalintelligence/interface-enterprise";
 
 // Demo widgets with @Tool methods
 import { SimpleWidget, SettingsWidget } from '../../widgets';

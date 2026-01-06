@@ -6,7 +6,7 @@
  */
 
 import { randomId } from '@copilotkit/shared';
-import { ToolRegistry } from "@supernal/interface-enterprise";
+import { ToolRegistry } from "@supernalintelligence/interface-enterprise";
 import { findBestMatch } from './fuzzyMatch';
 
 // Types from CopilotKit (simplified)

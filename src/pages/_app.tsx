@@ -12,7 +12,7 @@ const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   : () => null;
 import { ChatBubble } from '../components/chat/ChatBubble'
 import { DemoAIInterface } from '../lib/AIInterface'
-import { NavigationGraph } from "@supernal/interface-enterprise"
+import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { ToolManager } from '../lib/ToolManager'
 import { useRouter } from 'next/router'

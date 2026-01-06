@@ -19,7 +19,7 @@ import {
   Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import type { TreeNode } from "@supernal/interface-enterprise";
+import type { TreeNode } from "@supernalintelligence/interface-enterprise";
 
 interface JsonCrackGraphProps {
   tree: TreeNode[];

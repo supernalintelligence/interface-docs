@@ -5,7 +5,7 @@
  */
 
 import { ToolRegistry, ToolMetadata } from "@supernal/interface/browser";
-import { RuntimeTreeBuilder, NavigationGraph } from "@supernal/interface-enterprise";
+import { RuntimeTreeBuilder, NavigationGraph } from "@supernalintelligence/interface-enterprise";
 import { Components } from '../architecture';
 import { subscribeToStateChanges } from './UIWidgetComponents';
 import { ToolManager, ToolExecutionResult } from './ToolManager';

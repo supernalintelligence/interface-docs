@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { ClickTool, ChangeTool, Tool, ToolCategory } from "@supernal/interface-enterprise";
+import { ClickTool, ChangeTool, Tool, ToolCategory } from "@supernalintelligence/interface-enterprise";
 import { Components, DemoContainers } from '../architecture';
 import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { getUIControls } from './UIControls';

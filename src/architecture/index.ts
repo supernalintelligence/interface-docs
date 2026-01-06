@@ -14,7 +14,7 @@
 // ============================================
 // Uncomment to use zero-config architecture:
 /*
-import { initializeArchitecture } from "@supernal/interface-enterprise";
+import { initializeArchitecture } from "@supernalintelligence/interface-enterprise";
 import './DemoComponentNames';  // Auto-registers on import
 import './DemoContainers';       // Auto-registers on import
 
@@ -30,7 +30,7 @@ export const DemoArchitecture = initializeArchitecture();
 // OLD PATTERN (Manual Configuration) - 47 lines
 // ============================================
 // Currently active for backward compatibility:
-import { createAutoInitializer } from "@supernal/interface-enterprise";
+import { createAutoInitializer } from "@supernalintelligence/interface-enterprise";
 import { DemoContainers } from './DemoContainers';
 import { Components } from './DemoComponentNames';
 

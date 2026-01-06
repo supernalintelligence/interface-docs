@@ -91,7 +91,7 @@ function generateQuickStart(): string {
 ### 1. Create Tool Provider (Class-Based)
 
 \`\`\`typescript
-import { Tool, ToolProvider } from "@supernal/interface-enterprise";
+import { Tool, ToolProvider } from "@supernalintelligence/interface-enterprise";
 
 @ToolProvider({ category: 'ui-controls' })
 export class UIControls {
@@ -134,7 +134,7 @@ export class UIControls {
 ### 2. Standalone Functions (NEW!)
 
 \`\`\`typescript
-import { Tool } from "@supernal/interface-enterprise";
+import { Tool } from "@supernalintelligence/interface-enterprise";
 
 @Tool({
   toolId: 'calculate-tax',
@@ -288,7 +288,7 @@ function generateArchitecture(): string {
 ### Registry API
 
 \`\`\`typescript
-import { ToolRegistry } from "@supernal/interface-enterprise";
+import { ToolRegistry } from "@supernalintelligence/interface-enterprise";
 
 // CLI-like discovery
 console.log(ToolRegistry.overview());           // Show all stats and providers

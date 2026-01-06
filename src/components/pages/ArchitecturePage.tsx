@@ -10,7 +10,7 @@ import {
   StatePanel,
   type ApplicationGraph,
   type TreeNode,
-} from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
 import { localStorageAdapter } from '../../lib/storage';
 import { JsonCrackGraph } from '../JsonCrackGraph';
 

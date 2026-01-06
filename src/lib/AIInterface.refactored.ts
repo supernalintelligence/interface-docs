@@ -18,7 +18,7 @@ import {
   LLMMatcher,
   AnthropicProvider,
   type MatchContext
-} from "@supernal/interface-enterprise";
+} from "@supernalintelligence/interface-enterprise";
 // Components available from architecture if needed
 import { subscribeToStateChanges } from './UIWidgetComponents';
 import { ToolManager, ToolExecutionResult } from './ToolManager';

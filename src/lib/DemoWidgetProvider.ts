@@ -7,10 +7,10 @@
  * NOTE: This must be initialized client-side only (not during SSR)
  */
 
-import { ToolProvider, Tool, StateManager, ToolCategory } from "@supernal/interface-enterprise";
+import { ToolProvider, Tool, StateManager, ToolCategory } from "@supernalintelligence/interface-enterprise";
 import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { DemoContainers } from '../architecture/DemoContainers';
-import { StateManagers } from "@supernal/interface-enterprise";
+import { StateManagers } from "@supernalintelligence/interface-enterprise";
 import { DemoWidgetState } from '../types/DemoState';
 import { localStorageAdapter } from './storage';
 
