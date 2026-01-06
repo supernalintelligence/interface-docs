@@ -6,7 +6,7 @@
   "framework": "nextjs",
   "build": {
     "env": {
-      "GITHUB_PACKAGES_TOKEN": "@github_packages_token"
+      "GITHUB_PACKAGES_TOKEN": "@GITHUB_PACKAGES_TOKEN"
     }
   },
   "env": {
