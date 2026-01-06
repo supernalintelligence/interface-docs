@@ -22,8 +22,13 @@
     "test:nav:watch": "playwright test tests/e2e/auto-navigation.spec.ts --reporter=list --watch",
     "test:tools": "node scripts/test-tools.js",
     "test:integration": "npm run build && playwright test tests/e2e/widget-tool-integration.spec.ts",
-    "generate:tests": "tsx scripts/generate-tests.ts",
-    "generate:story-tests": "tsx scripts/generate-story-tests.ts"
+    "contracts:routes": "si scan-routes --pages src/pages --output src/architecture/Routes.ts",
+    "contracts:names": "si scan-names --components src/components --output src/architecture/Components.ts",
+    "contracts:all": "npm run contracts:routes && npm run contracts:names",
+    "contracts:watch": "si scan-routes --watch & si scan-names --watch",
+    "si:generate-tests": "si generate-tests --output tests/generated --routes src/architecture/Routes.ts --names src/architecture/Components.ts --include-e2e",
+    "si:benchmark": "si benchmark-cache --runs 5 --output benchmark-results.json",
+    "si:validate": "si validate --routes src/architecture/Routes.ts --names src/architecture/Components.ts --tools"
   },
   "dependencies": {
     "@copilotkit/react-core": "^1.50.1",

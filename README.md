@@ -7,9 +7,34 @@
 This demo uses two packages:
 
 - **[@supernal/interface](https://github.com/supernalintelligence/interface)** - Open-source core package (PUBLIC)
-- **@supernal/interface-enterprise** - Enterprise features (PRIVATE)
+- **@supernal/interface-enterprise** - Enterprise features + CLI tools (PROPRIETARY)
 
 See [Repository Structure](#repository-structure) below for development workflow.
+
+---
+
+## 🛠️ CLI Tools (Enterprise)
+
+The Supernal Interface CLI (`si`) is included with the enterprise package and provides portable tools for working with @Tool decorators:
+
+```bash
+# Generate tests from @Tool decorators
+npm run si:generate-tests
+
+# Scan and generate route contracts
+npm run contracts:routes
+
+# Scan and generate name contracts
+npm run contracts:names
+
+# Benchmark Story System caching
+npm run si:benchmark
+
+# Validate contracts
+npm run si:validate
+```
+
+**📖 Full CLI documentation**: [docs/CLI.md](./docs/CLI.md)
 
 ---
 

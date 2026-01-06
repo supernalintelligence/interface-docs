@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "created": "2026-01-06T18:04:41.267Z",
+  "lastUpdated": "2026-01-06T18:04:41.267Z",
+  "lastActivity": "2026-01-06T18:04:41.267Z",
+  "state": "INITIALIZED",
+  "subState": null,
+  "workflowState": "INITIALIZED",
+  "projectType": "web-frontend",
+  "gitInfo": {
+    "isGitRepo": true,
+    "root": "/Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site",
+    "currentBranch": "main",
+    "hasRemote": true,
+    "lastCommit": "259b424f0144c8cff0bfa5bb7f27a1f185133cbc"
+  },
+  "currentBranch": "main",
+  "features": {
+    "gitManagement": true,
+    "kanbanSystem": true,
+    "testingFramework": false
+  },
+  "completed": [],
+  "pending": [
+    "create_first_requirement",
+    "setup_development_workflow",
+    "validate_setup",
+    "start_feature_branch",
+    "smart_merge_workflow"
+  ],
+  "warnings": [],
+  "deviations": [],
+  "lastBranchCheck": null,
+  "expectedBranch": "main",
+  "smartMergeEnabled": true,
+  "lastSmartMerge": null,
+  "mergeHistory": [],
+  "requirements": [],
+  "activeRequirement": null,
+  "recommendedActions": [
+    {
+      "command": "sc requirement new \"Your Feature Name\" --epic=main --priority=high",
+      "description": "Create your first requirement to define what you want to build",
+      "priority": "high"
+    },
+    {
+      "command": "sc kanban workflow new main-dev --template=general",
+      "description": "Set up a kanban workflow for project management",
+      "priority": "medium"
+    }
+  ]
+}

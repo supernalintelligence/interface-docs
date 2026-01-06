@@ -1,0 +1,144 @@
+project:
+  name: docs-site
+  description: Project managed with Supernal Coding
+  version: 1.0.0
+docs:
+  root: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs
+  features: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/features
+  requirements: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/requirements
+  architecture: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/architecture
+  planning: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/planning
+  guides: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/guides
+  compliance: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/compliance
+  handoffs: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/handoffs
+git:
+  signing:
+    enabled: false
+    agent_commits:
+      sign: false
+      key_source: registry
+    human_commits:
+      require_signature: false
+    agent_registry: .supernal/config/agents.yaml
+requirements:
+  path: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/requirements
+  format: gherkin
+  id_prefix: REQ
+  categories:
+    - core
+    - infrastructure
+    - workflow
+    - compliance
+features:
+  path: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/features
+  domains:
+    - ai-workflow-system
+    - compliance-framework
+    - developer-tooling
+    - integrations
+    - workflow-management
+compliance:
+  enabled: false
+  framework: null
+  evidence_path: >-
+    /Users/ianderrington/git/supernal-nova/platform/packages/@supernal-interface/docs-site/docs/compliance/evidence
+cli:
+  verbose: false
+  colors: true
+  confirmDestructive: true
+testing:
+  framework: jest
+  coverageThreshold: 80
+  testPaths:
+    - tests
+    - __tests__
+monitor:
+  enabled: false
+  repos:
+    - path: .
+  pollInterval: 60000
+type_duplication:
+  enabled: true
+  scan_directories:
+    - src
+    - lib
+    - components
+    - tests
+  exclude_directories:
+    - node_modules
+    - dist
+    - build
+    - .next
+    - coverage
+  report_directory: reports/duplications
+  ignore_patterns:
+    - '*.generated.ts'
+    - '*.d.ts'
+    - database.types.ts
+  ignore_export_names:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - PATCH
+    - dynamic
+    - revalidate
+    - runtime
+    - test
+    - describe
+    - it
+    - expect
+  pre_commit_hook: true
+  block_commits_on_duplications: true
+  allow_force_commits: true
+  ignore_auto_generated: true
+  analysis_timeout_seconds: 30
+  incremental_updates: true
+git_hooks:
+  enabled: true
+  hooks_dir: .git/hooks
+  pre_commit:
+    enabled: true
+    checks:
+      wip_registry_check:
+        enabled: true
+        block_on_untracked: true
+        threshold: 5
+        allow_bypass: true
+      lint:
+        enabled: true
+        allow_bypass: true
+      type_check:
+        enabled: true
+        allow_bypass: true
+  pre_push:
+    enabled: true
+    checks:
+      requirement_validation:
+        enabled: true
+        allow_bypass: true
+      test_suite:
+        enabled: true
+        skip_env: SC_SKIP_TESTS
+      branch_protection:
+        enabled: true
+        protected_branches:
+          - main
+          - master
+          - production
+        skip_env: SC_SKIP_BRANCH_PROTECTION
+  bypass_variables:
+    wip_registry: SC_SKIP_WIP_CHECK
+    lint: SC_SKIP_LINT
+    type_check: SC_SKIP_TYPE_CHECK
+    all_hooks: SC_SKIP_HOOKS
