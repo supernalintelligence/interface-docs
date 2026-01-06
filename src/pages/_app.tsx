@@ -36,10 +36,25 @@ function GlobalChatWrapper() {
   useEffect(() => {
     console.log('🚀 [_app] useEffect triggered')
     
+    // Debug: Check NavigationGraph state BEFORE initialization
+    const navGraph = NavigationGraph.getInstance()
+    const contextsBefore = navGraph.getAllContexts()
+    console.log('📊 [_app] NavigationGraph state BEFORE init:', {
+      contextsCount: contextsBefore.length,
+      contexts: contextsBefore.map((c: any) => c.name).join(', ')
+    })
+    
     // Initialize architecture (registers containers and creates nav tools)
     // Even if already initialized, this is idempotent
     console.log('🚀 [_app] Calling initializeDemoArchitecture()')
     initializeDemoArchitecture()
+    
+    // Debug: Check NavigationGraph state AFTER initialization
+    const contextsAfter = navGraph.getAllContexts()
+    console.log('📊 [_app] NavigationGraph state AFTER init:', {
+      contextsCount: contextsAfter.length,
+      contexts: contextsAfter.map((c: any) => c.name).join(', ')
+    })
     
     // Always set navigation handler (even on refresh)
     const handler = createNavigationHandler(router)
