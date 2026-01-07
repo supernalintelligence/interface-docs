@@ -175,10 +175,11 @@ export default function BlogPost({ post }: BlogPostProps) {
                   <div 
                     className={`prose prose-slate max-w-none p-4 sm:p-6 md:p-8 lg:p-12 ${post.metadata.tts?.enabled ? 'supernal-tts-widget' : ''}`}
                     data-text={post.metadata.tts?.enabled ? post.content : undefined}
-                    data-voice={post.metadata.tts?.voice}
-                    data-voices={post.metadata.tts?.voices?.join(',')}
-                    data-provider={post.metadata.tts?.provider}
-                    data-speed={post.metadata.tts?.speed}
+                    data-voice="alloy"
+                    data-provider={post.metadata.tts?.provider || 'openai'}
+                    data-speed={post.metadata.tts?.speed || 1.0}
+                    data-enable-speed="true"
+                    data-enable-progress="true"
                     dangerouslySetInnerHTML={{ __html: post.html }}
                   />
                 </article>

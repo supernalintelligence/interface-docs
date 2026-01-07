@@ -21,23 +21,25 @@ NEXT_PUBLIC_TTS_API_KEY=sk-tts-ianceo-a75d732272536120d93c85e8cfdf178d
 title: "Blog Post Title"
 tts:
   enabled: true
-  voice: "alloy"
-  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
-  enableSpeed: true
-  enableProgress: true
+  # Note: Voice is fixed to "alloy" - no voice selector shown
+  # Speed and progress controls are always enabled
 ---
 ```
 
 ### Content Rendering
-Blog posts must include these attributes on the content container:
+Blog posts automatically get these TTS settings:
+- **Voice**: Fixed to "alloy" (no voice selector)
+- **Speed Control**: Always enabled
+- **Progress/Positioning**: Always enabled (scrubbing/seek)
+
+The component automatically applies:
 ```tsx
 <div
   className="supernal-tts-widget"
   data-text={post.content}
-  data-voice={post.metadata.tts?.voice}
-  data-voices={post.metadata.tts?.voices?.join(',')}
-  data-provider={post.metadata.tts?.provider}
-  data-speed={post.metadata.tts?.speed}
+  data-voice="alloy"
+  data-enable-speed="true"
+  data-enable-progress="true"
   dangerouslySetInnerHTML={{ __html: post.html }}
 />
 ```
