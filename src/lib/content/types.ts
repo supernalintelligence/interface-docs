@@ -16,6 +16,15 @@ export interface DocMetadata {
   order?: number; // For sidebar ordering
   showToc?: boolean;
   showBreadcrumbs?: boolean;
+  tts?: {
+    enabled?: boolean;
+    voice?: string;
+    voices?: string[];
+    provider?: string;
+    speed?: number;
+    enableSpeed?: boolean;
+    enableProgress?: boolean;
+  };
 }
 
 export interface Doc {
