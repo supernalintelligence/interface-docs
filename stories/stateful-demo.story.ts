@@ -43,8 +43,9 @@ async function runStory() {
     const context = await browser.newContext({
       recordVideo: {
         dir: outputDir,
-        size: { width: 1280, height: 720 },
+        size: { width: 1920, height: 1080 },
       },
+      viewport: { width: 1920, height: 1080 },
     });
     
     const page = await context.newPage();
@@ -149,13 +150,13 @@ async function runStory() {
 
     // === STEP 4: Open a blog post ===
     // ACTION_START: open-blog-post
-    console.log(`\n📖 Step 4: Open first blog post (using ordinal matching)`);
-    const openPostCommand = `Open the first blog post`;
+    console.log(`\n📖 Step 4: Open AI-woven blog post`);
+    const openPostCommand = `Open the AI-woven blog post`;
     console.log(`💬 User types: "${openPostCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(openPostCommand, { delay: 30 });
     // NARRATE: during, action=open-blog-post
-    // "Now I'll use ordinal matching to open the first blog post. The AI understands positional language like first, second, and last."
+    // "Now I'll open the AI-woven blog post using natural language."
     await smartNarrationWait(page, 'open-blog-post');
     await page.waitForTimeout(300);
     
@@ -167,7 +168,7 @@ async function runStory() {
     // ACTION_END: open-blog-post
     
     // NARRATE: after, action=open-blog-post
-    // "Perfect! The blog post has been opened successfully using natural language."
+    // "Perfect! The blog post opened successfully using natural language."
     await smartNarrationWait(page, 'narrate-post-success');
 
     console.log(`\n✅ Story complete!`);
