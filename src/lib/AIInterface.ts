@@ -251,6 +251,116 @@ export class DemoAIInterface {
   }
 
   /**
+   * Try to parse ordinal/positional commands like "first blog post", "second button"
+   * Returns AICommand if matched, null if no positional pattern detected
+   */
+  private tryPositionalMatch(query: string): AICommand | null {
+    // Pattern: (first|second|third|last|1st|2nd|3rd|4th...) <element-type> [filter]
+    const ordinalPattern = /(first|second|third|last|(\d+)(st|nd|rd|th)?)\s+(.+?)(?:\s+(about|with|containing)\s+(.+))?$/i;
+    const match = query.match(ordinalPattern);
+    
+    if (!match) return null;
+    
+    const position = match[1] || (match[2] ? parseInt(match[2], 10) : null);
+    const elementType = match[4].trim();
+    const filter = match[6]?.trim();
+    
+    console.log(`🔍 [Positional] Detected: position="${position}", type="${elementType}", filter="${filter || 'none'}"`);
+    
+    // Map element types to testid patterns
+    const testIdPatterns: Record<string, string> = {
+      'blog post': 'blog-post-link',
+      'blog': 'blog-post-link',
+      'post': 'blog-post-link',
+      'example': 'example-card',
+      'card': 'example-card',
+      'button': 'button',
+    };
+    
+    const testIdPattern = testIdPatterns[elementType] || null;
+    if (!testIdPattern) {
+      console.log(`⚠️ [Positional] Unknown element type: "${elementType}"`);
+      return null;
+    }
+    
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      console.log(`⚠️ [Positional] Not in browser context`);
+      return null;
+    }
+    
+    // Find all matching elements
+    const elements = Array.from(document.querySelectorAll(`[data-testid*="${testIdPattern}"]`));
+    console.log(`📋 [Positional] Found ${elements.length} elements matching "${testIdPattern}"`);
+    
+    if (elements.length === 0) {
+      return null;
+    }
+    
+    // Apply filter if present
+    let filteredElements = elements;
+    if (filter) {
+      filteredElements = elements.filter(el => 
+        el.textContent?.toLowerCase().includes(filter.toLowerCase())
+      );
+      console.log(`🔍 [Positional] After filter "${filter}": ${filteredElements.length} elements`);
+    }
+    
+    if (filteredElements.length === 0) {
+      return null;
+    }
+    
+    // Get element by position
+    let targetElement: Element | undefined;
+    if (typeof position === 'number') {
+      targetElement = filteredElements[position - 1]; // 1-indexed for user
+    } else {
+      switch (position) {
+        case 'first':
+          targetElement = filteredElements[0];
+          break;
+        case 'second':
+          targetElement = filteredElements[1];
+          break;
+        case 'third':
+          targetElement = filteredElements[2];
+          break;
+        case 'last':
+          targetElement = filteredElements[filteredElements.length - 1];
+          break;
+      }
+    }
+    
+    if (!targetElement) {
+      console.log(`⚠️ [Positional] Position "${position}" out of range (${filteredElements.length} elements)`);
+      return null;
+    }
+    
+    console.log(`✅ [Positional] Found target element:`, targetElement.textContent?.substring(0, 50));
+    
+    // Create a synthetic tool to click the element
+    const syntheticTool: ToolMetadata = {
+      toolId: `positional-click-${Date.now()}`,
+      name: `Click ${position} ${elementType}`,
+      description: `Click the ${position} ${elementType}${filter ? ` about "${filter}"` : ''}`,
+      elementId: targetElement.getAttribute('data-testid') || '',
+      actionType: 'click',
+      aiEnabled: true,
+      requiresApproval: false,
+      dangerLevel: 'safe',
+      examples: [query],
+      testId: targetElement.getAttribute('data-testid') || '',
+      element: targetElement as HTMLElement, // Store reference
+    };
+    
+    return {
+      query,
+      tool: syntheticTool,
+      confidence: 0.95, // High confidence for positional matches
+      requiresApproval: false,
+    };
+  }
+
+  /**
    * Process natural language command and find matching tools
    * NOW USES SCOPED SEARCH for component-aware tool resolution
    */
@@ -264,6 +374,13 @@ export class DemoAIInterface {
       };
     }
     const lowerQuery = query.toLowerCase().trim();
+    
+    // NEW: Try ordinal/positional parsing first (e.g., "first blog post", "second button")
+    const positionalMatch = this.tryPositionalMatch(lowerQuery);
+    if (positionalMatch) {
+      console.log(`🎯 [AIInterface] Positional match: ${positionalMatch.elementType} at position ${positionalMatch.position}`);
+      return positionalMatch;
+    }
     
     // Get current container for scoped search
     const currentContainer = this.getCurrentContainer();
@@ -487,6 +604,49 @@ export class DemoAIInterface {
             toolName: tool.name || tool.methodName,
             elementId: tool.elementId,
             actionType: tool.actionType,
+            success: false,
+            message: errorMsg
+          });
+          
+          return { success: false, message: errorMsg };
+        }
+      }
+      
+      // Handle positional/synthetic tools (have direct element reference)
+      if ((tool as any).element) {
+        const element = (tool as any).element as HTMLElement;
+        console.log(`🎯 [AIInterface] Executing positional tool on element:`, element.tagName);
+        
+        try {
+          // Scroll into view first
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          await new Promise(resolve => setTimeout(resolve, 300)); // Wait for scroll
+          
+          // Click the element
+          element.click();
+          
+          result = {
+            success: true,
+            message: `✅ Clicked ${tool.name}`
+          };
+          
+          ToolManager.reportExecution({
+            toolName: tool.name,
+            elementId: tool.elementId,
+            actionType: 'click',
+            success: true,
+            message: result.message
+          });
+          
+          return result;
+        } catch (error) {
+          const errorMsg = `Positional tool execution failed: ${error}`;
+          console.error(`❌ [AIInterface] ${errorMsg}`);
+          
+          ToolManager.reportExecution({
+            toolName: tool.name,
+            elementId: tool.elementId,
+            actionType: 'click',
             success: false,
             message: errorMsg
           });
