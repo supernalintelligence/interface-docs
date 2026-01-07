@@ -1,147 +1,156 @@
-# Vercel Deployment Guide for interface.supernal.ai
+# Deployment Guide - Supernal Interface Docs Site
 
-## 🚀 Quick Deploy
-
-This demo is ready for deployment to **interface.supernal.ai** on Vercel.
+## Vercel Deployment
 
 ### Prerequisites
-- Vercel account with access to supernal.ai domain
-- GitHub repository connected to Vercel
-- Node.js 18.x runtime
 
-### Deployment Steps
+1. **GitHub Personal Access Token** with `read:packages` scope
+2. Token must be **authorized for `supernalintelligence` organization** (SSO)
+3. Vercel project linked to GitHub repository
 
-1. **Connect Repository**
+### Environment Variables
+
+Required in Vercel dashboard (`Settings` → `Environment Variables`):
+
+#### Authentication
+```bash
+# For GitHub Packages (CRITICAL)
+NPM_TOKEN=ghp_YOUR_GITHUB_PAT_HERE
+# Must have read:packages permission
+# Must be SSO-authorized for supernalintelligence org
+
+# Alternative (legacy)
+GITHUB_PACKAGES_TOKEN=ghp_YOUR_GITHUB_PAT_HERE
+```
+
+#### TTS Integration
+```bash
+NEXT_PUBLIC_TTS_API_URL=https://tts.supernal.ai
+NEXT_PUBLIC_TTS_API_KEY=sk-tts-supernal-your-key-here
+```
+
+### Common Issues
+
+#### 1. `npm error 401 Unauthorized`
+
+**Symptom**: 
+```
+npm error 401 Unauthorized - GET https://npm.pkg.github.com/download/@supernalintelligence/interface-enterprise/1.0.2/...
+npm error unauthenticated: User cannot be authenticated with the token provided.
+```
+
+**Cause**: Token doesn't have permission or isn't SSO-authorized
+
+**Fix**:
+1. Go to https://github.com/settings/tokens
+2. Find your token
+3. Click **"Configure SSO"**
+4. Click **"Authorize"** next to `supernalintelligence`
+5. Update `NPM_TOKEN` in Vercel
+6. Redeploy
+
+#### 2. TypeScript Errors
+
+**Symptom**: 
+```
+Type error: Cannot find module 'X' or its corresponding type declarations
+```
+
+**Fix**:
+1. Test locally: `npm run build`
+2. Fix import paths
+3. Commit and push
+4. Vercel auto-deploys
+
+#### 3. Missing PostMetadata Type
+
+**Symptom**:
+```
+Property 'tts' does not exist on type 'PostMetadata'
+```
+
+**Fix**: Already fixed in latest commit - unified types in `src/lib/content/types.ts`
+
+### Build Process
+
+```bash
+# Vercel runs:
+npm ci                    # Install with package-lock.json
+npm run build            # Next.js build
+
+# Pre-build steps:
+npm run validate         # Validate "use client" directives
+npm run sync:docs        # Sync story system docs (optional)
+```
+
+### File Structure
+
+```
+docs-site/
+├── .npmrc                          # GitHub Packages authentication
+│   └── Uses ${NPM_TOKEN} env var
+├── src/lib/                        # All library code (unified)
+│   ├── content/
+│   │   ├── types.ts               # Unified types (Post & Doc)
+│   │   ├── blog.ts                # Blog post functions
+│   │   └── index.ts               # Documentation functions
+│   └── svg-generator.ts           # SVG utilities
+├── lib/                            # REMOVED (was duplicate)
+└── tsconfig.json                   # TypeScript config
+```
+
+### Deployment Checklist
+
+Before deploying:
+- [ ] Local build passes: `npm run build`
+- [ ] All imports use `src/lib/` (not `lib/`)
+- [ ] Environment variables set in Vercel
+- [ ] GitHub PAT has SSO authorization
+- [ ] Blog posts have TTS frontmatter (if using TTS)
+
+### Rollback
+
+If deployment fails:
+
+1. **Check Vercel logs** for error details
+2. **Test locally**: `npm run build`
+3. **Revert if needed**:
    ```bash
-   # Ensure latest changes are pushed
+   git revert HEAD
    git push origin main
    ```
+4. **Redeploy** from Vercel dashboard
 
-2. **Vercel Project Setup**
-   - Import project from GitHub
-   - Set project name: `supernal-interface`
-   - Set custom domain: `interface.supernal.ai`
+### Production URL
 
-3. **Build Configuration**
-   - Framework: Next.js
-   - Build Command: `npm run build`
-   - Output Directory: `.next` (auto-detected)
-   - Install Command: `npm install`
-   - Development Command: `npm run dev`
+https://supernal.ai (or your configured domain)
 
-4. **Environment Variables**
-   ```
-   NODE_ENV=production
-   TRUST_PROXY=true
-   ```
+### Support
 
-### Project Structure
-```
-core/demo/
-├── vercel.json          # Deployment configuration
-├── next.config.js       # Next.js configuration
-├── package.json         # Dependencies and scripts
-├── src/
-│   ├── pages/
-│   │   └── index.tsx    # Main landing page
-│   ├── components/      # React components
-│   └── lib/             # Tool system and AI interface
-└── public/              # Static assets
-```
-
-## 🔧 Configuration Details
-
-### vercel.json
-- **Name**: `supernal-interface`
-- **Runtime**: Node.js 18.x
-- **Max Duration**: 30 seconds
-- **Security Headers**: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
-
-### next.config.js
-- **React Strict Mode**: Enabled
-- **SWC Minification**: Enabled
-- **Image Optimization**: Disabled (for static export compatibility)
-- **Webpack Fallbacks**: Configured for browser compatibility
-
-## 🧪 Build Verification
-
-The build has been tested and produces:
-- **Static Pages**: 3 pages (/, /404, /_app)
-- **Bundle Size**: ~104 kB first load
-- **Build Time**: ~30 seconds
-- **All Tools Registered**: 8 UI control tools
-
-## 🌐 Features Deployed
-
-### Core Functionality
-- **Interactive Demo**: Live tool testing and execution
-- **CLI-Like Discovery**: `ToolRegistry.list()`, `help()`, `overview()`
-- **Comprehensive Documentation**: Complete API reference
-- **Code Examples**: Copyable code snippets with syntax highlighting
-- **Real-time Testing**: Automated tool validation with visual feedback
-
-### Tool System
-- **Standalone Functions**: Tax calculator, currency formatter
-- **Class-based Tools**: UI controls, theme management
-- **Safety Controls**: Danger levels, approval workflows
-- **Origin Tracking**: Context-aware tool availability
-
-### UI/UX
-- **Responsive Design**: Mobile and desktop optimized
-- **Copy Functionality**: All code examples are copyable
-- **Visual Feedback**: Progress indicators and status updates
-- **Navigation**: Clean header with section switching
-
-## 🔒 Security
-
-- **Content Security**: X-Frame-Options, X-Content-Type-Options
-- **Referrer Policy**: Strict origin when cross-origin
-- **Trust Proxy**: Enabled for proper IP handling
-- **Static Generation**: Pre-rendered for security and performance
-
-## 📊 Performance
-
-- **First Load**: 104 kB (optimized)
-- **Static Generation**: All pages pre-rendered
-- **Code Splitting**: Automatic chunk optimization
-- **Image Optimization**: Configured for static deployment
-
-## 🚀 Post-Deployment
-
-After deployment, verify:
-1. **Landing Page**: Loads at interface.supernal.ai
-2. **Tool Demo**: Interactive widgets work correctly
-3. **Documentation**: All sections render properly
-4. **Code Copying**: Copy buttons function correctly
-5. **CLI Methods**: ToolRegistry methods work in browser console
-
-## 🔄 Updates
-
-To deploy updates:
-```bash
-git add .
-git commit -m "Update interface demo"
-git push origin main
-# Vercel auto-deploys from main branch
-```
-
-## 🆘 Troubleshooting
-
-### Build Issues
-- Ensure Node.js 18.x is used
-- Check for TypeScript errors: `npm run build`
-- Verify dependencies: `npm install`
-
-### Runtime Issues
-- Check browser console for errors
-- Verify tool registration in Network tab
-- Test with different browsers
-
-### Domain Issues
-- Verify DNS settings for interface.supernal.ai
-- Check Vercel domain configuration
-- Ensure SSL certificate is active
+- Vercel Dashboard: https://vercel.com/supernalintelligence/interface-docs
+- GitHub Repo: https://github.com/supernalintelligence/interface-docs
+- GitHub Packages: https://github.com/orgs/supernalintelligence/packages
 
 ---
 
-**Ready for Production**: ✅ Build tested, security configured, performance optimized
+## Recent Fixes (2025-01-07)
+
+### Issue: Token Authentication
+- **Problem**: `npm_iWMVdUeJ...` token didn't have permissions
+- **Solution**: Updated to `ghp_w2rk...` token with SSO authorization
+- **Status**: ✅ Resolved
+
+### Issue: Duplicate lib/ directories
+- **Problem**: Both `lib/` and `src/lib/` existed, causing confusion
+- **Solution**: Consolidated all code into `src/lib/`
+- **Status**: ✅ Resolved
+
+### Issue: Missing Types
+- **Problem**: `PostMetadata` lacked `tts` field
+- **Solution**: Unified types in `src/lib/content/types.ts`
+- **Status**: ✅ Resolved
+
+### Issue: Missing svg-generator
+- **Problem**: Accidentally deleted during refactor
+- **Solution**: Restored to `src/lib/svg-generator.ts`
+- **Status**: ✅ Resolved
