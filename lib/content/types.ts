@@ -22,6 +22,15 @@ export interface PostMetadata {
   headerStyle?: 'minimal' | 'hero' | 'gradient';
   showToc?: boolean;
   showBreadcrumbs?: boolean;
+  tts?: {
+    enabled?: boolean;
+    voice?: string;
+    voices?: string[];
+    provider?: string;
+    speed?: number;
+    enableSpeed?: boolean;
+    enableProgress?: boolean;
+  };
 }
 
 export interface Post {
