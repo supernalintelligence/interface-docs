@@ -6,7 +6,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getBlogPosts } from '../../../lib/content';
+import { getBlogPosts } from '../../lib/content/blog';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

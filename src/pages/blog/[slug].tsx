@@ -11,8 +11,8 @@ import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, User, Clock } from 'lucide-react';
 import { Header } from '../../components/Header';
 import { EarlyAccessModal } from '../../components/EarlyAccessModal';
-import { getBlogPosts, getPostBySlug } from '../../../lib/content';
-import { Post } from '../../../lib/content/types';
+import { getBlogPosts, getPostBySlug } from '../../lib/content/blog';
+import { Post } from '../../lib/content/types';
 import { useCodeBlockEnhancement } from '../../components/blog/CodeBlock';
 import { TableOfContents } from '../../components/blog/TableOfContents';
 
