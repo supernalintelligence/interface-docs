@@ -52,6 +52,7 @@ async function runStory() {
     await page.waitForTimeout(1000);
 
     // === STEP 1: Navigate to Examples page ===
+    // NARRATE: "Welcome! Let's start by navigating to the examples page using natural language."
     console.log(`\n🔍 Step 1: Navigate to Examples page`);
     await page.waitForSelector(`[data-testid="${CHAT_INPUT_TEST_ID}"]`, { state: 'visible', timeout: 10000 });
     
@@ -70,9 +71,11 @@ async function runStory() {
     console.log(`⏳ Waiting for navigation to /examples...`);
     await page.waitForURL('**/examples', { timeout: 5000 });
     await page.waitForLoadState('networkidle');
+    // NARRATE: "Great! We're now on the examples page. Notice how the AI understood our natural language command."
     await page.waitForTimeout(1500); // Show the examples page
 
     // === STEP 2: Increment counter ===
+    // NARRATE: "Now let's ask the AI to increment the counter. Watch as it executes the tool automatically."
     console.log(`\n➕ Step 2: Increment the counter`);
     const incrementCommand = `Increment the counter`;
     console.log(`💬 User types: "${incrementCommand}"`);
@@ -90,9 +93,11 @@ async function runStory() {
     console.log(`📍 Scrolling to counter widget...`);
     const counterWidget = page.locator(`[data-testid="${COUNTER_WIDGET_TEST_ID}"]`).first();
     await counterWidget.scrollIntoViewIfNeeded();
+    // NARRATE: "Perfect! The counter has incremented. The AI tool executed successfully, updating the UI in real-time."
     await page.waitForTimeout(1500); // Show counter value changed
 
     // === STEP 3: Navigate to Blog ===
+    // NARRATE: "Next, we'll navigate to the blog section using another natural language command."
     console.log(`\n📝 Step 3: Navigate to Blog`);
     const blogCommand = `Go to blog`;
     console.log(`💬 User types: "${blogCommand}"`);
@@ -106,9 +111,11 @@ async function runStory() {
     console.log(`⏳ Waiting for navigation to /blog...`);
     await page.waitForURL('**/blog', { timeout: 5000 });
     await page.waitForLoadState('networkidle');
+    // NARRATE: "We're now on the blog page. Let's demonstrate ordinal matching by opening the first blog post."
     await page.waitForTimeout(1500); // Show the blog page
 
     // === STEP 4: Open a blog post ===
+    // NARRATE: "Finally, we'll use ordinal matching to open the first blog post. The AI understands positional language like 'first', 'second', and 'last'."
     console.log(`\n📖 Step 4: Open first blog post (using ordinal matching)`);
     const openPostCommand = `Open the first blog post`;
     console.log(`💬 User types: "${openPostCommand}"`);
@@ -120,6 +127,7 @@ async function runStory() {
     await chatSendButton.click();
     
     console.log(`⏳ Waiting for blog post to open...`);
+    // NARRATE: "Excellent! The AI successfully opened the first blog post using ordinal matching. This demonstrates the power of natural language interface design."
     await page.waitForTimeout(2500); // Wait for post to open
 
     console.log(`\n✅ Story complete!`);

@@ -624,7 +624,7 @@ npm install @supernal-interface/core
 ```
 
 **Resources:**
-- [GitHub](https://github.com/supernalintelligence/supernal-interface)
+- [GitHub](https://github.com/supernalintelligence/interface)
 - [Documentation](https://interface.supernal.ai/docs)
 - [Examples](https://interface.supernal.ai/examples)
 

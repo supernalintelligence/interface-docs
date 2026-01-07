@@ -203,5 +203,5 @@ We're exploring:
 - **ESLint plugin** to suggest simplifications
 - **VS Code extension** with snippets for common patterns
 
-Join the conversation on [GitHub](https://github.com/supernalintelligence/supernal-interface).
+Join the conversation on [GitHub](https://github.com/supernalintelligence/interface).
 
