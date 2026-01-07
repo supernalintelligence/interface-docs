@@ -1,6 +1,38 @@
-# FEATURE REQUEST: Ordinal/Positional Understanding in Fuzzy Matching
+# ✅ IMPLEMENTED: Ordinal/Positional Understanding in Fuzzy Matching
 
-## Issue
+**Status**: ✅ **COMPLETE** (2026-01-07)  
+**Implementation**: `docs-site/src/lib/AIInterface.ts` → `tryPositionalMatch()`
+
+## Implementation Summary
+
+**Fully generic, 3-tier strategy** that works with ANY element type:
+
+### Tier 1: TestID Pattern Matching
+Normalizes element type and searches testid attributes:
+- `"first blog post"` → `[data-testid*="blog-post"]`
+- `"second example card"` → `[data-testid*="example-card"]`
+
+### Tier 2: HTML/ARIA Selector Mapping
+Maps common types to standard selectors:
+- `"button"` → `button, [role="button"], a.button`
+- `"link"` → `a[href], [role="link"]`
+- `"card"` → `[class*="card"], article, [role="article"]`
+- `"input"` → `input, textarea`
+- `"tab"` → `[role="tab"]`
+
+### Tier 3: Fuzzy Text Search
+Searches all clickable elements by text content, aria-label, title.
+
+### Features
+- ✅ Ordinals: first, second, third, last
+- ✅ Numeric: 1st, 2nd, 3rd, 4th, etc.
+- ✅ Filters: "first post about MCP", "second button labeled Submit"
+- ✅ Scroll-to-view before clicking
+- ✅ Works with ANY element type (not bespoke)
+
+---
+
+## Original Problem (Resolved)
 
 **Date Identified**: 2026-01-07  
 **Priority**: 🟡 MEDIUM - UX Enhancement
