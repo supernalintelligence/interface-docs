@@ -109,9 +109,8 @@ async function runStory() {
     await page.waitForTimeout(1500); // Show the blog page
 
     // === STEP 4: Open a blog post ===
-    console.log(`\n📖 Step 4: Open specific blog post`);
-    // Instead of "first", use actual blog post title for better matching
-    const openPostCommand = `Open the blog post about MCP servers`;
+    console.log(`\n📖 Step 4: Open first blog post (using ordinal matching)`);
+    const openPostCommand = `Open the first blog post`;
     console.log(`💬 User types: "${openPostCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(openPostCommand, { delay: 30 });
