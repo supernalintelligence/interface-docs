@@ -7,9 +7,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/router';
-import { Post } from '../../../lib/content/types';
+import { Post } from '../../lib/content/types';
 import { Blog } from '../../architecture/DemoComponentNames';
-import { SVGGenerator } from '../../../lib/svg-generator';
+import { SVGGenerator } from '../../lib/svg-generator';
 
 interface BlogCardProps {
   post: Post;
