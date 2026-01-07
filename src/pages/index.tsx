@@ -521,10 +521,10 @@ await executor.executeGraph(graph);
               <div>
                 <h3 className="text-white font-bold mb-4">Resources</h3>
                 <ul className="space-y-2">
-                  <li><a href="https://github.com/supernalintelligence/supernal-interface" className="hover:text-white">GitHub</a></li>
+                  <li><a href="https://github.com/supernalintelligence/interface" className="hover:text-white">GitHub</a></li>
                   <li><a href="https://www.npmjs.com/package/@supernal-interface/core" className="hover:text-white">npm Package</a></li>
                   <li><button onClick={() => router.push('/docs')} className="hover:text-white">API Reference</button></li>
-                  <li><a href="https://github.com/supernalintelligence/supernal-interface/releases" className="hover:text-white">Changelog</a></li>
+                  <li><a href="https://github.com/supernalintelligence/interface/releases" className="hover:text-white">Changelog</a></li>
                 </ul>
               </div>
               <div>
@@ -533,14 +533,14 @@ await executor.executeGraph(graph);
                   <li><a href="#" className="hover:text-white">Discord</a></li>
                   <li><a href="#" className="hover:text-white">Twitter</a></li>
                   <li><button onClick={() => router.push('/blog')} className="hover:text-white">Blog</button></li>
-                  <li><a href="https://github.com/supernalintelligence/supernal-interface/graphs/contributors" className="hover:text-white">Contributors</a></li>
+                  <li><a href="https://github.com/supernalintelligence/interface/graphs/contributors" className="hover:text-white">Contributors</a></li>
                 </ul>
               </div>
               <div>
                 <h3 className="text-white font-bold mb-4">About</h3>
                 <ul className="space-y-2">
                   <li><a href="#" className="hover:text-white">Team</a></li>
-                  <li><a href="https://github.com/supernalintelligence/supernal-interface/blob/main/LICENSE" className="hover:text-white">License</a></li>
+                  <li><a href="https://github.com/supernalintelligence/interface/blob/main/LICENSE" className="hover:text-white">License</a></li>
                   <li><a href="#" className="hover:text-white">Privacy</a></li>
                   <li><a href="#" className="hover:text-white">Contact</a></li>
                 </ul>

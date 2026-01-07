@@ -187,7 +187,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                   <p>
                     Questions or feedback?{' '}
                     <a 
-                      href="https://github.com/supernalintelligence/supernal-interface" 
+                      href="https://github.com/supernalintelligence/interface" 
                       className="text-blue-600 hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"

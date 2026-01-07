@@ -307,8 +307,8 @@ function generateDeployment(): string {
   return `## Local Development
 
 \`\`\`bash
-git clone https://github.com/supernalintelligence/supernal-interface
-cd supernal-interface/core/demo
+git clone https://github.com/supernalintelligence/interface
+cd interface
 npm install
 npm run dev
 # Runs on http://localhost:3011
@@ -337,7 +337,7 @@ function generateLinks(): string {
 
 - **Live Demo**: https://supernal-interface-demo.vercel.app
 - **NPM Package**: https://www.npmjs.com/package/@supernal-interface/core
-- **GitHub Repository**: https://github.com/supernalintelligence/supernal-interface
+- **GitHub Repository**: https://github.com/supernalintelligence/interface
 - **Documentation**: https://supernal-interface-demo.vercel.app/docs
 - **Examples**: https://supernal-interface-demo.vercel.app/examples`;
 }

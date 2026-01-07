@@ -27,7 +27,7 @@ interface CopilotChatWidgetProps {
 
 export function CopilotChatWidget({ 
   defaultOpen = false,
-  title = 'Supernal AI',
+  title = 'Supernal Intelligence',
   placeholder = 'How can I help? Try "increment the counter" or "go to docs"'
 }: CopilotChatWidgetProps) {
   // Bridge our @Tool methods to CopilotKit actions

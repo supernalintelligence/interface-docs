@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
   ];
 
   const openGitHub = () => {
-    window.open('https://github.com/supernalintelligence/supernal-interface', '_blank');
+    window.open('https://github.com/supernalintelligence/interface', '_blank');
   };
 
   const copyForAIAgent = () => {
