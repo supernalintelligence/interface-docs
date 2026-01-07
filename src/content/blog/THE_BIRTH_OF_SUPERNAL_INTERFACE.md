@@ -5,6 +5,12 @@ subheader: "How a frustrating testing problem evolved into a complete paradigm s
 categories: ["Architecture", "AI-Native Development", "Developer Experience"]
 readingTime: "10 min read"
 featured: true
+tts:
+  enabled: true
+  voice: "alloy"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 ## The Testing Problem That Started It All

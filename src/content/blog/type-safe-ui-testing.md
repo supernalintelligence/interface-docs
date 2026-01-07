@@ -10,6 +10,12 @@ readingTime: "6 min read"
 featured: false
 headerStyle: "minimal"
 showToc: true
+tts:
+  enabled: true
+  voice: "alloy"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 ## The Magic String Problem

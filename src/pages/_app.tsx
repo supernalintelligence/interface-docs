@@ -16,6 +16,7 @@ import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { ToolManager } from '../lib/ToolManager'
 import { useRouter } from 'next/router'
+import TTSInit from '../components/TTSInitializer'
 
 // NOTE: GlobalThemeTools disabled - using widget-scoped theming instead
 // Each demo widget controls its own theme via data-theme attribute
@@ -117,6 +118,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <React.Fragment>
       <ChatInputProvider>
+        {/* Initialize Supernal TTS globally */}
+        <TTSInit />
+        
         {/* Google Tag Manager */}
         {gtmId && (
           <>

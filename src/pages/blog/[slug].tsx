@@ -171,8 +171,14 @@ export default function BlogPost({ post }: BlogPostProps) {
                 className="lg:col-span-8"
               >
                 <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  {/* TTS Widget wrapper for blog content */}
                   <div 
-                    className="prose prose-slate max-w-none p-4 sm:p-6 md:p-8 lg:p-12"
+                    className={`prose prose-slate max-w-none p-4 sm:p-6 md:p-8 lg:p-12 ${post.metadata.tts?.enabled ? 'supernal-tts-widget' : ''}`}
+                    data-text={post.metadata.tts?.enabled ? post.content : undefined}
+                    data-voice={post.metadata.tts?.voice}
+                    data-voices={post.metadata.tts?.voices?.join(',')}
+                    data-provider={post.metadata.tts?.provider}
+                    data-speed={post.metadata.tts?.speed}
                     dangerouslySetInnerHTML={{ __html: post.html }}
                   />
                 </article>

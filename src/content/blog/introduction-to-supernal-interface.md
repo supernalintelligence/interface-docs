@@ -1,6 +1,12 @@
 ---
 title: "Making Any Application AI-Controllable: Introducing @supernal-interface/core"
 description: How a single decorator transforms your code into an AI-operable, auto-testable interface
+tts:
+  enabled: true
+  voice: "alloy"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 # Making Any Application AI-Controllable: Introducing @supernal-interface/core

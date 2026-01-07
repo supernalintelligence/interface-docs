@@ -5,6 +5,12 @@ subheader: "Simplifying AI tool creation without sacrificing power or safety"
 categories: ["Developer Experience"]
 readingTime: "5 min read"
 featured: true
+tts:
+  enabled: true
+  voice: "alloy"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 ## The Problem: Too Much Ceremony

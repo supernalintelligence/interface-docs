@@ -4,6 +4,12 @@ date: "2025-11-17"
 subheader: "Type-safe, refactor-safe, AI-friendly UI automation that scales"
 categories: ["Architecture"]
 readingTime: "15 min read"
+tts:
+  enabled: true
+  voice: "alloy"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 # What's In a Name? Type-Safe UI Automation with Name Contracts

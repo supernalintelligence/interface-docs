@@ -5,6 +5,12 @@ subheader: "From Supernal Code to Supernal Company—how AI integration at every
 categories: ["Business Strategy", "AI-Native Development", "Competitive Advantage"]
 readingTime: "15 min read"
 featured: true
+tts:
+  enabled: true
+  voice: "nova"
+  voices: ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+  enableSpeed: true
+  enableProgress: true
 ---
 
 ## From Supernal Code to Supernal Company
