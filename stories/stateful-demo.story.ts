@@ -55,7 +55,14 @@ async function runStory() {
     console.log(`📱 Opening home page...`);
     await page.goto(baseUrl);
     await page.waitForLoadState('networkidle');
+    
+    // === WELCOME ===
+    // ACTION_START: welcome
+    // NARRATE: before, action=welcome
+    // "Welcome to Supernal Interface! In this video, we'll demonstrate how you can use AI-compatible tool calls to control your site. We're using our own site as a demonstration. You can do this yourself or look at our video!"
+    await smartNarrationWait(page, 'welcome');
     await page.waitForTimeout(1000);
+    // ACTION_END: welcome
 
     // === STEP 1: Navigate to Examples page ===
     // ACTION_START: navigate-to-examples
@@ -82,9 +89,9 @@ async function runStory() {
     await page.waitForLoadState('networkidle');
     // ACTION_END: navigate-to-examples
     
-    // NARRATE: after, action=navigate-to-examples, offset=0.5
+    // NARRATE: after, action=navigate-to-examples
     // "Perfect! We've successfully navigated to the examples page."
-    await smartNarrationWait(page, 'navigate-to-examples');
+    await smartNarrationWait(page, 'narrate-examples-success');
     await page.waitForTimeout(1500);
 
     // === STEP 2: Increment counter ===
@@ -110,9 +117,9 @@ async function runStory() {
     console.log(`📍 Scrolling to counter widget...`);
     const counterWidget = page.locator(`[data-testid="${COUNTER_WIDGET_TEST_ID}"]`).first();
     await counterWidget.scrollIntoViewIfNeeded();
-    // NARRATE: after, action=increment-counter, offset=0.5
+    // NARRATE: after, action=increment-counter
     // "Excellent! The counter has been incremented. The AI tool executed successfully."
-    await smartNarrationWait(page, 'increment-counter');
+    await smartNarrationWait(page, 'narrate-counter-success');
     await page.waitForTimeout(1500);
 
     // === STEP 3: Navigate to Blog ===
@@ -135,9 +142,9 @@ async function runStory() {
     await page.waitForLoadState('networkidle');
     // ACTION_END: navigate-to-blog
     
-    // NARRATE: after, action=navigate-to-blog, offset=0.5
+    // NARRATE: after, action=navigate-to-blog
     // "Great! We're now on the blog page."
-    await smartNarrationWait(page, 'navigate-to-blog');
+    await smartNarrationWait(page, 'narrate-blog-success');
     await page.waitForTimeout(1500);
 
     // === STEP 4: Open a blog post ===
@@ -159,9 +166,9 @@ async function runStory() {
     await page.waitForTimeout(2500);
     // ACTION_END: open-blog-post
     
-    // NARRATE: after, action=open-blog-post, offset=0.5
+    // NARRATE: after, action=open-blog-post
     // "Perfect! The blog post has been opened successfully using natural language."
-    await smartNarrationWait(page, 'open-blog-post');
+    await smartNarrationWait(page, 'narrate-post-success');
 
     console.log(`\n✅ Story complete!`);
     console.log(`   Video shows: Home → Examples → Increment → Blog → Post\n`);
