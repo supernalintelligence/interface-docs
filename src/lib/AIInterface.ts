@@ -256,7 +256,7 @@ export class DemoAIInterface {
    */
   private tryPositionalMatch(query: string): AICommand | null {
     // Pattern: (first|second|third|last|1st|2nd|3rd|4th...) <element-type> [filter]
-    const ordinalPattern = /(first|second|third|last|(\d+)(st|nd|rd|th)?)\s+(.+?)(?:\s+(about|with|containing)\s+(.+))?$/i;
+    const ordinalPattern = /(first|second|third|last|(\d+)(st|nd|rd|th)?)\s+(.+?)(?:\s+(about|with|containing|labeled|called)\s+(.+))?$/i;
     const match = query.match(ordinalPattern);
     
     if (!match) return null;
@@ -267,45 +267,77 @@ export class DemoAIInterface {
     
     console.log(`🔍 [Positional] Detected: position="${position}", type="${elementType}", filter="${filter || 'none'}"`);
     
-    // Map element types to testid patterns
-    const testIdPatterns: Record<string, string> = {
-      'blog post': 'blog-post-link',
-      'blog': 'blog-post-link',
-      'post': 'blog-post-link',
-      'example': 'example-card',
-      'card': 'example-card',
-      'button': 'button',
-    };
-    
-    const testIdPattern = testIdPatterns[elementType] || null;
-    if (!testIdPattern) {
-      console.log(`⚠️ [Positional] Unknown element type: "${elementType}"`);
-      return null;
-    }
-    
     if (typeof window === 'undefined' || typeof document === 'undefined') {
       console.log(`⚠️ [Positional] Not in browser context`);
       return null;
     }
     
-    // Find all matching elements
-    const elements = Array.from(document.querySelectorAll(`[data-testid*="${testIdPattern}"]`));
-    console.log(`📋 [Positional] Found ${elements.length} elements matching "${testIdPattern}"`);
+    // GENERIC APPROACH: Find all clickable elements and filter by type/text
+    // Instead of hardcoded testid patterns, search broadly
+    let candidates: Element[] = [];
     
-    if (elements.length === 0) {
+    // Strategy 1: Try to find by testid pattern (normalize element type)
+    const normalizedType = elementType.toLowerCase().replace(/\s+/g, '-');
+    const testIdElements = Array.from(document.querySelectorAll(`[data-testid*="${normalizedType}"]`));
+    if (testIdElements.length > 0) {
+      candidates = testIdElements;
+      console.log(`📋 [Positional] Found ${candidates.length} elements by testid pattern: *"${normalizedType}"*`);
+    }
+    
+    // Strategy 2: If no testid matches, try finding by tag/role + text content
+    if (candidates.length === 0) {
+      const typeToSelector: Record<string, string> = {
+        'button': 'button, [role="button"], a.button',
+        'link': 'a[href], [role="link"]',
+        'input': 'input, textarea',
+        'card': '[class*="card"], article, [role="article"]',
+        'item': 'li, [role="listitem"]',
+        'tab': '[role="tab"]',
+        'option': '[role="option"], option',
+      };
+      
+      // Try to map element type to selector
+      const selector = typeToSelector[elementType.toLowerCase()] 
+        || typeToSelector[elementType.toLowerCase().replace(/\s+/g, '')] // "blog post" → "blogpost"
+        || `[class*="${normalizedType}"], [data-*="${normalizedType}"]`; // Fallback to class/data attr
+      
+      candidates = Array.from(document.querySelectorAll(selector));
+      console.log(`📋 [Positional] Found ${candidates.length} elements by selector: "${selector}"`);
+    }
+    
+    // Strategy 3: If still no matches, try fuzzy text search on all clickable elements
+    if (candidates.length === 0) {
+      const clickableElements = Array.from(document.querySelectorAll('a, button, [role="button"], [onclick], [data-testid]'));
+      candidates = clickableElements.filter(el => {
+        const text = el.textContent?.toLowerCase() || '';
+        const ariaLabel = el.getAttribute('aria-label')?.toLowerCase() || '';
+        const title = el.getAttribute('title')?.toLowerCase() || '';
+        
+        return text.includes(elementType.toLowerCase()) 
+          || ariaLabel.includes(elementType.toLowerCase())
+          || title.includes(elementType.toLowerCase());
+      });
+      console.log(`📋 [Positional] Found ${candidates.length} elements by fuzzy text search`);
+    }
+    
+    if (candidates.length === 0) {
+      console.log(`⚠️ [Positional] No elements found for type: "${elementType}"`);
       return null;
     }
     
-    // Apply filter if present
-    let filteredElements = elements;
+    // Apply filter if present (filter by text content)
+    let filteredElements = candidates;
     if (filter) {
-      filteredElements = elements.filter(el => 
-        el.textContent?.toLowerCase().includes(filter.toLowerCase())
-      );
+      filteredElements = candidates.filter(el => {
+        const text = el.textContent?.toLowerCase() || '';
+        const ariaLabel = el.getAttribute('aria-label')?.toLowerCase() || '';
+        return text.includes(filter.toLowerCase()) || ariaLabel.includes(filter.toLowerCase());
+      });
       console.log(`🔍 [Positional] After filter "${filter}": ${filteredElements.length} elements`);
     }
     
     if (filteredElements.length === 0) {
+      console.log(`⚠️ [Positional] No elements match filter: "${filter}"`);
       return null;
     }
     
@@ -335,13 +367,17 @@ export class DemoAIInterface {
       return null;
     }
     
-    console.log(`✅ [Positional] Found target element:`, targetElement.textContent?.substring(0, 50));
+    console.log(`✅ [Positional] Found target element:`, {
+      tag: targetElement.tagName,
+      testid: targetElement.getAttribute('data-testid'),
+      text: targetElement.textContent?.substring(0, 50)
+    });
     
     // Create a synthetic tool to click the element
     const syntheticTool: ToolMetadata = {
       toolId: `positional-click-${Date.now()}`,
       name: `Click ${position} ${elementType}`,
-      description: `Click the ${position} ${elementType}${filter ? ` about "${filter}"` : ''}`,
+      description: `Click the ${position} ${elementType}${filter ? ` ${filter}` : ''}`,
       elementId: targetElement.getAttribute('data-testid') || '',
       actionType: 'click',
       aiEnabled: true,
