@@ -3,6 +3,9 @@ const path = require('path');
 const fs = require('fs');
 const { Chat, Examples } = require('../src/architecture/DemoComponentNames');
 
+// Import NEW narration helper
+const { initializeNarrationSession, smartNarrationWait, finalizeNarrationSession } = require('../../enterprise/dist/cjs/video/StoryNarrationHelper');
+
 // Read dev port from .dev-port file
 function getDevServerPort() {
   try {
@@ -46,13 +49,16 @@ async function runStory() {
     
     const page = await context.newPage();
 
+    // Initialize narration session (start timestamp recording)
+    await initializeNarrationSession(page);
+
     console.log(`📱 Opening home page...`);
     await page.goto(baseUrl);
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 
     // === STEP 1: Navigate to Examples page ===
-    // NARRATE: "Welcome! Let's start by navigating to the examples page using natural language."
+    // ACTION_START: navigate-to-examples
     console.log(`\n🔍 Step 1: Navigate to Examples page`);
     await page.waitForSelector(`[data-testid="${CHAT_INPUT_TEST_ID}"]`, { state: 'visible', timeout: 10000 });
     
@@ -62,7 +68,10 @@ async function runStory() {
     const navCommand = `Navigate to examples page`;
     console.log(`💬 User types: "${navCommand}"`);
     await chatInput.fill(''); // Clear first
-    await chatInput.pressSequentially(navCommand, { delay: 30 }); // Faster typing
+    await chatInput.pressSequentially(navCommand, { delay: 30 });
+    // NARRATE: during, action=navigate-to-examples
+    // "I'm using natural language to navigate to the examples page. Watch as the AI interprets this command."
+    await smartNarrationWait(page, 'navigate-to-examples');
     await page.waitForTimeout(300);
     
     console.log(`📤 User clicks send...`);
@@ -71,16 +80,23 @@ async function runStory() {
     console.log(`⏳ Waiting for navigation to /examples...`);
     await page.waitForURL('**/examples', { timeout: 5000 });
     await page.waitForLoadState('networkidle');
-    // NARRATE: "Great! We're now on the examples page. Notice how the AI understood our natural language command."
-    await page.waitForTimeout(1500); // Show the examples page
+    // ACTION_END: navigate-to-examples
+    
+    // NARRATE: after, action=navigate-to-examples, offset=0.5
+    // "Perfect! We've successfully navigated to the examples page."
+    await smartNarrationWait(page, 'navigate-to-examples');
+    await page.waitForTimeout(1500);
 
     // === STEP 2: Increment counter ===
-    // NARRATE: "Now let's ask the AI to increment the counter. Watch as it executes the tool automatically."
+    // ACTION_START: increment-counter
     console.log(`\n➕ Step 2: Increment the counter`);
     const incrementCommand = `Increment the counter`;
     console.log(`💬 User types: "${incrementCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(incrementCommand, { delay: 30 });
+    // NARRATE: during, action=increment-counter
+    // "Now I'll ask the AI to increment the counter. Watch as it automatically executes the tool."
+    await smartNarrationWait(page, 'increment-counter');
     await page.waitForTimeout(300);
     
     console.log(`📤 User clicks send...`);
@@ -88,21 +104,27 @@ async function runStory() {
     
     console.log(`⏳ Waiting for counter to increment...`);
     await page.waitForTimeout(1000);
+    // ACTION_END: increment-counter
     
-    // Scroll to counter to show the change (use .first() as there are multiple)
+    // Scroll to counter to show the change
     console.log(`📍 Scrolling to counter widget...`);
     const counterWidget = page.locator(`[data-testid="${COUNTER_WIDGET_TEST_ID}"]`).first();
     await counterWidget.scrollIntoViewIfNeeded();
-    // NARRATE: "Perfect! The counter has incremented. The AI tool executed successfully, updating the UI in real-time."
-    await page.waitForTimeout(1500); // Show counter value changed
+    // NARRATE: after, action=increment-counter, offset=0.5
+    // "Excellent! The counter has been incremented. The AI tool executed successfully."
+    await smartNarrationWait(page, 'increment-counter');
+    await page.waitForTimeout(1500);
 
     // === STEP 3: Navigate to Blog ===
-    // NARRATE: "Next, we'll navigate to the blog section using another natural language command."
+    // ACTION_START: navigate-to-blog
     console.log(`\n📝 Step 3: Navigate to Blog`);
     const blogCommand = `Go to blog`;
     console.log(`💬 User types: "${blogCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(blogCommand, { delay: 30 });
+    // NARRATE: during, action=navigate-to-blog
+    // "Let's navigate to the blog section with another natural language command."
+    await smartNarrationWait(page, 'navigate-to-blog');
     await page.waitForTimeout(300);
     
     console.log(`📤 User clicks send...`);
@@ -111,27 +133,41 @@ async function runStory() {
     console.log(`⏳ Waiting for navigation to /blog...`);
     await page.waitForURL('**/blog', { timeout: 5000 });
     await page.waitForLoadState('networkidle');
-    // NARRATE: "We're now on the blog page. Let's demonstrate ordinal matching by opening the first blog post."
-    await page.waitForTimeout(1500); // Show the blog page
+    // ACTION_END: navigate-to-blog
+    
+    // NARRATE: after, action=navigate-to-blog, offset=0.5
+    // "Great! We're now on the blog page."
+    await smartNarrationWait(page, 'navigate-to-blog');
+    await page.waitForTimeout(1500);
 
     // === STEP 4: Open a blog post ===
-    // NARRATE: "Finally, we'll use ordinal matching to open the first blog post. The AI understands positional language like 'first', 'second', and 'last'."
+    // ACTION_START: open-blog-post
     console.log(`\n📖 Step 4: Open first blog post (using ordinal matching)`);
     const openPostCommand = `Open the first blog post`;
     console.log(`💬 User types: "${openPostCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(openPostCommand, { delay: 30 });
+    // NARRATE: during, action=open-blog-post
+    // "Now I'll use ordinal matching to open the first blog post. The AI understands positional language like first, second, and last."
+    await smartNarrationWait(page, 'open-blog-post');
     await page.waitForTimeout(300);
     
     console.log(`📤 User clicks send...`);
     await chatSendButton.click();
     
     console.log(`⏳ Waiting for blog post to open...`);
-    // NARRATE: "Excellent! The AI successfully opened the first blog post using ordinal matching. This demonstrates the power of natural language interface design."
-    await page.waitForTimeout(2500); // Wait for post to open
+    await page.waitForTimeout(2500);
+    // ACTION_END: open-blog-post
+    
+    // NARRATE: after, action=open-blog-post, offset=0.5
+    // "Perfect! The blog post has been opened successfully using natural language."
+    await smartNarrationWait(page, 'open-blog-post');
 
     console.log(`\n✅ Story complete!`);
     console.log(`   Video shows: Home → Examples → Increment → Blog → Post\n`);
+
+    // Finalize narration session BEFORE closing context
+    await finalizeNarrationSession(page);
 
     await context.close();
     
