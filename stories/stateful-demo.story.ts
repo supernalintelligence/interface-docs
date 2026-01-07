@@ -48,9 +48,9 @@ async function runStory() {
     const context = await browser.newContext({
       recordVideo: {
         dir: outputDir,
-        size: { width: 2560, height: 1440 }, // Wider viewport to show full content (QHD)
+        size: { width: 1920, height: 1200 }, // Keep working width, just taller for bottom content
       },
-      viewport: { width: 2560, height: 1440 }, // Match recording size - QHD resolution
+      viewport: { width: 1920, height: 1200 }, // 16:10 aspect ratio
     });
     
     const page = await context.newPage();
