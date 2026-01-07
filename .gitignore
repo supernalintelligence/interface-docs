@@ -51,3 +51,4 @@ env.example
 # Experimental validation runs
 .supernal/experiments/
 
+.npmrc.local

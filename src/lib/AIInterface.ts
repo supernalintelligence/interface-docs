@@ -4,7 +4,7 @@
  * This actually uses the ToolRegistry to find and execute tools.
  */
 
-import { ToolRegistry, ToolMetadata } from "@supernal/interface/browser";
+import { ToolRegistry, ToolMetadata, ToolFrequency, ToolComplexity, ToolCategory } from "@supernal/interface/browser";
 import { RuntimeTreeBuilder, NavigationGraph } from "@supernalintelligence/interface-enterprise";
 import { Components } from '../architecture';
 import { subscribeToStateChanges } from './UIWidgetComponents';
@@ -374,19 +374,39 @@ export class DemoAIInterface {
     });
     
     // Create a synthetic tool to click the element
-    const syntheticTool: ToolMetadata = {
+    // Using Partial since we're creating a minimal tool for positional matching
+    const syntheticTool = {
       toolId: `positional-click-${Date.now()}`,
       name: `Click ${position} ${elementType}`,
       description: `Click the ${position} ${elementType}${filter ? ` ${filter}` : ''}`,
       elementId: targetElement.getAttribute('data-testid') || '',
-      actionType: 'click',
+      methodName: 'click',
+      category: 'navigation' as ToolCategory,
+      inputSchema: {},
+      outputSchema: {},
+      returnType: 'json' as const,
+      supportsStreaming: false,
+      tags: ['click', 'positional'],
+      keywords: [position, elementType],
+      useCases: [query],
+      permissions: {},
+      frequency: ToolFrequency.HIGH,
+      complexity: ToolComplexity.SIMPLE,
+      isStandalone: false,
+      examples: [query],
+      aiDescription: `Click the ${position} ${elementType}`,
+      executionContext: 'ui' as const,
+      toolType: 'ai-safe' as const,
       aiEnabled: true,
       requiresApproval: false,
-      dangerLevel: 'safe',
-      examples: [query],
-      testId: targetElement.getAttribute('data-testid') || '',
-      element: targetElement as HTMLElement, // Store reference
-    };
+      dangerLevel: 'safe' as const,
+      generateSimulation: false,
+      generateStories: false,
+      // Store element reference in metadata
+      metadata: { 
+        targetElement: targetElement as HTMLElement 
+      }
+    } as ToolMetadata;
     
     return {
       query,
@@ -414,7 +434,7 @@ export class DemoAIInterface {
     // NEW: Try ordinal/positional parsing first (e.g., "first blog post", "second button")
     const positionalMatch = this.tryPositionalMatch(lowerQuery);
     if (positionalMatch) {
-      console.log(`🎯 [AIInterface] Positional match: ${positionalMatch.elementType} at position ${positionalMatch.position}`);
+      console.log(`🎯 [AIInterface] Positional match found:`, positionalMatch.tool?.name);
       return positionalMatch;
     }
     
