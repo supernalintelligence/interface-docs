@@ -48,9 +48,9 @@ async function runStory() {
     const context = await browser.newContext({
       recordVideo: {
         dir: outputDir,
-        size: { width: 1920, height: 1200 }, // Taller viewport to avoid bottom cutoff
+        size: { width: 2560, height: 1440 }, // Wider viewport to show full content (QHD)
       },
-      viewport: { width: 1920, height: 1200 }, // Match recording size, extra height for content
+      viewport: { width: 2560, height: 1440 }, // Match recording size - QHD resolution
     });
     
     const page = await context.newPage();
@@ -156,13 +156,13 @@ async function runStory() {
 
     // === STEP 4: Open a blog post ===
     // ACTION_START: open-blog-post
-    console.log(`\n📖 Step 4: Open AI-woven blog post`);
-    const openPostCommand = `Open the AI-woven blog post`;
+    console.log(`\n📖 Step 4: Open AI-Woven blog post`);
+    const openPostCommand = `Open blog AI-Woven`;
     console.log(`💬 User types: "${openPostCommand}"`);
     await chatInput.fill('');
     await chatInput.pressSequentially(openPostCommand, { delay: 30 });
     // NARRATE: during, action=open-blog-post
-    // "Now I'll open the AI-woven blog post using natural language."
+    // "Now I'll open the AI-Woven blog post."
     await smartNarrationWait(page, 'open-blog-post');
     await page.waitForTimeout(300);
     
@@ -174,7 +174,7 @@ async function runStory() {
     // ACTION_END: open-blog-post
     
     // NARRATE: after, action=open-blog-post
-    // "Perfect! The blog post opened successfully using natural language."
+    // "Perfect! The AI-Woven blog post opened successfully."
     await smartNarrationWait(page, 'narrate-post-success');
 
     console.log(`\n✅ Story complete!`);
