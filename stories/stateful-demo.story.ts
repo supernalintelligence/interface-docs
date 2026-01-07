@@ -38,14 +38,19 @@ async function runStory() {
     browser = await chromium.launch({
       headless: false,
       slowMo: 100, // Slightly slower for visibility
+      args: [
+        '--start-maximized', // Start browser maximized
+        '--disable-infobars', // Hide "Chrome is being controlled" banner
+        '--disable-blink-features=AutomationControlled', // Make it look less like automation
+      ],
     });
     
     const context = await browser.newContext({
       recordVideo: {
         dir: outputDir,
-        size: { width: 1920, height: 1080 },
+        size: { width: 1920, height: 1200 }, // Taller viewport to avoid bottom cutoff
       },
-      viewport: { width: 1920, height: 1080 },
+      viewport: { width: 1920, height: 1200 }, // Match recording size, extra height for content
     });
     
     const page = await context.newPage();
@@ -56,6 +61,7 @@ async function runStory() {
     console.log(`📱 Opening home page...`);
     await page.goto(baseUrl);
     await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(500); // Brief pause to ensure full render
     
     // === WELCOME ===
     // ACTION_START: welcome
