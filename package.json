@@ -20,6 +20,7 @@
     "test:watch": "playwright test --reporter=list --watch",
     "test:nav": "playwright test tests/e2e/auto-navigation.spec.ts --reporter=list",
     "test:nav:watch": "playwright test tests/e2e/auto-navigation.spec.ts --reporter=list --watch",
+    "test:blog": "playwright test tests/e2e/blog-navigation.spec.ts --reporter=list --headed",
     "test:tools": "node scripts/test-tools.js",
     "test:integration": "npm run build && playwright test tests/e2e/widget-tool-integration.spec.ts",
     "contracts:routes": "si scan-routes --pages src/pages --output src/architecture/Routes.ts",
@@ -28,13 +29,16 @@
     "contracts:watch": "si scan-routes --watch & si scan-names --watch",
     "si:generate-tests": "si generate-tests --output tests/generated --routes src/architecture/Routes.ts --names src/architecture/Components.ts --include-e2e",
     "si:benchmark": "si benchmark-cache --runs 5 --output benchmark-results.json",
-    "si:validate": "si validate --routes src/architecture/Routes.ts --names src/architecture/Components.ts --tools"
+    "si:validate": "si validate --routes src/architecture/Routes.ts --names src/architecture/Components.ts --tools",
+    "mcp": "node mcp-server.js",
+    "mcp:debug": "node mcp-server.js 2>&1 | tee mcp-debug.log"
   },
   "dependencies": {
     "@copilotkit/react-core": "^1.50.1",
     "@copilotkit/react-textarea": "^1.50.1",
     "@copilotkit/react-ui": "^1.50.1",
     "@copilotkit/runtime": "^1.10.6",
+    "@supernal/interface": "file:../open-source",
     "@supernalintelligence/interface-enterprise": "^1.0.2",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
@@ -78,6 +82,7 @@
     "eslint-plugin-react": "^7.33.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.19",
+    "ts-node": "^10.9.2",
     "tsx": "^4.7.0"
   }
 }

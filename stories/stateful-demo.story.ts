@@ -39,7 +39,7 @@ async function runStory() {
       headless: false,
       slowMo: 100, // Slightly slower for visibility
       args: [
-        '--start-maximized', // Start browser maximized
+        '--window-size=1680,1050', // Larger laptop resolution (16:10)
         '--disable-infobars', // Hide "Chrome is being controlled" banner
         '--disable-blink-features=AutomationControlled', // Make it look less like automation
       ],
@@ -48,9 +48,9 @@ async function runStory() {
     const context = await browser.newContext({
       recordVideo: {
         dir: outputDir,
-        size: { width: 1920, height: 1200 }, // Keep working width, just taller for bottom content
+        size: { width: 1680, height: 1050 }, // Record at larger laptop resolution
       },
-      viewport: { width: 1920, height: 1200 }, // 16:10 aspect ratio
+      viewport: { width: 1680, height: 1050 }, // Match window size exactly
     });
     
     const page = await context.newPage();

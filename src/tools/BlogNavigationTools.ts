@@ -17,6 +17,14 @@ import { NavigationGraph } from "@supernal/interface/browser";
 export class BlogNavigationTools {
   
   /**
+   * Navigate using NavigationGraph (works in browser)
+   */
+  private navigate(path: string) {
+    const nav = NavigationGraph.getInstance();
+    nav.navigate(path);
+  }
+  
+  /**
    * Navigate to blog with optional post search
    * 
    * This is a PROGRAMMATIC tool with NO elementId.
@@ -30,7 +38,7 @@ export class BlogNavigationTools {
    */
   @Tool({
     // NO elementId - this is a programmatic navigation tool
-    name: 'Navigate to Blog',
+    name: 'navigateToBlog',
     description: 'Navigate to blog index or specific blog post by title/topic',
     category: ToolCategory.NAVIGATION,
     aiEnabled: true,
@@ -47,34 +55,19 @@ export class BlogNavigationTools {
     ]
   })
   async openBlog(query?: string) {
-
-    
-    // Get the navigation handler
-    const navGraph = NavigationGraph.getInstance();
-    const navigate = (path: string) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const handler = (navGraph as any).navigationHandler;
-      if (handler && typeof window !== 'undefined') {
-        // For blog posts with full paths, use direct window.location
-        if (path.startsWith('/blog/') && path !== '/blog') {
-          window.location.href = path;
-        } else if (path === '/blog') {
-          // For blog index, use the handler with PascalCase
-          handler('Blog');
-        }
-      } else if (typeof window !== 'undefined') {
-        window.location.href = path;
-      }
-    };
+    // Determine target path
+    let targetPath = '/blog';
+    let message = 'Navigating to Blog';
     
     // If no query, just go to blog index
     if (!query || query.trim() === '') {
-      navigate('/blog');
+      // Navigate directly in browser
+      this.navigate(targetPath);
       return { 
         success: true, 
         message: 'Navigated to Blog',
         action: 'navigation',
-        path: '/blog'
+        path: targetPath
       };
     }
 
@@ -108,7 +101,7 @@ export class BlogNavigationTools {
 
       if (post) {
         const postPath = `/blog/${post.slug}`;
-        navigate(postPath);
+        this.navigate(postPath);
         return { 
           success: true, 
           message: `Opened: ${post.title}`,
