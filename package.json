@@ -39,7 +39,7 @@
     "@copilotkit/react-ui": "^1.50.1",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/interface": "file:../open-source",
-    "@supernalintelligence/interface-enterprise": "^1.0.2",
+    "@supernalintelligence/interface-enterprise": "1.0.11",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",

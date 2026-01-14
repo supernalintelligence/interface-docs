@@ -5,9 +5,8 @@
  * IMPORTANT: These tools are GLOBAL and work from any page
  */
 
-import { Tool, ToolProvider, ToolCategory } from "@supernalintelligence/interface-enterprise";
+import { Tool, ToolProvider, ToolCategory, NavigationGraph } from "@supernalintelligence/interface-enterprise";
 import { FuzzyMatcher } from '../lib/FuzzyMatcher';
-import { NavigationGraph } from "@supernal/interface/browser";
 
 @ToolProvider({
   category: ToolCategory.NAVIGATION,
@@ -21,7 +20,18 @@ export class BlogNavigationTools {
    */
   private navigate(path: string) {
     const nav = NavigationGraph.getInstance();
-    nav.navigate(path);
+    console.log('[BlogNavigationTools] navigate() called with path:', path);
+    console.log('[BlogNavigationTools] NavigationGraph instance:', nav);
+    console.log('[BlogNavigationTools] nav.navigate exists?', !!nav.navigate);
+    console.log('[BlogNavigationTools] nav.getNavigationHandler():', nav.getNavigationHandler?.());
+
+    if (nav.navigate) {
+      console.log('[BlogNavigationTools] Calling nav.navigate(path)...');
+      nav.navigate(path);
+      console.log('[BlogNavigationTools] nav.navigate() returned');
+    } else {
+      console.error('[BlogNavigationTools] NavigationGraph.navigate() not available. Ensure setNavigationHandler() was called in _app.tsx');
+    }
   }
   
   /**
@@ -55,20 +65,23 @@ export class BlogNavigationTools {
     ]
   })
   async openBlog(query?: string) {
-    // Determine target path
-    let targetPath = '/blog';
-    let message = 'Navigating to Blog';
-    
+    const targetPath = '/blog';
+
     // If no query, just go to blog index
     if (!query || query.trim() === '') {
-      // Navigate directly in browser
-      this.navigate(targetPath);
-      return { 
-        success: true, 
-        message: 'Navigated to Blog',
+      // Return pending status first - navigation handler will confirm completion
+      const result = {
+        success: true,
+        message: 'Navigating to Blog...',
+        pending: true,  // Indicates navigation is in progress
         action: 'navigation',
         path: targetPath
       };
+
+      // Start navigation (async - will complete after this returns)
+      this.navigate(targetPath);
+
+      return result;
     }
 
     // Fetch blog posts from API route (server-side, works in browser)
@@ -102,9 +115,10 @@ export class BlogNavigationTools {
       if (post) {
         const postPath = `/blog/${post.slug}`;
         this.navigate(postPath);
-        return { 
-          success: true, 
-          message: `Opened: ${post.title}`,
+        return {
+          success: true,
+          message: `Opening: ${post.title}...`,
+          pending: true,
           action: 'navigation',
           path: postPath,
           post: {

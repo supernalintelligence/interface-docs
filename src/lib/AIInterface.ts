@@ -580,16 +580,17 @@ export class DemoAIInterface {
         console.log(`🗺️  [AIInterface] Parameters:`, parameters);
         try {
           const navResult = await tool.instance[tool.methodName](...parameters);
-          
-          // Report navigation execution
+
+          // Report navigation execution - pass pending flag for in-progress navigation
           ToolManager.reportExecution({
             toolName: tool.name || tool.methodName,
             elementId: tool.elementId,
             actionType: 'navigation',
             success: navResult.success,
-            message: navResult.message
-          });
-          
+            message: navResult.message,
+            data: { pending: navResult.pending }  // Pass pending status
+          } as any);
+
           return navResult;
         } catch (error) {
           const errorMsg = `Navigation failed: ${error}`;

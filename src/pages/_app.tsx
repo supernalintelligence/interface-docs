@@ -64,6 +64,12 @@ function GlobalChatWrapper() {
     
     // Subscribe to tool execution results
     const unsubscribe = ToolManager.subscribe((result) => {
+      // Handle pending navigation (show spinner)
+      const isPending = (result.data as any)?.pending
+      if (isPending) {
+        addMessage(`⏳ ${result.message}`, 'ai')
+        return
+      }
       const emoji = result.success ? '✅' : '❌'
       addMessage(`${emoji} ${result.message}`, 'ai')
     })
@@ -74,14 +80,22 @@ function GlobalChatWrapper() {
   const handleUserMessage = async (text: string) => {
     if (!text.trim()) return
     addMessage(text, 'user')
-    
+
+    const startTime = performance.now()
+    console.log(`⏱️ [handleUserMessage] Start: ${text}`)
+
     try {
       const result = await aiInterface.findAndExecuteCommand(text, router.pathname)
-      
+
+      const endTime = performance.now()
+      console.log(`⏱️ [handleUserMessage] Completed in ${Math.round(endTime - startTime)}ms`)
+
       if (!result.success) {
         addMessage(result.message, 'system')
       }
     } catch (error) {
+      const endTime = performance.now()
+      console.log(`⏱️ [handleUserMessage] Error in ${Math.round(endTime - startTime)}ms`)
       addMessage(`Error: ${error instanceof Error ? error.message : String(error)}`, 'ai')
     }
   }
