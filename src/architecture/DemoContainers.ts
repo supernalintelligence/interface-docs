@@ -1,10 +1,16 @@
 /**
  * Demo Application Containers
- * 
+ *
  * Define all major navigation boundaries for the demo application.
  * These are automatically registered in NavigationGraph on app init.
+ *
+ * Containers can include a `contentResolver` for fuzzy navigation.
+ * This auto-generates tools that handle both:
+ * - "go to blog" → /blog
+ * - "open blog contracts" → fuzzy search → /blog/matching-post
  */
 import type { ContainerDefinition } from "@supernalintelligence/interface-enterprise";
+import type { ContentResolver } from "@supernal/interface/browser";
 
 /**
  * Demo Application Containers
@@ -196,8 +202,12 @@ export const DemoContainers = {
   
   /**
    * Blog Page
-   * 
+   *
    * Blog posts and articles about Supernal Interface.
+   *
+   * The contentResolver enables fuzzy navigation:
+   * - "go to blog" → /blog
+   * - "open blog contracts" → searches posts → /blog/matching-post
    */
   Blog: {
     id: 'Blog',
@@ -211,7 +221,27 @@ export const DemoContainers = {
       'blog-post-card',
       'blog-post-link'
     ],
-    description: 'Blog posts and articles'
+    description: 'Blog posts and articles',
+    metadata: {
+      contentResolver: {
+        fetch: async () => {
+          const response = await fetch('/api/blog-posts');
+          if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+          return response.json();
+        },
+        searchFields: (post: { title: string; slug: string; tags?: string[]; categories?: string[] }) => [
+          post.title,
+          post.slug,
+          ...(post.tags || []),
+          ...(post.categories || []),
+        ],
+        toRoute: (post: { slug: string }) => `/blog/${post.slug}`,
+        toDisplay: (post: { title: string; excerpt?: string }) => ({
+          title: post.title,
+          description: post.excerpt,
+        }),
+      } as ContentResolver,
+    },
   },
   
   /**
