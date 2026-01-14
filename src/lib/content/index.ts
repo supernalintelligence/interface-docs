@@ -3,6 +3,63 @@ import { parseFrontmatter, markdownToHtml, generateExcerpt } from './markdown';
 import { generateSlug, getParentSlug, getSectionFromSlug } from './slugs';
 import { Doc, DocSection, DocMetadata } from './types';
 
+// ============================================
+// Document Cache (Global)
+// ============================================
+// Caches processed docs to avoid re-reading/parsing on every request.
+// Uses globalThis to persist across Next.js API route invocations in dev mode.
+// In production: cache lives for the lifetime of the server process.
+// In development: cache is invalidated after CACHE_TTL_MS or on explicit clear.
+
+interface DocCache {
+  docs: Doc[];
+  docsBySlug: Map<string, Doc>;
+  timestamp: number;
+}
+
+// Use globalThis to persist cache across Next.js dev mode hot reloads
+const GLOBAL_CACHE_KEY = '__SUPERNAL_DOC_CACHE__';
+
+function getGlobalCache(): DocCache | null {
+  return (globalThis as any)[GLOBAL_CACHE_KEY] || null;
+}
+
+function setGlobalCache(cache: DocCache): void {
+  (globalThis as any)[GLOBAL_CACHE_KEY] = cache;
+}
+
+const CACHE_TTL_MS = process.env.NODE_ENV === 'development' ? 30000 : Infinity; // 30s in dev, forever in prod
+
+/**
+ * Check if cache is valid
+ */
+function isCacheValid(): boolean {
+  const cache = getGlobalCache();
+  if (!cache) return false;
+  if (CACHE_TTL_MS === Infinity) return true;
+  return Date.now() - cache.timestamp < CACHE_TTL_MS;
+}
+
+/**
+ * Clear the document cache (useful for dev/testing)
+ */
+export function clearDocCache(): void {
+  (globalThis as any)[GLOBAL_CACHE_KEY] = null;
+  console.log('[DocCache] Cache cleared');
+}
+
+/**
+ * Get cache stats (for debugging)
+ */
+export function getDocCacheStats(): { cached: boolean; docCount: number; ageMs: number } {
+  const cache = getGlobalCache();
+  return {
+    cached: cache !== null,
+    docCount: cache?.docs.length ?? 0,
+    ageMs: cache ? Date.now() - cache.timestamp : 0,
+  };
+}
+
 /**
  * Process a single markdown file into a Doc object
  */
@@ -108,30 +165,59 @@ export function buildDocRelationships(docs: Doc[]): Doc[] {
 }
 
 /**
- * Get all documentation
+ * Get all documentation (with caching)
+ *
+ * Uses in-memory cache to avoid re-processing all markdown files on every request.
+ * Cache TTL: 5s in development, infinite in production.
  */
 export async function getAllDocs(): Promise<Doc[]> {
+  // Return cached docs if valid
+  const existingCache = getGlobalCache();
+  if (isCacheValid() && existingCache) {
+    return existingCache.docs;
+  }
+
+  const startTime = Date.now();
+
   try {
     const filePaths = await readDirectoryRecursively('');
-    
+
     // Process all markdown files
     const docsPromises = filePaths.map(async filePath => {
       return await processMarkdownFile(filePath);
     });
-    
+
     // Wait for all promises to resolve
-    const docs = (await Promise.all(docsPromises)).filter((doc): doc is Doc => doc !== null);
-    
+    const allDocs = (await Promise.all(docsPromises)).filter((doc): doc is Doc => doc !== null);
+
+    // Deduplicate by slug - keep first occurrence (content/docs takes priority over ../../docs)
+    const slugMap = new Map<string, Doc>();
+    for (const doc of allDocs) {
+      if (!slugMap.has(doc.slug)) {
+        slugMap.set(doc.slug, doc);
+      }
+    }
+    const docs = Array.from(slugMap.values());
+
     // Build parent-child relationships
     const processedDocs = buildDocRelationships(docs);
-    
+
     // Sort by order if specified in frontmatter
     processedDocs.sort((a, b) => {
       const orderA = a.metadata.order ?? 999;
       const orderB = b.metadata.order ?? 999;
       return orderA - orderB;
     });
-    
+
+    // Update global cache
+    setGlobalCache({
+      docs: processedDocs,
+      docsBySlug: slugMap,
+      timestamp: Date.now(),
+    });
+
+    console.log(`[DocCache] Built cache with ${processedDocs.length} docs in ${Date.now() - startTime}ms`);
+
     return processedDocs;
   } catch {
     // Error getting all docs
@@ -148,11 +234,21 @@ export async function getSectionDocs(section: string): Promise<Doc[]> {
 }
 
 /**
- * Get a specific doc by slug
+ * Get a specific doc by slug (cache-optimized)
+ *
+ * Uses the slug map from cache for O(1) lookup instead of O(n) array search.
  */
 export async function getDocBySlug(slug: string): Promise<Doc | null> {
-  const allDocs = await getAllDocs();
-  return allDocs.find(doc => doc.slug === slug) || null;
+  // Ensure cache is populated
+  await getAllDocs();
+
+  // Use cached slug map for fast lookup
+  const cache = getGlobalCache();
+  if (cache?.docsBySlug) {
+    return cache.docsBySlug.get(slug) || null;
+  }
+
+  return null;
 }
 
 /**
