@@ -8,7 +8,7 @@
     "NODE_ENV": "production",
     "NEXT_PUBLIC_DEMO_MODE": "true",
     "NEXT_PUBLIC_ENABLE_ANALYTICS": "true",
-    "NEXT_PUBLIC_CONTACT_EMAIL": "hello@supernalintelligence.com"
+    "NEXT_PUBLIC_CONTACT_EMAIL": "hello@supernal.ai"
   },
   "headers": [
     {

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Documentation site and working demo for @supernal/interface",
   "private": true,
+  "overrides": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
   "scripts": {
     "dev": "node scripts/dev-server.js",
     "sync:docs": "tsx scripts/sync-docs.ts",
