@@ -22,8 +22,8 @@ import TTSInit from '../components/TTSInitializer'
 // Each demo widget controls its own theme via data-theme attribute
 // import '../lib/GlobalThemeTools'
 
-// Register BlogNavigationTools
-import '../tools/BlogNavigationTools'
+// NOTE: BlogNavigationTools removed - blog navigation is now auto-generated
+// via ContentResolver in DemoContainers.ts (see Blog container definition)
 
 // Toggle between CopilotKit and Native chat
 const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
