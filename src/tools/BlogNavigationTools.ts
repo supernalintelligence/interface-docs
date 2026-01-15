@@ -1,16 +1,17 @@
 /**
  * Blog Navigation Tools - Uses Dynamic Parameter Extraction
  * Allows users to navigate to blog posts using natural language
- * 
- * IMPORTANT: These tools are GLOBAL and work from any page
+ *
+ * These tools are GLOBAL (containerId: 'global') - they work from any page.
+ * Navigation tools should typically be global so users can say "open blog" from anywhere.
  */
 
-import { Tool, ToolProvider, ToolCategory, NavigationGraph } from "@supernalintelligence/interface-enterprise";
+import { Tool, ToolProvider, ToolCategory, NavigationGraph, ContainerScope } from "@supernalintelligence/interface-enterprise";
 import { FuzzyMatcher } from '../lib/FuzzyMatcher';
 
 @ToolProvider({
   category: ToolCategory.NAVIGATION,
-  // NO containerId - makes it globally available from any page
+  containerId: ContainerScope.GLOBAL,  // Global - available from any page
   aiEnabled: true
 })
 export class BlogNavigationTools {

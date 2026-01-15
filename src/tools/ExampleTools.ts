@@ -66,7 +66,7 @@ export const Data = {
  */
 @Component({
   name: 'counter',
-  containerId: 'Examples',
+  containerId: '/examples',
   elementId: Counter.root,
   description: 'Interactive counter with state',
   stateful: true,
@@ -139,7 +139,7 @@ export class CounterComponent {
 export class CounterTools {
   @AITool({
     elementId: Counter.incrementButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Increment the counter by 1',
     category: ToolCategory.UTILITY,
   })
@@ -151,7 +151,7 @@ export class CounterTools {
 
   @TestTool({
     elementId: Counter.decrementButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Decrement the counter by 1',
     category: ToolCategory.UTILITY,
   })
@@ -163,7 +163,7 @@ export class CounterTools {
 
   @AIAndTestTool({
     elementId: Counter.resetButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Reset counter to zero',
     category: ToolCategory.UTILITY,
   })
@@ -181,7 +181,7 @@ export class CounterTools {
 export class ChatTools {
   @AITool({
     elementId: Chat.sendButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Send a chat message',
   })
   async sendMessage(message: string) {
@@ -194,7 +194,7 @@ export class ChatTools {
 
   @AITool({
     elementId: Chat.clearButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Clear all chat messages',
   })
   async clearChat() {
@@ -211,7 +211,7 @@ export class ChatTools {
 export class SettingsTools {
   @AITool({
     elementId: Settings.changeButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Change a setting value',
   })
   async changeSetting(setting: string) {
@@ -224,7 +224,7 @@ export class SettingsTools {
 
   @DangerousTool({
     elementId: Settings.resetButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Reset all settings to defaults',
   })
   async resetSettings() {
@@ -235,7 +235,7 @@ export class SettingsTools {
 
   @DestructiveTool({
     elementId: Settings.deleteButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Permanently delete all user data',
   })
   async deleteAllData() {
@@ -252,7 +252,7 @@ export class SettingsTools {
 export class DataTools {
   @DataReadTool({
     elementId: Data.fetchButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Fetch all items from the list',
   })
   async fetchItems() {
@@ -264,7 +264,7 @@ export class DataTools {
 
   @DataWriteTool({
     elementId: Data.addButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Add a new item to the list',
   })
   async addItem(item: string) {
@@ -278,7 +278,7 @@ export class DataTools {
 
   @DestructiveTool({
     elementId: Data.deleteButton,
-    containerId: 'Examples',
+    containerId: '/examples',
     description: 'Delete an item from the list',
   })
   async deleteItem(index: number) {
