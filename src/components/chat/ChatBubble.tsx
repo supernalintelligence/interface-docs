@@ -17,6 +17,7 @@ const ChatNames = {
   input: Components.Chat.input,
   sendButton: Components.Chat.sendButton,
   clearButton: Components.Chat.clearButton,
+  messages: Components.Chat.messages,
 };
 
 interface Message {
@@ -148,7 +149,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
         {/* Expanded Chat Panel - Responsive sizing */}
         {isExpanded && (
-          <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] sm:w-[500px] lg:w-[600px] h-[calc(100vh-10rem)] sm:h-[600px] lg:h-[700px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
+          <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] sm:w-[500px] lg:w-[600px] h-[calc(100vh-10rem)] sm:h-[min(600px,calc(100vh-6rem))] lg:h-[min(700px,calc(100vh-6rem))] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
             {/* Header - Updated Messaging */}
             <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
               <div className="flex items-center space-x-2 sm:space-x-3">
@@ -191,7 +192,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3" data-testid={ChatNames.messages}>
               {/* Welcome Message */}
               {showWelcome && messages.length === 0 && (
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-3 sm:p-4 rounded-lg border border-blue-200 mb-4">

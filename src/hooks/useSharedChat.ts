@@ -95,6 +95,34 @@ export function useSharedChat() {
     setIsInitialized(true);
   }, []);
 
+  // Listen for test state injection events (for E2E testing)
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          const newMessages = JSON.parse(e.newValue);
+          setMessages(newMessages);
+        } catch {
+          // Invalid JSON
+        }
+      }
+    };
+
+    const handleChatInjection = (e: CustomEvent<{ messages: Message[] }>) => {
+      if (e.detail?.messages) {
+        setMessages(e.detail.messages);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('chat-state-injected', handleChatInjection as EventListener);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('chat-state-injected', handleChatInjection as EventListener);
+    };
+  }, []);
+
   // Save messages to localStorage whenever they change
   useEffect(() => {
     if (isInitialized && messages.length > 0) {

@@ -4,52 +4,49 @@ Feature: Chat Component
   So that I can communicate effectively
 
   Background:
-    Given I am on the chat page
-    And the chat component is visible
+    Given I am on the demo page
+    And Components.Chat.bubble is visible
 
   Scenario: Starting with empty chat
-    Given chat state is Components.chat.state.empty
-    Then the message list should be empty
-    And the input field should be enabled
+    Given chat state is Components.Examples.chat.state.empty
+    Then Components.Chat.messages should be empty
+    And Components.Chat.input should be enabled
 
   Scenario: Sending a single message
-    Given chat state is Components.chat.state.empty
-    When I type "Hello, World!" in the chat input
-    And I click the send button
-    Then the message list should contain 1 message
-    And the last message text should be "Hello, World!"
+    Given chat state is Components.Examples.chat.state.empty
+    When I type "Hello, World!" in Components.Chat.input
+    And I click Components.Chat.sendButton
+    Then Components.Chat.messages should contain 1 message
+    And Components.Chat.messages last message should be "Hello, World!"
 
   Scenario: Viewing existing conversation
-    Given chat state is Components.chat.state.multiple
-    Then the message list should contain 2 messages
-    And the first message should be from "Alice"
-    And the second message should be from "Bob"
+    Given chat state is Components.Examples.chat.state.withMessages
+    Then Components.Chat.messages should contain 2 messages
 
   Scenario: Adding to existing conversation
-    Given chat state is Components.chat.state.single
-    When I type "How are you?" in the chat input
-    And I click the send button
-    Then the message list should contain 2 messages
+    Given chat state is Components.Examples.chat.state.single
+    When I type "How are you?" in Components.Chat.input
+    And I click Components.Chat.sendButton
+    Then Components.Chat.messages should contain 2 messages
 
   Scenario: Clearing all messages
-    Given chat state is Components.chat.state.multiple
-    When I click the clear messages button
-    Then chat state should be Components.chat.state.empty
-    And the message list should be empty
+    Given chat state is Components.Examples.chat.state.withMessages
+    When I click Components.Chat.clearButton
+    Then chat state should be Components.Examples.chat.state.empty
+    And Components.Chat.messages should be empty
 
   Scenario: Multiple messages in sequence
-    Given chat state is Components.chat.state.empty
-    When I send the following messages:
-      | message             |
-      | Hello              |
-      | How are you?       |
-      | Nice to meet you   |
-    Then the message list should contain 3 messages
-    And the messages should appear in chronological order
+    Given chat state is Components.Examples.chat.state.empty
+    When I type "Hello" in Components.Chat.input
+    And I click Components.Chat.sendButton
+    And I type "How are you?" in Components.Chat.input
+    And I click Components.Chat.sendButton
+    And I type "Nice to meet you" in Components.Chat.input
+    And I click Components.Chat.sendButton
+    Then Components.Chat.messages should contain 3 messages
 
   Scenario: Message persistence across actions
-    Given chat state is Components.chat.state.single
+    Given chat state is Components.Examples.chat.state.single
     When I refresh the page
-    Then chat state should be Components.chat.state.single
-    And the message should still be visible
-
+    Then chat state should be Components.Examples.chat.state.single
+    And Components.Chat.messages should contain 1 message

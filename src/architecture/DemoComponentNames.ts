@@ -184,6 +184,17 @@ export const Chat = {
 } as const;
 
 /**
+ * Counter Component (for story testing)
+ * Uses the actual testids from the Examples page counter widget
+ */
+export const Counter = {
+  widget: 'examples-counter-widget',
+  increment: 'examples-counter-increment',
+  decrement: 'examples-counter-decrement',
+  reset: 'examples-counter-reset'
+} as const;
+
+/**
  * Dashboard Page Components
  */
 export const Dashboard = {
@@ -221,6 +232,7 @@ export const ComponentNames = {
   Examples,
   Settings,
   Chat,
+  Counter,
   Dashboard,
   Blog
 } as const;
