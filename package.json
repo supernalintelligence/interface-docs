@@ -49,7 +49,7 @@
     "@copilotkit/react-textarea": "^1.50.1",
     "@copilotkit/react-ui": "^1.50.1",
     "@copilotkit/runtime": "^1.10.6",
-    "@supernal/interface": "file:../open-source",
+    "@supernal/interface": "^1.0.4",
     "@supernalintelligence/interface-enterprise": "^1.0.14",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
