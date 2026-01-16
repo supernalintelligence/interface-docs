@@ -45,9 +45,9 @@
     "mcp:debug": "node mcp-server.js 2>&1 | tee mcp-debug.log"
   },
   "dependencies": {
-    "@copilotkit/react-core": "^1.50.1",
-    "@copilotkit/react-textarea": "^1.50.1",
-    "@copilotkit/react-ui": "^0.2.0",
+    "@copilotkit/react-core": "^1.51.2",
+    "@copilotkit/react-textarea": "^1.51.2",
+    "@copilotkit/react-ui": "^1.51.2",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/interface": "^1.0.4",
     "@supernalintelligence/interface-enterprise": "^1.0.14",
