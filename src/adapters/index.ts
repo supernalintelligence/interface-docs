@@ -15,6 +15,7 @@ import {
   bridgeToolRegistry,
   createAuditTrail,
 } from "@supernalintelligence/interface-enterprise";
+import type { ToolMetadata } from "@supernalintelligence/interface-enterprise";
 
 // CopilotKit adapter - stubbed for now to avoid bundling
 // To enable: install @copilotkit packages and uncomment the real import
@@ -73,7 +74,7 @@ Try commands like:
 export function setupDemoAdapter(adapter: ChatUIAdapter) {
   // Bridge tools from ToolRegistry
   const toolCleanup = bridgeToolRegistry(adapter, {
-    filter: (tool) => tool.aiEnabled === true,
+    filter: (tool: ToolMetadata) => tool.aiEnabled === true,
     onBridge: (tools) => {
       // eslint-disable-next-line no-console
       console.log(`[Demo] Bridged ${tools.length} tools:`, tools.map(t => t.name));
@@ -94,7 +95,6 @@ export function setupDemoAdapter(adapter: ChatUIAdapter) {
     },
   };
 }
-
 
 
 
