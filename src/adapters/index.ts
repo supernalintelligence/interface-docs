@@ -15,7 +15,7 @@ import {
   bridgeToolRegistry,
   createAuditTrail,
 } from "@supernalintelligence/interface-enterprise";
-import type { ToolMetadata } from "@supernalintelligence/interface-enterprise";
+import type { ToolMetadata } from "@supernal/interface";
 
 // CopilotKit adapter - stubbed for now to avoid bundling
 // To enable: install @copilotkit packages and uncomment the real import
@@ -95,7 +95,6 @@ export function setupDemoAdapter(adapter: ChatUIAdapter) {
     },
   };
 }
-
 
 
 
