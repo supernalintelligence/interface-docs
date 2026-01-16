@@ -32,7 +32,7 @@ export const ArchitecturePage: React.FC = () => {
   const [graph, setGraph] = useState<ApplicationGraph | null>(null);
   const [treeData, setTreeData] = useState<TreeNode[] | null>(null);
   const [activeTab, setActiveTab] = useState<'static' | 'live' | 'jsoncrack'>('jsoncrack');
-  const [stateManager] = useState(() => StateManager.getInstance(StateManagers.SupernalCoreV1, localStorageAdapter));
+  const [stateManager] = useState(() => StateManager.getInstance(StateManagers.CoreV1, localStorageAdapter));
 
   const exportTreeAsJSON = () => {
     if (!graph) return;

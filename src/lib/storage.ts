@@ -13,7 +13,7 @@ import { LocalStorageAdapter } from "@supernalintelligence/interface-enterprise"
  * Usage:
  * ```typescript
  * import { localStorageAdapter } from './lib/storage';
- * const manager = StateManager.getInstance(StateManagers.SupernalCoreV1, localStorageAdapter);
+ * const manager = StateManager.getInstance(StateManagers.CoreV1, localStorageAdapter);
  * ```
  */
 export const localStorageAdapter = new LocalStorageAdapter();

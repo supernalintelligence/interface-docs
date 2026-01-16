@@ -30,7 +30,7 @@ export class DemoWidgetTools {
     if (this.initialized || typeof window === 'undefined') return;
     
     this.stateManager = StateManager.getInstance(
-      StateManagers.SupernalCoreV1,
+      StateManagers.CoreV1,
       localStorageAdapter
     );
     

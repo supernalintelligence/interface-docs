@@ -55,7 +55,7 @@ export const StatefulInteractiveWidgets: React.FC<StatefulInteractiveWidgetsProp
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
-    const manager = StateManager.getInstance(StateManagers.SupernalCoreV1, localStorageAdapter);
+    const manager = StateManager.getInstance(StateManagers.CoreV1, localStorageAdapter);
     setStateManager(manager);
     
     // Initialize state if not present
