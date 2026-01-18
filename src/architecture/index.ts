@@ -43,6 +43,7 @@ export { Components, ComponentNames } from './DemoComponentNames';
  */
 const navToContainerMap: Record<string, string> = {
   home: 'Landing',
+  landing: 'Landing',
   demo: 'Demo',
   dashboard: 'Dashboard',
   docs: 'Docs',

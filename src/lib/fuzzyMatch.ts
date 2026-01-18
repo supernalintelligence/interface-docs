@@ -25,7 +25,14 @@ export function scoreToolMatch(query: string, tool: ToolMetadata): number {
   if (tool.examples && Array.isArray(tool.examples)) {
     for (const example of tool.examples) {
       if (example && typeof example === 'string') {
-        const exampleLower = example.toLowerCase();
+        const exampleLower = example
+          .replace(/\{[^}]+\}/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+        if (!exampleLower) {
+          continue;
+        }
         const queryWords = lowerQuery.split(/\s+/);
         const exampleWords = exampleLower.split(/\s+/);
         
@@ -117,8 +124,6 @@ export function generateMatchResponse(query: string, match: FuzzyMatchResult): s
     return `Best match: ${toolName} (${confidence}% confident). If this isn't right, try being more specific.`;
   }
 }
-
-
 
 
 

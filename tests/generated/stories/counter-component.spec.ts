@@ -8,9 +8,9 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Examples, Chat, Counter, Demo, Blog } from '../../../src/architecture/DemoComponentNames';
-import { setComponentState, getComponentState, initializeTestState, setChatState } from '@supernal/interface/testing';
-import { ExamplesData, DemoData } from '../../../src/architecture/DemoComponentData';
+import { Counter } from '@/architecture/ComponentNames';
+import { Routes } from '@/architecture/Routes';
+import { initializeTestState } from '@supernal/interface/testing';
 
 test.describe('Counter Component', () => {
   test.setTimeout(30000);
@@ -21,9 +21,9 @@ test.describe('Counter Component', () => {
   });
 
   test('Starting from zero', async ({ page }) => {
-    // Execution order: Starting from zero-95 → Starting from zero-96 → Starting from zero-97 → Starting from zero-98
-    // Given I am on the examples page
-    await page.goto('/examples');
+    // Execution order: Starting from zero-0 → Starting from zero-1 → Starting from zero-2 → Starting from zero-3
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -38,9 +38,9 @@ test.describe('Counter Component', () => {
   });
 
   test('Incrementing multiple times', async ({ page }) => {
-    // Execution order: Incrementing multiple times-99 → Incrementing multiple times-100 → Incrementing multiple times-101 → Incrementing multiple times-102 → Incrementing multiple times-103 → Incrementing multiple times-104
-    // Given I am on the examples page
-    await page.goto('/examples');
+    // Execution order: Incrementing multiple times-4 → Incrementing multiple times-5 → Incrementing multiple times-6 → Incrementing multiple times-7 → Incrementing multiple times-8 → Incrementing multiple times-9
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -61,9 +61,9 @@ test.describe('Counter Component', () => {
   });
 
   test('Decrementing after incrementing', async ({ page }) => {
-    // Execution order: Decrementing after incrementing-105 → Decrementing after incrementing-106 → Decrementing after incrementing-107 → Decrementing after incrementing-108 → Decrementing after incrementing-109 → Decrementing after incrementing-110
-    // Given I am on the examples page
-    await page.goto('/examples');
+    // Execution order: Decrementing after incrementing-10 → Decrementing after incrementing-11 → Decrementing after incrementing-12 → Decrementing after incrementing-13 → Decrementing after incrementing-14 → Decrementing after incrementing-15
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -84,9 +84,9 @@ test.describe('Counter Component', () => {
   });
 
   test('Reset to zero', async ({ page }) => {
-    // Execution order: Reset to zero-111 → Reset to zero-112 → Reset to zero-113 → Reset to zero-114 → Reset to zero-115 → Reset to zero-116 → Reset to zero-117
-    // Given I am on the examples page
-    await page.goto('/examples');
+    // Execution order: Reset to zero-16 → Reset to zero-17 → Reset to zero-18 → Reset to zero-19 → Reset to zero-20 → Reset to zero-21 → Reset to zero-22
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -110,9 +110,9 @@ test.describe('Counter Component', () => {
   });
 
   test('Increment and decrement combination', async ({ page }) => {
-    // Execution order: Increment and decrement combination-118 → Increment and decrement combination-119 → Increment and decrement combination-120 → Increment and decrement combination-121 → Increment and decrement combination-122 → Increment and decrement combination-123 → Increment and decrement combination-124 → Increment and decrement combination-125 → Increment and decrement combination-126 → Increment and decrement combination-127
-    // Given I am on the examples page
-    await page.goto('/examples');
+    // Execution order: Increment and decrement combination-23 → Increment and decrement combination-24 → Increment and decrement combination-25 → Increment and decrement combination-26 → Increment and decrement combination-27 → Increment and decrement combination-28 → Increment and decrement combination-29 → Increment and decrement combination-30 → Increment and decrement combination-31 → Increment and decrement combination-32
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible

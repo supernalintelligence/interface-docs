@@ -104,7 +104,7 @@ export default function StatefulDemoPage() {
     addMessage(text, 'user');
     
     try {
-      const command = await aiInterface.findToolsForCommand(text);
+      const command = aiInterface.findToolsForCommand(text);
       await aiInterface.executeCommand(command, true);
       // Result message already added by ToolManager subscription
     } catch (error) {
@@ -115,7 +115,7 @@ export default function StatefulDemoPage() {
   const handleExecuteTool = async (tool: ToolInfo) => {
     try {
       const query = tool.examples?.[0] || tool.name;
-      const command = await aiInterface.findToolsForCommand(query);
+      const command = aiInterface.findToolsForCommand(query);
       await aiInterface.executeCommand(command, true);
       // Success message will be added via ToolManager.subscribe()
     } catch (error) {

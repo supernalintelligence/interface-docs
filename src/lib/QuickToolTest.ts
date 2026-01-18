@@ -49,7 +49,7 @@ export class QuickToolTest {
       onProgress?.(i + 1, tests.length, test.name);
       
       try {
-        const command = this.aiInterface.findToolsForCommand(test.query);
+        const command = await this.aiInterface.findToolsForCommand(test.query);
         const response = await this.aiInterface.executeCommand(command, true);
         
         const testPassed = response.success === test.expectedSuccess;

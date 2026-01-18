@@ -85,13 +85,36 @@ function GlobalChatWrapper() {
     console.log(`⏱️ [handleUserMessage] Start: ${text}`)
 
     try {
-      const result = await aiInterface.findAndExecuteCommand(text, router.pathname)
+      // Map pathname to container ID (same logic as AIInterface.getCurrentContainer)
+      const pathname = router.pathname
+      let currentContainer: string | undefined
+
+      if (pathname.includes('/demo/simple')) {
+        currentContainer = 'DemoSimple'
+      } else if (pathname.includes('/demo/stateful')) {
+        currentContainer = 'DemoStateful'
+      } else if (pathname.includes('/examples')) {
+        currentContainer = 'Examples'
+      } else if (pathname.includes('/dashboard')) {
+        currentContainer = 'Dashboard'
+      } else if (pathname.includes('/blog')) {
+        currentContainer = 'Blog'
+      } else if (pathname.includes('/architecture')) {
+        currentContainer = 'Architecture'
+      } else if (pathname === '/' || pathname.includes('/index')) {
+        currentContainer = 'Landing'
+      }
+
+      console.log(`📍 [_app] Current container: ${currentContainer} (path: ${pathname})`)
+
+      const result = await aiInterface.findAndExecuteCommand(text, currentContainer)
 
       const endTime = performance.now()
       console.log(`⏱️ [handleUserMessage] Completed in ${Math.round(endTime - startTime)}ms`)
 
-      if (!result.success) {
-        addMessage(result.message, 'system')
+      // Show message for both success and failure
+      if (result.message) {
+        addMessage(result.message, result.success ? 'ai' : 'system')
       }
     } catch (error) {
       const endTime = performance.now()

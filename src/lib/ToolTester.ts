@@ -258,7 +258,7 @@ export class ToolTester {
    */
   async runSingleTest(testCase: ToolTestCase): Promise<ToolTestResult> {
     try {
-      const command = this.aiInterface.findToolsForCommand(testCase.query);
+      const command = await this.aiInterface.findToolsForCommand(testCase.query);
       const response = await this.aiInterface.executeCommand(command, true);
       
       // Check if the result matches expectations

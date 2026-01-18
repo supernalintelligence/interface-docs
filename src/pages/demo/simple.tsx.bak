@@ -1,15 +1,15 @@
 /**
- * Stateful Demo Route - /demo/stateful
+ * Simple Demo Route - /demo/simple
  * 
- * Stateful pattern with StateManager + localStorage
+ * Stateless pattern with HOC and callbacks
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { DemoLayout } from '../../components/DemoLayout';
 import { ChatBubble } from '../../components/chat/ChatBubble';
 import { ToolList } from '../../components/ToolList';
-import { StatefulInteractiveWidgets } from '../../components/StatefulInteractiveWidgets';
+import { InteractiveWidgets } from '../../components/InteractiveWidgets';
 import { DemoAIInterface } from '../../lib/AIInterface';
 import { ToolManager } from '../../lib/ToolManager';
 import { ToolRegistry, NavigationGraph, useContainer } from "@supernal/interface/browser";
@@ -25,21 +25,13 @@ interface ToolInfo {
   examples?: string[];
 }
 import { useSharedChat } from '../../hooks/useSharedChat';
-import { DemoWidgetTools } from '../../lib/DemoWidgetProvider';
+import { NAVIGATION_TOOL_PREFIX } from '../../lib/constants';
 
 // Import widgets to register tools (architecture auto-initializes when imported above)
 import '../../lib/UIWidgetComponents';
 
-export default function StatefulDemoPage() {
-  useContainer(DemoContainers.DemoStateful.id);
-  
-  // Instantiate DemoWidgetTools
-  const demoTools = useMemo(() => new DemoWidgetTools(), []);
-  
-  // Bind instance after mount (client-side only)
-  useEffect(() => {
-    ToolRegistry.bindInstance(demoTools);
-  }, [demoTools]);
+export default function SimpleDemoPage() {
+  useContainer(DemoContainers.DemoSimple.id);
   
   const router = useRouter();
   const { messages, addMessage, clearMessages } = useSharedChat();
@@ -79,7 +71,7 @@ export default function StatefulDemoPage() {
   // Get tools
   useEffect(() => {
     const tools = Array.from(ToolRegistry.getAllTools().values())
-      .filter(t => t.aiEnabled && t.containerId === 'DemoStateful')
+      .filter(t => t.aiEnabled && (t.containerId === 'DemoSimple' || !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX)))
       .sort((a, b) => {
         const order: Record<string, number> = {
           'Open Menu': 1,
@@ -104,9 +96,12 @@ export default function StatefulDemoPage() {
     addMessage(text, 'user');
     
     try {
-      const command = await aiInterface.findToolsForCommand(text);
-      await aiInterface.executeCommand(command, true);
-      // Result message already added by ToolManager subscription
+      const result = await aiInterface.findAndExecuteCommand(text, 'DemoSimple');
+      
+      if (!result.success) {
+        addMessage(result.message, 'system');
+      }
+      // Success message already added by ToolManager subscription
     } catch (error) {
       addMessage(`Error: ${error instanceof Error ? error.message : String(error)}`, 'ai');
     }
@@ -115,7 +110,7 @@ export default function StatefulDemoPage() {
   const handleExecuteTool = async (tool: ToolInfo) => {
     try {
       const query = tool.examples?.[0] || tool.name;
-      const command = await aiInterface.findToolsForCommand(query);
+      const command = aiInterface.findToolsForCommand(query);
       await aiInterface.executeCommand(command, true);
       // Success message will be added via ToolManager.subscribe()
     } catch (error) {
@@ -129,28 +124,28 @@ export default function StatefulDemoPage() {
 
   return (
     <DemoLayout
-      title="Stateful Demo"
-      activeTab="stateful"
+      title="Simple Demo"
+      activeTab="simple"
       description={
-        <div className="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
-          <h3 className="font-semibold text-purple-900 mb-2">💾 Advanced Pattern</h3>
-          <p className="text-sm text-purple-800">
-            Uses the same widgets as Simple demo, but demonstrates how StateManager COULD persist state.
-            Currently shares state with Simple demo (no persistence yet).
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+          <h3 className="font-semibold text-blue-900 mb-2">📋 Simple Pattern</h3>
+          <p className="text-sm text-blue-800">
+            Uses Higher-Order Components (HOCs) with callbacks. State is managed in memory and does NOT persist across page refreshes.
+            Perfect for temporary interactions.
           </p>
         </div>
       }
     >
-      {/* Widgets - Advanced Components */}
-      <StatefulInteractiveWidgets onWidgetInteraction={handleWidgetInteraction} />
+      {/* Widgets */}
+      <InteractiveWidgets onWidgetInteraction={handleWidgetInteraction} />
 
       {/* AI Tools */}
       <ToolList
         tools={availableTools}
         title="🤖 AI TOOLS"
-        subtitle="Click to see AI control via StateManager (with persistence)"
+        subtitle="Click to see AI control widgets above (no persistence)"
         onExecuteTool={handleExecuteTool}
-        color="purple"
+        color="blue"
       />
       {/* Chat is now global in _app.tsx */}
     </DemoLayout>

@@ -4,8 +4,8 @@ Feature: Chat Component
   So that I can communicate effectively
 
   Background:
-    Given I am on the demo page
-    And Components.Chat.bubble is visible
+    Given I am on Routes.Demo
+    Given Components.Chat.bubble is visible
 
   Scenario: Starting with empty chat
     Given chat state is Components.Examples.chat.state.empty

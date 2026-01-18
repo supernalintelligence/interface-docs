@@ -8,9 +8,9 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Examples, Chat, Counter, Demo, Blog } from '../../../src/architecture/DemoComponentNames';
-import { setComponentState, getComponentState, initializeTestState, setChatState } from '@supernal/interface/testing';
-import { ExamplesData, DemoData } from '../../../src/architecture/DemoComponentData';
+import { Chat, Counter } from '@/architecture/ComponentNames';
+import { Routes } from '@/architecture/Routes';
+import { initializeTestState } from '@supernal/interface/testing';
 
 test.describe('Story Flow Demonstration', () => {
   test.setTimeout(30000);
@@ -21,150 +21,99 @@ test.describe('Story Flow Demonstration', () => {
   });
 
   test('Complete user journey through chat and counter', async ({ page }) => {
-    // Execution order: Complete user journey through chat and counter-0 → Complete user journey through chat and counter-1 → Complete user journey through chat and counter-2 → Complete user journey through chat and counter-3 → Complete user journey through chat and counter-4 → Complete user journey through chat and counter-5 → Complete user journey through chat and counter-6 → Complete user journey through chat and counter-7 → Complete user journey through chat and counter-8 → Complete user journey through chat and counter-9 → Complete user journey through chat and counter-10 → Complete user journey through chat and counter-11 → Complete user journey through chat and counter-12 → Complete user journey through chat and counter-13 → Complete user journey through chat and counter-14 → Complete user journey through chat and counter-15 → Complete user journey through chat and counter-16 → Complete user journey through chat and counter-17
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Complete user journey through chat and counter-0 → Complete user journey through chat and counter-1 → Complete user journey through chat and counter-2 → Complete user journey through chat and counter-3 → Complete user journey through chat and counter-4 → Complete user journey through chat and counter-5 → Complete user journey through chat and counter-6 → Complete user journey through chat and counter-7 → Complete user journey through chat and counter-8 → Complete user journey through chat and counter-9 → Complete user journey through chat and counter-10
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
-    // And the page has loaded completely
-    // TODO: Implement Given step: the page has loaded completely
+    // Given Components.Counter.widget is visible
+    await page.locator(testId(Counter.widget)).first().waitFor({ state: 'visible' });
 
-    // And all components are initialized
-    // TODO: Implement When step: all components are initialized
+    // And Components.Chat.bubble is visible
+    await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
-    // Given I am on the demo page
-    await page.goto('/demo');
-    await initializeTestState(page);
+    // When I click Components.Chat.bubble
+    await page.locator(testId(Chat.bubble)).first().click();
 
-    // When I open the main menu using Components.demo.openMainMenu
-    // TODO: Implement When step: I open the main menu using Components.demo.openMainMenu
-
-    // Then the menu should be visible
-    await expect(page.locator('[data-testid="element"]')).toBeVisible();
-
-    // When I navigate to the chat demo using Components.demo.navigateToChat
-    await page.goto('/');
-    await initializeTestState(page);
-
-    // Then I should see the chat component
-    // TODO: Implement Then step: I should see the chat component
-
-    // When I type "Hello, I'm testing the story flow" in Components.chat.input
+    // And I type "Hello, I'm testing the story flow" in Components.Chat.input
     await page.locator(testId(Chat.input)).fill('Hello, I\'m testing the story flow');
 
-    // And I click Components.chat.sendButton
+    // And I click Components.Chat.sendButton
     await page.locator(testId(Chat.sendButton)).first().click();
 
-    // Then the message should appear in Components.chat.messageList
-    // TODO: Implement Then step: the message should appear in Components.chat.messageList
+    // Then Components.Chat.messages should contain 1 message
+    // Verify Components.Chat.messages contains 1 user/ai chat message(s)
+    await expect(page.locator(testId(Chat.messages)).locator('[data-testid="chat-message-user"], [data-testid="chat-message-ai"]')).toHaveCount(1);
 
-    // When I navigate to the counter demo using Components.demo.navigateToCounter
-    await page.goto('/');
-    await initializeTestState(page);
-
-    // Then I should see the counter component
-    // TODO: Implement Then step: I should see the counter component
-
-    // When I click Components.counter.increment 3 times
+    // When I click Components.Counter.increment 3 times
     for (let i = 0; i < 3; i++) {
       await page.locator(testId(Counter.increment)).first().click();
     }
 
-    // Then the counter should display "3"
-    await expect(page.locator('[data-testid="3"]')).toHaveText('3');
+    // Then Components.Counter.widget should contain "3"
+    await expect(page.locator(testId(Counter.widget)).first()).toContainText('3');
 
-    // When I click Components.counter.reset
+    // When I click Components.Counter.reset
     await page.locator(testId(Counter.reset)).first().click();
 
-    // Then the counter should display "0"
-    await expect(page.locator('[data-testid="0"]')).toHaveText('0');
-
-    // And the story flow demonstration is complete
-    // TODO: Implement When step: the story flow demonstration is complete
+    // Then Components.Counter.widget should contain "0"
+    await expect(page.locator(testId(Counter.widget)).first()).toContainText('0');
 
   });
 
-  test('AI command execution flow', async ({ page }) => {
-    // Execution order: AI command execution flow-18 → AI command execution flow-19 → AI command execution flow-20 → AI command execution flow-21 → AI command execution flow-22 → AI command execution flow-23 → AI command execution flow-24 → AI command execution flow-25 → AI command execution flow-26 → AI command execution flow-27 → AI command execution flow-28 → AI command execution flow-29
-    // Given I am on the demo page
-    await page.goto('/demo');
+  test('Multiple counter increments', async ({ page }) => {
+    // Execution order: Multiple counter increments-11 → Multiple counter increments-12 → Multiple counter increments-13 → Multiple counter increments-14 → Multiple counter increments-15 → Multiple counter increments-16
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
-    // And the page has loaded completely
-    // TODO: Implement Given step: the page has loaded completely
+    // Given Components.Counter.widget is visible
+    await page.locator(testId(Counter.widget)).first().waitFor({ state: 'visible' });
 
-    // And all components are initialized
-    // TODO: Implement When step: all components are initialized
+    // When I click Components.Counter.increment
+    await page.locator(testId(Counter.increment)).first().click();
 
-    // Given I am on the demo page
-    await page.goto('/demo');
-    await initializeTestState(page);
+    // And I click Components.Counter.increment
+    await page.locator(testId(Counter.increment)).first().click();
 
-    // And the chat component is visible
-    await page.locator('[data-testid="unknown"]').first().waitFor({ state: 'visible' });
+    // And I click Components.Counter.increment
+    await page.locator(testId(Counter.increment)).first().click();
 
-    // When I type "open menu" in Components.chat.input
-    await page.locator(testId(Chat.input)).fill('open menu');
-
-    // And I click Components.chat.sendButton
-    await page.locator(testId(Chat.sendButton)).first().click();
-
-    // Then the menu should open via AI command
-    // TODO: Implement Then step: the menu should open via AI command
-
-    // When I type "increment counter" in Components.chat.input
-    await page.locator(testId(Chat.input)).fill('increment counter');
-
-    // And I click Components.chat.sendButton
-    await page.locator(testId(Chat.sendButton)).first().click();
-
-    // Then the counter should increment via AI command
-    // TODO: Implement Then step: the counter should increment via AI command
-
-    // And the AI command flow is demonstrated
-    // TODO: Implement When step: the AI command flow is demonstrated
+    // Then Components.Counter.widget should contain "3"
+    await expect(page.locator(testId(Counter.widget)).first()).toContainText('3');
 
   });
 
-  test('Multi-component interaction flow', async ({ page }) => {
-    // Execution order: Multi-component interaction flow-30 → Multi-component interaction flow-31 → Multi-component interaction flow-32 → Multi-component interaction flow-33 → Multi-component interaction flow-34 → Multi-component interaction flow-35 → Multi-component interaction flow-36 → Multi-component interaction flow-37 → Multi-component interaction flow-38 → Multi-component interaction flow-39 → Multi-component interaction flow-40 → Multi-component interaction flow-41
-    // Given I am on the demo page
-    await page.goto('/demo');
+  test('Chat and counter together', async ({ page }) => {
+    // Execution order: Chat and counter together-17 → Chat and counter together-18 → Chat and counter together-19 → Chat and counter together-20 → Chat and counter together-21 → Chat and counter together-22 → Chat and counter together-23 → Chat and counter together-24 → Chat and counter together-25
+    // Given I am on Routes.Examples
+    await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
 
-    // And the page has loaded completely
-    // TODO: Implement Given step: the page has loaded completely
+    // Given Components.Chat.bubble is visible
+    await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
-    // And all components are initialized
-    // TODO: Implement When step: all components are initialized
+    // And Components.Counter.widget is visible
+    await page.locator(testId(Counter.widget)).first().waitFor({ state: 'visible' });
 
-    // Given I am on the demo page
-    await page.goto('/demo');
-    await initializeTestState(page);
+    // When I click Components.Chat.bubble
+    await page.locator(testId(Chat.bubble)).first().click();
 
-    // When I interact with Components.demo.openMainMenu
-    // TODO: Implement When step: I interact with Components.demo.openMainMenu
+    // And I type "Testing multi-component" in Components.Chat.input
+    await page.locator(testId(Chat.input)).fill('Testing multi-component');
 
-    // Then Components.demo.mainMenu should be visible
-    await expect(page.locator(testId(Demo.mainMenu))).toBeVisible();
+    // And I click Components.Chat.sendButton
+    await page.locator(testId(Chat.sendButton)).first().click();
 
-    // When I interact with Components.chat.input
-    // TODO: Implement When step: I interact with Components.chat.input
+    // Then Components.Chat.messages should contain 1 message
+    // Verify Components.Chat.messages contains 1 user/ai chat message(s)
+    await expect(page.locator(testId(Chat.messages)).locator('[data-testid="chat-message-user"], [data-testid="chat-message-ai"]')).toHaveCount(1);
 
-    // And I send a message via Components.chat.sendButton
-    await page.locator('${testId(chat.sendButton)}').fill('');
+    // When I click Components.Counter.increment
+    await page.locator(testId(Counter.increment)).first().click();
 
-    // Then Components.chat.messageList should contain the message
-    await expect(page.locator(testId(Chat.messageList))).not.toBeEmpty();
-
-    // When I interact with Components.counter.increment
-    // TODO: Implement When step: I interact with Components.counter.increment
-
-    // Then Components.counter.display should update
-    await expect(page.locator('${testId(counter.display)}')).toHaveText('');
-
-    // And all components work together seamlessly
-    // TODO: Implement When step: all components work together seamlessly
+    // Then Components.Counter.widget should contain "1"
+    await expect(page.locator(testId(Counter.widget)).first()).toContainText('1');
 
   });
 

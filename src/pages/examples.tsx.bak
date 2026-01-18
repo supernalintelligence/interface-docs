@@ -45,7 +45,7 @@ export default function ExamplesRoute() {
     addMessage(text, 'user');
     
     try {
-      const command = await aiInterface.findToolsForCommand(text);
+      const command = aiInterface.findToolsForCommand(text);
       await aiInterface.executeCommand(command, true);
     } catch (error) {
       addMessage(`Error: ${error instanceof Error ? error.message : String(error)}`, 'ai');

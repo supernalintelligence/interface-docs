@@ -57,3 +57,5 @@ env.example
 mcp-debug.log
 
 /playwright-report/
+
+archive/

@@ -8,9 +8,10 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Examples, Chat, Counter, Demo, Blog } from '../../../src/architecture/DemoComponentNames';
-import { setComponentState, getComponentState, initializeTestState, setChatState } from '@supernal/interface/testing';
-import { ExamplesData, DemoData } from '../../../src/architecture/DemoComponentData';
+import { Chat, Examples } from '@/architecture/ComponentNames';
+import { Routes } from '@/architecture/Routes';
+import { setComponentState, getComponentState, initializeTestState } from '@supernal/interface/testing';
+import { ComponentData } from '@/architecture/ComponentData';
 
 test.describe('Chat Component', () => {
   test.setTimeout(30000);
@@ -21,16 +22,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Starting with empty chat', async ({ page }) => {
-    // Execution order: Starting with empty chat-128 → Starting with empty chat-129 → Starting with empty chat-130 → Starting with empty chat-131 → Starting with empty chat-132
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Starting with empty chat-0 → Starting with empty chat-1 → Starting with empty chat-2 → Starting with empty chat-3 → Starting with empty chat-4
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.empty
-    await setChatState(page, ExamplesData.chat.state.empty);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.empty);
 
     // Then Components.Chat.messages should be empty
     // Verify no user/ai chat messages exist (system messages may be present)
@@ -42,16 +43,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Sending a single message', async ({ page }) => {
-    // Execution order: Sending a single message-133 → Sending a single message-134 → Sending a single message-135 → Sending a single message-136 → Sending a single message-137 → Sending a single message-138 → Sending a single message-139
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Sending a single message-5 → Sending a single message-6 → Sending a single message-7 → Sending a single message-8 → Sending a single message-9 → Sending a single message-10 → Sending a single message-11
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.empty
-    await setChatState(page, ExamplesData.chat.state.empty);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.empty);
 
     // When I type "Hello, World!" in Components.Chat.input
     await page.locator(testId(Chat.input)).fill('Hello, World!');
@@ -70,16 +71,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Viewing existing conversation', async ({ page }) => {
-    // Execution order: Viewing existing conversation-140 → Viewing existing conversation-141 → Viewing existing conversation-142 → Viewing existing conversation-143
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Viewing existing conversation-12 → Viewing existing conversation-13 → Viewing existing conversation-14 → Viewing existing conversation-15
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.withMessages
-    await setChatState(page, ExamplesData.chat.state.withMessages);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.withMessages);
 
     // Then Components.Chat.messages should contain 2 messages
     // Verify Components.Chat.messages contains 2 user/ai chat message(s)
@@ -88,16 +89,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Adding to existing conversation', async ({ page }) => {
-    // Execution order: Adding to existing conversation-144 → Adding to existing conversation-145 → Adding to existing conversation-146 → Adding to existing conversation-147 → Adding to existing conversation-148 → Adding to existing conversation-149
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Adding to existing conversation-16 → Adding to existing conversation-17 → Adding to existing conversation-18 → Adding to existing conversation-19 → Adding to existing conversation-20 → Adding to existing conversation-21
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.single
-    await setChatState(page, ExamplesData.chat.state.single);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.single);
 
     // When I type "How are you?" in Components.Chat.input
     await page.locator(testId(Chat.input)).fill('How are you?');
@@ -112,16 +113,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Clearing all messages', async ({ page }) => {
-    // Execution order: Clearing all messages-150 → Clearing all messages-151 → Clearing all messages-152 → Clearing all messages-153 → Clearing all messages-154 → Clearing all messages-155
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Clearing all messages-22 → Clearing all messages-23 → Clearing all messages-24 → Clearing all messages-25 → Clearing all messages-26 → Clearing all messages-27
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.withMessages
-    await setChatState(page, ExamplesData.chat.state.withMessages);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.withMessages);
 
     // When I click Components.Chat.clearButton
     await page.locator(testId(Chat.clearButton)).first().click();
@@ -138,16 +139,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Multiple messages in sequence', async ({ page }) => {
-    // Execution order: Multiple messages in sequence-156 → Multiple messages in sequence-157 → Multiple messages in sequence-158 → Multiple messages in sequence-159 → Multiple messages in sequence-160 → Multiple messages in sequence-161 → Multiple messages in sequence-162 → Multiple messages in sequence-163 → Multiple messages in sequence-164 → Multiple messages in sequence-165
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Multiple messages in sequence-28 → Multiple messages in sequence-29 → Multiple messages in sequence-30 → Multiple messages in sequence-31 → Multiple messages in sequence-32 → Multiple messages in sequence-33 → Multiple messages in sequence-34 → Multiple messages in sequence-35 → Multiple messages in sequence-36 → Multiple messages in sequence-37
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.empty
-    await setChatState(page, ExamplesData.chat.state.empty);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.empty);
 
     // When I type "Hello" in Components.Chat.input
     await page.locator(testId(Chat.input)).fill('Hello');
@@ -174,16 +175,16 @@ test.describe('Chat Component', () => {
   });
 
   test('Message persistence across actions', async ({ page }) => {
-    // Execution order: Message persistence across actions-166 → Message persistence across actions-167 → Message persistence across actions-168 → Message persistence across actions-169 → Message persistence across actions-170 → Message persistence across actions-171
-    // Given I am on the demo page
-    await page.goto('/demo');
+    // Execution order: Message persistence across actions-38 → Message persistence across actions-39 → Message persistence across actions-40 → Message persistence across actions-41 → Message persistence across actions-42 → Message persistence across actions-43
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
-    // And Components.Chat.bubble is visible
+    // Given Components.Chat.bubble is visible
     await page.locator(testId(Chat.bubble)).first().waitFor({ state: 'visible' });
 
     // Given chat state is Components.Examples.chat.state.single
-    await setChatState(page, ExamplesData.chat.state.single);
+    await setComponentState(page, 'chat', ComponentData.Examples.chat.state.single);
 
     // When I refresh the page
     await page.reload();

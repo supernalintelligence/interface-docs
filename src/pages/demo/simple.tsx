@@ -110,7 +110,7 @@ export default function SimpleDemoPage() {
   const handleExecuteTool = async (tool: ToolInfo) => {
     try {
       const query = tool.examples?.[0] || tool.name;
-      const command = aiInterface.findToolsForCommand(query);
+      const command = await aiInterface.findToolsForCommand(query);
       await aiInterface.executeCommand(command, true);
       // Success message will be added via ToolManager.subscribe()
     } catch (error) {
