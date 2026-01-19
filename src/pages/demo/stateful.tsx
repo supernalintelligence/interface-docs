@@ -1,58 +1,75 @@
 /**
  * Stateful Demo Route - /demo/stateful
  *
- * Stateful pattern with @State decorator and localStorage persistence
+ * State persisted in localStorage using ComponentState helpers
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DemoLayout } from '../../components/DemoLayout';
+import { ToolList } from '../../components/ToolList';
+import { InteractiveWidgets } from '../../components/InteractiveWidgets';
+import { ToolRegistry, useContainer } from '@supernal/interface/browser';
 import { DemoContainers } from '../../architecture';
-import { useContainer } from '@supernal/interface/browser';
+
+// ToolInfo type expected by ToolList component
+interface ToolInfo {
+  name: string;
+  elementId?: string;
+  testId?: string;
+  dangerLevel?: string;
+  description?: string;
+  examples?: string[];
+}
+import { NAVIGATION_TOOL_PREFIX } from '../../lib/constants';
 
 // Import widgets to register tools
 import '../../lib/UIWidgetComponents';
 
 export default function StatefulDemoPage() {
-  // Set container context for tool filtering
   useContainer(DemoContainers.DemoStateful.id);
+
+  const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
+
+  // Get tools
+  useEffect(() => {
+    const tools = Array.from(ToolRegistry.getAllTools().values())
+      .filter(t => t.aiEnabled && (t.containerId === 'DemoStateful' || !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX)))
+      .sort((a, b) => {
+        const order: Record<string, number> = {
+          'Open Menu': 1,
+          'Close Menu': 2,
+          'Toggle Feature': 3,
+          'Toggle Notifications': 4,
+        };
+        return (order[a.name] || 999) - (order[b.name] || 999);
+      });
+    setAvailableTools(tools);
+  }, []);
 
   return (
     <DemoLayout
-      title="Stateful Demo - Persistent Widgets"
-      description="Interactive widgets with @State decorator and localStorage persistence"
+      title="Stateful Demo"
+      activeTab="stateful"
+      description={
+        <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+          <h3 className="font-semibold text-green-900 mb-2">💾 Stateful Pattern</h3>
+          <p className="text-sm text-green-800">
+            Uses ComponentState helpers for persistence. State PERSISTS across page refreshes via localStorage.
+            Perfect for user preferences and settings.
+          </p>
+        </div>
+      }
     >
-      <div className="space-y-6">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4">Stateful Widgets</h2>
-          <p className="text-gray-600 mb-4">
-            These widgets persist their state using localStorage. Try:
-          </p>
-          <ul className="list-disc list-inside text-gray-600 space-y-1">
-            <li>"show settings" or "hide settings"</li>
-            <li>"enable dark mode"</li>
-            <li>"set counter to 10"</li>
-          </ul>
-          <p className="text-sm text-gray-500 mt-4">
-            💾 State persists across page refreshes!
-          </p>
-        </div>
+      {/* Widgets */}
+      <InteractiveWidgets />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Widgets will be rendered here by the InteractiveWidgets component */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="font-semibold mb-2">Settings Widget</h3>
-            <div id="settings-widget">
-              {/* Settings widget placeholder */}
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="font-semibold mb-2">Persistent Counter</h3>
-            <div id="counter-widget">
-              {/* Counter widget placeholder */}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* AI Tools */}
+      <ToolList
+        tools={availableTools}
+        title="🤖 AI TOOLS"
+        subtitle="Click to see AI control widgets above (with persistence)"
+        color="green"
+      />
+      {/* Chat is now global in _app.tsx */}
     </DemoLayout>
   );
 }
