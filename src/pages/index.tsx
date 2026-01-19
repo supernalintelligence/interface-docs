@@ -125,14 +125,14 @@ export default function HeroPage() {
                 Enable <strong>agentic experiences</strong> for your users.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
-                  onClick={() => window.location.href = '/docs')}
+                <button
+                  onClick={() => window.location.href = '/docs'}
                   className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all notch-md"
                 >
                   Get Started →
                 </button>
                 <button 
-                  onClick={() => window.location.href = '/demo/simple')}
+                  onClick={() => window.location.href = '/demo/simple'}
                   className="px-8 py-4 bg-white text-gray-900 font-semibold text-lg border-2 border-gray-200 hover:border-blue-600 hover:shadow-lg transform hover:scale-105 transition-all notch-md"
                 >
                   View Demo
@@ -476,13 +476,13 @@ await executor.executeGraph(graph);
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
-                onClick={() => window.location.href = '/docs')}
+                onClick={() => window.location.href = '/docs'}
                 className="px-8 py-4 bg-white text-blue-600 font-semibold text-lg hover:shadow-2xl transform hover:scale-105 transition-all notch-md"
               >
                 Read Documentation →
               </button>
               <button 
-                onClick={() => window.location.href = '/demo/simple')}
+                onClick={() => window.location.href = '/demo/simple'}
                 className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold text-lg hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all notch-md"
               >
                 Try Live Demo
@@ -504,10 +504,10 @@ await executor.executeGraph(graph);
               <div>
                 <h3 className="text-white font-bold mb-4">Product</h3>
                 <ul className="space-y-2">
-                  <li><button onClick={() => window.location.href = '/docs')} className="hover:text-white">Documentation</button></li>
-                  <li><button onClick={() => window.location.href = '/demo/simple')} className="hover:text-white">Demo</button></li>
-                  <li><button onClick={() => window.location.href = '/examples')} className="hover:text-white">Examples</button></li>
-                  <li><button onClick={() => window.location.href = '/architecture')} className="hover:text-white">Architecture</button></li>
+                  <li><button onClick={() => window.location.href = '/docs'} className="hover:text-white">Documentation</button></li>
+                  <li><button onClick={() => window.location.href = '/demo/simple'} className="hover:text-white">Demo</button></li>
+                  <li><button onClick={() => window.location.href = '/examples'} className="hover:text-white">Examples</button></li>
+                  <li><button onClick={() => window.location.href = '/architecture'} className="hover:text-white">Architecture</button></li>
                 </ul>
               </div>
               <div>
@@ -515,7 +515,7 @@ await executor.executeGraph(graph);
                 <ul className="space-y-2">
                   <li><a href="https://github.com/supernalintelligence/interface" className="hover:text-white">GitHub</a></li>
                   <li><a href="https://www.npmjs.com/package/@supernal-interface/core" className="hover:text-white">npm Package</a></li>
-                  <li><button onClick={() => window.location.href = '/docs')} className="hover:text-white">API Reference</button></li>
+                  <li><button onClick={() => window.location.href = '/docs'} className="hover:text-white">API Reference</button></li>
                   <li><a href="https://github.com/supernalintelligence/interface/releases" className="hover:text-white">Changelog</a></li>
                 </ul>
               </div>
@@ -524,7 +524,7 @@ await executor.executeGraph(graph);
                 <ul className="space-y-2">
                   <li><a href="#" className="hover:text-white">Discord</a></li>
                   <li><a href="#" className="hover:text-white">Twitter</a></li>
-                  <li><button onClick={() => window.location.href = '/blog')} className="hover:text-white">Blog</button></li>
+                  <li><button onClick={() => window.location.href = '/blog'} className="hover:text-white">Blog</button></li>
                   <li><a href="https://github.com/supernalintelligence/interface/graphs/contributors" className="hover:text-white">Contributors</a></li>
                 </ul>
               </div>

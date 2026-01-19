@@ -24,36 +24,6 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
-  
-  // Use shared chat interface
-
-  useEffect(() => {
-    // Set up navigation handler
-    
-    
-    // Subscribe to tool execution results
-    const unsubscribe = ToolManager.subscribe((result) => {
-      const emoji = result.success ? '✅' : '❌';
-      console.log(`${emoji} ${result.message}`);
-    });
-    
-    return unsubscribe;
-  }, [router, addMessage]);
-
-  const handleUserMessage = async (text: string) => {
-    if (!text.trim()) return;
-    console.log(text, 'user');
-    
-    try {
-      const result = await aiInterface.findAndExecuteCommand(text, 'Blog');
-      
-      if (!result.success) {
-        console.log(result.message);
-      }
-    } catch (error) {
-      console.log(`Error: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  };
 
   // Filter posts
   const filteredPosts = posts.filter(post => {
@@ -82,7 +52,7 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="flex items-center mb-6">
               <button
-                onClick={() => window.location.href = '/')}
+                onClick={() => window.location.href = '/'}
                 className="flex items-center text-blue-600 hover:text-blue-700 transition-colors mr-4"
                 data-testid={Blog.backButton}
               >

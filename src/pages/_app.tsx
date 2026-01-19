@@ -63,6 +63,9 @@ function ArchitectureInitializer() {
 export default function App({ Component, pageProps }: AppProps) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
 
+  console.log('[_app] SupernalProvider imported:', SupernalProvider);
+  console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
+
   useEffect(() => {
     // Initialize GTM dataLayer
     if (typeof window !== 'undefined' && gtmId) {
