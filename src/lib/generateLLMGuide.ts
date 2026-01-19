@@ -170,7 +170,7 @@ console.log(ToolRegistry.getAllTools());
 ### 4. AI Interface Usage
 
 \`\`\`typescript
-import { DemoAIInterface } from './AIInterface';
+import { DemoAIInterface } from '@supernal/interface-nextjs';
 
 const aiInterface = new DemoAIInterface();
 

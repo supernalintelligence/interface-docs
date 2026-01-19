@@ -3,6 +3,6 @@
  */
 
 export * from './useExposureCollector';
-export * from './useNavigationGraph';
+// useNavigationGraph moved to @supernal/interface-nextjs
 
 

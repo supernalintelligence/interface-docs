@@ -52,6 +52,7 @@
     "@copilotkit/react-ui": "^1.51.2",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/interface": "file:../open-source",
+    "@supernal/interface-nextjs": "file:../open-source/interface-nextjs",
     "@supernalintelligence/interface-enterprise": "file:../enterprise",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",

@@ -6,7 +6,7 @@
 
 import React, { useState, useRef } from 'react';
 import { useToolExposure } from '../hooks/useExposureCollector';
-import { useRegisterTool, NavigationContextProvider } from '../hooks/useNavigationGraph';
+import { useRegisterTool, NavigationContextProvider } from '@supernal/interface-nextjs';
 import { useFakeAuth } from '../lib/FakeAuth';
 
 export function DashboardTabs() {

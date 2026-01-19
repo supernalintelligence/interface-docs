@@ -7,7 +7,7 @@
 
 import { randomId } from '@copilotkit/shared';
 import { ToolRegistry } from "@supernalintelligence/interface-enterprise";
-import { findBestMatch } from './fuzzyMatch';
+import { findBestMatch } from '@supernal/interface-nextjs';
 
 // Types from CopilotKit (simplified)
 interface CopilotRuntimeRequest {

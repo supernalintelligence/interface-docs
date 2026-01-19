@@ -2,10 +2,12 @@
  * Docs Page Route - /docs
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
+import { NavigationGraph } from "@supernal/interface/browser";
 import { getSections } from '../lib/content';
 import { Doc } from '../lib/content/types';
 
@@ -79,6 +81,7 @@ interface DocsProps {
 }
 
 export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
+  const router = useRouter();
   const [selectedDoc, setSelectedDoc] = useState<Doc | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(firstDocSlug || null);
   const [loading, setLoading] = useState(false);
@@ -109,6 +112,33 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
       handleDocSelect(firstDocSlug);
     }
   }, [firstDocSlug, selectedDoc, handleDocSelect]);
+
+  useEffect(() => {
+    // Set up navigation handler
+    
+    
+    // Subscribe to tool execution results
+    const unsubscribe = ToolManager.subscribe((result) => {
+      const emoji = result.success ? '✅' : '❌';
+      addMessage(`${emoji} ${result.message}`, 'ai');
+    });
+    
+    return unsubscribe;
+  }, [router, addMessage]);
+
+  const handleUserMessage = async (text: string) => {
+    if (!text.trim()) return;
+    addMessage(text, 'user');
+    
+    try {
+      const result = await aiInterface.findAndExecuteCommand(text, 'Docs');
+      if (!result.success) {
+        addMessage(result.message, 'system');
+      }
+    } catch (error) {
+      addMessage(`Error: ${error instanceof Error ? error.message : String(error)}`, 'ai');
+    }
+  };
 
   if (!sections || sections.length === 0) {
     return (

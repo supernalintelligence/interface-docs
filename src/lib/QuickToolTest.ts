@@ -3,7 +3,7 @@
  * Tests the most common tool issues
  */
 
-import { DemoAIInterface } from './AIInterface';
+import { DemoAIInterface } from '@supernal/interface-nextjs';
 
 interface TestResult {
   name: string;

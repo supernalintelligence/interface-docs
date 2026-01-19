@@ -11,7 +11,7 @@
 import { useCopilotAction } from '@copilotkit/react-core';
 import { ToolRegistry, ToolMetadata } from "@supernal/interface/browser";
 import { useEffect, useRef } from 'react';
-import { DemoAIInterface } from '../lib/AIInterface';
+import { DemoAIInterface } from '@supernal/interface-nextjs';
 
 // Singleton AI interface for tool execution
 let aiInterface: DemoAIInterface | null = null;

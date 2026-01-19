@@ -1,11 +1,12 @@
 /**
  * Stories Page - View and Execute Test Stories
- *
+ * 
  * Displays available .feature files and allows live execution
  */
 
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Header } from '../components/Header';
 import { DemoContainers as Containers } from "@/architecture";
 
@@ -25,6 +26,7 @@ interface ScenarioResult {
 }
 
 export default function StoriesPage() {
+  const router = useRouter();
   const [features, setFeatures] = useState<FeatureFile[]>([]);
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [scenarioResults, setScenarioResults] = useState<ScenarioResult[]>([]);
@@ -87,13 +89,19 @@ export default function StoriesPage() {
       ];
       
       setScenarioResults(mockResults);
-      setFeatures(prev => prev.map(f =>
-        f.name === featureName
+      setFeatures(prev => prev.map(f => 
+        f.name === featureName 
           ? { ...f, status: 'passed' }
           : f
       ));
+      
+      const totalDuration = mockResults.reduce((sum, r) => sum + r.duration, 0);
+      addMessage(
+        `✅ Story "${featureName}" passed all ${mockResults.length} scenarios in ${totalDuration}ms`,
+        'system'
+      );
     } catch (error) {
-      console.error('Error executing story:', error);
+      addMessage(`❌ Error executing story: ${(error as Error).message}`, 'system');
       setFeatures(prev => prev.map(f => 
         f.name === featureName ? { ...f, status: 'failed' } : f
       ));
@@ -183,12 +191,12 @@ export default function StoriesPage() {
                     >
                       {isExecuting && selectedFeature === feature.name ? 'Running...' : 'Execute'}
                     </button>
-                    <a
-                      href={`/stories/${feature.path}`}
-                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors text-center"
+                    <button
+                      onClick={() => router.push(`/stories/${feature.path}`)}
+                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors"
                     >
                       View
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

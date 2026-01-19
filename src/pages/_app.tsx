@@ -2,21 +2,17 @@ import '@/styles/globals.css'
 // import 'reactflow/dist/style.css' // Disabled - reactflow not installed
 import 'highlight.js/styles/github-dark.css'
 import type { AppProps } from 'next/app'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Script from 'next/script'
-import { ChatInputProvider } from '../contexts/ChatInputContext'
-import { useSharedChat } from '../hooks/useSharedChat'
-// @ts-ignore
-const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
-  ? require('../components/chat/CopilotChatWidget').CopilotChatWidget
-  : () => null;
-import { ChatBubble } from '../components/chat/ChatBubble'
-import { DemoAIInterface } from '../lib/AIInterface'
+import { SupernalProvider } from '@supernal/interface-nextjs'
 import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
-import { ToolManager } from '../lib/ToolManager'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
+// @ts-ignore - CopilotKit is optional
+const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
+  ? require('../components/CopilotChatWidget').CopilotChatWidget
+  : () => null;
 
 // NOTE: GlobalThemeTools disabled - using widget-scoped theming instead
 // Each demo widget controls its own theme via data-theme attribute
@@ -25,18 +21,16 @@ import TTSInit from '../components/TTSInitializer'
 // NOTE: BlogNavigationTools removed - blog navigation is now auto-generated
 // via ContentResolver in DemoContainers.ts (see Blog container definition)
 
-// Toggle between CopilotKit and Native chat
+// Toggle between CopilotKit and Supernal native chat
 const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 
-// Global chat wrapper component
-function GlobalChatWrapper() {
+// Architecture initialization component - handles demo-specific setup
+function ArchitectureInitializer() {
   const router = useRouter()
-  const { messages, addMessage, clearMessages } = useSharedChat()
-  const [aiInterface] = useState(() => new DemoAIInterface())
 
   useEffect(() => {
     console.log('🚀 [_app] useEffect triggered')
-    
+
     // Debug: Check NavigationGraph state BEFORE initialization
     const navGraph = NavigationGraph.getInstance()
     const contextsBefore = navGraph.getAllContexts()
@@ -44,94 +38,26 @@ function GlobalChatWrapper() {
       contextsCount: contextsBefore.length,
       contexts: contextsBefore.map((c: any) => c.name).join(', ')
     })
-    
+
     // Initialize architecture (registers containers and creates nav tools)
     // Even if already initialized, this is idempotent
     console.log('🚀 [_app] Calling initializeDemoArchitecture()')
     initializeDemoArchitecture()
-    
+
     // Debug: Check NavigationGraph state AFTER initialization
     const contextsAfter = navGraph.getAllContexts()
     console.log('📊 [_app] NavigationGraph state AFTER init:', {
       contextsCount: contextsAfter.length,
       contexts: contextsAfter.map((c: any) => c.name).join(', ')
     })
-    
+
     // Always set navigation handler (even on refresh)
     const handler = createNavigationHandler(router)
     NavigationGraph.getInstance().setNavigationHandler(handler)
     console.log('✅ [_app] Navigation handler set')
-    
-    // Subscribe to tool execution results
-    const unsubscribe = ToolManager.subscribe((result) => {
-      // Handle pending navigation (show spinner)
-      const isPending = (result.data as any)?.pending
-      if (isPending) {
-        addMessage(`⏳ ${result.message}`, 'ai')
-        return
-      }
-      const emoji = result.success ? '✅' : '❌'
-      addMessage(`${emoji} ${result.message}`, 'ai')
-    })
-    
-    return unsubscribe
-  }, [router, addMessage])
+  }, [router])
 
-  const handleUserMessage = async (text: string) => {
-    if (!text.trim()) return
-    addMessage(text, 'user')
-
-    const startTime = performance.now()
-    console.log(`⏱️ [handleUserMessage] Start: ${text}`)
-
-    try {
-      // Map pathname to container ID (same logic as AIInterface.getCurrentContainer)
-      const pathname = router.pathname
-      let currentContainer: string | undefined
-
-      if (pathname.includes('/demo/simple')) {
-        currentContainer = 'DemoSimple'
-      } else if (pathname.includes('/demo/stateful')) {
-        currentContainer = 'DemoStateful'
-      } else if (pathname.includes('/examples')) {
-        currentContainer = 'Examples'
-      } else if (pathname.includes('/dashboard')) {
-        currentContainer = 'Dashboard'
-      } else if (pathname.includes('/blog')) {
-        currentContainer = 'Blog'
-      } else if (pathname.includes('/architecture')) {
-        currentContainer = 'Architecture'
-      } else if (pathname === '/' || pathname.includes('/index')) {
-        currentContainer = 'Landing'
-      }
-
-      console.log(`📍 [_app] Current container: ${currentContainer} (path: ${pathname})`)
-
-      const result = await aiInterface.findAndExecuteCommand(text, currentContainer)
-
-      const endTime = performance.now()
-      console.log(`⏱️ [handleUserMessage] Completed in ${Math.round(endTime - startTime)}ms`)
-
-      // Show message for both success and failure
-      if (result.message) {
-        addMessage(result.message, result.success ? 'ai' : 'system')
-      }
-    } catch (error) {
-      const endTime = performance.now()
-      console.log(`⏱️ [handleUserMessage] Error in ${Math.round(endTime - startTime)}ms`)
-      addMessage(`Error: ${error instanceof Error ? error.message : String(error)}`, 'ai')
-    }
-  }
-
-  return USE_COPILOTKIT ? (
-    <CopilotChatWidget defaultOpen={false} />
-  ) : (
-    <ChatBubble
-      messages={messages}
-      onSendMessage={handleUserMessage}
-      onClearChat={clearMessages}
-    />
-  )
+  return null
 }
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -154,10 +80,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <React.Fragment>
-      <ChatInputProvider>
-        {/* Initialize Supernal TTS globally */}
+      <SupernalProvider
+        mode="fuzzy"
+        disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
+      >
+        <ArchitectureInitializer />
         <TTSInit />
-        
+
         {/* Google Tag Manager */}
         {gtmId && (
           <>
@@ -185,10 +114,10 @@ export default function App({ Component, pageProps }: AppProps) {
           </>
         )}
         <Component {...pageProps} />
-        
-        {/* Global chat widget - persists across all pages */}
-        <GlobalChatWrapper />
-      </ChatInputProvider>
+
+        {/* CopilotKit chat (if enabled) */}
+        {USE_COPILOTKIT && <CopilotChatWidget defaultOpen={false} />}
+      </SupernalProvider>
     </React.Fragment>
   )
 }

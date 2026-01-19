@@ -6,7 +6,7 @@
  */
 
 // Types imported from core (ToolRegistry and ToolMetadata available but not directly used here)
-import { DemoAIInterface } from './AIInterface';
+import { DemoAIInterface } from '@supernal/interface-nextjs';
 
 export interface ToolTestCase {
   name: string;
