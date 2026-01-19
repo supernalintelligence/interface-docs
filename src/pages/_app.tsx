@@ -88,9 +88,6 @@ export default function App({ Component, pageProps }: AppProps) {
         disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
         routes={{
           'Landing': '/',
-          'DemoSimple': '/demo/simple',
-          'DemoStateful': '/demo/stateful',
-          'DemoHierarchical': '/demo/hierarchical',
           'Demo': '/demo',
           'Dashboard': '/dashboard',
           'Docs': '/docs',
