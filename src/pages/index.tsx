@@ -3,7 +3,7 @@
  * Problem → Solution → Value Proposition
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
@@ -69,34 +69,7 @@ function PipelineCard({ step }: { step: PipelineStep }) {
 
 export default function HeroPage() {
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
-  
-  useEffect(() => {
-    // Set up navigation handler
-    
-    
-    // Subscribe to tool execution results
-    const unsubscribe = ToolManager.subscribe((result) => {
-      const emoji = result.success ? '✅' : '❌';
-      console.log(`${emoji} ${result.message}`);
-    });
-    
-    return unsubscribe;
-  }, [router, addMessage]);
 
-  const handleUserMessage = async (text: string) => {
-    if (!text.trim()) return;
-    console.log(text, 'user');
-    
-    try {
-      const result = await aiInterface.findAndExecuteCommand(text, 'Home');
-      if (!result.success) {
-        console.log(result.message);
-      }
-    } catch (error) {
-      console.log(`Error: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  };
-  
   return (
     <>
       <Head>
