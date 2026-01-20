@@ -53,6 +53,7 @@
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/interface": "^1.0.8",
     "@supernal/interface-nextjs": "^1.0.8",
+    "@supernalintelligence/interface-enterprise": "^1.0.18",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",
@@ -82,7 +83,7 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
-    "supernal-tts-widget": "^1.1.1",
+    "supernal-tts-widget": "^1.1.3",
     "typescript": "^5.0.0",
     "unified": "^11.0.5"
   },
