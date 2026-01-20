@@ -39,7 +39,7 @@
  */
 
 import { test, expect, getBaseURL } from '../../fixtures';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 import { Examples } from '../../../src/architecture/DemoComponentNames';
 
 test.describe('Component: counter', () => {

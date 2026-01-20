@@ -21,7 +21,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment counter', async ({ page }) => {
-    // Execution order: Increment counter-0 → Increment counter-1 → Increment counter-2 → Increment counter-3
+    // Execution order: Increment counter-108 → Increment counter-109 → Increment counter-110 → Increment counter-111
     // Given I am on Routes.Examples
     await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
@@ -38,7 +38,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment three times', async ({ page }) => {
-    // Execution order: Increment three times-4 → Increment three times-5 → Increment three times-6 → Increment three times-7
+    // Execution order: Increment three times-112 → Increment three times-113 → Increment three times-114 → Increment three times-115
     // Given I am on Routes.Examples
     await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
@@ -57,7 +57,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment and decrement', async ({ page }) => {
-    // Execution order: Increment and decrement-8 → Increment and decrement-9 → Increment and decrement-10 → Increment and decrement-11 → Increment and decrement-12
+    // Execution order: Increment and decrement-116 → Increment and decrement-117 → Increment and decrement-118 → Increment and decrement-119 → Increment and decrement-120
     // Given I am on Routes.Examples
     await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);
@@ -79,7 +79,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Reset counter', async ({ page }) => {
-    // Execution order: Reset counter-13 → Reset counter-14 → Reset counter-15 → Reset counter-16 → Reset counter-17
+    // Execution order: Reset counter-121 → Reset counter-122 → Reset counter-123 → Reset counter-124 → Reset counter-125
     // Given I am on Routes.Examples
     await page.goto(`${Routes.Examples}`);
     await initializeTestState(page);

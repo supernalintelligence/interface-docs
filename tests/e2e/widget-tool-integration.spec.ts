@@ -7,7 +7,7 @@
 import { test, expect, getBaseURL } from '../fixtures';
 import { Components } from '../../src/architecture';
 import { TestRoutes } from '../test-constants';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 
 // Use the nested Demo namespace
 const Demo = Components.Demo;

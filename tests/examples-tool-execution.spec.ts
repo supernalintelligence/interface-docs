@@ -4,7 +4,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 import { Chat, Examples } from '../src/architecture/DemoComponentNames';
 
 // Counter name constants (avoiding decorator execution)

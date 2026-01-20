@@ -6,7 +6,7 @@
 
 import { test, expect, getBaseURL } from './fixtures';
 import { TestRoutes, TestComponents } from './test-constants';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 
 test.describe('Clickable Tool Interface', () => {
   

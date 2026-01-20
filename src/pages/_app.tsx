@@ -86,16 +86,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <SupernalProvider
         mode="fuzzy"
         disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
-        routes={{
-          'Landing': '/',
-          'Demo': '/demo',
-          'Dashboard': '/dashboard',
-          'Docs': '/docs',
-          'Examples': '/examples',
-          'Blog': '/blog',
-          'Stories': '/stories',
-          'Architecture': '/architecture'
-        }}
+        // Don't pass routes - AutoNavigationContext causes conflicts with useContainer
+        // Pages will set their own context using useContainer() hook
       >
         <ArchitectureInitializer />
         <TTSInit />

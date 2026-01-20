@@ -11,7 +11,7 @@
 import { test, expect, getBaseURL } from './fixtures';
 import { TestRoutes, TestComponents, testid } from './test-constants';
 import { assertDemoState, getDemoState, waitForDemoState } from './state-helpers';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 
 test.describe('Simple Demo - Widget State Management', () => {
   test.beforeEach(async ({ page }) => {

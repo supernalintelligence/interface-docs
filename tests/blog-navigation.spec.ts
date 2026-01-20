@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 import { Chat } from '../src/architecture/DemoComponentNames';
 import { TestRoutes } from './test-constants';
 

@@ -10,7 +10,7 @@
 
 import { test, expect, getBaseURL } from '../fixtures';
 import { TestRoutes, TestComponents } from '../test-constants';
-import { testId } from '@supernal-interface/core/testing';
+import { testId } from '@supernal/interface/testing';
 
 // Note: These testids are for the stateful demo, not the simple demo
 const StatefulDemo = {
