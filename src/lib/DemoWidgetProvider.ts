@@ -16,7 +16,7 @@ import { localStorageAdapter } from './storage';
 
 @ToolProvider({
   category: DemoContainers.DemoStateful.id, // Stateful demo container
-  containerId: DemoContainers.DemoStateful.id,
+  containerId: DemoContainers.DemoStateful.route,
 })
 export class DemoWidgetTools {
   private stateManager: StateManager | null = null;
@@ -55,7 +55,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.openMenu,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Open Menu',
     description: 'Open the main menu (Advanced Demo)',
@@ -74,7 +74,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.closeMenu,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Close Menu',
     description: 'Close the main menu (Advanced Demo)',
@@ -94,7 +94,7 @@ export class DemoWidgetTools {
   @Tool({
     // NO elementId - this is a programmatic tool, not a DOM-click tool
     // The checkbox UI element exists for manual interaction only
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     category: ToolCategory.USER_INTERACTION,
     callbacks: { storage: true },
     name: 'Toggle Feature',
@@ -114,7 +114,7 @@ export class DemoWidgetTools {
   
   @Tool({
     // NO elementId - programmatic tool with parameter
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     category: ToolCategory.USER_INTERACTION,
     callbacks: { storage: true },
     name: 'Toggle Notifications',
@@ -134,7 +134,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.priorityHigh,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Set Priority High',
     description: 'Set priority to high (Advanced Demo - persists to localStorage)',
@@ -153,7 +153,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.priorityMedium,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Set Priority Medium',
     description: 'Set priority to medium (Advanced Demo - persists to localStorage)',
@@ -172,7 +172,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.priorityLow,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Set Priority Low',
     description: 'Set priority to low (Advanced Demo - persists to localStorage)',
@@ -191,7 +191,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.statusDropdown,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Set Status',
     description: 'Change status (Advanced Demo - persists to localStorage)',
@@ -211,7 +211,7 @@ export class DemoWidgetTools {
   
   @Tool({
     // NO elementId - programmatic tool with parameter
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     category: ToolCategory.USER_INTERACTION,
     callbacks: { storage: true },
     name: 'Change Theme',
@@ -243,7 +243,7 @@ export class DemoWidgetTools {
   
   @Tool({
     elementId: StatefulDemoNames.formSubmit,
-    containerId: DemoContainers.DemoStateful.id,
+    containerId: DemoContainers.DemoStateful.route,
     callbacks: { storage: true },
     name: 'Submit Form',
     description: 'Submit demo form (Advanced Demo)',

@@ -32,7 +32,7 @@ export default function StatefulDemoPage() {
   // Get tools
   useEffect(() => {
     const tools = Array.from(ToolRegistry.getAllTools().values())
-      .filter(t => t.aiEnabled && (t.containerId === 'DemoStateful' || !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX)))
+      .filter(t => t.aiEnabled && (t.containerId === '/demo/stateful' || !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX)))
       .sort((a, b) => {
         const order: Record<string, number> = {
           'Open Menu': 1,
