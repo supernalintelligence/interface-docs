@@ -2,7 +2,7 @@
   "name": "supernal-interface-docs",
   "version": 2,
   "buildCommand": "bash vercel-build.sh",
-  "installCommand": "echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc && node ../scripts/setup-deps.cjs cloud && npm ci",
+  "installCommand": "npm ci",
   "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
