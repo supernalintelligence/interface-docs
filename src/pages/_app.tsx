@@ -9,6 +9,8 @@ import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
+
+const DEBUG = false
 // @ts-ignore - CopilotKit is optional
 const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   ? require('../components/CopilotChatWidget').CopilotChatWidget
@@ -29,24 +31,24 @@ function ArchitectureInitializer() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('🚀 [_app] useEffect triggered')
+    DEBUG && console.log('🚀 [_app] useEffect triggered')
 
     // Debug: Check NavigationGraph state BEFORE initialization
     const navGraph = NavigationGraph.getInstance()
     const contextsBefore = navGraph.getAllContexts()
-    console.log('📊 [_app] NavigationGraph state BEFORE init:', {
+    DEBUG && console.log('📊 [_app] NavigationGraph state BEFORE init:', {
       contextsCount: contextsBefore.length,
       contexts: contextsBefore.map((c: any) => c.name).join(', ')
     })
 
     // Initialize architecture (registers containers and creates nav tools)
     // Even if already initialized, this is idempotent
-    console.log('🚀 [_app] Calling initializeDemoArchitecture()')
+    DEBUG && console.log('🚀 [_app] Calling initializeDemoArchitecture()')
     initializeDemoArchitecture()
 
     // Debug: Check NavigationGraph state AFTER initialization
     const contextsAfter = navGraph.getAllContexts()
-    console.log('📊 [_app] NavigationGraph state AFTER init:', {
+    DEBUG && console.log('📊 [_app] NavigationGraph state AFTER init:', {
       contextsCount: contextsAfter.length,
       contexts: contextsAfter.map((c: any) => c.name).join(', ')
     })
@@ -54,7 +56,7 @@ function ArchitectureInitializer() {
     // Always set navigation handler (even on refresh)
     const handler = createNavigationHandler(router)
     NavigationGraph.getInstance().setNavigationHandler(handler)
-    console.log('✅ [_app] Navigation handler set')
+    DEBUG && console.log('✅ [_app] Navigation handler set')
   }, [router])
 
   return null
@@ -63,8 +65,8 @@ function ArchitectureInitializer() {
 export default function App({ Component, pageProps }: AppProps) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
 
-  console.log('[_app] SupernalProvider imported:', SupernalProvider);
-  console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
+  DEBUG && console.log('[_app] SupernalProvider imported:', SupernalProvider);
+  DEBUG && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
 
   useEffect(() => {
     // Initialize GTM dataLayer
