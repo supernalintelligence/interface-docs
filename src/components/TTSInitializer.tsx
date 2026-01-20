@@ -53,6 +53,8 @@ export default function TTSInit() {
           speed: 1.0,
           clientSideSpeed: true,
           showBranding: true,
+          devMode: window.location.hostname === 'localhost'  // Only on localhost
+
         });
       }
     }).catch((error) => {

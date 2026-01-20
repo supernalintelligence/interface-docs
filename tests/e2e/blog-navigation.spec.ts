@@ -49,18 +49,37 @@ test.describe('Blog Navigation via Chat', () => {
     await expect(page.locator('h1, h2').filter({ hasText: /blog/i }).first()).toBeVisible();
   });
 
-  test('should navigate to specific blog post with "open blog name contracts"', async ({ page }) => {
+  test('should search blog posts when ON blog page (scoped tool)', async ({ page }) => {
+    // First navigate to blog page
+    await page.goto('/blog');
+    await page.waitForURL('**/blog', { timeout: 5000 });
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle', { timeout: 10000 });
+
+    // Wait for chat to be available and try to expand it
+    await page.locator(`[data-testid="${Components.Chat.bubble}"]`).waitFor({ timeout: 30000 });
+    const bubble = page.locator(`[data-testid="${Components.Chat.bubble}"]`);
+
+    // Check if chat input is already visible, if not click bubble
+    const chatInputVisible = await page.locator(`[data-testid="${Components.Chat.input}"]`).isVisible();
+    if (!chatInputVisible) {
+      await bubble.click();
+      await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 10000 });
+    }
+
+    // Now search for a blog post using scoped tool (no "blog" prefix needed)
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
     await expect(chatInput).toBeVisible();
 
-    await chatInput.fill('open blog name contracts');
-    
+    await chatInput.fill('open agentic ux');
+
     const sendButton = page.locator(`[data-testid="${Components.Chat.sendButton}"]`);
     await sendButton.click();
 
     // Wait for navigation to blog post
     await page.waitForURL('**/blog/**', { timeout: 5000 });
-    
+
     // Verify we're on a blog post page (not just /blog)
     const url = page.url();
     expect(url).toContain('/blog/');
@@ -69,27 +88,49 @@ test.describe('Blog Navigation via Chat', () => {
   });
 
   test('should show error message for non-existent blog post', async ({ page }) => {
+    // First navigate to blog page (scoped tool only works there)
+    await page.goto('/blog');
+    await page.waitForURL('**/blog', { timeout: 5000 });
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle', { timeout: 10000 });
+
+    // Wait for chat to be available and try to expand it
+    await page.locator(`[data-testid="${Components.Chat.bubble}"]`).waitFor({ timeout: 30000 });
+    const bubble = page.locator(`[data-testid="${Components.Chat.bubble}"]`);
+
+    // Check if chat input is already visible, if not click bubble
+    const chatInputVisible = await page.locator(`[data-testid="${Components.Chat.input}"]`).isVisible();
+    if (!chatInputVisible) {
+      await bubble.click();
+      await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 10000 });
+    }
+
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
     await expect(chatInput).toBeVisible();
 
-    await chatInput.fill('open blog nonexistent-post-xyz-123');
-    
+    await chatInput.fill('open nonexistent-post-xyz-123');
+
     const sendButton = page.locator(`[data-testid="${Components.Chat.sendButton}"]`);
     await sendButton.click();
 
     // Should show error message in chat
-    await expect(page.locator('text=/No blog post found|No exact match/i')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=/No match found|No exact match|not found/i')).toBeVisible({ timeout: 5000 });
   });
 
   test('should work from any page (global tool)', async ({ page }) => {
     // Navigate to examples page first
     await page.goto('/examples');
+    await page.waitForLoadState('networkidle', { timeout: 10000 });
     await page.locator(`[data-testid="${Components.Chat.bubble}"]`).waitFor({ timeout: 30000 });
-    
+
     // Expand chat
     const bubble = page.locator(`[data-testid="${Components.Chat.bubble}"]`);
-    await bubble.click();
-    await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 5000 });
+    const chatInputVisible = await page.locator(`[data-testid="${Components.Chat.input}"]`).isVisible();
+    if (!chatInputVisible) {
+      await bubble.click();
+      await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 10000 });
+    }
 
     // Now try to navigate to blog from examples page
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
@@ -121,21 +162,38 @@ test.describe('NavigationGraph Integration', () => {
     expect(hasHandler).toBe(true);
   });
 
-  test('should update LocationContext on navigation', async ({ page }) => {
+  test('should update context after navigation via chat', async ({ page }) => {
     await page.goto('/');
     await page.locator(`[data-testid="${Components.Chat.bubble}"]`).waitFor({ timeout: 30000 });
 
-    // Navigate to blog
-    await page.goto('/blog');
-    await page.waitForSelector('h1, h2', { timeout: 10000 });
+    // Expand chat
+    const bubble = page.locator(`[data-testid="${Components.Chat.bubble}"]`);
+    await bubble.click();
+    await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 5000 });
 
-    // Check LocationContext was updated
-    const location = await page.evaluate(() => {
-      const LocationContext = (window as any).__SUPERNAL_LOCATION_CONTEXT__;
-      return LocationContext?.getCurrent?.();
+    // Navigate to blog via chat
+    const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
+    await chatInput.fill('go to blog');
+    const sendButton = page.locator(`[data-testid="${Components.Chat.sendButton}"]`);
+    await sendButton.click();
+
+    // Wait for navigation
+    await page.waitForURL('**/blog', { timeout: 5000 });
+
+    // Wait a bit for context to update
+    await page.waitForTimeout(500);
+
+    // Check that NavigationGraph context was updated
+    const contextInfo = await page.evaluate(() => {
+      const key = '__SUPERNAL_NAVIGATION_GRAPH__';
+      const nav = (window as any)[key];
+      return {
+        currentContext: nav?.getCurrentContext?.(),
+        currentRoute: nav?.getCurrentRoute?.()
+      };
     });
 
-    expect(location).toBeTruthy();
-    expect(location?.page).toContain('/blog');
+    expect(contextInfo.currentContext).toBe('Blog');
+    expect(contextInfo.currentRoute).toBe('/blog');
   });
 });

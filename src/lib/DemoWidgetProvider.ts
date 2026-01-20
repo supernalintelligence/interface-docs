@@ -62,7 +62,7 @@ export class DemoWidgetTools {
     aiEnabled: true,
     dangerLevel: 'safe',
     requiresApproval: false,
-    examples: ['open menu', 'open', 'show menu'],
+    examples: ['open menu', 'show menu', 'display menu'],
   })
   async openMenu() {
     await this.ensureInitialized();

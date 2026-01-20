@@ -59,6 +59,13 @@ function ArchitectureInitializer() {
     DEBUG && console.log('✅ [_app] Navigation handler set')
   }, [router])
 
+  // Update context whenever route changes (including initial load)
+  useEffect(() => {
+    const currentPath = router.asPath
+    DEBUG && console.log('🔄 [_app] Route changed to:', currentPath)
+    NavigationGraph.getInstance().setCurrentContext(currentPath)
+  }, [router.asPath])
+
   return null
 }
 
