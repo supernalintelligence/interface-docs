@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { testId, testIdContains } from '@supernal/interface/testing';
-import { Chat } from '../../src/architecture/DemoComponentNames';
+import { Chat } from '../src/architecture/DemoComponentNames';
 import { TestRoutes } from './test-constants';
 
 test.describe('Navigation via AI Commands', () => {
