@@ -5,7 +5,7 @@
  */
 
 import { test as base, Page } from '@playwright/test';
-import { Components } from '../src/architecture/DemoComponentNames';
+import { Components } from '../src/architecture/Components';
 
 // Get the dynamic base URL
 const getDevPort = require('../scripts/get-port');
@@ -33,7 +33,7 @@ export async function expandChatBubble(page: Page, timeout: number = 5000) {
   await page.reload({ waitUntil: 'networkidle' });
 
   // Wait for chat input to be visible (should be expanded now)
-  const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
+  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
   await chatInput.waitFor({ state: 'visible', timeout });
 }
 
