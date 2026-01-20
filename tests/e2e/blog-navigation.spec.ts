@@ -68,11 +68,12 @@ test.describe('Blog Navigation via Chat', () => {
       await page.locator(`[data-testid="${Components.Chat.input}"]`).waitFor({ state: 'visible', timeout: 10000 });
     }
 
-    // Now search for a blog post using scoped tool (no "blog" prefix needed)
+    // Now search for a blog post using scoped tool
+    // Use "search" verb for implicit search (scoped by route)
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
     await expect(chatInput).toBeVisible();
 
-    await chatInput.fill('open agentic ux');
+    await chatInput.fill('search agentic ux');
 
     const sendButton = page.locator(`[data-testid="${Components.Chat.sendButton}"]`);
     await sendButton.click();
@@ -109,7 +110,7 @@ test.describe('Blog Navigation via Chat', () => {
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
     await expect(chatInput).toBeVisible();
 
-    await chatInput.fill('open nonexistent-post-xyz-123');
+    await chatInput.fill('search nonexistent-post-xyz-123');
 
     const sendButton = page.locator(`[data-testid="${Components.Chat.sendButton}"]`);
     await sendButton.click();
