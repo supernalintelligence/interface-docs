@@ -8,8 +8,8 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat, Counter } from '@/architecture/ComponentNames';
-import { Routes } from '@/architecture/Routes';
+import { Chat, Counter } from '../../../src/architecture/DemoComponentNames';
+import { Routes } from '../../../src/architecture/Routes';
 import { initializeTestState } from '@supernal/interface/testing';
 
 test.describe('Story Flow Demonstration', () => {

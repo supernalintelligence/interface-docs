@@ -8,10 +8,10 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat, Examples } from '@/architecture/ComponentNames';
-import { Routes } from '@/architecture/Routes';
+import { Chat, Examples } from '../../../src/architecture/DemoComponentNames';
+import { Routes } from '../../../src/architecture/Routes';
 import { setComponentState, getComponentState, initializeTestState } from '@supernal/interface/testing';
-import { ComponentData } from '@/architecture/ComponentData';
+import { ComponentData } from '../../../src/architecture/DemoComponentData';
 
 test.describe('Chat Component', () => {
   test.setTimeout(30000);

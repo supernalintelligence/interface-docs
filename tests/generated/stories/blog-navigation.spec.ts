@@ -8,8 +8,8 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Blog, GlobalNav } from '@/architecture/ComponentNames';
-import { Routes } from '@/architecture/Routes';
+import { Blog, GlobalNav } from '../../../src/architecture/DemoComponentNames';
+import { Routes } from '../../../src/architecture/Routes';
 import { initializeTestState } from '@supernal/interface/testing';
 
 test.describe('Blog Navigation', () => {

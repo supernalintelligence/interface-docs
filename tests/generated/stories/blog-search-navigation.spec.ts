@@ -8,7 +8,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Blog, Chat } from '@/architecture/ComponentNames';
+import { Blog, Chat } from '../../../src/architecture/DemoComponentNames';
 
 test.describe('Blog Search Navigation', () => {
   test.setTimeout(30000);

@@ -8,7 +8,7 @@
 
 import { test, expect } from '@playwright/test';
 import { setComponentState, getComponentState } from '@supernal/interface/testing';
-import { ComponentData } from '@/architecture/ComponentData';
+import { ComponentData } from '../../../src/architecture/DemoComponentData';
 
 test.describe('Cache Demo', () => {
   test.setTimeout(30000);
