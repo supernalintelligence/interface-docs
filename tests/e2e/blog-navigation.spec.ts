@@ -9,7 +9,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { Components } from '../../src/architecture/DemoComponentNames';
+import { Components } from '../../src/architecture/Components';
 
 test.describe('Blog Navigation via Chat', () => {
   test.beforeEach(async ({ page }) => {

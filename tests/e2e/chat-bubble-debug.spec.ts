@@ -3,7 +3,7 @@
  */
 
 import { test, expect, getBaseURL } from '../fixtures';
-import { ComponentNames } from '../../src/architecture/DemoComponentNames';
+import { ComponentNames } from '../../src/architecture/Components';
 
 test('ChatBubble expands when clicked', async ({ page }) => {
   // Enable console logging

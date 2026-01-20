@@ -40,7 +40,7 @@
 
 import { test, expect, getBaseURL } from '../../fixtures';
 import { testId } from '@supernal/interface/testing';
-import { Examples } from '../../../src/architecture/DemoComponentNames';
+import { Examples } from '../../src/architecture/Components';
 
 test.describe('Component: counter', () => {
   test.beforeEach(async ({ page }) => {
