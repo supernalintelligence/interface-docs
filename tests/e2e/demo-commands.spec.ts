@@ -3,19 +3,19 @@
  */
 
 import { test, expect, getBaseURL, expandChatBubble } from '../fixtures';
-import { Components } from '../../src/architecture/Components';
+import { Demo, Chat } from '../../src/architecture/DemoComponentNames';
 
 test('Simple demo - "open menu" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
 
-  // Wait for page to load using Components contract
-  await page.waitForSelector(`[data-testid="${Components.OpenMenuButton}"]`);
+  // Wait for page to load using DemoComponentNames contract
+  await page.waitForSelector(`[data-testid="${Demo.openMainMenu}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using Components contract (should be visible after expandChatBubble)
-  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('open menu');
@@ -32,14 +32,14 @@ test('Simple demo - "open menu" command works', async ({ page }) => {
 test('Advanced demo - "toggle notifications" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/stateful`);
 
-  // Wait for page to load using Components contract
-  await page.waitForSelector(`[data-testid="${Components.NotificationsToggle}"]`);
+  // Wait for page to load using DemoComponentNames contract
+  await page.waitForSelector(`[data-testid="${Demo.notificationToggle}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using Components contract (should be visible after expandChatBubble)
-  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('toggle notifications');
@@ -59,14 +59,14 @@ test('Advanced demo - "toggle notifications" command works', async ({ page }) =>
 test('Simple demo - "set theme dark" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
 
-  // Wait for page to load using Components contract
-  await page.waitForSelector(`[data-testid="${Components.ThemeSelect}"]`);
+  // Wait for page to load using DemoComponentNames contract
+  await page.waitForSelector(`[data-testid="${Demo.themeToggle}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using Components contract (should be visible after expandChatBubble)
-  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('set theme dark');
