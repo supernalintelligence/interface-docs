@@ -3,7 +3,7 @@
  */
 
 import { test, getBaseURL } from '../fixtures';
-import { ComponentNames } from '../../src/architecture/Components';
+import { ComponentNames } from '../../src/architecture/DemoComponentNames';
 
 test('Check if chat input exists in DOM', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);

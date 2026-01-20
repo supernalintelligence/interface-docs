@@ -9,7 +9,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat, Examples } from '../../src/architecture/Components';
+import { Chat, Examples } from '../../src/architecture/DemoComponentNames';
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3011';
 

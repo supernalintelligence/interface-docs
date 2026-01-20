@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat } from '../../src/architecture/Components';
+import { Chat } from '../../src/architecture/DemoComponentNames';
 import { TestRoutes } from './test-constants';
 
 test.describe('Blog Post Navigation', () => {
