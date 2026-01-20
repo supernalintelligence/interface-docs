@@ -78,13 +78,15 @@ export class CounterComponent {
     aiEnabled: true,
     elementId: Counter.incrementButton,
     description: 'Increment counter by specified amount',
-    examples: ['increment counter', 'increase counter by 5'],
+    examples: ['increment counter by {amount}', 'increase counter by {amount}', 'increment counter'],
     category: ToolCategory.UTILITY,
   })
-  increment(amount = 1) {
-    this.value += amount;
-    const event = new CustomEvent('example-tool-increment', { 
-      detail: { amount, newValue: this.value } 
+  increment(amount: number | string = 1) {
+    // Convert to number if string
+    const numAmount = typeof amount === 'string' ? parseInt(amount, 10) : amount;
+    this.value += numAmount;
+    const event = new CustomEvent('example-tool-increment', {
+      detail: { amount: numAmount, newValue: this.value }
     });
     window.dispatchEvent(event);
     return { 
@@ -98,7 +100,7 @@ export class CounterComponent {
     aiEnabled: false, // Test-only
     elementId: Counter.decrementButton,
     description: 'Decrement counter by specified amount',
-    examples: ['decrement counter', 'decrease counter by 3'],
+    examples: ['decrement counter', 'decrement counter by {amount}', 'decrease counter by {amount}'],
     category: ToolCategory.UTILITY,
   })
   decrement(amount = 1) {
@@ -142,6 +144,7 @@ export class CounterTools {
     containerId: '/examples',
     description: 'Increment the counter by 1',
     category: ToolCategory.UTILITY,
+    examples: ['increment counter', 'increase counter', 'add to counter'],
   })
   async incrementLegacy() {
     const event = new CustomEvent('example-tool-increment');
@@ -154,6 +157,7 @@ export class CounterTools {
     containerId: '/examples',
     description: 'Decrement the counter by 1',
     category: ToolCategory.UTILITY,
+    examples: ['decrement counter', 'decrease counter', 'subtract from counter'],
   })
   async decrementLegacy() {
     const event = new CustomEvent('example-tool-decrement');
@@ -166,6 +170,7 @@ export class CounterTools {
     containerId: '/examples',
     description: 'Reset counter to zero',
     category: ToolCategory.UTILITY,
+    examples: ['reset counter', 'reset to zero', 'set counter to zero'],
   })
   async resetLegacy() {
     const event = new CustomEvent('example-tool-reset');
@@ -183,6 +188,13 @@ export class ChatTools {
     elementId: Chat.sendButton,
     containerId: '/examples',
     description: 'Send a chat message',
+    examples: [
+      'send message {message}',
+      'send chat {message}',
+      'send a message {message}',
+      'send a chat saying {message}',
+      'send chat saying {message}'
+    ],
   })
   async sendMessage(message: string) {
     const event = new CustomEvent('example-tool-send-message', {
@@ -196,6 +208,7 @@ export class ChatTools {
     elementId: Chat.clearButton,
     containerId: '/examples',
     description: 'Clear all chat messages',
+    examples: ['clear chat', 'clear messages', 'delete all messages'],
   })
   async clearChat() {
     const event = new CustomEvent('example-tool-clear-chat');
@@ -213,6 +226,7 @@ export class SettingsTools {
     elementId: Settings.changeButton,
     containerId: '/examples',
     description: 'Change a setting value',
+    examples: ['change setting to {setting}', 'update setting to {setting}', 'set {setting}'],
   })
   async changeSetting(setting: string) {
     const event = new CustomEvent('example-tool-change-setting', {
@@ -226,6 +240,7 @@ export class SettingsTools {
     elementId: Settings.resetButton,
     containerId: '/examples',
     description: 'Reset all settings to defaults',
+    examples: ['reset settings', 'reset all settings', 'restore defaults'],
   })
   async resetSettings() {
     const event = new CustomEvent('example-tool-reset-settings');
@@ -237,6 +252,7 @@ export class SettingsTools {
     elementId: Settings.deleteButton,
     containerId: '/examples',
     description: 'Permanently delete all user data',
+    examples: ['delete all data', 'clear all data', 'remove everything'],
   })
   async deleteAllData() {
     const event = new CustomEvent('example-tool-delete-data');
@@ -254,6 +270,7 @@ export class DataTools {
     elementId: Data.fetchButton,
     containerId: '/examples',
     description: 'Fetch all items from the list',
+    examples: ['fetch items', 'get items', 'show items', 'list items'],
   })
   async fetchItems() {
     // AI can call this freely - it's read-only
@@ -266,6 +283,7 @@ export class DataTools {
     elementId: Data.addButton,
     containerId: '/examples',
     description: 'Add a new item to the list',
+    examples: ['add item {item}', 'create item {item}', 'add {item} to list'],
   })
   async addItem(item: string) {
     // AI needs permission for write operations
@@ -280,6 +298,7 @@ export class DataTools {
     elementId: Data.deleteButton,
     containerId: '/examples',
     description: 'Delete an item from the list',
+    examples: ['delete item {index}', 'remove item {index}', 'delete item number {index}'],
   })
   async deleteItem(index: number) {
     const event = new CustomEvent('example-tool-delete-item', {
@@ -292,12 +311,51 @@ export class DataTools {
 
 // Register all tools
 export function registerExampleTools() {
-  // NEW: Component-namespaced tools
-  new CounterComponent();
-  
-  // LEGACY: Flat-namespaced tools (for backward compat testing)
-  new CounterTools();
-  new ChatTools();
-  new SettingsTools();
-  new DataTools();
+  // Import ToolRegistry to update instances
+  if (typeof window !== 'undefined') {
+    try {
+      const registry = (window as any).__SUPERNAL_TOOL_REGISTRY__;
+
+      if (registry) {
+        // NEW: Component-namespaced tools
+        const counterComponent = new CounterComponent();
+
+        // LEGACY: Flat-namespaced tools (for backward compat testing)
+        const counterTools = new CounterTools();
+        const chatTools = new ChatTools();
+        const settingsTools = new SettingsTools();
+        const dataTools = new DataTools();
+
+        // Update instances in registry
+        const updateInstances = (instance: any, className: string) => {
+          Array.from(registry.values()).forEach((tool: any) => {
+            // Match by class name and update instance
+            const toolId = `${className}.${tool.methodName}`;
+            if (registry.has(toolId)) {
+              const toolMetadata = registry.get(toolId);
+              if (toolMetadata) {
+                toolMetadata.instance = instance;
+                console.log(`✓ Updated instance for: ${tool.name}`);
+              }
+            }
+          });
+        };
+
+        updateInstances(counterComponent, 'CounterComponent');
+        updateInstances(counterTools, 'CounterTools');
+        updateInstances(chatTools, 'ChatTools');
+        updateInstances(settingsTools, 'SettingsTools');
+        updateInstances(dataTools, 'DataTools');
+      }
+    } catch (error) {
+      console.error('Failed to update tool instances:', error);
+    }
+  } else {
+    // Fallback: Just create instances (for SSR)
+    new CounterComponent();
+    new CounterTools();
+    new ChatTools();
+    new SettingsTools();
+    new DataTools();
+  }
 }
