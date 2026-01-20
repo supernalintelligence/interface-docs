@@ -11,13 +11,12 @@
  */
 
 export const Components = {
-  // Chat components
-  ChatInput: 'chat-message-input',
+  // Chat components - must match ChatBubble.tsx ChatNames
+  ChatBubble: 'chat-bubble',
+  ChatInput: 'chat-input',
   ChatSendButton: 'chat-send-button',
   ChatClearButton: 'chat-clear-button',
-  ChatToggleButton: 'chat-bubble-toggle',
-  ChatMessageList: 'chat-message-list',
-  ChatTypingIndicator: 'chat-typing-indicator',
+  ChatMessages: 'chat-messages',
 
   // Demo widget components - buttons
   OpenMenuButton: 'open-main-menu',

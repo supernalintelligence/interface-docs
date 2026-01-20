@@ -2,17 +2,21 @@
  * Test that command processing works on all demo routes
  */
 
-import { test, expect, getBaseURL } from '../fixtures';
+import { test, expect, getBaseURL, expandChatBubble } from '../fixtures';
+import { Components } from '../../src/architecture/Components';
 
 test('Simple demo - "open menu" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
-  
-  // Wait for page to load
-  await page.waitForSelector('[data-testid="simple-open-main-menu"]');
-  
-  // Find chat input and send command
-  const chatInput = page.locator('textarea[placeholder*="Type a command"]').first();
-  await expect(chatInput).toBeVisible();
+
+  // Wait for page to load using Components contract
+  await page.waitForSelector(`[data-testid="${Components.OpenMenuButton}"]`);
+
+  // Expand chat bubble to access input
+  await expandChatBubble(page);
+
+  // Find chat input using Components contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('open menu');
   await chatInput.press('Enter');
@@ -28,13 +32,16 @@ test('Simple demo - "open menu" command works', async ({ page }) => {
 
 test('Advanced demo - "toggle notifications" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/stateful`);
-  
-  // Wait for page to load
-  await page.waitForSelector('[data-testid="stateful-notification-toggle"]');
-  
-  // Find chat input and send command
-  const chatInput = page.locator('textarea[placeholder*="Type a command"]').first();
-  await expect(chatInput).toBeVisible();
+
+  // Wait for page to load using Components contract
+  await page.waitForSelector(`[data-testid="${Components.NotificationsToggle}"]`);
+
+  // Expand chat bubble to access input
+  await expandChatBubble(page);
+
+  // Find chat input using Components contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('toggle notifications');
   await chatInput.press('Enter');
@@ -50,13 +57,16 @@ test('Advanced demo - "toggle notifications" command works', async ({ page }) =>
 
 test('Simple demo - "set theme dark" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
-  
-  // Wait for page to load
-  await page.waitForSelector('[data-testid="simple-theme-select"]');
-  
-  // Find chat input and send command
-  const chatInput = page.locator('textarea[placeholder*="Type a command"]').first();
-  await expect(chatInput).toBeVisible();
+
+  // Wait for page to load using Components contract
+  await page.waitForSelector(`[data-testid="${Components.ThemeSelect}"]`);
+
+  // Expand chat bubble to access input
+  await expandChatBubble(page);
+
+  // Find chat input using Components contract (should be visible after expandChatBubble)
+  const chatInput = page.locator(`[data-testid="${Components.ChatInput}"]`);
+  await expect(chatInput).toBeVisible({ timeout: 5000 });
   
   await chatInput.fill('set theme dark');
   await chatInput.press('Enter');
