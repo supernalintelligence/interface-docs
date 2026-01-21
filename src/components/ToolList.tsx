@@ -20,7 +20,7 @@ interface ToolListProps {
   tools: ToolInfo[];
   title?: string;
   subtitle?: string;
-  onExecuteTool: (tool: ToolInfo) => void;
+  onExecuteTool?: (tool: ToolInfo) => void;
   color?: 'blue' | 'purple' | 'green';
 }
 
@@ -96,7 +96,7 @@ export const ToolList: React.FC<ToolListProps> = ({
               {/* Execute Button */}
               <button
                 data-testid={`execute-${tool.elementId}`}
-                onClick={() => onExecuteTool(tool)}
+                onClick={() => onExecuteTool?.(tool)}
                 className={`w-full px-3 py-2 ${colors.button} text-white text-sm rounded transition-colors`}
               >
                 Execute
