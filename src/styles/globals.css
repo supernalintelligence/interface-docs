@@ -14,24 +14,33 @@
   --bg-secondary: #f9fafb;
   --bg-tertiary: #f3f4f6;
   --bg-elevated: #ffffff;
-  
+
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --text-tertiary: #6b7280;
   --text-inverse: #ffffff;
-  
+
   --border-color: #e5e7eb;
-  --border-focus: #3b82f6;
+  --border-focus: #9333ea;
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  
+
+  /* Brand gradient colors */
+  --brand-gradient-from: #9333ea;
+  --brand-gradient-via: #c026d3;
+  --brand-gradient-to: #ec4899;
+
   --blue-primary: #2563eb;
   --blue-hover: #1d4ed8;
+  --purple-primary: #9333ea;
+  --purple-hover: #7e22ce;
+  --pink-primary: #ec4899;
+  --pink-hover: #db2777;
   --green-primary: #059669;
   --green-hover: #047857;
   --red-primary: #dc2626;
   --red-hover: #b91c1c;
-  
+
   /* Legacy RGB values for gradient backgrounds */
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -87,6 +96,18 @@ body {
   color: var(--text-primary);
   background: var(--bg-primary);
   min-height: 100vh;
+}
+
+/* Brand gradient utility classes */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--brand-gradient-from) 0%, var(--brand-gradient-via) 50%, var(--brand-gradient-to) 100%);
+}
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--brand-gradient-from) 0%, var(--brand-gradient-via) 50%, var(--brand-gradient-to) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Apply theme variables to Tailwind classes */

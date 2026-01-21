@@ -45,11 +45,11 @@ const navToContainerMap: Record<string, string> = {
   home: 'Landing',
   landing: 'Landing',
   demo: 'Demo',
-  dashboard: 'Dashboard',
   docs: 'Docs',
-  examples: 'Examples',
-  blog: 'Blog',
-  architecture: 'Architecture'
+  showcase: 'Showcase',
+  testing: 'Testing',
+  stories: 'Stories',
+  blog: 'Blog'
 };
 
 /**
@@ -67,6 +67,10 @@ export const {
   autoInferEdges: true,
   mirrorTools: [
     // Mirror tools from DemoSimple to DemoStateful (they share components)
-    { from: 'DemoSimple', to: 'DemoStateful' }
+    { from: 'DemoSimple', to: 'DemoStateful' },
+    // Mirror tools from DemoSimple to Demo (main demo page)
+    { from: 'DemoSimple', to: 'Demo' },
+    // Mirror tools from Examples to Demo (main demo page)
+    { from: 'Examples', to: 'Demo' }
   ]
 });

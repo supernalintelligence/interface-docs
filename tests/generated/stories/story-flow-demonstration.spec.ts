@@ -28,8 +28,8 @@ test.describe('Story Flow Demonstration', () => {
 
   test('Complete user journey through chat and counter', async ({ page }) => {
     // Execution order: Complete user journey through chat and counter-0 → Complete user journey through chat and counter-1 → Complete user journey through chat and counter-2 → Complete user journey through chat and counter-3 → Complete user journey through chat and counter-4 → Complete user journey through chat and counter-5 → Complete user journey through chat and counter-6 → Complete user journey through chat and counter-7 → Complete user journey through chat and counter-8 → Complete user journey through chat and counter-9 → Complete user journey through chat and counter-10
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible
@@ -69,8 +69,8 @@ test.describe('Story Flow Demonstration', () => {
 
   test('Multiple counter increments', async ({ page }) => {
     // Execution order: Multiple counter increments-11 → Multiple counter increments-12 → Multiple counter increments-13 → Multiple counter increments-14 → Multiple counter increments-15 → Multiple counter increments-16
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible
@@ -92,8 +92,8 @@ test.describe('Story Flow Demonstration', () => {
 
   test('Chat and counter together', async ({ page }) => {
     // Execution order: Chat and counter together-17 → Chat and counter together-18 → Chat and counter together-19 → Chat and counter together-20 → Chat and counter together-21 → Chat and counter together-22 → Chat and counter together-23 → Chat and counter together-24 → Chat and counter together-25
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // Given Components.Chat.bubble is visible

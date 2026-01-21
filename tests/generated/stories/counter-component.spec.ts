@@ -28,8 +28,8 @@ test.describe('Counter Component', () => {
 
   test('Starting from zero', async ({ page }) => {
     // Execution order: Starting from zero-26 → Starting from zero-27 → Starting from zero-28 → Starting from zero-29
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -45,8 +45,8 @@ test.describe('Counter Component', () => {
 
   test('Incrementing multiple times', async ({ page }) => {
     // Execution order: Incrementing multiple times-30 → Incrementing multiple times-31 → Incrementing multiple times-32 → Incrementing multiple times-33 → Incrementing multiple times-34 → Incrementing multiple times-35
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -68,8 +68,8 @@ test.describe('Counter Component', () => {
 
   test('Decrementing after incrementing', async ({ page }) => {
     // Execution order: Decrementing after incrementing-36 → Decrementing after incrementing-37 → Decrementing after incrementing-38 → Decrementing after incrementing-39 → Decrementing after incrementing-40 → Decrementing after incrementing-41
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -91,8 +91,8 @@ test.describe('Counter Component', () => {
 
   test('Reset to zero', async ({ page }) => {
     // Execution order: Reset to zero-42 → Reset to zero-43 → Reset to zero-44 → Reset to zero-45 → Reset to zero-46 → Reset to zero-47 → Reset to zero-48
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible
@@ -117,8 +117,8 @@ test.describe('Counter Component', () => {
 
   test('Increment and decrement combination', async ({ page }) => {
     // Execution order: Increment and decrement combination-49 → Increment and decrement combination-50 → Increment and decrement combination-51 → Increment and decrement combination-52 → Increment and decrement combination-53 → Increment and decrement combination-54 → Increment and decrement combination-55 → Increment and decrement combination-56 → Increment and decrement combination-57 → Increment and decrement combination-58
-    // Given I am on Routes.Examples
-    await page.goto(`${Routes.Examples}`);
+    // Given I am on Routes.Demo
+    await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
 
     // And Components.Counter.widget is visible

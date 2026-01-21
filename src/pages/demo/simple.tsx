@@ -29,10 +29,14 @@ export default function SimpleDemoPage() {
 
   const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
 
-  // Get tools
+  // Get tools using named contracts
   useEffect(() => {
     const tools = Array.from(ToolRegistry.getAllTools().values())
-      .filter(t => t.aiEnabled && (t.containerId === '/demo/simple' || !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX)))
+      .filter(t => {
+        const isGlobalOrNav = !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX);
+        const isSimpleTool = t.containerId === DemoContainers.DemoSimple.id;
+        return t.aiEnabled && (isGlobalOrNav || isSimpleTool);
+      })
       .sort((a, b) => {
         const order: Record<string, number> = {
           'Open Menu': 1,

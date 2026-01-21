@@ -24,7 +24,7 @@ test.describe('Complete Interface Demo', () => {
   });
 
   test('Opening and using the chat interface', async ({ page }) => {
-    // Execution order: Opening and using the chat interface-217 → Opening and using the chat interface-218 → Opening and using the chat interface-219 → Opening and using the chat interface-220 → Opening and using the chat interface-221 → Opening and using the chat interface-222 → Opening and using the chat interface-223 → Opening and using the chat interface-224 → Opening and using the chat interface-225 → Opening and using the chat interface-226 → Opening and using the chat interface-227
+    // Execution order: Opening and using the chat interface-164 → Opening and using the chat interface-165 → Opening and using the chat interface-166 → Opening and using the chat interface-167 → Opening and using the chat interface-168 → Opening and using the chat interface-169 → Opening and using the chat interface-170 → Opening and using the chat interface-171 → Opening and using the chat interface-172 → Opening and using the chat interface-173 → Opening and using the chat interface-174
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 
@@ -61,7 +61,7 @@ test.describe('Complete Interface Demo', () => {
   });
 
   test('Interacting with the counter', async ({ page }) => {
-    // Execution order: Interacting with the counter-228 → Interacting with the counter-229 → Interacting with the counter-230 → Interacting with the counter-231 → Interacting with the counter-232 → Interacting with the counter-233 → Interacting with the counter-234 → Interacting with the counter-235 → Interacting with the counter-236 → Interacting with the counter-237 → Interacting with the counter-238 → Interacting with the counter-239
+    // Execution order: Interacting with the counter-175 → Interacting with the counter-176 → Interacting with the counter-177 → Interacting with the counter-178 → Interacting with the counter-179 → Interacting with the counter-180 → Interacting with the counter-181 → Interacting with the counter-182 → Interacting with the counter-183 → Interacting with the counter-184 → Interacting with the counter-185 → Interacting with the counter-186
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 
@@ -101,7 +101,7 @@ test.describe('Complete Interface Demo', () => {
   });
 
   test('Using AI commands to control the interface', async ({ page }) => {
-    // Execution order: Using AI commands to control the interface-240 → Using AI commands to control the interface-241 → Using AI commands to control the interface-242 → Using AI commands to control the interface-243 → Using AI commands to control the interface-244 → Using AI commands to control the interface-245 → Using AI commands to control the interface-246 → Using AI commands to control the interface-247 → Using AI commands to control the interface-248 → Using AI commands to control the interface-249 → Using AI commands to control the interface-250
+    // Execution order: Using AI commands to control the interface-187 → Using AI commands to control the interface-188 → Using AI commands to control the interface-189 → Using AI commands to control the interface-190 → Using AI commands to control the interface-191 → Using AI commands to control the interface-192 → Using AI commands to control the interface-193 → Using AI commands to control the interface-194 → Using AI commands to control the interface-195 → Using AI commands to control the interface-196 → Using AI commands to control the interface-197
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 
@@ -138,7 +138,7 @@ test.describe('Complete Interface Demo', () => {
   });
 
   test('Final demonstration of the complete workflow', async ({ page }) => {
-    // Execution order: Final demonstration of the complete workflow-251 → Final demonstration of the complete workflow-252 → Final demonstration of the complete workflow-253 → Final demonstration of the complete workflow-254 → Final demonstration of the complete workflow-255 → Final demonstration of the complete workflow-256 → Final demonstration of the complete workflow-257 → Final demonstration of the complete workflow-258
+    // Execution order: Final demonstration of the complete workflow-198 → Final demonstration of the complete workflow-199 → Final demonstration of the complete workflow-200 → Final demonstration of the complete workflow-201 → Final demonstration of the complete workflow-202 → Final demonstration of the complete workflow-203 → Final demonstration of the complete workflow-204 → Final demonstration of the complete workflow-205
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 

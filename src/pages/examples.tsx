@@ -1,45 +1,21 @@
 /**
  * Examples Page Route - /examples
+ * Redirects to /demo/live (unified demo page)
  */
 
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { Header } from '../components/Header';
-import { EarlyAccessModal } from '../components/EarlyAccessModal';
-import { ExamplesPage } from '../components/pages/ExamplesPage';
-import { registerExampleTools } from '../tools/ExampleTools';
-import { useContainer } from '@supernal/interface/browser';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function ExamplesRoute() {
-  const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
-
-  // CRITICAL: Set container context for tool filtering
-  useContainer('Examples');
+  const router = useRouter();
 
   useEffect(() => {
-    // Register example-specific tools
-    registerExampleTools();
-  }, []);
+    router.replace('/demo/live');
+  }, [router]);
 
   return (
-    <>
-      <Head>
-        <title>Examples - Supernal Interface Demo</title>
-      </Head>
-
-      <div className="min-h-screen bg-gray-50">
-        <Header onEarlyAccessClick={() => setShowEarlyAccessModal(true)} />
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <ExamplesPage />
-        </div>
-        
-        {/* Chat is now global in _app.tsx */}
-        
-        <EarlyAccessModal 
-          isOpen={showEarlyAccessModal}
-          onClose={() => setShowEarlyAccessModal(false)}
-        />
-      </div>
-    </>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
+      <p className="text-gray-400">Redirecting to live demo...</p>
+    </div>
   );
 }

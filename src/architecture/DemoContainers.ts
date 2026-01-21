@@ -39,21 +39,43 @@ export const DemoContainers = {
   
   /**
    * Demo Page
-   * 
-   * Root demo page with tabbed sub-sections for different patterns.
+   *
+   * Main demo page with interactive widgets and code examples.
    */
   Demo: {
     id: 'Demo',
     name: 'Demo Page',
     type: 'page' as const,
     route: '/demo',
-    components: [],
-    description: 'Demo page root with Simple and Stateful sub-containers'
+    components: [
+      'open-main-menu',
+      'close-main-menu',
+      'feature-toggle',
+      'notification-toggle',
+      'priority-high',
+      'priority-medium',
+      'priority-low',
+      'status-dropdown',
+      'theme-toggle',
+      'form-submit',
+      'examples-counter-increment',
+      'examples-counter-decrement',
+      'examples-counter-reset',
+      'examples-chat-send',
+      'examples-chat-clear',
+      'examples-settings-change',
+      'examples-settings-reset',
+      'examples-settings-delete',
+      'examples-data-add',
+      'examples-data-fetch',
+      'examples-data-delete'
+    ],
+    description: 'Main demo page with interactive widgets and code examples'
   },
-  
+
   /**
    * Simple Demo (Stateless Pattern)
-   * 
+   *
    * HOC-based components with callbacks, no persistence.
    */
   DemoSimple: {
@@ -68,7 +90,7 @@ export const DemoContainers = {
       'feature-toggle',
       'notification-toggle',
       'priority-high',
-      'priority-medium', 
+      'priority-medium',
       'priority-low',
       'status-dropdown',
       'theme-toggle',
@@ -245,8 +267,45 @@ export const DemoContainers = {
   },
   
   /**
+   * Showcase Page
+   *
+   * Gallery of sites built with Supernal Interface.
+   */
+  Showcase: {
+    id: 'Showcase',
+    name: 'Showcase',
+    type: 'page' as const,
+    route: '/showcase',
+    components: [
+      'showcase-container',
+      'showcase-title',
+      'showcase-site-card',
+      'showcase-category-filter'
+    ],
+    description: 'Showcase of applications built with Supernal Interface'
+  },
+
+  /**
+   * Testing Page
+   *
+   * Testing features and auto-generated test documentation.
+   */
+  Testing: {
+    id: 'Testing',
+    name: 'Testing',
+    type: 'page' as const,
+    route: '/testing',
+    components: [
+      'testing-container',
+      'testing-title',
+      'testing-feature-card'
+    ],
+    description: 'Testing features and documentation'
+  },
+
+  /**
    * Stories Page
-   * 
+   *
    * Test stories and story execution.
    */
   Stories: {

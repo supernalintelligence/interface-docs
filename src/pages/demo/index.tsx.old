@@ -1,0 +1,24 @@
+/**
+ * Demo Index - Redirects to Simple Tab
+ */
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useContainer } from "@supernal/interface/browser";
+import { DemoContainers } from '../../architecture';
+
+export default function DemoIndex() {
+  useContainer(DemoContainers.Demo.id); // Register the Demo parent container using named contract
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/demo/live');
+  }, [router]);
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p className="text-gray-600">Redirecting to demo...</p>
+    </div>
+  );
+}
+

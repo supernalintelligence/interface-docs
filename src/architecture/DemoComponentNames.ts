@@ -32,11 +32,10 @@ export const GlobalNav = createNames('nav', [
 export const GlobalNav = {
   home: 'nav-home',
   demo: 'nav-demo',
-  dashboard: 'nav-dashboard',
-  architecture: 'nav-architecture',
-  docs: 'nav-docs',
-  examples: 'nav-examples',
+  showcase: 'nav-showcase',
+  testing: 'nav-testing',
   stories: 'nav-stories',
+  docs: 'nav-docs',
   blog: 'nav-blog'
 } as const;
 
@@ -212,7 +211,7 @@ export const Blog = {
   postTitle: 'blog-post-title',
   postLink: 'blog-post-link',
   backButton: 'blog-back-button',
-  
+
   // Individual post page
   postContainer: 'blog-post-container',
   postHeader: 'blog-post-header',
@@ -221,8 +220,55 @@ export const Blog = {
 } as const;
 
 /**
+ * Showcase Page Components
+ */
+export const Showcase = {
+  container: 'showcase-container',
+  title: 'showcase-title',
+  siteCard: 'showcase-site-card',
+  siteTitle: 'showcase-site-title',
+  siteDescription: 'showcase-site-description',
+  siteLink: 'showcase-site-link',
+  categoryFilter: 'showcase-category-filter'
+} as const;
+
+/**
+ * Testing Page Components
+ */
+export const Testing = {
+  container: 'testing-container',
+  title: 'testing-title',
+  featureCard: 'testing-feature-card',
+  featureTitle: 'testing-feature-title',
+  featureDescription: 'testing-feature-description',
+  codeExample: 'testing-code-example'
+} as const;
+
+/**
+ * Stories Page Components (Walkthroughs)
+ */
+export const Stories = {
+  container: 'stories-container',
+  title: 'stories-title',
+  featureCard: 'stories-feature-card',
+  executeButton: 'stories-execute-button',
+  viewButton: 'stories-view-button',
+  resultsContainer: 'stories-results-container'
+} as const;
+
+/**
+ * 404 Not Found Page Components
+ */
+export const NotFound = {
+  container: 'not-found-container',
+  title: 'not-found-title',
+  message: 'not-found-message',
+  homeButton: 'not-found-home-button'
+} as const;
+
+/**
  * All Component Names
- * 
+ *
  * Organized by container for easy reference and validation.
  */
 export const ComponentNames = {
@@ -234,7 +280,11 @@ export const ComponentNames = {
   Chat,
   Counter,
   Dashboard,
-  Blog
+  Blog,
+  Showcase,
+  Testing,
+  Stories,
+  NotFound
 } as const;
 
 /**
@@ -245,13 +295,17 @@ export const Components = ComponentNames;
 /**
  * Type helper for component IDs
  */
-export type ComponentId = 
+export type ComponentId =
   | typeof Landing[keyof typeof Landing]
   | typeof Demo[keyof typeof Demo]
   | typeof Examples[keyof typeof Examples]
   | typeof Settings[keyof typeof Settings]
   | typeof Chat[keyof typeof Chat]
-  | typeof Blog[keyof typeof Blog];
+  | typeof Blog[keyof typeof Blog]
+  | typeof Showcase[keyof typeof Showcase]
+  | typeof Testing[keyof typeof Testing]
+  | typeof Stories[keyof typeof Stories]
+  | typeof NotFound[keyof typeof NotFound];
 
 /**
  * Get all component IDs as a flat array
@@ -263,7 +317,11 @@ export function getAllComponentIds(): ComponentId[] {
     ...Object.values(Examples),
     ...Object.values(Settings),
     ...Object.values(Chat),
-    ...Object.values(Blog)
+    ...Object.values(Blog),
+    ...Object.values(Showcase),
+    ...Object.values(Testing),
+    ...Object.values(Stories),
+    ...Object.values(NotFound)
   ];
 }
 

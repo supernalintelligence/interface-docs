@@ -22,6 +22,7 @@ import {
   Tool,
 } from "@supernalintelligence/interface-enterprise";
 import { Examples } from '../architecture/DemoComponentNames';
+import { DemoContainers } from '../architecture';
 
 // ============================================
 // NAME CONTRACTS - Counter names moved to DemoComponentNames
@@ -66,7 +67,7 @@ export const Data = {
  */
 @Component({
   name: 'counter',
-  containerId: '/examples',
+  containerId: DemoContainers.DemoSimple.id,
   elementId: Counter.root,
   description: 'Interactive counter with state',
   stateful: true,
@@ -141,7 +142,7 @@ export class CounterComponent {
 export class CounterTools {
   @AITool({
     elementId: Counter.incrementButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Increment the counter by 1',
     category: ToolCategory.UTILITY,
     examples: ['increment counter', 'increase counter', 'add to counter'],
@@ -154,7 +155,7 @@ export class CounterTools {
 
   @TestTool({
     elementId: Counter.decrementButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Decrement the counter by 1',
     category: ToolCategory.UTILITY,
     examples: ['decrement counter', 'decrease counter', 'subtract from counter'],
@@ -167,7 +168,7 @@ export class CounterTools {
 
   @AIAndTestTool({
     elementId: Counter.resetButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Reset counter to zero',
     category: ToolCategory.UTILITY,
     examples: ['reset counter', 'reset to zero', 'set counter to zero'],
@@ -186,7 +187,7 @@ export class CounterTools {
 export class ChatTools {
   @AITool({
     elementId: Chat.sendButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Send a chat message',
     examples: [
       'send message {message}',
@@ -206,7 +207,7 @@ export class ChatTools {
 
   @AITool({
     elementId: Chat.clearButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Clear all chat messages',
     examples: ['clear chat', 'clear messages', 'delete all messages'],
   })
@@ -224,7 +225,7 @@ export class ChatTools {
 export class SettingsTools {
   @AITool({
     elementId: Settings.changeButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Change a setting value',
     examples: ['change setting to {setting}', 'update setting to {setting}', 'set {setting}'],
   })
@@ -238,7 +239,7 @@ export class SettingsTools {
 
   @DangerousTool({
     elementId: Settings.resetButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Reset all settings to defaults',
     examples: ['reset settings', 'reset all settings', 'restore defaults'],
   })
@@ -250,7 +251,7 @@ export class SettingsTools {
 
   @DestructiveTool({
     elementId: Settings.deleteButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Permanently delete all user data',
     examples: ['delete all data', 'clear all data', 'remove everything'],
   })
@@ -268,7 +269,7 @@ export class SettingsTools {
 export class DataTools {
   @DataReadTool({
     elementId: Data.fetchButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Fetch all items from the list',
     examples: ['fetch items', 'get items', 'show items', 'list items'],
   })
@@ -281,7 +282,7 @@ export class DataTools {
 
   @DataWriteTool({
     elementId: Data.addButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Add a new item to the list',
     examples: ['add item {item}', 'create item {item}', 'add {item} to list'],
   })
@@ -296,7 +297,7 @@ export class DataTools {
 
   @DestructiveTool({
     elementId: Data.deleteButton,
-    containerId: '/examples',
+    containerId: DemoContainers.DemoSimple.id,
     description: 'Delete an item from the list',
     examples: ['delete item {index}', 'remove item {index}', 'delete item number {index}'],
   })
