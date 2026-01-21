@@ -1,4 +1,4 @@
-import { test, expect, getBaseURL } from './fixtures';
+import { test, expect, getBaseURL , expandChatBubble } from './fixtures';
 import { TestRoutes, TestComponents } from './test-constants';
 import { testId } from '@supernal/interface/testing';
 
@@ -55,13 +55,16 @@ test.describe('Stateful Demo - AI Theme Control', () => {
   test('should change theme via AI command', async ({ page }) => {
     // Log ALL console messages to see what's happening
     page.on('console', (msg) => console.log('[BROWSER]', msg.text()));
-    
+
     // Get the theme select element
     const themeSelect = page.locator(testId(StatefulDemo.themeSelect));
-    
+
     // Initial theme should be light (default)
     await expect(themeSelect).toHaveValue('light');
-    
+
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     // Find AI input and submit "theme dark" command
     const aiInput = page.locator(testId(TestComponents.chat.input));
     await aiInput.fill('theme dark');
@@ -84,6 +87,9 @@ test.describe('Stateful Demo - AI Theme Control', () => {
   });
 
   test('should persist theme after refresh', async ({ page }) => {
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     // Change theme via AI
     const aiInput = page.locator(testId(TestComponents.chat.input));
     await aiInput.fill('theme dark');

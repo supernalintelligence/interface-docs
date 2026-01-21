@@ -4,7 +4,7 @@
  * Test that tool cards are clickable and execute tools directly
  */
 
-import { test, expect, getBaseURL } from './fixtures';
+import { test, expect, getBaseURL , expandChatBubble } from './fixtures';
 import { TestRoutes, TestComponents } from './test-constants';
 import { testId } from '@supernal/interface/testing';
 
@@ -41,7 +41,10 @@ test.describe('Clickable Tool Interface', () => {
   test('should populate AI input when clicking command examples', async ({ page }) => {
     await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
     await page.waitForLoadState('networkidle');
-    
+
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     // Check AI input is accessible
     const aiInput = page.locator(testId(TestComponents.chat.input));
     await expect(aiInput).toBeVisible();
@@ -55,7 +58,10 @@ test.describe('Clickable Tool Interface', () => {
   test('should show chat interface and accept input', async ({ page }) => {
     await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
     await page.waitForLoadState('networkidle');
-    
+
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     // Check chat interface exists
     const chatInput = page.locator(testId(TestComponents.chat.input));
     await expect(chatInput).toBeVisible();

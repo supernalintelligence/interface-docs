@@ -6,7 +6,7 @@
  * Updated to use architecture-aware components and routes
  */
 
-import { test, expect, getBaseURL } from './fixtures';
+import { test, expect, getBaseURL , expandChatBubble } from './fixtures';
 import { TestRoutes, TestComponents, testid } from './test-constants';
 
 test.describe('@supernal-interface/core Auto-Generated Tests', () => {
@@ -33,12 +33,22 @@ test.describe('@supernal-interface/core Auto-Generated Tests', () => {
       TestComponents.demo.closeMainMenu,
       TestComponents.demo.featureToggle,
       TestComponents.demo.notificationToggle,
+    ];
+
+    for (const testId of requiredElements) {
+      await expect(page.locator(testid(testId))).toBeVisible();
+    }
+
+    // Expand chat to check chat elements
+    await expandChatBubble(page);
+
+    const chatElements = [
       TestComponents.chat.input,
       TestComponents.chat.sendButton,
       TestComponents.chat.clearButton,
     ];
 
-    for (const testId of requiredElements) {
+    for (const testId of chatElements) {
       await expect(page.locator(testid(testId))).toBeVisible();
     }
   });
@@ -64,16 +74,19 @@ test.describe('@supernal-interface/core Auto-Generated Tests', () => {
   });
 
   test('should handle chat interface tools', async ({ page }) => {
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     // Test sending a message
     const chatInput = page.locator(testid(TestComponents.chat.input));
     const sendButton = page.locator(testid(TestComponents.chat.sendButton));
-    
+
     await chatInput.fill('Test message');
     await sendButton.click();
-    
+
     // Wait for message to appear
     await page.waitForTimeout(500);
-    
+
     // Test clearing chat
     const clearButton = page.locator(testid(TestComponents.chat.clearButton));
     await clearButton.click();
@@ -92,9 +105,12 @@ test.describe('@supernal-interface/core Auto-Generated Tests', () => {
   });
 
   test('should process AI commands via chat', async ({ page }) => {
+    // Expand chat bubble to make input visible
+    await expandChatBubble(page);
+
     const chatInput = page.locator(testid(TestComponents.chat.input));
     const sendButton = page.locator(testid(TestComponents.chat.sendButton));
-    
+
     // Send "open menu" command
     await chatInput.fill('open menu');
     await sendButton.click();
@@ -144,10 +160,13 @@ test.describe('AI Command Processing', () => {
     test(`should process AI command: "${command}"`, async ({ page }) => {
       await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
       await page.waitForLoadState('domcontentloaded');
-      
+
+      // Expand chat bubble to make input visible
+      await expandChatBubble(page);
+
       const chatInput = page.locator(testid(TestComponents.chat.input));
       const sendButton = page.locator(testid(TestComponents.chat.sendButton));
-      
+
       await chatInput.fill(command);
       await sendButton.click();
       
