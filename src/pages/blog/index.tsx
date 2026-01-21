@@ -14,6 +14,8 @@ import BlogCard from '../../components/blog/BlogCard';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Search } from 'lucide-react';
 import { Blog } from '../../architecture/DemoComponentNames';
+import { DemoContainers } from '../../architecture';
+import { useContainer } from "@supernal/interface/browser";
 
 interface BlogIndexProps {
   posts: Post[];
@@ -24,6 +26,9 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
+
+  // CRITICAL: Set container context for tool scoping
+  useContainer(DemoContainers.Blog.id);
 
   // Filter posts
   const filteredPosts = posts.filter(post => {
