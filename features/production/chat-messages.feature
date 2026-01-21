@@ -6,6 +6,7 @@ Feature: Chat Messages
   Background:
     Given I am on Routes.Demo
     Given Components.Chat.bubble is visible
+    When I click Components.Chat.bubble
 
   Scenario: Send one message
     When I type "Hello, World!" in Components.Chat.input

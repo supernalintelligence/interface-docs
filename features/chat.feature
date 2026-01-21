@@ -6,6 +6,7 @@ Feature: Chat Component
   Background:
     Given I am on Routes.Demo
     Given Components.Chat.bubble is visible
+    When I click Components.Chat.bubble
 
   Scenario: Starting with empty chat
     Given chat state is Components.Examples.chat.state.empty
