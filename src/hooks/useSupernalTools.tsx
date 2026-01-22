@@ -84,18 +84,22 @@ function markExecuted(actionId: string): boolean {
  */
 export function useSupernalToolsBridge() {
   const registeredRef = useRef(false);
-  
-  // Get all AI-enabled tools from our registry
-  const allTools = Array.from(ToolRegistry.getAllTools().values());
+
+  // 🎯 UNIFIED SCOPING: Get tools filtered by current location
+  // This uses the unified scoping system (containerId + @LocationScope)
+  // Tools are automatically filtered based on LocationContext
+  const allTools = ToolRegistry.getToolsForCurrentContext();
   const tools = allTools.filter((t: ToolMetadata) => t.aiEnabled);
-  
+
   // Log what we're bridging (once)
   useEffect(() => {
     if (!registeredRef.current) {
       // eslint-disable-next-line no-console
+      console.log('[useSupernalToolsBridge] 🎯 Location-aware tool filtering enabled');
+      // eslint-disable-next-line no-console
       console.log('[useSupernalToolsBridge] Bridging tools:', tools.map(t => t.name));
       // eslint-disable-next-line no-console
-      console.log(`[useSupernalToolsBridge] Total: ${allTools.length} tools, ${tools.length} AI-enabled`);
+      console.log(`[useSupernalToolsBridge] Total: ${allTools.length} available, ${tools.length} AI-enabled`);
       registeredRef.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

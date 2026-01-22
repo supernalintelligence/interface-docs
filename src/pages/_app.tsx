@@ -6,10 +6,14 @@ import React, { useEffect } from 'react'
 import Script from 'next/script'
 import { SupernalProvider } from '@supernal/interface-nextjs'
 import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
+import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
+
+// 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
+import '../tools/LocationAwareExampleTools'
 
 const DEBUG = false
 // @ts-ignore - CopilotKit is optional
@@ -61,10 +65,19 @@ function ArchitectureInitializer() {
   }, [router])
 
   // Update context whenever route changes (including initial load)
+  // 🎯 UNIFIED SCOPING: NavigationGraph.setCurrentContext() now updates LocationContext
   useEffect(() => {
     const currentPath = router.asPath
     DEBUG && console.log('🔄 [_app] Route changed to:', currentPath)
+
+    // Update both systems (NavigationGraph delegates to LocationContext)
     NavigationGraph.getInstance().setCurrentContext(currentPath)
+
+    // For debugging: verify LocationContext is updated
+    if (DEBUG) {
+      const location = LocationContext.getCurrent()
+      console.log('📍 [_app] LocationContext state:', location)
+    }
   }, [router.asPath])
 
   return null
