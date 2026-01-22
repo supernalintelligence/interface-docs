@@ -45,9 +45,8 @@ export default function DemoPage() {
   const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
 
   // CRITICAL: Set container context using named contract
-  // Use DemoSimple because that's where the tools are actually registered
-  // (mirroring to Demo container is configured but not working at runtime)
-  useContainer(DemoContainers.DemoSimple.id);
+  // Use Demo container which matches route /demo
+  useContainer(DemoContainers.Demo.id);
 
   useEffect(() => {
     // Register example-specific tools
@@ -58,9 +57,9 @@ export default function DemoPage() {
       .filter(t => {
         // Include tools that are:
         // 1. AI enabled
-        // 2. Either have no container (global), start with navigation prefix, or belong to DemoSimple container
+        // 2. Either have no container (global), start with navigation prefix, or belong to Demo container
         const isGlobalOrNav = !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX);
-        const isDemoTool = t.containerId === DemoContainers.DemoSimple.id;
+        const isDemoTool = t.containerId === DemoContainers.Demo.id;
 
         return t.aiEnabled && (isGlobalOrNav || isDemoTool);
       })
