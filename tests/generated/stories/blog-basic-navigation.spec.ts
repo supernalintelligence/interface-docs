@@ -27,7 +27,7 @@ test.describe('Blog Basic Navigation', () => {
   });
 
   test('View blog page', async ({ page }) => {
-    // Execution order: View blog page-149 → View blog page-150
+    // Execution order: View blog page-159 → View blog page-160
     // Given I am on Routes.Blog
     await page.goto(`${Routes.Blog}`);
     await initializeTestState(page);

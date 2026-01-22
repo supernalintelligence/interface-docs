@@ -27,7 +27,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment counter', async ({ page }) => {
-    // Execution order: Increment counter-115 → Increment counter-116 → Increment counter-117 → Increment counter-118
+    // Execution order: Increment counter-125 → Increment counter-126 → Increment counter-127 → Increment counter-128
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -44,7 +44,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment three times', async ({ page }) => {
-    // Execution order: Increment three times-119 → Increment three times-120 → Increment three times-121 → Increment three times-122
+    // Execution order: Increment three times-129 → Increment three times-130 → Increment three times-131 → Increment three times-132
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -63,7 +63,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment and decrement', async ({ page }) => {
-    // Execution order: Increment and decrement-123 → Increment and decrement-124 → Increment and decrement-125 → Increment and decrement-126 → Increment and decrement-127
+    // Execution order: Increment and decrement-133 → Increment and decrement-134 → Increment and decrement-135 → Increment and decrement-136 → Increment and decrement-137
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -85,7 +85,7 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Reset counter', async ({ page }) => {
-    // Execution order: Reset counter-128 → Reset counter-129 → Reset counter-130 → Reset counter-131 → Reset counter-132
+    // Execution order: Reset counter-138 → Reset counter-139 → Reset counter-140 → Reset counter-141 → Reset counter-142
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);

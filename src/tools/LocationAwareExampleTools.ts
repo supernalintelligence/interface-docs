@@ -1,8 +1,11 @@
 /**
- * Location-Aware Example Tools
+ * Location-Aware Navigation Tools
  *
  * Demonstrates the NEW unified scoping system with @LocationScope decorator.
- * These tools showcase advanced location-based filtering beyond simple containerId.
+ * Uses global scoping for site-wide navigation.
+ *
+ * NOTE: Real widget tools (counter, chat, etc.) are in ExampleTools.ts
+ * and use the OLD containerId pattern. Both patterns work together!
  */
 
 import {
@@ -12,100 +15,10 @@ import {
 import { LocationScope } from "@supernal/interface/browser";
 
 /**
- * Blog Editor Tools - Only available on blog pages with editor component
- *
- * Demonstrates @LocationScope with pages AND components filtering
- */
-export class BlogEditorTools {
-  @Tool({
-    description: 'Save the current blog post draft',
-    aiEnabled: true,
-    category: ToolCategory.CONTENT_CREATION,
-    examples: ['save draft', 'save post', 'save my work'],
-  })
-  @LocationScope({
-    pages: ['/blog', '/blog/new', '/blog/edit'],
-    components: ['blog-editor'], // Only when editor is mounted
-  })
-  async saveDraft() {
-    console.log('[BlogEditorTools] Saving draft...');
-    return {
-      success: true,
-      message: 'Draft saved successfully (demo)',
-    };
-  }
-
-  @Tool({
-    description: 'Publish the current blog post',
-    aiEnabled: true,
-    category: ToolCategory.CONTENT_CREATION,
-    examples: ['publish post', 'publish blog', 'make it live'],
-    dangerLevel: 'moderate',
-  })
-  @LocationScope({
-    pages: ['/blog/edit'],
-    components: ['blog-editor'],
-    // Custom matcher: Only allow if user has permission
-    custom: (location) => {
-      // In real app, check user role from location.metadata
-      // For demo, always allow
-      return true;
-    },
-  })
-  async publishPost() {
-    console.log('[BlogEditorTools] Publishing post...');
-    return {
-      success: true,
-      message: 'Post published successfully (demo)',
-    };
-  }
-}
-
-/**
- * Examples Page Tools - Only available on /examples page
- *
- * Demonstrates @LocationScope with single page filtering
- */
-export class ExamplesPageTools {
-  @Tool({
-    description: 'Run all examples on the page',
-    aiEnabled: true,
-    category: ToolCategory.TESTING,
-    examples: ['run all examples', 'test everything', 'run demos'],
-  })
-  @LocationScope({
-    pages: ['/examples'],
-  })
-  async runAllExamples() {
-    console.log('[ExamplesPageTools] Running all examples...');
-    return {
-      success: true,
-      message: 'All examples executed (demo)',
-    };
-  }
-
-  @Tool({
-    description: 'Reset all examples to initial state',
-    aiEnabled: true,
-    category: ToolCategory.TESTING,
-    examples: ['reset examples', 'start over', 'clear demos'],
-  })
-  @LocationScope({
-    pages: ['/examples'],
-  })
-  async resetExamples() {
-    console.log('[ExamplesPageTools] Resetting examples...');
-    return {
-      success: true,
-      message: 'All examples reset (demo)',
-    };
-  }
-}
-
-/**
  * Global Navigation Tools - Available everywhere
  *
  * Demonstrates @LocationScope with global: true
+ * These tools work on ALL pages including landing page
  */
 export class GlobalNavigationTools {
   @Tool({
@@ -129,27 +42,45 @@ export class GlobalNavigationTools {
   }
 
   @Tool({
-    description: 'Navigate to examples page',
+    description: 'Navigate to demo page',
     aiEnabled: true,
     category: ToolCategory.NAVIGATION,
-    examples: ['go to examples', 'show examples', 'examples page'],
+    examples: ['go to demo', 'show demo', 'demo page'],
   })
   @LocationScope({
     global: true,
   })
-  async goToExamples() {
-    console.log('[GlobalNavigationTools] Going to examples...');
+  async goToDemo() {
+    console.log('[GlobalNavigationTools] Going to demo...');
     if (typeof window !== 'undefined') {
-      window.location.href = '/examples';
+      window.location.href = '/demo';
     }
     return {
       success: true,
-      message: 'Navigating to examples page',
+      message: 'Navigating to demo page',
+    };
+  }
+
+  @Tool({
+    description: 'Navigate to blog page',
+    aiEnabled: true,
+    category: ToolCategory.NAVIGATION,
+    examples: ['go to blog', 'show blog', 'blog page'],
+  })
+  @LocationScope({
+    global: true,
+  })
+  async goToBlog() {
+    console.log('[GlobalNavigationTools] Going to blog...');
+    if (typeof window !== 'undefined') {
+      window.location.href = '/blog';
+    }
+    return {
+      success: true,
+      message: 'Navigating to blog page',
     };
   }
 }
 
-// Auto-instantiate tool providers
-new BlogEditorTools();
-new ExamplesPageTools();
+// Auto-instantiate tool provider
 new GlobalNavigationTools();

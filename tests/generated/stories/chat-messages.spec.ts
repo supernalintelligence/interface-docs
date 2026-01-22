@@ -27,7 +27,7 @@ test.describe('Chat Messages', () => {
   });
 
   test('Send one message', async ({ page }) => {
-    // Execution order: Send one message-133 → Send one message-134 → Send one message-135 → Send one message-136 → Send one message-137 → Send one message-138
+    // Execution order: Send one message-143 → Send one message-144 → Send one message-145 → Send one message-146 → Send one message-147 → Send one message-148
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -51,7 +51,7 @@ test.describe('Chat Messages', () => {
   });
 
   test('Send multiple messages', async ({ page }) => {
-    // Execution order: Send multiple messages-139 → Send multiple messages-140 → Send multiple messages-141 → Send multiple messages-142 → Send multiple messages-143 → Send multiple messages-144 → Send multiple messages-145 → Send multiple messages-146 → Send multiple messages-147 → Send multiple messages-148
+    // Execution order: Send multiple messages-149 → Send multiple messages-150 → Send multiple messages-151 → Send multiple messages-152 → Send multiple messages-153 → Send multiple messages-154 → Send multiple messages-155 → Send multiple messages-156 → Send multiple messages-157 → Send multiple messages-158
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
