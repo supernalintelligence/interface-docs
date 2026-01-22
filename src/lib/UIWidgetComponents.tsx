@@ -1,6 +1,6 @@
 /**
  * UI Widget Components - DRY Pattern
- * 
+ *
  * Base components wrapped with @Tool decorators for BOTH Simple and (Stateful) demos.
  * Each base component is wrapped TWICE to create separate Simple/(Stateful) tools.
  */
@@ -11,6 +11,9 @@ import { Components, DemoContainers } from '../architecture';
 import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { getUIControls } from './UIControls';
 import { DemoWidgetState } from '../types/DemoState';
+
+// Debug: Verify this module loads
+console.log('🔧 [UIWidgetComponents] Module loaded at', new Date().toISOString());
 
 // ============================================================================
 // Demo State Management (Shared + LocalStorage Persistence)

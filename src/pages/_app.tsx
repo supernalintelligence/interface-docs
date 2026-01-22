@@ -9,6 +9,7 @@ import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
+import '../lib/DevTools'  // Expose AI interface for testing
 
 const DEBUG = false
 // @ts-ignore - CopilotKit is optional

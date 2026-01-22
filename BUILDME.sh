@@ -1,47 +1,25 @@
 #!/bin/bash
-# Build script for @supernal-interface/docs-site
-set -e
+# BUILDME.sh - Build the docs-site
+# This script ensures the open-source package is built first, then builds docs-site
 
-echo "🏗️  Building @supernal-interface/docs-site"
-echo "==========================================="
+set -e  # Exit on error
 
-# Check if linked packages are available
-echo "🔗 Checking for linked packages..."
-if [ ! -L "node_modules/@supernal/interface" ]; then
-  echo "⚠️  @supernal/interface not linked"
-  echo "   Run: cd ../open-source && npm link"
-  echo "   Then: npm link @supernal/interface"
-fi
+echo "🔨 Building docs-site..."
 
-if [ ! -L "node_modules/@supernalintelligence/interface-enterprise" ]; then
-  echo "⚠️  @supernalintelligence/interface-enterprise not linked"
-  echo "   Run: cd ../enterprise && npm link"
-  echo "   Then: npm link @supernalintelligence/interface-enterprise"
-fi
+# Step 1: Build open-source package first
+echo "📦 Building @supernal/interface dependency..."
+(cd ../open-source && ./BUILDME.sh)
 
-# Install dependencies
+# Step 2: Clean caches
+echo "🧹 Cleaning caches..."
+rm -rf .next node_modules/.cache
+
+# Step 3: Install/update dependencies
 echo "📦 Installing dependencies..."
-npm install
+npm install ../open-source
 
-# Run validation
-echo "✅ Validating client directives..."
-npm run validate || true
-
-# Sync docs
-echo "📚 Syncing documentation..."
-npm run sync:docs || true
-
-# Build Next.js app
-echo "🔨 Building Next.js application..."
+# Step 4: Build docs-site
+echo "🏗️  Building Next.js application..."
 npm run build
 
-echo "✅ @supernal-interface/docs-site build complete!"
-echo ""
-echo "📦 Build output:"
-echo "   - .next/: Next.js build artifacts"
-echo "   - out/: Static export (if using export)"
-echo ""
-echo "🚀 To start:"
-echo "   npm run dev   - Development server"
-echo "   npm start     - Production server"
-
+echo "✅ Build complete!"

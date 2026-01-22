@@ -1,118 +1,131 @@
 /**
- * Component Names - Atomic UI Element IDs
- * 
- * Components are individual UI elements (buttons, inputs, etc.) that tools interact with.
- * These are flat, reusable identifiers that can appear in multiple containers.
- * 
- * Containers define WHICH components they contain (see Containers.ts).
- * ToolProviders operate within a Container namespace and act on Components.
- * 
- * Pattern: Components.ElementName = 'element-id'
+ * Component Name Contracts - Auto-generated
+ * Generated from: src/components
+ * Canonical source: src/architecture/DemoComponentNames.ts
+ * Do not edit manually - regenerate with: si scan-names
  */
+// Namespaces from canonical source:
+// - GlobalNav
+// - Landing
+// - Demo
+// - Examples
+// - Settings
+// - Chat
+// - Counter
+// - Dashboard
+// - Blog
+// - Showcase
+// - Testing
+// - Stories
+// - NotFound
+
 
 export const Components = {
-  // Chat components - must match ChatBubble.tsx ChatNames
+  BlogBackButton: 'blog-back-button',
+  BlogCategoryFilter: 'blog-category-filter',
+  BlogContainer: 'blog-container',
+  BlogPostBackButton: 'blog-post-back-button',
+  BlogPostCard: 'blog-post-card',
+  BlogPostContainer: 'blog-post-container',
+  BlogPostContent: 'blog-post-content',
+  BlogPostHeader: 'blog-post-header',
+  BlogPostLink: 'blog-post-link',
+  BlogPostTitle: 'blog-post-title',
+  BlogSearchInput: 'blog-search-input',
   ChatBubble: 'chat-bubble',
-  ChatInput: 'chat-input',
-  ChatSendButton: 'chat-send-button',
   ChatClearButton: 'chat-clear-button',
+  ChatInput: 'chat-input',
   ChatMessages: 'chat-messages',
-
-  // Demo widget components - buttons
-  OpenMenuButton: 'open-main-menu',
-  CloseMenuButton: 'close-main-menu',
-  
-  // Demo widget components - checkboxes
-  FeatureToggle: 'feature-toggle',
-  NotificationsToggle: 'notification-toggle',
-  
-  // Demo widget components - radios
-  PriorityHighRadio: 'priority-high',
-  PriorityMediumRadio: 'priority-medium',
-  PriorityLowRadio: 'priority-low',
-  
-  // Demo widget components - selects
-  StatusSelect: 'status-dropdown',
-  ThemeSelect: 'theme-toggle',
-  
-  // Demo widget components - form
-  FormNameInput: 'form-name',
-  DemoFormSubmitButton: 'form-submit',
-
-  // Generic widget components
-  WidgetButton: 'widget-button',
-  WidgetInput: 'widget-input',
-  WidgetSelect: 'widget-select',
-  WidgetCheckbox: 'widget-checkbox',
-  WidgetRadio: 'widget-radio',
-  WidgetTextarea: 'widget-textarea',
-
-  // Tool command components
-  ToolCommandsList: 'tool-commands-list',
-  ToolExecuteButton: 'tool-execute-button',
-  ToolApprovalButton: 'tool-approval-button',
-  ToolMetadataDisplay: 'tool-metadata-display',
-
-  // Navigation components
-  NavMainMenu: 'nav-main-menu',
-  NavHomeLink: 'nav-home-link',
-  NavToolsLink: 'nav-tools-link',
-  NavSettingsLink: 'nav-settings-link',
-  NavBackButton: 'nav-back-button',
-
-  // Form components
-  FormSubmitButton: 'form-submit-button',
-  FormCancelButton: 'form-cancel-button',
-  FormResetButton: 'form-reset-button',
-  FormTextInput: 'form-text-input',
-  FormEmailInput: 'form-email-input',
-  FormPasswordInput: 'form-password-input',
-
-  // Modal components
-  ModalCloseButton: 'modal-close-button',
-  ModalConfirmButton: 'modal-confirm-button',
-  ModalCancelButton: 'modal-cancel-button',
-  ModalOverlay: 'modal-overlay',
-
-  // Status/Feedback components
-  StatusSuccessMessage: 'status-success-message',
-  StatusErrorMessage: 'status-error-message',
-  StatusWarningMessage: 'status-warning-message',
-  StatusLoadingSpinner: 'status-loading-spinner',
-  StatusProgressBar: 'status-progress-bar',
+  ChatMinimizeButton: 'chat-minimize',
+  ChatSendButton: 'chat-send-button',
+  ChatUnreadBadge: 'chat-unread-badge',
+  CounterDecrement: 'examples-counter-decrement',
+  CounterIncrement: 'examples-counter-increment',
+  CounterReset: 'examples-counter-reset',
+  CounterWidget: 'examples-counter-widget',
+  DashboardTitle: 'dashboard-title',
+  DemoCloseMainMenu: 'close-main-menu',
+  DemoContainer: 'demo-container',
+  DemoExample: 'execute-open-main-menu',
+  DemoFeatureToggle: 'feature-toggle',
+  DemoFormName: 'form-name',
+  DemoFormSubmit: 'form-submit',
+  DemoMainMenu: 'main-menu',
+  DemoNotificationToggle: 'notification-toggle',
+  DemoOpenMainMenu: 'open-main-menu',
+  DemoPriorityHigh: 'priority-high',
+  DemoPriorityLow: 'priority-low',
+  DemoPriorityMedium: 'priority-medium',
+  DemoStatusCompleted: 'status-completed',
+  DemoStatusDropdown: 'status-dropdown',
+  DemoStatusInProgress: 'status-in-progress',
+  DemoStatusPending: 'status-pending',
+  DemoThemeToggle: 'theme-toggle',
+  DemoTitle: 'demo-title',
+  DemoToolListContainer: 'tool-list-container',
+  ExamplesCard: 'example-card',
+  ExamplesCardCode: 'example-card-code',
+  ExamplesCardTitle: 'example-card-title',
+  ExamplesCardWidget: 'example-card-widget',
+  ExamplesChatWidget: 'chat-widget',
+  ExamplesCodeFull: 'code-full',
+  ExamplesCodeShorthand: 'code-shorthand',
+  ExamplesCodeToggle: 'code-toggle',
+  ExamplesContainer: 'examples-container',
+  ExamplesCopyButton: 'example-copy-button',
+  ExamplesCopyToChatButton: 'example-copy-to-chat',
+  ExamplesCounterDecrement: 'examples-counter-decrement',
+  ExamplesCounterIncrement: 'examples-counter-increment',
+  ExamplesCounterReset: 'examples-counter-reset',
+  ExamplesCounterWidget: 'examples-counter-widget',
+  ExamplesDataWidget: 'data-widget',
+  ExamplesExpandAllButton: 'examples-expand-all',
+  ExamplesExpandButton: 'example-expand-button',
+  ExamplesList: 'examples-list',
+  ExamplesSettingsWidget: 'settings-widget',
+  ExamplesSimpleWidget: 'simple-widget',
+  ExamplesTitle: 'examples-title',
+  GlobalNavBlog: 'nav-blog',
+  GlobalNavDemo: 'nav-demo',
+  GlobalNavDocs: 'nav-docs',
+  GlobalNavHome: 'nav-home',
+  GlobalNavShowcase: 'nav-showcase',
+  GlobalNavStories: 'nav-stories',
+  GlobalNavTesting: 'nav-testing',
+  LandingDescription: 'landing-description',
+  LandingHero: 'landing-hero',
+  LandingNavToDemo: 'landing-nav-to-demo',
+  LandingTitle: 'landing-title',
+  NotFoundContainer: 'not-found-container',
+  NotFoundHomeButton: 'not-found-home-button',
+  NotFoundMessage: 'not-found-message',
+  NotFoundTitle: 'not-found-title',
+  SettingsClose: 'settings-close',
+  SettingsModal: 'settings-modal',
+  SettingsNotificationsToggle: 'settings-notifications-toggle',
+  SettingsThemeToggle: 'settings-theme-toggle',
+  SettingsTitle: 'settings-title',
+  ShowcaseCategoryFilter: 'showcase-category-filter',
+  ShowcaseContainer: 'showcase-container',
+  ShowcaseSiteCard: 'showcase-site-card',
+  ShowcaseSiteDescription: 'showcase-site-description',
+  ShowcaseSiteLink: 'showcase-site-link',
+  ShowcaseSiteTitle: 'showcase-site-title',
+  ShowcaseTitle: 'showcase-title',
+  StatefulDemoContainer: 'stateful-demo-container',
+  StoriesContainer: 'stories-container',
+  StoriesExecuteButton: 'stories-execute-button',
+  StoriesFeatureCard: 'stories-feature-card',
+  StoriesResultsContainer: 'stories-results-container',
+  StoriesTitle: 'stories-title',
+  StoriesViewButton: 'stories-view-button',
+  TestingCodeExample: 'testing-code-example',
+  TestingContainer: 'testing-container',
+  TestingFeatureCard: 'testing-feature-card',
+  TestingFeatureDescription: 'testing-feature-description',
+  TestingFeatureTitle: 'testing-feature-title',
+  TestingTitle: 'testing-title'
 } as const;
 
-/**
- * Helper function to get all component IDs as a flat array
- */
-export function getAllComponentIds(): string[] {
-  return Object.values(Components);
-}
-
-/**
- * Helper function to validate component ID uniqueness
- */
-export function validateComponentIds(): { valid: boolean; duplicates: string[] } {
-  const ids = getAllComponentIds();
-  const seen = new Set<string>();
-  const duplicates: string[] = [];
-
-  for (const id of ids) {
-    if (seen.has(id)) {
-      duplicates.push(id);
-    } else {
-      seen.add(id);
-    }
-  }
-
-  return {
-    valid: duplicates.length === 0,
-    duplicates,
-  };
-}
-
-/**
- * Type-safe component ID access
- */
-export type ComponentPath = typeof Components;
-export type ComponentId = (typeof Components)[keyof typeof Components];
+export type ComponentName = keyof typeof Components;
+export type ComponentTestId = typeof Components[ComponentName];

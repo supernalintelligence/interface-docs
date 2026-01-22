@@ -193,30 +193,6 @@ export default function ShowcasePage() {
             </a>
           </div>
 
-          {/* Benefits Section */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-              <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-xl font-bold text-white mb-2">Fast Integration</h3>
-              <p className="text-gray-400 text-sm">
-                Add AI capabilities to your React app in minutes, not weeks. Type-safe, zero config required.
-              </p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-              <div className="text-4xl mb-4">🧪</div>
-              <h3 className="text-xl font-bold text-white mb-2">Auto-Generated Tests</h3>
-              <p className="text-gray-400 text-sm">
-                Every AI tool automatically gets test cases generated from your tool definitions.
-              </p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold text-white mb-2">Production Ready</h3>
-              <p className="text-gray-400 text-sm">
-                Built for scale with observability, caching, and state management out of the box.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </>
