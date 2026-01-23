@@ -12,9 +12,10 @@
  * Without it, use the Native chat (ChatBubble) instead.
  */
 
-import { CopilotPopup } from '@copilotkit/react-ui';
+// @copilotkit/react-ui@0.2.0 doesn't export CopilotPopup
+// import { CopilotPopup } from '@copilotkit/react-ui';
 import { useSupernalToolsBridge } from '../hooks/useSupernalTools';
-import '@copilotkit/react-ui/styles.css';
+// import '@copilotkit/react-ui/styles.css';
 
 interface CopilotChatWidgetProps {
   /** Initial open state */
@@ -32,11 +33,16 @@ export function CopilotChatWidget({
 }: CopilotChatWidgetProps) {
   // Bridge our @Tool methods to CopilotKit actions
   useSupernalToolsBridge();
-  
+
+  // CopilotPopup not available in @copilotkit/react-ui@0.2.0
+  // TODO: Upgrade to newer version or use alternative chat UI
+  return null;
+
+  /* Commented out until CopilotPopup is available
   return (
     <>
       <style jsx global>{`
-        /* Hide CopilotKit branding - targets the actual <p class="poweredBy"> element */
+        /* Hide CopilotKit branding - targets the actual <p class="poweredBy"> element *\/
         .poweredBy {
           display: none !important;
         }
@@ -64,6 +70,7 @@ This is a demo of @supernal-interface - a framework for building AI-controllable
       />
     </>
   );
+  */
 }
 
 export default CopilotChatWidget;

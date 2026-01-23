@@ -83,9 +83,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
           <nav className="hidden md:flex items-center flex-1" style={{marginLeft: '3rem'}}>
             {/* Left side nav */}
             <div className="flex items-center space-x-1">
-              {navItems.map((item) => (
+              {navItems.map((item) => {
+                const itemWithMenu = item as any;
+                return (
                 <div key={item.id} className="relative">
-                  {item.submenu ? (
+                  {itemWithMenu.submenu ? (
                     // Dropdown Menu Item
                     <div
                       onMouseEnter={() => setOpenDropdown(item.id)}
@@ -108,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
                       {openDropdown === item.id && (
                         <div className="absolute left-0 top-full pt-2 w-56 z-50">
                           <div className="bg-slate-800 rounded-md shadow-xl border border-white/10 py-2">
-                            {item.submenu.map((subitem) => (
+                            {itemWithMenu.submenu.map((subitem: any) => (
                               <Link
                                 key={subitem.id}
                                 href={subitem.path}
@@ -139,7 +141,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
                     </Link>
                   )}
                 </div>
-              ))}
+              );
+              })}
             </div>
 
             {/* Spacer */}
