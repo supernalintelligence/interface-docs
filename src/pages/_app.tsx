@@ -15,6 +15,10 @@ import '../lib/DevTools'  // Expose AI interface for testing
 // 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
 import '../tools/LocationAwareExampleTools'
 
+// ✅ CRITICAL: Import ExampleTools to trigger @Component/@Tool decorators
+// Without this import, the decorators never execute and tools are never registered!
+import '../tools/ExampleTools'
+
 const DEBUG = false
 // @ts-ignore - CopilotKit is optional
 const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
