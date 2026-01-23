@@ -102,7 +102,7 @@ export default function DemoPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
         <Header currentPage="demo" />
 
-        <div className="max-w-6xl mr-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl ml-8 mr-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
