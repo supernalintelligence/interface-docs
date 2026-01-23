@@ -102,7 +102,7 @@ export default function DemoPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
         <Header currentPage="demo" />
 
-        <div className="max-w-5xl mr-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mr-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -127,7 +127,7 @@ export default function DemoPage() {
               <div className="flex items-start gap-3 text-sm text-gray-400">
                 <MessageSquare className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  Click any <strong className="text-blue-300">"Try in Chat"</strong> button below to copy example commands to the chat input. Then press Enter to see it work.
+                  Click any <strong className="text-blue-300">"Insert"</strong> button below to copy example commands to the chat input. Then press Enter to see it work.
                 </div>
               </div>
             </div>
@@ -205,7 +205,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: increment counter</span>
+                    <span>Insert → "increment counter"</span>
                   </>
                 )}
               </button>
@@ -225,7 +225,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: decrement counter</span>
+                    <span>Insert → "decrement counter"</span>
                   </>
                 )}
               </button>
@@ -245,7 +245,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: reset counter</span>
+                    <span>Insert → "reset counter"</span>
                   </>
                 )}
               </button>
@@ -301,7 +301,7 @@ export default function DemoPage() {
                   ) : (
                     <>
                       <MessageSquare className="h-3.5 w-3.5" />
-                      <span>Try in Chat: change setting to custom</span>
+                      <span>Insert → "change setting to custom"</span>
                     </>
                   )}
                 </button>
@@ -329,7 +329,7 @@ export default function DemoPage() {
                   ) : (
                     <>
                       <MessageSquare className="h-3.5 w-3.5" />
-                      <span>Try in Chat: send message hello</span>
+                      <span>Insert → "send message hello"</span>
                     </>
                   )}
                 </button>
@@ -357,7 +357,7 @@ export default function DemoPage() {
                   ) : (
                     <>
                       <MessageSquare className="h-3.5 w-3.5" />
-                      <span>Try in Chat: add item new task</span>
+                      <span>Insert → "add item new task"</span>
                     </>
                   )}
                 </button>
@@ -412,7 +412,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: open menu</span>
+                    <span>Insert → "open menu"</span>
                   </>
                 )}
               </button>
@@ -432,7 +432,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: toggle feature</span>
+                    <span>Insert → "toggle feature"</span>
                   </>
                 )}
               </button>
@@ -452,7 +452,7 @@ export default function DemoPage() {
                 ) : (
                   <>
                     <MessageSquare className="h-4 w-4" />
-                    <span>Try in Chat: change theme to dark</span>
+                    <span>Insert → "change theme to dark"</span>
                   </>
                 )}
               </button>

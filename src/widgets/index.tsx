@@ -309,10 +309,10 @@ export const DataWidget: React.FC = () => {
         {data.map((item, i) => (
           <li key={i} style={{padding: '0.5rem', background: 'white', marginBottom: '0.25rem', borderRadius: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             {item}
-            <button 
+            <button
               onClick={() => setData(data.filter((_, idx) => idx !== i))}
               style={widgetStyles.buttonSmall}
-              data-testid={Data.deleteButton}
+              data-testid={`${Data.deleteButton}-${i}`}
             >
               ×
             </button>
@@ -320,13 +320,13 @@ export const DataWidget: React.FC = () => {
         ))}
       </ul>
       <div style={widgetStyles.inputRow}>
-        <input 
+        <input
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
           placeholder="New item..."
           style={widgetStyles.input}
         />
-        <button 
+        <button
           onClick={() => {
             if (newItem.trim()) {
               setData([...data, newItem]);
