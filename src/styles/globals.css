@@ -110,44 +110,27 @@ body {
   background-clip: text;
 }
 
-/* Apply theme variables to Tailwind classes */
-.bg-white {
+/* Apply theme variables to Tailwind classes - ONLY in dark mode */
+[data-theme="dark"] .bg-white:not([class*="dark:"]) {
   background-color: var(--bg-primary) !important;
 }
 
-.bg-gray-50 {
+[data-theme="dark"] .bg-gray-50:not([class*="dark:"]) {
   background-color: var(--bg-secondary) !important;
 }
 
-.bg-gray-100 {
+[data-theme="dark"] .bg-gray-100:not([class*="dark:"]) {
   background-color: var(--bg-tertiary) !important;
 }
 
-.text-gray-900 {
-  color: var(--text-primary) !important;
-}
+/* REMOVED global text color overrides - they break dark: variants */
+/* Let Tailwind's dark: variants work naturally */
 
-.text-gray-800 {
-  color: var(--text-primary) !important;
-}
-
-.text-gray-700 {
-  color: var(--text-secondary) !important;
-}
-
-.text-gray-600 {
-  color: var(--text-secondary) !important;
-}
-
-.text-gray-500 {
-  color: var(--text-tertiary) !important;
-}
-
-.border-gray-200 {
+[data-theme="dark"] .border-gray-200:not([class*="dark:"]) {
   border-color: var(--border-color) !important;
 }
 
-.border-gray-300 {
+[data-theme="dark"] .border-gray-300:not([class*="dark:"]) {
   border-color: var(--border-color) !important;
 }
 
