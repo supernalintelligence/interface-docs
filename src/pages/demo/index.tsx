@@ -175,9 +175,9 @@ export default function DemoPage() {
                   setCopiedCommand('increment');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors flex items-center gap-2"
               >
-                {copiedCommand === 'increment' ? '✓ Copied' : 'Try: increment counter'}
+                {copiedCommand === 'increment' ? 'Copied' : 'Try: increment counter'}
               </button>
               <button
                 onClick={() => {
@@ -185,9 +185,9 @@ export default function DemoPage() {
                   setCopiedCommand('decrement');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors"
               >
-                {copiedCommand === 'decrement' ? '✓ Copied' : 'Try: decrement counter'}
+                {copiedCommand === 'decrement' ? 'Copied' : 'Try: decrement counter'}
               </button>
               <button
                 onClick={() => {
@@ -195,17 +195,17 @@ export default function DemoPage() {
                   setCopiedCommand('reset');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors"
               >
-                {copiedCommand === 'reset' ? '✓ Copied' : 'Try: reset counter'}
+                {copiedCommand === 'reset' ? 'Copied' : 'Try: reset counter'}
               </button>
             </div>
 
             {/* Collapsible Dev Notes */}
             <details className="mt-4 group">
               <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>📝 Dev Notes</span>
-                <span className="opacity-60">(hover to expand)</span>
+                <span>Dev Notes</span>
+                <span className="opacity-60">(click to expand)</span>
               </summary>
               <div className="mt-2 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
                 <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Independent State</h4>
@@ -241,9 +241,9 @@ export default function DemoPage() {
                     setCopiedCommand('setting');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
                 >
-                  {copiedCommand === 'setting' ? '✓ Copied' : 'Try: change setting to custom'}
+                  {copiedCommand === 'setting' ? 'Copied' : 'Try: change setting to custom'}
                 </button>
               </div>
 
@@ -259,9 +259,9 @@ export default function DemoPage() {
                     setCopiedCommand('chat');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
                 >
-                  {copiedCommand === 'chat' ? '✓ Copied' : 'Try: send message hello'}
+                  {copiedCommand === 'chat' ? 'Copied' : 'Try: send message hello'}
                 </button>
               </div>
 
@@ -277,9 +277,9 @@ export default function DemoPage() {
                     setCopiedCommand('data');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
                 >
-                  {copiedCommand === 'data' ? '✓ Copied' : 'Try: add item new task'}
+                  {copiedCommand === 'data' ? 'Copied' : 'Try: add item new task'}
                 </button>
               </div>
             </div>
@@ -287,8 +287,8 @@ export default function DemoPage() {
             {/* Collapsible Dev Notes */}
             <details className="mt-4 group">
               <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>📝 Dev Notes</span>
-                <span className="opacity-60">(hover to expand)</span>
+                <span>Dev Notes</span>
+                <span className="opacity-60">(click to expand)</span>
               </summary>
               <div className="mt-2 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
                 <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Isolation</h4>
@@ -322,9 +322,9 @@ export default function DemoPage() {
                   setCopiedCommand('menu');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
               >
-                {copiedCommand === 'menu' ? '✓ Copied' : 'Try: open menu'}
+                {copiedCommand === 'menu' ? 'Copied' : 'Try: open menu'}
               </button>
               <button
                 onClick={() => {
@@ -332,9 +332,9 @@ export default function DemoPage() {
                   setCopiedCommand('feature');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
               >
-                {copiedCommand === 'feature' ? '✓ Copied' : 'Try: toggle feature'}
+                {copiedCommand === 'feature' ? 'Copied' : 'Try: toggle feature'}
               </button>
               <button
                 onClick={() => {
@@ -342,17 +342,17 @@ export default function DemoPage() {
                   setCopiedCommand('theme');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
               >
-                {copiedCommand === 'theme' ? '✓ Copied' : 'Try: change theme to dark'}
+                {copiedCommand === 'theme' ? 'Copied' : 'Try: change theme to dark'}
               </button>
             </div>
 
             {/* Collapsible Dev Notes */}
             <details className="mt-4 group">
               <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>📝 Dev Notes</span>
-                <span className="opacity-60">(hover to expand)</span>
+                <span>Dev Notes</span>
+                <span className="opacity-60">(click to expand)</span>
               </summary>
               <div className="mt-2 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
                 <h4 className="text-sm font-semibold text-white mb-2">Why Shared State?</h4>

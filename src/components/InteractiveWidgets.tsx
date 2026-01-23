@@ -73,15 +73,10 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
         theme: demoState.theme as DemoWidgetStateContract['theme'],
       })}
     >
-      <h3 className="text-lg font-semibold mb-3 text-gray-800">🎮 Widget Component Zoo</h3>
-      <p className="text-sm text-gray-600 mb-4">
-        Components ARE tools - using ClickTool & ChangeTool HOC helpers. AI can interact directly!
-      </p>
-
       {/* Feedback */}
       {feedback && (
         <div className="mb-4 p-3 bg-green-100 border border-green-300 rounded text-green-800 text-sm">
-          ✅ {feedback}
+          {feedback}
         </div>
       )}
 
@@ -91,14 +86,14 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
         <div className="space-y-3 p-3 rounded">
           <label className="block text-sm font-medium text-gray-700">Button Widgets</label>
           <div className="space-y-2">
-            <OpenMenuButton 
+            <OpenMenuButton
               className={`w-full px-3 py-2 text-sm rounded transition-all duration-300 ${
-                demoState.menuOpen 
-                  ? 'bg-green-600 text-white' 
+                demoState.menuOpen
+                  ? 'bg-green-600 text-white'
                   : 'bg-blue-600 text-white hover:bg-blue-700'
               }`}
             >
-              {demoState.menuOpen ? '✅ Menu Open' : 'Open Menu'}
+              {demoState.menuOpen ? 'Menu Open' : 'Open Menu'}
             </OpenMenuButton>
             
             <CloseMenuButton 
@@ -115,10 +110,10 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
           <label className="block text-sm font-medium text-gray-700">Checkbox Widgets</label>
           <div className="space-y-3">
             <div className="flex items-center space-x-2 p-2 rounded">
-              <FeatureToggle label={`Enable Feature ${demoState.featureEnabled ? '✅' : ''}`} />
+              <FeatureToggle label={`Enable Feature ${demoState.featureEnabled ? '' : ''}`} />
             </div>
             <div className="flex items-center space-x-2 p-2 rounded">
-              <NotificationsToggle label={`Enable Notifications ${demoState.notificationsEnabled ? '✅' : ''}`} />
+              <NotificationsToggle label={`Enable Notifications ${demoState.notificationsEnabled ? '' : ''}`} />
             </div>
           </div>
         </div>
@@ -129,17 +124,17 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
           <div className="space-y-2">
             <div className="flex items-center space-x-2 p-2 rounded">
               <PriorityHighRadio 
-                label={`High ${demoState.priority === 'high' ? '✅' : ''}`}
+                label={`High ${demoState.priority === 'high' ? '' : ''}`}
               />
             </div>
             <div className="flex items-center space-x-2 p-2 rounded">
               <PriorityMediumRadio 
-                label={`Medium ${demoState.priority === 'medium' ? '✅' : ''}`}
+                label={`Medium ${demoState.priority === 'medium' ? '' : ''}`}
               />
             </div>
             <div className="flex items-center space-x-2 p-2 rounded">
               <PriorityLowRadio 
-                label={`Low ${demoState.priority === 'low' ? '✅' : ''}`}
+                label={`Low ${demoState.priority === 'low' ? '' : ''}`}
               />
               </div>
           </div>
@@ -185,9 +180,17 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
         </form>
       </div>
 
-      {/* State Display */}
-      <div className="mt-6 p-4 bg-gray-50 rounded border border-gray-200">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Current State (from StateManager)</h4>
+      {/* State Manager Display */}
+      <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-300">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
+            <h4 className="text-sm font-bold text-gray-800">StateManager (Live)</h4>
+          </div>
+          <span className="text-xs text-gray-600 italic">
+            Single source of truth - all components above subscribe to this state
+          </span>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs font-mono">
           <div>Menu: <span className={demoState.menuOpen ? 'text-green-600 font-bold' : 'text-red-600'}>{demoState.menuOpen ? 'OPEN' : 'CLOSED'}</span></div>
           <div>Feature: <span className={demoState.featureEnabled ? 'text-green-600 font-bold' : 'text-gray-400'}>{demoState.featureEnabled ? 'ON' : 'OFF'}</span></div>
@@ -195,6 +198,11 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
           <div>Priority: <span className="text-blue-600 font-bold uppercase">{demoState.priority}</span></div>
           <div>Status: <span className="text-purple-600 font-bold">{demoState.status}</span></div>
           <div>Theme: <span className="text-indigo-600 font-bold">{demoState.theme}</span></div>
+        </div>
+        <div className="mt-3 pt-3 border-t border-gray-300">
+          <p className="text-xs text-gray-600">
+            Try interacting with any widget above and watch this state update in real-time
+          </p>
         </div>
       </div>
     </div>
