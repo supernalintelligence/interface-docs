@@ -57,6 +57,7 @@
     "@supernal/brand-kit": "^0.3.0",
     "@supernal/interface": "file:../open-source",
     "@supernal/interface-nextjs": "file:../open-source/interface-nextjs",
+    "@supernal/tts-widget": "^1.0.1",
     "@supernalintelligence/interface-enterprise": "file:../enterprise",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
@@ -87,7 +88,6 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
-    "supernal-tts-widget": "^1.1.3",
     "typescript": "^5.0.0",
     "unified": "^11.0.5"
   },

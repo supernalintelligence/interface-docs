@@ -926,3 +926,70 @@ html {
     0 6px
   );
 }
+
+/* ============================================
+   SUPERNAL TTS WIDGET FIX
+   ============================================ */
+
+/* Fix TTS widget clipping on hover - specifically for speed dropdown */
+
+/* Ensure widget container doesn't clip dropdown menus */
+.supernal-tts-widget {
+  overflow: visible !important;
+  position: relative;
+  z-index: 100;
+}
+
+/* When hovering, elevate z-index to appear above other content */
+.supernal-tts-widget:hover {
+  z-index: 10000 !important;
+}
+
+/* Speed control dropdown fix */
+.supernal-tts-speed-control {
+  overflow: visible !important;
+}
+
+/* Increase dropdown z-index to ensure it appears above content */
+.supernal-tts-speed-dropdown {
+  z-index: 10001 !important;
+}
+
+/* Ensure prose containers don't clip TTS widgets */
+.prose .supernal-tts-widget,
+.prose .supernal-tts-button-container,
+.prose .supernal-tts-speed-control {
+  overflow: visible !important;
+}
+
+/* Fix for any parent containers that might clip */
+.supernal-tts-widget * {
+  overflow: visible !important;
+}
+
+/* Dark mode support for TTS widget */
+[data-theme="dark"] .supernal-tts-widget {
+  --supernal-tts-bg: var(--bg-elevated);
+  --supernal-tts-text: var(--text-primary);
+  --supernal-tts-border: var(--border-color);
+}
+
+/* Dark mode speed dropdown */
+[data-theme="dark"] .supernal-tts-speed-dropdown {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .supernal-tts-speed-option {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .supernal-tts-speed-option:hover {
+  background: var(--bg-hover) !important;
+}
+
+[data-theme="dark"] .supernal-tts-speed-option.active {
+  background: var(--yellow-bg) !important;
+  color: var(--yellow-primary) !important;
+}
