@@ -22,7 +22,7 @@ import {
   SettingsWidget,
   DataWidget
 } from '../../widgets';
-import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu, MessageSquare, Check } from 'lucide-react';
+import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu, MessageSquare, Check, FileText } from 'lucide-react';
 import { Examples, Demo } from '../../architecture/DemoComponentNames';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
@@ -180,15 +180,31 @@ export default function DemoPage() {
             animate={{ opacity: 1 }}
             className="mb-16 scroll-mt-20"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <LevelBadge level={1} label="BEGINNER" />
-              <h2 className="text-3xl font-bold text-white">Single Independent Widget</h2>
-            </div>
+            <div className="bg-slate-800/50 border border-green-500/30 rounded-xl p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <LevelBadge level={1} label="BEGINNER" />
+                  <h2 className="text-3xl font-bold text-white">Single Independent Widget</h2>
+                </div>
+                <details className="group">
+                  <summary className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center gap-2 list-none">
+                    <FileText className="h-5 w-5" />
+                    <span className="text-xs">Dev Notes</span>
+                  </summary>
+                  <div className="absolute right-8 mt-2 w-80 bg-slate-800 border border-green-500/40 rounded-lg p-4 shadow-xl z-10">
+                    <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Independent State</h4>
+                    <code className="text-green-400 text-xs">const [count, setCount] = useState(0)</code>
+                    <p className="text-xs text-gray-300 mt-2">Component manages its own state using useState. Event listeners for tool integration. This widget is completely self-contained.</p>
+                  </div>
+                </details>
+              </div>
 
-            <SimpleWidget />
+              <div className="flex justify-center mb-6">
+                <SimpleWidget />
+              </div>
 
-            {/* Try It */}
-            <div className="mt-4 flex flex-wrap gap-2">
+              {/* Try It */}
+              <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => {
                   insertText('increment counter', false);
@@ -250,19 +266,7 @@ export default function DemoPage() {
                 )}
               </button>
             </div>
-
-            {/* Collapsible Dev Notes */}
-            <details className="mt-4 group">
-              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>Dev Notes</span>
-                <span className="opacity-60">(click to expand)</span>
-              </summary>
-              <div className="mt-2 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Independent State</h4>
-                <code className="text-green-400 text-xs">const [count, setCount] = useState(0)</code>
-                <p className="text-xs text-gray-300 mt-2">Component manages its own state using useState. Event listeners for tool integration. This widget is completely self-contained.</p>
-              </div>
-            </details>
+            </div>
           </motion.section>
 
           {/* LEVEL 2: Multiple Independent Widgets */}
@@ -273,12 +277,27 @@ export default function DemoPage() {
             transition={{ delay: 0.1 }}
             className="mb-16 scroll-mt-20"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <LevelBadge level={2} label="INTERMEDIATE" />
-              <h2 className="text-3xl font-bold text-white">Multiple Independent Widgets</h2>
-            </div>
+            <div className="bg-slate-800/50 border border-yellow-500/30 rounded-xl p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <LevelBadge level={2} label="INTERMEDIATE" />
+                  <h2 className="text-3xl font-bold text-white">Multiple Independent Widgets</h2>
+                </div>
+                <details className="group">
+                  <summary className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center gap-2 list-none">
+                    <FileText className="h-5 w-5" />
+                    <span className="text-xs">Dev Notes</span>
+                  </summary>
+                  <div className="absolute right-8 mt-2 w-80 bg-slate-800 border border-yellow-500/40 rounded-lg p-4 shadow-xl z-10">
+                    <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Isolation</h4>
+                    <p className="text-xs text-gray-300">
+                      Each widget manages its own state - no coordination needed. These widgets are completely independent. Changing one doesn't affect the others.
+                    </p>
+                  </div>
+                </details>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">Simple State</span>
@@ -363,20 +382,7 @@ export default function DemoPage() {
                 </button>
               </div>
             </div>
-
-            {/* Collapsible Dev Notes */}
-            <details className="mt-4 group">
-              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>Dev Notes</span>
-                <span className="opacity-60">(click to expand)</span>
-              </summary>
-              <div className="mt-2 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Isolation</h4>
-                <p className="text-xs text-gray-300">
-                  Each widget manages its own state - no coordination needed. These widgets are completely independent. Changing one doesn't affect the others.
-                </p>
-              </div>
-            </details>
+            </div>
           </motion.section>
 
           {/* LEVEL 3: Advanced Shared State */}
@@ -387,15 +393,37 @@ export default function DemoPage() {
             transition={{ delay: 0.2 }}
             className="mb-16 scroll-mt-20"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <LevelBadge level={3} label="ADVANCED" />
-              <h2 className="text-3xl font-bold text-white">Shared State Architecture</h2>
-            </div>
+            <div className="bg-slate-800/50 border border-red-500/30 rounded-xl p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <LevelBadge level={3} label="ADVANCED" />
+                  <h2 className="text-3xl font-bold text-white">Shared State Architecture</h2>
+                </div>
+                <details className="group">
+                  <summary className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center gap-2 list-none">
+                    <FileText className="h-5 w-5" />
+                    <span className="text-xs">Dev Notes</span>
+                  </summary>
+                  <div className="absolute right-8 mt-2 w-80 bg-slate-800 border border-red-500/40 rounded-lg p-4 shadow-xl z-10">
+                    <h4 className="text-sm font-semibold text-white mb-2">Why Shared State?</h4>
+                    <ul className="list-disc list-inside text-gray-300 text-xs space-y-1">
+                      <li>Coordinate behavior across multiple widgets</li>
+                      <li>Single source of truth for application state</li>
+                      <li>Predictable state updates and easier testing</li>
+                    </ul>
+                    <p className="text-xs text-gray-400 mt-2">
+                      All components share a SINGLE StateManager. When one changes, all update automatically.
+                    </p>
+                  </div>
+                </details>
+              </div>
 
-            <InteractiveWidgets />
+              <div className="mb-6">
+                <InteractiveWidgets />
+              </div>
 
-            {/* Try It */}
-            <div className="mt-4 flex flex-wrap gap-2">
+              {/* Try It */}
+              <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => {
                   insertText('open menu', false);
@@ -457,25 +485,7 @@ export default function DemoPage() {
                 )}
               </button>
             </div>
-
-            {/* Collapsible Dev Notes */}
-            <details className="mt-4 group">
-              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
-                <span>Dev Notes</span>
-                <span className="opacity-60">(click to expand)</span>
-              </summary>
-              <div className="mt-2 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                <h4 className="text-sm font-semibold text-white mb-2">Why Shared State?</h4>
-                <ul className="list-disc list-inside text-gray-300 text-xs space-y-1">
-                  <li>Coordinate behavior across multiple widgets</li>
-                  <li>Single source of truth for application state</li>
-                  <li>Predictable state updates and easier testing</li>
-                </ul>
-                <p className="text-xs text-gray-400 mt-2">
-                  All components share a SINGLE StateManager. When one changes, all update automatically.
-                </p>
-              </div>
-            </details>
+            </div>
           </motion.section>
 
           {/* REFERENCE: Available AI Tools */}

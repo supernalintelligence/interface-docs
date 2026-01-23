@@ -297,7 +297,8 @@ export class DataTools {
   }
 
   @DestructiveTool({
-    elementId: Data.deleteButton,
+    // NO elementId - can't use DOM click since each button has different testid
+    // Must use programmatic execution via CustomEvent
     containerId: DemoContainers.Demo.id,
     description: 'Delete an item from the list',
     examples: ['delete item {index}', 'remove item {index}', 'delete item number {index}'],
