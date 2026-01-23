@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { Header } from '../../components/Header';
 import { motion } from 'framer-motion';
 import { ToolRegistry, useContainer } from "@supernal/interface/browser";
+import { useChatInput } from '@supernal/interface-nextjs';
 import { ExampleCard } from '../../components/ExampleCard';
 import { ToolList } from '../../components/ToolList';
 import { InteractiveWidgets } from '../../components/InteractiveWidgets';
@@ -21,7 +22,7 @@ import {
   SettingsWidget,
   DataWidget
 } from '../../widgets';
-import { Info, Zap, Shield, Database, Activity } from 'lucide-react';
+import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu } from 'lucide-react';
 import { Examples, Demo } from '../../architecture/DemoComponentNames';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
@@ -40,9 +41,25 @@ interface ToolInfo {
   examples?: string[];
 }
 
+// Level Badge Component
+const LevelBadge = ({ level, label }: { level: 1 | 2 | 3; label: string }) => {
+  const colors = {
+    1: 'bg-green-500',
+    2: 'bg-yellow-500',
+    3: 'bg-red-500'
+  };
+  return (
+    <span className={`${colors[level]} text-white px-4 py-1 rounded-full text-sm font-bold`}>
+      Level {level}: {label}
+    </span>
+  );
+};
+
 export default function DemoPage() {
-  const [expandAll, setExpandAll] = useState(true);
+  const [showCode, setShowCode] = useState(false);
   const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
+  const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
+  const { insertText } = useChatInput();
 
   // CRITICAL: Set container context using named contract
   // Use Demo container which matches route /demo
@@ -85,7 +102,7 @@ export default function DemoPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
         <Header currentPage="demo" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-5xl mr-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -95,112 +112,286 @@ export default function DemoPage() {
             <h1 className="text-5xl font-bold text-white mb-4">
               Live Interactive Examples
             </h1>
-            <p className="text-xl text-gray-400 mb-6">
-              Working examples with real tools. Try typing commands in the chat bubble!
+            <p className="text-xl text-gray-400">
+              Try commands in the chat to control these widgets
             </p>
-
-            {/* Info Banner */}
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-6 mb-6 backdrop-blur-sm">
-              <div className="flex items-start gap-3">
-                <Info className="h-6 w-6 text-blue-400 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <p className="text-sm text-gray-300">
-                    <strong className="text-white">These are real working tools!</strong> Each example shows both{' '}
-                    <strong className="text-blue-400">shorthand</strong> (80% less code) and{' '}
-                    <strong className="text-blue-400">full spec</strong> (complete configuration) versions.
-                    Commands listed above each widget work in the chat interface.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Controls */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setExpandAll(!expandAll)}
-                  data-testid={Examples.expandAllButton}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg font-medium"
-                >
-                  {expandAll ? 'Collapse All' : 'Expand All'}
-                </button>
-                <span className="text-sm text-gray-400">
-                  {expandAll ? 'Showing all details' : 'Click any example to expand'}
-                </span>
-              </div>
-            </div>
           </motion.div>
 
-          {/* DEMO SECTION: Interactive Widgets from /demo */}
+          {/* INTRO: Simple explanation + Navigation */}
+          <div className="mb-12">
+            <p className="text-2xl text-gray-300 mb-6 text-center">
+              Type what you want to happen, it should happen.
+            </p>
+
+            {/* Navigation Buttons */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href="#beginner"
+                className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+              >
+                Beginner
+                <div className="text-xs font-normal opacity-90">simple changes</div>
+              </a>
+              <a
+                href="#intermediate"
+                className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+              >
+                Intermediate
+              </a>
+              <a
+                href="#advanced"
+                className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+              >
+                Advanced
+              </a>
+              <a
+                href="#code-examples"
+                className="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+              >
+                Code Examples
+              </a>
+            </div>
+          </div>
+
+          {/* LEVEL 1: Single Independent Widget */}
+          <motion.section
+            id="beginner"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-16 scroll-mt-20"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <LevelBadge level={1} label="BEGINNER" />
+              <h2 className="text-3xl font-bold text-white">Single Independent Widget</h2>
+            </div>
+
+            <SimpleWidget />
+
+            {/* Try It */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                onClick={() => {
+                  insertText('increment counter', false);
+                  setCopiedCommand('increment');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors flex items-center gap-2"
+              >
+                {copiedCommand === 'increment' ? '✓ Copied' : 'Try: increment counter'}
+              </button>
+              <button
+                onClick={() => {
+                  insertText('decrement counter', false);
+                  setCopiedCommand('decrement');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+              >
+                {copiedCommand === 'decrement' ? '✓ Copied' : 'Try: decrement counter'}
+              </button>
+              <button
+                onClick={() => {
+                  insertText('reset counter', false);
+                  setCopiedCommand('reset');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+              >
+                {copiedCommand === 'reset' ? '✓ Copied' : 'Try: reset counter'}
+              </button>
+            </div>
+
+            {/* Collapsible Dev Notes */}
+            <details className="mt-4 group">
+              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
+                <span>📝 Dev Notes</span>
+                <span className="opacity-60">(hover to expand)</span>
+              </summary>
+              <div className="mt-2 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Independent State</h4>
+                <code className="text-green-400 text-xs">const [count, setCount] = useState(0)</code>
+                <p className="text-xs text-gray-300 mt-2">Component manages its own state using useState. Event listeners for tool integration. This widget is completely self-contained.</p>
+              </div>
+            </details>
+          </motion.section>
+
+          {/* LEVEL 2: Multiple Independent Widgets */}
+          <motion.section
+            id="intermediate"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="mb-16 scroll-mt-20"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <LevelBadge level={2} label="INTERMEDIATE" />
+              <h2 className="text-3xl font-bold text-white">Multiple Independent Widgets</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">Simple State</span>
+                  <h3 className="text-lg font-semibold text-white">Settings</h3>
+                </div>
+                <SettingsWidget />
+                <button
+                  onClick={() => {
+                    insertText('change setting to custom', false);
+                    setCopiedCommand('setting');
+                    setTimeout(() => setCopiedCommand(null), 2000);
+                  }}
+                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                >
+                  {copiedCommand === 'setting' ? '✓ Copied' : 'Try: change setting to custom'}
+                </button>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Array State</span>
+                  <h3 className="text-lg font-semibold text-white">Chat</h3>
+                </div>
+                <ChatWidget />
+                <button
+                  onClick={() => {
+                    insertText('send message hello', false);
+                    setCopiedCommand('chat');
+                    setTimeout(() => setCopiedCommand(null), 2000);
+                  }}
+                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                >
+                  {copiedCommand === 'chat' ? '✓ Copied' : 'Try: send message hello'}
+                </button>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs bg-pink-500/20 text-pink-300 px-2 py-1 rounded">CRUD Operations</span>
+                  <h3 className="text-lg font-semibold text-white">Data</h3>
+                </div>
+                <DataWidget />
+                <button
+                  onClick={() => {
+                    insertText('add item new task', false);
+                    setCopiedCommand('data');
+                    setTimeout(() => setCopiedCommand(null), 2000);
+                  }}
+                  className="mt-2 w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded transition-colors"
+                >
+                  {copiedCommand === 'data' ? '✓ Copied' : 'Try: add item new task'}
+                </button>
+              </div>
+            </div>
+
+            {/* Collapsible Dev Notes */}
+            <details className="mt-4 group">
+              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
+                <span>📝 Dev Notes</span>
+                <span className="opacity-60">(hover to expand)</span>
+              </summary>
+              <div className="mt-2 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <h4 className="text-sm font-semibold text-white mb-2">Key Pattern: Isolation</h4>
+                <p className="text-xs text-gray-300">
+                  Each widget manages its own state - no coordination needed. These widgets are completely independent. Changing one doesn't affect the others.
+                </p>
+              </div>
+            </details>
+          </motion.section>
+
+          {/* LEVEL 3: Advanced Shared State */}
+          <motion.section
+            id="advanced"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-16 scroll-mt-20"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <LevelBadge level={3} label="ADVANCED" />
+              <h2 className="text-3xl font-bold text-white">Shared State Architecture</h2>
+            </div>
+
+            <InteractiveWidgets />
+
+            {/* Try It */}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                onClick={() => {
+                  insertText('open menu', false);
+                  setCopiedCommand('menu');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+              >
+                {copiedCommand === 'menu' ? '✓ Copied' : 'Try: open menu'}
+              </button>
+              <button
+                onClick={() => {
+                  insertText('toggle feature', false);
+                  setCopiedCommand('feature');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+              >
+                {copiedCommand === 'feature' ? '✓ Copied' : 'Try: toggle feature'}
+              </button>
+              <button
+                onClick={() => {
+                  insertText('change theme to dark', false);
+                  setCopiedCommand('theme');
+                  setTimeout(() => setCopiedCommand(null), 2000);
+                }}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors"
+              >
+                {copiedCommand === 'theme' ? '✓ Copied' : 'Try: change theme to dark'}
+              </button>
+            </div>
+
+            {/* Collapsible Dev Notes */}
+            <details className="mt-4 group">
+              <summary className="cursor-pointer text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2">
+                <span>📝 Dev Notes</span>
+                <span className="opacity-60">(hover to expand)</span>
+              </summary>
+              <div className="mt-2 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                <h4 className="text-sm font-semibold text-white mb-2">Why Shared State?</h4>
+                <ul className="list-disc list-inside text-gray-300 text-xs space-y-1">
+                  <li>Coordinate behavior across multiple widgets</li>
+                  <li>Single source of truth for application state</li>
+                  <li>Predictable state updates and easier testing</li>
+                </ul>
+                <p className="text-xs text-gray-400 mt-2">
+                  All components share a SINGLE StateManager. When one changes, all update automatically.
+                </p>
+              </div>
+            </details>
+          </motion.section>
+
+          {/* REFERENCE: Available AI Tools */}
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
             className="mb-16"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-green-500/10 rounded-lg">
-                <Activity className="h-6 w-6 text-green-400" />
+              <div className="p-2 bg-purple-500/10 rounded-lg">
+                <Cpu className="h-6 w-6 text-purple-400" />
               </div>
-              <h2 className="text-3xl font-bold text-white">Interactive Demo Widgets</h2>
+              <h2 className="text-3xl font-bold text-white">Available AI Tools</h2>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-6">
-              <p className="text-sm text-gray-300 mb-4">
-                <strong className="text-white">Try the AI chat!</strong> These widgets demonstrate real-time AI control.
-                State is managed in memory (does NOT persist across page refreshes).
-              </p>
-            </div>
-
-            {/* Interactive Widgets */}
-            <div className="mb-8">
-              <InteractiveWidgets />
-            </div>
-
-            {/* Example Widgets Section - Visible for testing */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-8">
-              <h3 className="text-xl font-bold text-white mb-4">Example Widgets (AI Controllable)</h3>
-              <p className="text-sm text-gray-300 mb-6">
-                These widgets respond to AI commands. Try: "increment counter", "send message hello", "change setting to custom"
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Counter Widget */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2">Counter Widget</h4>
-                  <SimpleWidget />
-                </div>
-
-                {/* Chat Widget */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2">Chat Widget</h4>
-                  <ChatWidget />
-                </div>
-
-                {/* Settings Widget */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2">Settings Widget</h4>
-                  <SettingsWidget />
-                </div>
-
-                {/* Data Widget */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2">Data Widget</h4>
-                  <DataWidget />
-                </div>
-              </div>
-            </div>
-
-            {/* AI Tools List */}
             <ToolList
               tools={availableTools}
-              title="🤖 Available AI Tools"
-              subtitle="Click execute buttons to control widgets above"
-              color="blue"
+              title="Available AI Tools"
+              subtitle="Click to copy commands to chat"
+              color="purple"
             />
           </motion.section>
 
           {/* EXAMPLES SECTION: Code Examples with Cards */}
-          <div className="space-y-8">
+          <div id="code-examples" className="space-y-8 scroll-mt-20">
             {/* Section Divider */}
             <div className="border-t-2 border-purple-500/20 pt-12 mb-8">
               <h2 className="text-4xl font-bold text-white mb-4 text-center">
@@ -233,7 +424,7 @@ export default function DemoPage() {
                   badgeColor="green"
                   commands={enhancedSnippets.aiTool.commands}
                   code={enhancedSnippets.aiTool}
-                  defaultExpanded={expandAll}
+                  showCode={showCode}
                 >
                   <SimpleWidget />
                 </ExampleCard>
@@ -246,7 +437,7 @@ export default function DemoPage() {
                   badgeColor="blue"
                   commands={enhancedSnippets.chatTool.commands}
                   code={enhancedSnippets.chatTool}
-                  defaultExpanded={expandAll}
+                  showCode={showCode}
                 >
                   <ChatWidget />
                 </ExampleCard>
@@ -275,7 +466,7 @@ export default function DemoPage() {
                   badgeColor="red"
                   commands={enhancedSnippets.dangerousTool.commands}
                   code={enhancedSnippets.dangerousTool}
-                  defaultExpanded={expandAll}
+                  showCode={showCode}
                 >
                   <SettingsWidget />
                 </ExampleCard>
@@ -288,14 +479,14 @@ export default function DemoPage() {
                   badgeColor="purple"
                   commands={enhancedSnippets.dataWriteTool.commands}
                   code={enhancedSnippets.dataWriteTool}
-                  defaultExpanded={expandAll}
+                  showCode={showCode}
                 >
                   <DataWidget />
                 </ExampleCard>
               </div>
             </motion.section>
 
-            {/* Data Integration Section */}
+            {/* Data Integration Section
             <motion.section
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -344,8 +535,8 @@ export default function DemoPage() {
                 </div>
               </div>
             </motion.section>
-          </div>
-
+          */}
+         </div> 
           {/* Bottom CTA */}
           <div className="mt-16 bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-xl p-12 border border-purple-500/20 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
