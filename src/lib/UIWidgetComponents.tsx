@@ -3,6 +3,39 @@
  *
  * Base components wrapped with @Tool decorators for BOTH Simple and (Stateful) demos.
  * Each base component is wrapped TWICE to create separate Simple/(Stateful) tools.
+ *
+ * ==============================================================================
+ * PATTERN: Controlled Components with Shared State
+ * ==============================================================================
+ *
+ * When building controlled components that use shared state (Redux, Context, Zustand, etc.):
+ *
+ * ✅ CORRECT: Update local state FIRST (optimistic), then propagate to shared state
+ *
+ * const handleChange = (e) => {
+ *   const newValue = e.target.value;
+ *   setValue(newValue);              // 1. Local state (immediate UI feedback)
+ *   updateSharedState({ newValue }); // 2. Shared state (sync with other components)
+ * };
+ *
+ * ❌ WRONG: Call updateSharedState() before setting local state
+ *
+ * const handleChange = (e) => {
+ *   const newValue = e.target.value;
+ *   updateSharedState({ newValue }); // Callback fires during event handler
+ *   setValue(newValue);               // Too late - causes visual lag!
+ * };
+ *
+ * WHY: React re-renders are asynchronous. When updateState() triggers callbacks,
+ * the controlled component's value prop may not have updated yet, causing the
+ * visual state to lag behind user interaction by one render cycle.
+ *
+ * SOLUTION: Update local state FIRST for immediate visual feedback, then propagate
+ * to shared state. The callback will fire and update local state again (idempotent),
+ * but the UI has already updated, preventing lag.
+ *
+ * See: PriorityRadioBase, StatusSelectBase, ThemeSelectBase for examples.
+ * For a reusable hook pattern, see: src/hooks/useSharedState.ts (future)
  */
 
 import React, { useState, useEffect } from 'react';
@@ -303,6 +336,9 @@ const PriorityRadioBase: React.FC<RadioProps & {
   }, []);
   
   const handleChange = () => {
+    // Optimistic update: set local state FIRST for immediate visual feedback
+    setSelectedPriority(value);
+
     highlightWidget(`priority-${value}-widget`);
     updateState({ priority: value });
   };
@@ -335,6 +371,10 @@ const StatusSelectBase: React.FC<SelectProps & ToolCallbacks & { elementId: stri
   
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = e.target.value;
+
+    // Optimistic update: set local state FIRST for immediate visual feedback
+    setValue(newValue);
+
     const result = await getUIControls().setStatus(newValue);
     reportSuccess?.(result.message);
   };
@@ -368,6 +408,10 @@ const ThemeSelectBase: React.FC<SelectProps & ToolCallbacks & { elementId: strin
   
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = e.target.value as 'light' | 'dark' | 'auto';
+
+    // Optimistic update: set local state FIRST for immediate visual feedback
+    setValue(newValue);
+
     const result = await getUIControls().setTheme(newValue);
     reportSuccess?.(result.message);
   };

@@ -8,7 +8,7 @@
     "react-dom": "^19.2.3"
   },
   "scripts": {
-    "dev": "node scripts/dev-server.js",
+    "dev": "cd ../open-source/interface-nextjs && npm run build && cd ../../docs-site && node scripts/dev-server.js",
     "dev:clean": "npm run clean && npm run rebuild:deps && npm run dev",
     "clean": "rm -rf .next node_modules/.cache",
     "rebuild:deps": "cd ../open-source && npm run build && cd ../docs-site && npm install ../open-source",

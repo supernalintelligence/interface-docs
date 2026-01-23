@@ -1,11 +1,13 @@
 /**
  * Tool List Component
- * 
+ *
  * Shared component for displaying available AI tools in a grid layout.
  * Used across Simple, Advanced, and Hierarchical demos.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useChatInput } from '@supernal/interface-nextjs';
+import { MessageSquare, Check } from 'lucide-react';
 
 interface ToolInfo {
   name: string;
@@ -24,13 +26,23 @@ interface ToolListProps {
   color?: 'blue' | 'purple' | 'green';
 }
 
-export const ToolList: React.FC<ToolListProps> = ({ 
-  tools, 
-  title = "🤖 AI TOOLS",
-  subtitle = "Click to execute tools via AI commands",
+export const ToolList: React.FC<ToolListProps> = ({
+  tools,
+  title = "AI TOOLS",
+  subtitle = "Click to copy commands to chat",
   onExecuteTool,
   color = 'blue'
 }) => {
+  const [copiedTool, setCopiedTool] = useState<string | null>(null);
+  const { insertText } = useChatInput();
+
+  const copyToChat = (tool: ToolInfo) => {
+    const command = tool.examples?.[0] || tool.name.toLowerCase();
+    insertText(command, false);
+    setCopiedTool(tool.name);
+    setTimeout(() => setCopiedTool(null), 2000);
+  };
+
   const colorClasses = {
     blue: {
       header: 'bg-blue-600',
@@ -93,13 +105,23 @@ export const ToolList: React.FC<ToolListProps> = ({
                 </div>
               )}
 
-              {/* Execute Button */}
+              {/* Copy to Chat Button */}
               <button
-                data-testid={`execute-${tool.elementId}`}
-                onClick={() => onExecuteTool?.(tool)}
-                className={`w-full px-3 py-2 ${colors.button} text-white text-sm rounded transition-colors`}
+                data-testid={`copy-${tool.elementId}`}
+                onClick={() => copyToChat(tool)}
+                className={`w-full px-3 py-2 ${colors.button} text-white text-sm rounded transition-colors flex items-center justify-center gap-2`}
               >
-                Execute
+                {copiedTool === tool.name ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    Copy to Chat
+                  </>
+                )}
               </button>
             </div>
           ))}

@@ -22,7 +22,7 @@ import {
   SettingsWidget,
   DataWidget
 } from '../../widgets';
-import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu } from 'lucide-react';
+import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu, MessageSquare, Check } from 'lucide-react';
 import { Examples, Demo } from '../../architecture/DemoComponentNames';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
@@ -44,12 +44,12 @@ interface ToolInfo {
 // Level Badge Component
 const LevelBadge = ({ level, label }: { level: 1 | 2 | 3; label: string }) => {
   const colors = {
-    1: 'bg-green-500',
-    2: 'bg-yellow-500',
-    3: 'bg-red-500'
+    1: 'bg-green-500/20 text-green-300 border-green-500/40',
+    2: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40',
+    3: 'bg-red-500/20 text-red-300 border-red-500/40'
   };
   return (
-    <span className={`${colors[level]} text-white px-4 py-1 rounded-full text-sm font-bold`}>
+    <span className={`${colors[level]} px-3 py-1 rounded-lg text-xs font-semibold border`}>
       Level {level}: {label}
     </span>
   );
@@ -117,38 +117,58 @@ export default function DemoPage() {
             </p>
           </motion.div>
 
-          {/* INTRO: Simple explanation + Navigation */}
+          {/* INTRO: Clear Value Proposition */}
           <div className="mb-12">
-            <p className="text-2xl text-gray-300 mb-6 text-center">
-              Type what you want to happen, it should happen.
-            </p>
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 mb-6">
+              <h2 className="text-2xl font-bold text-white mb-3">Control UI with Natural Language</h2>
+              <p className="text-lg text-gray-300 mb-4">
+                Type commands in plain English to the AI chat. Watch the widgets respond in real-time.
+              </p>
+              <div className="flex items-start gap-3 text-sm text-gray-400">
+                <MessageSquare className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  Click any <strong className="text-blue-300">"Try in Chat"</strong> button below to copy example commands to the chat input. Then press Enter to see it work.
+                </div>
+              </div>
+            </div>
 
             {/* Navigation Buttons */}
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
               <a
                 href="#beginner"
-                className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+                className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-green-500/30"
               >
-                Beginner
-                <div className="text-xs font-normal opacity-90">simple changes</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-0.5 bg-green-500 rounded-full">Level 1</span>
+                  <span>Beginner</span>
+                </div>
               </a>
               <a
                 href="#intermediate"
-                className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+                className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-yellow-500/30"
               >
-                Intermediate
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-0.5 bg-yellow-500 rounded-full">Level 2</span>
+                  <span>Intermediate</span>
+                </div>
               </a>
               <a
                 href="#advanced"
-                className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+                className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-red-500/30"
               >
-                Advanced
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-0.5 bg-red-500 rounded-full">Level 3</span>
+                  <span>Advanced</span>
+                </div>
               </a>
               <a
                 href="#code-examples"
-                className="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-all shadow-lg"
+                className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-purple-500/30"
               >
-                Code Examples
+                <div className="flex items-center gap-2">
+                  <Code className="h-4 w-4" />
+                  <span>Code Examples</span>
+                </div>
               </a>
             </div>
           </div>
@@ -175,9 +195,19 @@ export default function DemoPage() {
                   setCopiedCommand('increment');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'increment' ? 'Copied' : 'Try: increment counter'}
+                {copiedCommand === 'increment' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: increment counter</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {
@@ -185,9 +215,19 @@ export default function DemoPage() {
                   setCopiedCommand('decrement');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'decrement' ? 'Copied' : 'Try: decrement counter'}
+                {copiedCommand === 'decrement' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: decrement counter</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {
@@ -195,9 +235,19 @@ export default function DemoPage() {
                   setCopiedCommand('reset');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'reset' ? 'Copied' : 'Try: reset counter'}
+                {copiedCommand === 'reset' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: reset counter</span>
+                  </>
+                )}
               </button>
             </div>
 
@@ -241,9 +291,19 @@ export default function DemoPage() {
                     setCopiedCommand('setting');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md"
                 >
-                  {copiedCommand === 'setting' ? 'Copied' : 'Try: change setting to custom'}
+                  {copiedCommand === 'setting' ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      <span>Try in Chat: change setting to custom</span>
+                    </>
+                  )}
                 </button>
               </div>
 
@@ -259,9 +319,19 @@ export default function DemoPage() {
                     setCopiedCommand('chat');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md"
                 >
-                  {copiedCommand === 'chat' ? 'Copied' : 'Try: send message hello'}
+                  {copiedCommand === 'chat' ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      <span>Try in Chat: send message hello</span>
+                    </>
+                  )}
                 </button>
               </div>
 
@@ -277,9 +347,19 @@ export default function DemoPage() {
                     setCopiedCommand('data');
                     setTimeout(() => setCopiedCommand(null), 2000);
                   }}
-                  className="mt-2 w-full px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded transition-colors"
+                  className="mt-2 w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md"
                 >
-                  {copiedCommand === 'data' ? 'Copied' : 'Try: add item new task'}
+                  {copiedCommand === 'data' ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      <span>Try in Chat: add item new task</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -322,9 +402,19 @@ export default function DemoPage() {
                   setCopiedCommand('menu');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'menu' ? 'Copied' : 'Try: open menu'}
+                {copiedCommand === 'menu' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: open menu</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {
@@ -332,9 +422,19 @@ export default function DemoPage() {
                   setCopiedCommand('feature');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'feature' ? 'Copied' : 'Try: toggle feature'}
+                {copiedCommand === 'feature' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: toggle feature</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {
@@ -342,9 +442,19 @@ export default function DemoPage() {
                   setCopiedCommand('theme');
                   setTimeout(() => setCopiedCommand(null), 2000);
                 }}
-                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2 shadow-md"
               >
-                {copiedCommand === 'theme' ? 'Copied' : 'Try: change theme to dark'}
+                {copiedCommand === 'theme' ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Try in Chat: change theme to dark</span>
+                  </>
+                )}
               </button>
             </div>
 

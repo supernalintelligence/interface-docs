@@ -35,6 +35,7 @@ export interface ExampleCardProps {
     component?: string;
   };
   defaultExpanded?: boolean;
+  showCode?: boolean;
 }
 
 export const ExampleCard: React.FC<ExampleCardProps> = ({
@@ -46,7 +47,8 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({
   children,
   commands,
   code,
-  defaultExpanded = false
+  defaultExpanded = false,
+  showCode = true
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [codeMode, setCodeMode] = useState<'shorthand' | 'fullSpec'>('shorthand');
@@ -189,37 +191,38 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({
               </div>
 
               {/* Code Implementation */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <Code className="h-4 w-4 text-purple-600" />
-                    Implementation
-                  </h4>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setCodeMode('shorthand')}
-                      className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                        codeMode === 'shorthand'
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                    >
-                      Shorthand
-                    </button>
-                    <button
-                      onClick={() => setCodeMode('fullSpec')}
-                      className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                        codeMode === 'fullSpec'
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                    >
-                      Full Spec
-                    </button>
+              {showCode && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                      <Code className="h-4 w-4 text-purple-600" />
+                      Implementation
+                    </h4>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setCodeMode('shorthand')}
+                        className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
+                          codeMode === 'shorthand'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                      >
+                        Shorthand
+                      </button>
+                      <button
+                        onClick={() => setCodeMode('fullSpec')}
+                        className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
+                          codeMode === 'fullSpec'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                      >
+                        Full Spec
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <div className="space-y-3">
+                  <div className="space-y-3">
                   {/* Names Contract */}
                   {code.names && (
                     <div className="relative">
@@ -291,6 +294,7 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({
                   )}
                 </div>
               </div>
+              )}
             </div>
           </motion.div>
         )}

@@ -21,7 +21,7 @@ const SHOWCASE_SITES: ShowcaseItem[] = [
   {
     name: 'Glowbrand',
     description: 'AI-powered branding platform for creating cohesive brand identities',
-    url: 'https://glowbrand.ai',
+    url: 'https://glowbrand.studio',
     toolCount: 15,
     category: 'Branding',
     bgGradient: 'from-pink-500 to-rose-500',
@@ -39,7 +39,7 @@ const SHOWCASE_SITES: ShowcaseItem[] = [
   {
     name: 'Supernal Coding',
     description: 'AI-assisted development workflows for faster code shipping',
-    url: 'https://coding.supernal.ai',
+    url: 'https://www.supernal.ai',
     toolCount: 20,
     category: 'Developer Tools',
     bgGradient: 'from-blue-500 to-cyan-500',
