@@ -51,6 +51,7 @@ export const Data = {
   deleteButton: 'examples-data-delete',
 } as const;
 
+const DEBUG=false
 // ============================================
 // COUNTER COMPONENT - New Namespace Pattern
 // ============================================
@@ -336,7 +337,7 @@ export function registerExampleTools() {
               const toolMetadata = registry.get(toolId);
               if (toolMetadata) {
                 toolMetadata.instance = instance;
-                console.log(`✓ Updated instance for: ${tool.name}`);
+                DEBUG && console.log(`✓ Updated instance for: ${tool.name}`);
               }
             }
           });
