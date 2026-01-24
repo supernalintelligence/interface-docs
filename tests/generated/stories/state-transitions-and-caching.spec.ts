@@ -25,7 +25,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('Cache hit for identical state sequence', async ({ page }) => {
-    // Execution order: Cache hit for identical state sequence-403 → Cache hit for identical state sequence-404 → Cache hit for identical state sequence-405 → Cache hit for identical state sequence-406 → Cache hit for identical state sequence-407 → Cache hit for identical state sequence-408 → Cache hit for identical state sequence-409 → Cache hit for identical state sequence-410 → Cache hit for identical state sequence-411
+    // Execution order: Cache hit for identical state sequence-427 → Cache hit for identical state sequence-428 → Cache hit for identical state sequence-429 → Cache hit for identical state sequence-430 → Cache hit for identical state sequence-431 → Cache hit for identical state sequence-432 → Cache hit for identical state sequence-433 → Cache hit for identical state sequence-434 → Cache hit for identical state sequence-435
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -56,7 +56,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('Cache miss for different state sequence', async ({ page }) => {
-    // Execution order: Cache miss for different state sequence-412 → Cache miss for different state sequence-413 → Cache miss for different state sequence-414 → Cache miss for different state sequence-415 → Cache miss for different state sequence-416 → Cache miss for different state sequence-417 → Cache miss for different state sequence-418 → Cache miss for different state sequence-419 → Cache miss for different state sequence-420
+    // Execution order: Cache miss for different state sequence-436 → Cache miss for different state sequence-437 → Cache miss for different state sequence-438 → Cache miss for different state sequence-439 → Cache miss for different state sequence-440 → Cache miss for different state sequence-441 → Cache miss for different state sequence-442 → Cache miss for different state sequence-443 → Cache miss for different state sequence-444
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -87,7 +87,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('Resume from checkpoint after failure', async ({ page }) => {
-    // Execution order: Resume from checkpoint after failure-421 → Resume from checkpoint after failure-422 → Resume from checkpoint after failure-423 → Resume from checkpoint after failure-424 → Resume from checkpoint after failure-425 → Resume from checkpoint after failure-426 → Resume from checkpoint after failure-427 → Resume from checkpoint after failure-428 → Resume from checkpoint after failure-429
+    // Execution order: Resume from checkpoint after failure-445 → Resume from checkpoint after failure-446 → Resume from checkpoint after failure-447 → Resume from checkpoint after failure-448 → Resume from checkpoint after failure-449 → Resume from checkpoint after failure-450 → Resume from checkpoint after failure-451 → Resume from checkpoint after failure-452 → Resume from checkpoint after failure-453
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -120,7 +120,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('State-dependent caching', async ({ page }) => {
-    // Execution order: State-dependent caching-430 → State-dependent caching-431 → State-dependent caching-432 → State-dependent caching-433 → State-dependent caching-434 → State-dependent caching-435 → State-dependent caching-436 → State-dependent caching-437
+    // Execution order: State-dependent caching-454 → State-dependent caching-455 → State-dependent caching-456 → State-dependent caching-457 → State-dependent caching-458 → State-dependent caching-459 → State-dependent caching-460 → State-dependent caching-461
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -148,7 +148,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('State hash verification', async ({ page }) => {
-    // Execution order: State hash verification-438 → State hash verification-439 → State hash verification-440 → State hash verification-441 → State hash verification-442 → State hash verification-443
+    // Execution order: State hash verification-462 → State hash verification-463 → State hash verification-464 → State hash verification-465 → State hash verification-466 → State hash verification-467
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -170,7 +170,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('Transition function execution', async ({ page }) => {
-    // Execution order: Transition function execution-444 → Transition function execution-445 → Transition function execution-446 → Transition function execution-447 → Transition function execution-448 → Transition function execution-449
+    // Execution order: Transition function execution-468 → Transition function execution-469 → Transition function execution-470 → Transition function execution-471 → Transition function execution-472 → Transition function execution-473
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 
@@ -194,7 +194,7 @@ test.describe('State Transitions and Caching', () => {
   });
 
   test('Immutable state transitions', async ({ page }) => {
-    // Execution order: Immutable state transitions-450 → Immutable state transitions-451 → Immutable state transitions-452 → Immutable state transitions-453 → Immutable state transitions-454 → Immutable state transitions-455
+    // Execution order: Immutable state transitions-474 → Immutable state transitions-475 → Immutable state transitions-476 → Immutable state transitions-477 → Immutable state transitions-478 → Immutable state transitions-479
     // Given the story cache is enabled
     // TODO: Implement Given step: the story cache is enabled
 

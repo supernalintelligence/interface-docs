@@ -24,7 +24,7 @@ test.describe('Simple Interface Demo', () => {
   });
 
   test('Interacting with the counter', async ({ page }) => {
-    // Execution order: Interacting with the counter-161 → Interacting with the counter-162 → Interacting with the counter-163 → Interacting with the counter-164
+    // Execution order: Interacting with the counter-185 → Interacting with the counter-186 → Interacting with the counter-187 → Interacting with the counter-188
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 

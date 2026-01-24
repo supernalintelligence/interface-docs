@@ -28,7 +28,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Starting with empty chat', async ({ page }) => {
-    // Execution order: Starting with empty chat-69 → Starting with empty chat-70 → Starting with empty chat-71 → Starting with empty chat-72 → Starting with empty chat-73 → Starting with empty chat-74
+    // Execution order: Starting with empty chat-93 → Starting with empty chat-94 → Starting with empty chat-95 → Starting with empty chat-96 → Starting with empty chat-97 → Starting with empty chat-98
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -52,7 +52,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Sending a single message', async ({ page }) => {
-    // Execution order: Sending a single message-75 → Sending a single message-76 → Sending a single message-77 → Sending a single message-78 → Sending a single message-79 → Sending a single message-80 → Sending a single message-81 → Sending a single message-82
+    // Execution order: Sending a single message-99 → Sending a single message-100 → Sending a single message-101 → Sending a single message-102 → Sending a single message-103 → Sending a single message-104 → Sending a single message-105 → Sending a single message-106
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -83,7 +83,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Viewing existing conversation', async ({ page }) => {
-    // Execution order: Viewing existing conversation-83 → Viewing existing conversation-84 → Viewing existing conversation-85 → Viewing existing conversation-86 → Viewing existing conversation-87
+    // Execution order: Viewing existing conversation-107 → Viewing existing conversation-108 → Viewing existing conversation-109 → Viewing existing conversation-110 → Viewing existing conversation-111
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -104,7 +104,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Adding to existing conversation', async ({ page }) => {
-    // Execution order: Adding to existing conversation-88 → Adding to existing conversation-89 → Adding to existing conversation-90 → Adding to existing conversation-91 → Adding to existing conversation-92 → Adding to existing conversation-93 → Adding to existing conversation-94
+    // Execution order: Adding to existing conversation-112 → Adding to existing conversation-113 → Adding to existing conversation-114 → Adding to existing conversation-115 → Adding to existing conversation-116 → Adding to existing conversation-117 → Adding to existing conversation-118
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -131,7 +131,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Clearing all messages', async ({ page }) => {
-    // Execution order: Clearing all messages-95 → Clearing all messages-96 → Clearing all messages-97 → Clearing all messages-98 → Clearing all messages-99 → Clearing all messages-100 → Clearing all messages-101
+    // Execution order: Clearing all messages-119 → Clearing all messages-120 → Clearing all messages-121 → Clearing all messages-122 → Clearing all messages-123 → Clearing all messages-124 → Clearing all messages-125
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -160,7 +160,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Multiple messages in sequence', async ({ page }) => {
-    // Execution order: Multiple messages in sequence-102 → Multiple messages in sequence-103 → Multiple messages in sequence-104 → Multiple messages in sequence-105 → Multiple messages in sequence-106 → Multiple messages in sequence-107 → Multiple messages in sequence-108 → Multiple messages in sequence-109 → Multiple messages in sequence-110 → Multiple messages in sequence-111 → Multiple messages in sequence-112
+    // Execution order: Multiple messages in sequence-126 → Multiple messages in sequence-127 → Multiple messages in sequence-128 → Multiple messages in sequence-129 → Multiple messages in sequence-130 → Multiple messages in sequence-131 → Multiple messages in sequence-132 → Multiple messages in sequence-133 → Multiple messages in sequence-134 → Multiple messages in sequence-135 → Multiple messages in sequence-136
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -199,7 +199,7 @@ test.describe('Chat Component', () => {
   });
 
   test('Message persistence across actions', async ({ page }) => {
-    // Execution order: Message persistence across actions-113 → Message persistence across actions-114 → Message persistence across actions-115 → Message persistence across actions-116 → Message persistence across actions-117 → Message persistence across actions-118 → Message persistence across actions-119
+    // Execution order: Message persistence across actions-137 → Message persistence across actions-138 → Message persistence across actions-139 → Message persistence across actions-140 → Message persistence across actions-141 → Message persistence across actions-142 → Message persistence across actions-143
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);

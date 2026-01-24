@@ -109,10 +109,7 @@ export default function DemoPage() {
           {/* INTRO: Clear Value Proposition */}
           <div className="mb-12">
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 mb-6">
-              <h2 className="text-2xl font-bold text-white mb-3">Control UI with Natural Language</h2>
-              <p className="text-lg text-gray-300 mb-4">
-                Type commands in plain English to the AI chat. Watch the widgets respond in real-time.
-              </p>
+
               <div className="flex items-start gap-3 text-sm text-gray-400">
                 <MessageSquare className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <div>

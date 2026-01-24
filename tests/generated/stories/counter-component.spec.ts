@@ -27,7 +27,7 @@ test.describe('Counter Component', () => {
   });
 
   test('Starting from zero', async ({ page }) => {
-    // Execution order: Starting from zero-36 → Starting from zero-37 → Starting from zero-38 → Starting from zero-39
+    // Execution order: Starting from zero-60 → Starting from zero-61 → Starting from zero-62 → Starting from zero-63
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -44,7 +44,7 @@ test.describe('Counter Component', () => {
   });
 
   test('Incrementing multiple times', async ({ page }) => {
-    // Execution order: Incrementing multiple times-40 → Incrementing multiple times-41 → Incrementing multiple times-42 → Incrementing multiple times-43 → Incrementing multiple times-44 → Incrementing multiple times-45
+    // Execution order: Incrementing multiple times-64 → Incrementing multiple times-65 → Incrementing multiple times-66 → Incrementing multiple times-67 → Incrementing multiple times-68 → Incrementing multiple times-69
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -67,7 +67,7 @@ test.describe('Counter Component', () => {
   });
 
   test('Decrementing after incrementing', async ({ page }) => {
-    // Execution order: Decrementing after incrementing-46 → Decrementing after incrementing-47 → Decrementing after incrementing-48 → Decrementing after incrementing-49 → Decrementing after incrementing-50 → Decrementing after incrementing-51
+    // Execution order: Decrementing after incrementing-70 → Decrementing after incrementing-71 → Decrementing after incrementing-72 → Decrementing after incrementing-73 → Decrementing after incrementing-74 → Decrementing after incrementing-75
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -90,7 +90,7 @@ test.describe('Counter Component', () => {
   });
 
   test('Reset to zero', async ({ page }) => {
-    // Execution order: Reset to zero-52 → Reset to zero-53 → Reset to zero-54 → Reset to zero-55 → Reset to zero-56 → Reset to zero-57 → Reset to zero-58
+    // Execution order: Reset to zero-76 → Reset to zero-77 → Reset to zero-78 → Reset to zero-79 → Reset to zero-80 → Reset to zero-81 → Reset to zero-82
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);
@@ -116,7 +116,7 @@ test.describe('Counter Component', () => {
   });
 
   test('Increment and decrement combination', async ({ page }) => {
-    // Execution order: Increment and decrement combination-59 → Increment and decrement combination-60 → Increment and decrement combination-61 → Increment and decrement combination-62 → Increment and decrement combination-63 → Increment and decrement combination-64 → Increment and decrement combination-65 → Increment and decrement combination-66 → Increment and decrement combination-67 → Increment and decrement combination-68
+    // Execution order: Increment and decrement combination-83 → Increment and decrement combination-84 → Increment and decrement combination-85 → Increment and decrement combination-86 → Increment and decrement combination-87 → Increment and decrement combination-88 → Increment and decrement combination-89 → Increment and decrement combination-90 → Increment and decrement combination-91 → Increment and decrement combination-92
     // Given I am on Routes.Demo
     await page.goto(`${Routes.Demo}`);
     await initializeTestState(page);

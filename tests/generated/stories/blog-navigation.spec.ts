@@ -27,7 +27,7 @@ test.describe('Blog Navigation', () => {
   });
 
   test('View blog index page', async ({ page }) => {
-    // Execution order: View blog index page-120 → View blog index page-121
+    // Execution order: View blog index page-144 → View blog index page-145
     // Given I am on Routes.Blog
     await page.goto(`${Routes.Blog}`);
     await initializeTestState(page);
@@ -38,7 +38,7 @@ test.describe('Blog Navigation', () => {
   });
 
   test('Navigate to blog from home', async ({ page }) => {
-    // Execution order: Navigate to blog from home-122 → Navigate to blog from home-123 → Navigate to blog from home-124
+    // Execution order: Navigate to blog from home-146 → Navigate to blog from home-147 → Navigate to blog from home-148
     // Given I am on Routes.Home
     await page.goto(`${Routes.Home}`);
     await initializeTestState(page);

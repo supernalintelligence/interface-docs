@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
       submenu: [
         {
           id: 'demo',
-          label: 'Demo',
+          label: 'Agentic Control',
           path: '/demo'
         },
         {
@@ -53,7 +53,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
       ]
     },
     { id: 'showcase', label: 'Showcase', path: '/showcase', testid: Components.GlobalNav.showcase },
-    { id: 'stories', label: 'Stories', path: '/stories', testid: Components.GlobalNav.stories },
     { id: 'blog', label: 'Blog', path: '/blog', testid: Components.GlobalNav.blog }
   ];
 

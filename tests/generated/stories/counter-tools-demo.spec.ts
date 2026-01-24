@@ -24,7 +24,7 @@ test.describe('Counter Tools Demo', () => {
   });
 
   test('Using counter tools', async ({ page }) => {
-    // Execution order: Using counter tools-165 → Using counter tools-166 → Using counter tools-167 → Using counter tools-168 → Using counter tools-169 → Using counter tools-170 → Using counter tools-171 → Using counter tools-172 → Using counter tools-173
+    // Execution order: Using counter tools-189 → Using counter tools-190 → Using counter tools-191 → Using counter tools-192 → Using counter tools-193 → Using counter tools-194 → Using counter tools-195 → Using counter tools-196 → Using counter tools-197
     // Given I navigate to "http://localhost:3000/demo/simple"
     // TODO: Implement Given step: I navigate to "http://localhost:3000/demo/simple"
 

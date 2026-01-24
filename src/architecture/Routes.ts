@@ -5,21 +5,21 @@
  */
 
 export const Routes = {
+  404: '/404',
+  Testing: '/testing',
   Stories: '/stories',
+  Showcase: '/showcase',
   Home: '/',
+  IndexNew: '/index-new',
   Examples: '/examples',
   Docs: '/docs',
   Dashboard: '/dashboard',
   Comparison: '/comparison',
   Architecture: '/architecture',
-  'ExamplesChat-adapters': '/examples/chat-adapters',
-  DemoStateful: '/demo/stateful',
-  DemoSimple: '/demo/simple',
+  ExamplesChatAdapters: '/examples/chat-adapters',
   Demo: '/demo',
-  DemoHierarchical: '/demo/hierarchical',
-  DemoAdvanced: '/demo/advanced',
   Blog: '/blog',
-  'BlogSlug': '/blog/:slug'
+  BlogSlug: '/blog/:slug'
 } as const;
 
 export type RouteName = keyof typeof Routes;
