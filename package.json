@@ -54,7 +54,7 @@
   "dependencies": {
     "@copilotkit/react-core": "^1.10.6",
     "@copilotkit/react-textarea": "^1.10.6",
-    "@copilotkit/react-ui": "^0.2.0",
+    "@copilotkit/react-ui": "^1.10.6",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/brand-kit": "^0.3.0",
     "@supernal/interface": "file:../open-source",
