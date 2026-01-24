@@ -6,6 +6,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { Components } from '../architecture';
 
 interface TestingFeature {
@@ -248,6 +249,9 @@ export default function TestingPage() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

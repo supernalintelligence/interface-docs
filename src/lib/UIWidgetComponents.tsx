@@ -496,7 +496,6 @@ export const FormNameInput = ({ value, onChange, placeholder, className }: FormI
 
 export const OpenMenuButton = ClickTool({
   elementId: Components.Demo.openMainMenu,
-  containerId: DemoContainers.Demo.id,
   description: 'Open the main menu',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -507,7 +506,6 @@ export const OpenMenuButton = ClickTool({
 
 export const CloseMenuButton = ClickTool({
   elementId: Components.Demo.closeMainMenu,
-  containerId: DemoContainers.Demo.id,
   description: 'Close the main menu',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -518,7 +516,6 @@ export const CloseMenuButton = ClickTool({
 
 export const FeatureToggle = ChangeTool({
   elementId: Components.Demo.featureToggle,
-  containerId: DemoContainers.Demo.id,
   description: 'Toggle feature on/off',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -529,7 +526,6 @@ export const FeatureToggle = ChangeTool({
 
 export const NotificationsToggle = ChangeTool({
   elementId: Components.Demo.notificationToggle,
-  containerId: DemoContainers.Demo.id,
   description: 'Toggle notifications on/off',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -558,7 +554,6 @@ export const setPriority = Tool({
   category: ToolCategory.USER_INTERACTION,
   aiEnabled: true,
   dangerLevel: 'safe',
-  containerId: DemoContainers.Demo.id,
   examples: ['set priority high', 'priority medium', 'change priority to low'],
   executionContext: 'ui',
   returnType: 'json'
@@ -570,7 +565,6 @@ export const setPriority = Tool({
 
 export const StatusSelect = ChangeTool({
   elementId: Components.Demo.statusDropdown,
-  containerId: DemoContainers.Demo.id,
   description: 'Change status',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -581,7 +575,6 @@ export const StatusSelect = ChangeTool({
 
 export const ThemeSelect = ChangeTool({
   elementId: Components.Demo.themeToggle,
-  containerId: DemoContainers.Demo.id,
   description: 'Change theme using dropdown widget',
   aiEnabled: true,  // Enable AI control
   dangerLevel: 'safe',
@@ -603,7 +596,6 @@ export const ThemeSelect = ChangeTool({
 
 export const FormSubmitButton = ClickTool({
   elementId: Components.Demo.formSubmit,
-  containerId: DemoContainers.Demo.id,
   description: 'Submit form with name',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -692,7 +684,6 @@ export const getStatusState = Tool({
 
 export const StatefulOpenMenu = ClickTool({
   elementId: StatefulDemoNames.openMenu,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Open the main menu (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -703,7 +694,6 @@ export const StatefulOpenMenu = ClickTool({
 
 export const StatefulCloseMenu = ClickTool({
   elementId: StatefulDemoNames.closeMenu,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Close the main menu (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -714,7 +704,6 @@ export const StatefulCloseMenu = ClickTool({
 
 export const StatefulFeatureToggle = ChangeTool({
   elementId: StatefulDemoNames.featureToggle,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Toggle feature on/off (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -725,7 +714,6 @@ export const StatefulFeatureToggle = ChangeTool({
 
 export const StatefulNotificationsToggle = ChangeTool({
   elementId: StatefulDemoNames.notificationsToggle,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Toggle notifications on/off (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -754,7 +742,6 @@ export const setStatefulPriority = Tool({
   category: ToolCategory.USER_INTERACTION,
   aiEnabled: true,
   dangerLevel: 'safe',
-  containerId: DemoContainers.DemoStateful.id,
   examples: ['set stateful priority high', 'stateful priority medium'],
   executionContext: 'ui',
   returnType: 'json'
@@ -766,7 +753,6 @@ export const setStatefulPriority = Tool({
 
 export const StatefulStatusSelect = ChangeTool({
   elementId: StatefulDemoNames.statusDropdown,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Change status (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',
@@ -777,7 +763,6 @@ export const StatefulStatusSelect = ChangeTool({
 
 export const StatefulFormSubmitButton = ClickTool({
   elementId: StatefulDemoNames.formSubmit,
-  containerId: DemoContainers.DemoStateful.id,
   description: 'Submit form with name (Stateful)',
   aiEnabled: true,
   dangerLevel: 'safe',

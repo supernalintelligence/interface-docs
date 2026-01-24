@@ -238,7 +238,6 @@ export const SaveButton = ClickTool({
     'save file',
     'store information'
   ],
-  containerId: 'MainApp'
 })(({ className, reportSuccess }) => {
   const handleClick = async () => {
     await saveUserData();

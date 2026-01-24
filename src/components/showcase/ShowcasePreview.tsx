@@ -20,7 +20,7 @@ const SHOWCASE_SITES: ShowcaseItem[] = [
   {
     name: 'Glowbrand',
     description: 'AI-powered branding platform for creating cohesive brand identities',
-    url: 'https://glowbrand.ai',
+    url: 'https://glowbrand.studio',
     toolCount: 15,
     category: 'Branding',
     bgGradient: 'from-pink-500 to-rose-500'

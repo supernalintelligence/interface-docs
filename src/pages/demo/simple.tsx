@@ -5,20 +5,10 @@
  */
 import React, { useState, useEffect } from 'react';
 import { DemoLayout } from '../../components/DemoLayout';
-import { ToolList } from '../../components/ToolList';
+import { ToolList, ToolInfo } from '../../components/ToolList';
 import { InteractiveWidgets } from '../../components/InteractiveWidgets';
 import { ToolRegistry, useContainer } from '@supernal/interface/browser';
 import { DemoContainers } from '../../architecture';
-
-// ToolInfo type expected by ToolList component
-interface ToolInfo {
-  name: string;
-  elementId?: string;
-  testId?: string;
-  dangerLevel?: string;
-  description?: string;
-  examples?: string[];
-}
 import { NAVIGATION_TOOL_PREFIX } from '../../lib/constants';
 
 // Import widgets to register tools

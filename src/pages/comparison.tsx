@@ -41,13 +41,11 @@ function ComparisonPage() {
                 <h3 className="font-semibold text-sm text-gray-700 mb-2">Example Code:</h3>
                 <pre className="text-xs bg-gray-50 p-3 rounded overflow-x-auto">
 {`@ToolProvider({
-  containerId: 'DemoStateful',
   category: 'user_interaction'
 })
 class DemoWidgetProvider {
   @Tool({
     elementId: StatefulDemoNames.incrementButton,
-    containerId: DemoContainers.StatefulDemo,
     toolId: 'stateful-demo.increment',
     name: 'Increment Count',
     description: 'Increment the counter by 1',

@@ -1,8 +1,8 @@
 /**
  * Example Tools - Real working tools using specialized decorators
- * 
- * MIGRATION: Counter uses new @Component pattern (component-namespacing)
- * LEGACY: Other tools still use flat pattern (for backward compat testing)
+ *
+ * Counter uses new @Component pattern (component-namespacing)
+ * Other tools use flat pattern with specialized decorators
  */
 
 import {
@@ -68,7 +68,6 @@ const DEBUG=false
  */
 @Component({
   name: 'counter',
-  containerId: DemoContainers.Demo.id,
   elementId: Counter.root,
   description: 'Interactive counter with state',
   stateful: true,
@@ -137,49 +136,6 @@ export class CounterComponent {
   }
 }
 
-// ============================================
-// LEGACY COUNTER TOOLS - Old Flat Pattern (for backward compat)
-// ============================================
-export class CounterTools {
-  @AITool({
-    elementId: Counter.incrementButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Increment the counter by 1',
-    category: ToolCategory.UTILITY,
-    examples: ['increment counter', 'increase counter', 'add to counter'],
-  })
-  async incrementLegacy() {
-    const event = new CustomEvent('example-tool-increment');
-    window.dispatchEvent(event);
-    return { success: true, message: 'Counter incremented' };
-  }
-
-  @TestTool({
-    elementId: Counter.decrementButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Decrement the counter by 1',
-    category: ToolCategory.UTILITY,
-    examples: ['decrement counter', 'decrease counter', 'subtract from counter'],
-  })
-  async decrementLegacy() {
-    const event = new CustomEvent('example-tool-decrement');
-    window.dispatchEvent(event);
-    return { success: true, message: 'Counter decremented' };
-  }
-
-  @AIAndTestTool({
-    elementId: Counter.resetButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Reset counter to zero',
-    category: ToolCategory.UTILITY,
-    examples: ['reset counter', 'reset to zero', 'set counter to zero'],
-  })
-  async resetLegacy() {
-    const event = new CustomEvent('example-tool-reset');
-    window.dispatchEvent(event);
-    return { success: true, message: 'Counter reset to 0' };
-  }
-}
 
 // ============================================
 // CHAT TOOLS - Using @ToolPreset
@@ -188,8 +144,7 @@ export class CounterTools {
 export class ChatTools {
   @AITool({
     elementId: Chat.sendButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Send a chat message',
+      description: 'Send a chat message',
     examples: [
       'send message {message}',
       'send chat {message}',
@@ -208,8 +163,7 @@ export class ChatTools {
 
   @AITool({
     elementId: Chat.clearButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Clear all chat messages',
+      description: 'Clear all chat messages',
     examples: ['clear chat', 'clear messages', 'delete all messages'],
   })
   async clearChat() {
@@ -226,8 +180,7 @@ export class ChatTools {
 export class SettingsTools {
   @AITool({
     elementId: Settings.changeButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Change a setting value',
+      description: 'Change a setting value',
     examples: ['change setting to {setting}', 'update setting to {setting}', 'set {setting}'],
   })
   async changeSetting(setting: string) {
@@ -240,8 +193,7 @@ export class SettingsTools {
 
   @DangerousTool({
     elementId: Settings.resetButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Reset all settings to defaults',
+      description: 'Reset all settings to defaults',
     examples: ['reset settings', 'reset all settings', 'restore defaults'],
   })
   async resetSettings() {
@@ -252,8 +204,7 @@ export class SettingsTools {
 
   @DestructiveTool({
     elementId: Settings.deleteButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Permanently delete all user data',
+      description: 'Permanently delete all user data',
     examples: ['delete all data', 'clear all data', 'remove everything'],
   })
   async deleteAllData() {
@@ -270,8 +221,7 @@ export class SettingsTools {
 export class DataTools {
   @DataReadTool({
     elementId: Data.fetchButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Fetch all items from the list',
+      description: 'Fetch all items from the list',
     examples: ['fetch items', 'get items', 'show items', 'list items'],
   })
   async fetchItems() {
@@ -283,8 +233,7 @@ export class DataTools {
 
   @DataWriteTool({
     elementId: Data.addButton,
-    containerId: DemoContainers.Demo.id,
-    description: 'Add a new item to the list',
+      description: 'Add a new item to the list',
     examples: ['add item {item}', 'create item {item}', 'add {item} to list'],
   })
   async addItem(item: string) {
@@ -299,8 +248,7 @@ export class DataTools {
   @DestructiveTool({
     // NO elementId - can't use DOM click since each button has different testid
     // Must use programmatic execution via CustomEvent
-    containerId: DemoContainers.Demo.id,
-    description: 'Delete an item from the list',
+      description: 'Delete an item from the list',
     examples: ['delete item {index}', 'remove item {index}', 'delete item number {index}'],
   })
   async deleteItem(index: number) {
@@ -320,11 +268,10 @@ export function registerExampleTools() {
       const registry = (window as any).__SUPERNAL_TOOL_REGISTRY__;
 
       if (registry) {
-        // NEW: Component-namespaced tools
+        // Component-namespaced tools
         const counterComponent = new CounterComponent();
 
-        // LEGACY: Flat-namespaced tools (for backward compat testing)
-        const counterTools = new CounterTools();
+        // Flat-namespaced tools
         const chatTools = new ChatTools();
         const settingsTools = new SettingsTools();
         const dataTools = new DataTools();
@@ -345,7 +292,6 @@ export function registerExampleTools() {
         };
 
         updateInstances(counterComponent, 'CounterComponent');
-        updateInstances(counterTools, 'CounterTools');
         updateInstances(chatTools, 'ChatTools');
         updateInstances(settingsTools, 'SettingsTools');
         updateInstances(dataTools, 'DataTools');
@@ -356,7 +302,6 @@ export function registerExampleTools() {
   } else {
     // Fallback: Just create instances (for SSR)
     new CounterComponent();
-    new CounterTools();
     new ChatTools();
     new SettingsTools();
     new DataTools();

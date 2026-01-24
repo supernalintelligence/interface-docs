@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 import { ToolRegistry, useContainer } from "@supernal/interface/browser";
 import { useChatInput } from '@supernal/interface-nextjs';
 import { ExampleCard } from '../../components/ExampleCard';
-import { ToolList } from '../../components/ToolList';
+import { ToolList, ToolInfo } from '../../components/ToolList';
 import { InteractiveWidgets } from '../../components/InteractiveWidgets';
 import { enhancedSnippets } from '../../data/enhancedCodeSnippets';
 import {
@@ -22,24 +22,13 @@ import {
   SettingsWidget,
   DataWidget
 } from '../../widgets';
-import { Info, Zap, Shield, Database, Activity, Code, Grid3x3, Layers, Cpu, MessageSquare, Check, FileText } from 'lucide-react';
-import { Examples, Demo } from '../../architecture/DemoComponentNames';
+import { Zap, Shield, Code, MessageSquare, Check, FileText } from 'lucide-react';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
 import { NAVIGATION_TOOL_PREFIX } from '../../lib/constants';
 
 // Import widgets to register tools
 import '../../lib/UIWidgetComponents';
-
-// ToolInfo type expected by ToolList component
-interface ToolInfo {
-  name: string;
-  elementId?: string;
-  testId?: string;
-  dangerLevel?: string;
-  description?: string;
-  examples?: string[];
-}
 
 // Level Badge Component
 const LevelBadge = ({ level, label }: { level: 1 | 2 | 3; label: string }) => {
@@ -56,10 +45,10 @@ const LevelBadge = ({ level, label }: { level: 1 | 2 | 3; label: string }) => {
 };
 
 export default function DemoPage() {
-  const [showCode, setShowCode] = useState(false);
   const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
   const { insertText } = useChatInput();
+  const showCode = false; // Code examples always visible
 
   // CRITICAL: Set container context using named contract
   // Use Demo container which matches route /demo
@@ -495,18 +484,12 @@ export default function DemoPage() {
             transition={{ delay: 0.2 }}
             className="mb-16"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-purple-500/10 rounded-lg">
-                <Cpu className="h-6 w-6 text-purple-400" />
-              </div>
-              <h2 className="text-3xl font-bold text-white">Available AI Tools</h2>
-            </div>
-
             <ToolList
               tools={availableTools}
               title="Available AI Tools"
-              subtitle="Click to copy commands to chat"
+              subtitle="Explore and test all available tools organized by category"
               color="purple"
+              categorized={true}
             />
           </motion.section>
 

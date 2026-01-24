@@ -12,6 +12,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { TextFirstHero } from '../components/hero/TextFirstHero';
 import { AudienceTabs } from '../components/tabs/AudienceTabs';
 import { ShowcasePreview } from '../components/showcase/ShowcasePreview';
@@ -82,52 +83,7 @@ export default function LandingPage() {
           </section>
 
           {/* Footer */}
-          <footer className="bg-slate-900 text-gray-400 py-12 border-t border-white/10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {/* Column 1 */}
-                <div>
-                  <h3 className="text-white font-bold mb-4">Supernal Interface</h3>
-                  <p className="text-sm">
-                    Make any React app AI-controllable. Open source, type-safe, production-ready.
-                  </p>
-                </div>
-
-                {/* Column 2 */}
-                <div>
-                  <h3 className="text-white font-semibold mb-4">Product</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
-                    <li><a href="/showcase" className="hover:text-white transition-colors">Showcase</a></li>
-                    <li><a href="/#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                  </ul>
-                </div>
-
-                {/* Column 3 */}
-                <div>
-                  <h3 className="text-white font-semibold mb-4">Developers</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li><a href="/docs" className="hover:text-white transition-colors">Documentation</a></li>
-                    <li><a href="/examples" className="hover:text-white transition-colors">Examples</a></li>
-                    <li><a href="https://github.com/supernalintelligence/interface" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a></li>
-                  </ul>
-                </div>
-
-                {/* Column 4 */}
-                <div>
-                  <h3 className="text-white font-semibold mb-4">Resources</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li><a href="/blog" className="hover:text-white transition-colors">Blog</a></li>
-                    <li><a href="https://discord.gg/supernal" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Community</a></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm">
-                <p>&copy; 2026 Supernal Intelligence. Open source under MIT License.</p>
-              </div>
-            </div>
-          </footer>
+          <Footer />
         </main>
 
         {/* Modals */}

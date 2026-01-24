@@ -189,7 +189,6 @@ export default function CodeTogglePage() {
   generateStories: true,
   category: ToolCategory.CHAT,
   tags: ['chat'],
-  containerId: 'chat-modal',
   executionContext: 'both'
 })
 async sendMessage(text: string) {

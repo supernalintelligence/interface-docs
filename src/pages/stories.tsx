@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { DemoContainers as Containers } from "@/architecture";
 
 interface FeatureFile {
@@ -251,6 +252,9 @@ export default function StoriesPage() {
 
         {/* Chat is now global in _app.tsx */}
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

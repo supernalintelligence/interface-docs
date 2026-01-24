@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { EarlyAccessModal } from '../../components/EarlyAccessModal';
 import { getBlogPosts } from '../../lib/content/blog';
 import { Post } from '../../lib/content/types';
@@ -160,11 +161,14 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
         
         {/* Chat is now global in _app.tsx */}
         
-        <EarlyAccessModal 
+        <EarlyAccessModal
           isOpen={showEarlyAccessModal}
           onClose={() => setShowEarlyAccessModal(false)}
         />
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

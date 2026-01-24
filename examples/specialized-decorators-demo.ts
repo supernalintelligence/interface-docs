@@ -56,7 +56,6 @@ class BasicSearchTools {
 
 @ToolPreset({
   category: ToolCategory.CHAT,
-  containerId: 'chat-modal',
   tags: ['chat', 'messaging'],
 })
 class ChatTools {

@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { Components } from '../architecture';
 
 interface ShowcaseItem {
@@ -195,6 +196,9 @@ export default function ShowcasePage() {
 
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

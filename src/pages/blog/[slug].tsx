@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, User, Clock } from 'lucide-react';
 import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { EarlyAccessModal } from '../../components/EarlyAccessModal';
 import { getBlogPosts, getPostBySlug } from '../../lib/content/blog';
 import { Post } from '../../lib/content/types';
@@ -207,11 +208,14 @@ export default function BlogPost({ post }: BlogPostProps) {
           </div>
         </div>
         
-        <EarlyAccessModal 
+        <EarlyAccessModal
           isOpen={showEarlyAccessModal}
           onClose={() => setShowEarlyAccessModal(false)}
         />
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

@@ -28,7 +28,6 @@ export class SimplifiedDemoTools {
   // - category: "user_interaction" (from method name)
   // - dangerLevel: "safe" (from method name - no destructive words)
   // - aiEnabled: true (from method name - no dangerous/restricted words)
-  // - containerId: "DemoStateful" (inherited from @ToolProvider)
   @Tool(StatefulDemoNames.incrementButton, {
     examples: [
       'increment the counter',
@@ -95,7 +94,6 @@ export class SimplifiedDemoTools {
  * ```typescript
  * @Tool({
  *   elementId: StatefulDemoNames.incrementButton,
- *   containerId: DemoContainers.StatefulDemo,
  *   toolId: 'stateful-demo.increment',
  *   name: 'Increment Count',
  *   description: 'Increment the counter by 1',

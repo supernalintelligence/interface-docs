@@ -24,9 +24,35 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
 
   const navItems = [
-    { id: 'demo', label: 'Demo', path: '/demo', testid: Components.GlobalNav.demo },
+    {
+      id: 'features',
+      label: 'Features',
+      path: '/demo',
+      testid: Components.GlobalNav.demo,
+      submenu: [
+        {
+          id: 'demo',
+          label: 'Demo',
+          path: '/demo'
+        },
+        {
+          id: 'testing',
+          label: 'Contractual Testing',
+          path: '/testing'
+        },
+        {
+          id: 'onboarding',
+          label: 'User Onboarding',
+          path: '/stories'
+        },
+        {
+          id: 'videos',
+          label: 'Automated Demo Videos',
+          path: '/videos'
+        }
+      ]
+    },
     { id: 'showcase', label: 'Showcase', path: '/showcase', testid: Components.GlobalNav.showcase },
-    { id: 'testing', label: 'Testing', path: '/testing', testid: Components.GlobalNav.testing },
     { id: 'stories', label: 'Stories', path: '/stories', testid: Components.GlobalNav.stories },
     { id: 'blog', label: 'Blog', path: '/blog', testid: Components.GlobalNav.blog }
   ];

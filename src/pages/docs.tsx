@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { getSections } from '../lib/content';
 import { Doc } from '../lib/content/types';
@@ -230,11 +231,14 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
         
         {/* Chat is now global in _app.tsx */}
         
-        <EarlyAccessModal 
+        <EarlyAccessModal
           isOpen={showEarlyAccessModal}
           onClose={() => setShowEarlyAccessModal(false)}
         />
       </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }
