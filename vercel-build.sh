@@ -24,7 +24,7 @@ let changed = false;
 const replacements = {
   '@supernal/interface': '^1.0.4',
   '@supernal/interface-nextjs': '^1.0.4',
-  '@supernalintelligence/interface-enterprise': '^1.0.15'
+  '@supernalintelligence/interface-enterprise': '^1.0.18'
 };
 
 for (const [dep, version] of Object.entries(replacements)) {
