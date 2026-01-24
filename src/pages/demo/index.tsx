@@ -61,13 +61,9 @@ export default function DemoPage() {
     // Get available tools for the tool list - filter using named contracts
     const tools = Array.from(ToolRegistry.getAllTools().values())
       .filter(t => {
-        // Include tools that are:
-        // 1. AI enabled
-        // 2. Either have no container (global), start with navigation prefix, or belong to Demo container
-        const isGlobalOrNav = !t.containerId || t.elementId?.startsWith(NAVIGATION_TOOL_PREFIX);
-        const isDemoTool = t.containerId === DemoContainers.Demo.id;
-
-        return t.aiEnabled && (isGlobalOrNav || isDemoTool);
+        // Include tools that are AI enabled
+        // TODO: Add container/scope filtering once ToolMetadata includes scope info
+        return t.aiEnabled;
       })
       .sort((a, b) => {
         const order: Record<string, number> = {
