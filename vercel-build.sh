@@ -22,8 +22,8 @@ const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 let changed = false;
 
 const replacements = {
-  '@supernal/interface': '^1.0.8',
-  '@supernal/interface-nextjs': '^1.0.8',
+  '@supernal/interface': '^1.0.9',
+  '@supernal/interface-nextjs': '^1.0.9',
   '@supernalintelligence/interface-enterprise': '^1.0.18'
 };
 

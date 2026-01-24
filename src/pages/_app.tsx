@@ -13,8 +13,7 @@ import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
 
 // 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
-// TEMP: Disabled until @supernal/interface@1.0.9 published with LocationScope export
-// import '../tools/LocationAwareExampleTools'
+import '../tools/LocationAwareExampleTools'
 
 // ✅ CRITICAL: Import ExampleTools to trigger @Component/@Tool decorators
 // Without this import, the decorators never execute and tools are never registered!
