@@ -59,3 +59,4 @@ mcp-debug.log
 /playwright-report/
 
 archive/
+.tool-cache.json
