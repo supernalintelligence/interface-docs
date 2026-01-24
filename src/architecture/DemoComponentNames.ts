@@ -1,7 +1,7 @@
 /**
  * Component Name Contracts - Auto-generated
  * Generated from: docs-site/src
- * Canonical source: docs-site/src/architecture/DemoComponentNames.ts.backup-manual
+ * Canonical source: docs-site/src/architecture/DemoComponentNames.ts
  * Do not edit manually - regenerate with: si scan-names
  */
 
