@@ -15,7 +15,7 @@ import { DemoWidgetState } from '../types/DemoState';
 import { localStorageAdapter } from './storage';
 
 @ToolProvider({
-  category: DemoContainers.DemoStateful.id, // Stateful demo container
+  category: DemoContainers.Demo.id, // Demo container
 })
 export class DemoWidgetTools {
   private stateManager: StateManager | null = null;

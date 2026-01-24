@@ -18,7 +18,7 @@ import { DemoContainers } from '../architecture/DemoContainers';
 import type { ToolOptions } from "@supernalintelligence/interface-enterprise";
 
 // **NEW SHORTHAND SYNTAX** - Just pass containerId string!
-@ToolProvider(DemoContainers.DemoStateful.id)
+@ToolProvider(DemoContainers.Demo.id)
 export class SimplifiedDemoTools {
   private count: number = 0;
 
