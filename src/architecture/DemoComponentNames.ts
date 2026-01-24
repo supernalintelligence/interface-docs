@@ -1,346 +1,177 @@
 /**
- * Architecture Definition: Component Names
- * 
- * Single source of truth for all UI component identifiers.
- * Maps logical component names to data-testid values for testing and AI control.
- * 
- * NEW: Using flexible format system (array format for speed, object for custom suffixes)
- * 
- * Pattern: Use createNames for auto-registration and kebab-case conversion.
+ * Component Name Contracts - Auto-generated
+ * Generated from: docs-site/src
+ * Canonical source: docs-site/src/architecture/DemoComponentNames.ts.backup-manual
+ * Do not edit manually - regenerate with: si scan-names
  */
 
-// NOTE: This file demonstrates BOTH old and new patterns for educational purposes.
-// Uncomment the new patterns and comment out old to migrate to zero-config system.
-
-// --- NEW PATTERN (Flexible Format System) ---
-// Uncomment to use zero-config architecture:
-/*
-import { createNames } from "@supernalintelligence/interface-enterprise";
-
-export const GlobalNav = createNames('nav', [
-  'home', 'demo', 'dashboard', 'architecture', 
-  'docs', 'examples', 'stories', 'blog'
-]);
-// Result: { home: 'nav-home', demo: 'nav-demo', ... } - auto-generated!
-*/
-
-// --- OLD PATTERN (Manual Boilerplate) ---
-// Currently active for backward compatibility:
-/**
- * Global Navigation (Header - appears on all pages)
- */
-export const GlobalNav = {
-  home: 'nav-home',
-  demo: 'nav-demo',
-  showcase: 'nav-showcase',
-  testing: 'nav-testing',
-  stories: 'nav-stories',
-  docs: 'nav-docs',
-  blog: 'nav-blog'
+export const Blog = {
+  backButton: 'blog-back-button',
+  categoryFilter: 'blog-category-filter',
+  container: 'blog-container',
+  postBackButton: 'blog-post-back-button',
+  postCard: 'blog-post-card',
+  postContainer: 'blog-post-container',
+  postContent: 'blog-post-content',
+  postHeader: 'blog-post-header',
+  postLink: 'blog-post-link',
+  postTitle: 'blog-post-title',
+  searchInput: 'blog-search-input'
 } as const;
 
-// --- NEW PATTERN (Array format - fastest) ---
-// Uncomment to use zero-config:
-/*
-export const Landing = createNames('landing', [
-  'hero', 'title', 'description'
-]);
-// 3 lines vs 6 lines - 50% reduction!
-*/
-
-// --- OLD PATTERN ---
-/**
- * Landing Page Components
- */
-export const Landing = {
-  hero: 'landing-hero',
-  title: 'landing-title',
-  description: 'landing-description'
-} as const;
-
-// --- NEW PATTERN (Array format for standard names) ---
-// Uncomment to use zero-config:
-/*
-export const Demo = createNames('demo', [
-  'title', 'container',
-  // Main Menu
-  'mainMenu', 'openMainMenu', 'closeMainMenu',
-  // Feature Controls
-  'featureToggle', 'notificationToggle',
-  // Priority Selection
-  'priorityHigh', 'priorityMedium', 'priorityLow',
-  // Counter
-  'counter', 'incrementButton', 'decrementButton', 'resetButton', 'display',
-  // Theme
-  'themeToggle', 'themeDark', 'themeLight',
-  // Notification
-  'notification', 'dismissNotification'
-]);
-// Result: 16 lines vs 51 lines - 69% reduction!
-*/
-
-// --- OLD PATTERN ---
-/**
- * Demo Page Components
- */
-export const Demo = {
-  title: 'demo-title',
-  container: 'demo-container',
-  
-  // Main Menu
-  mainMenu: 'main-menu',
-  openMainMenu: 'open-main-menu',
-  closeMainMenu: 'close-main-menu',
-  
-  // Feature Controls
-  featureToggle: 'feature-toggle',
-  notificationToggle: 'notification-toggle',
-  
-  // Priority Selection
-  priorityHigh: 'priority-high',
-  priorityMedium: 'priority-medium',
-  priorityLow: 'priority-low',
-  
-  // Status Selection
-  statusDropdown: 'status-dropdown',
-  statusPending: 'status-pending',
-  statusInProgress: 'status-in-progress',
-  statusCompleted: 'status-completed',
-  
-  // Theme
-  themeToggle: 'theme-toggle',
-  
-  // Form
-  formName: 'form-name',
-  formSubmit: 'form-submit',
-  
-  // Tool List Execute Buttons
-  // Note: Execute buttons use pattern: `execute-${tool.elementId}`
-  // Example: 'execute-open-main-menu', 'execute-feature-toggle'
-  toolListContainer: 'tool-list-container'
-} as const;
-
-/**
- * Examples Page Components
- */
-export const Examples = {
-  title: 'examples-title',
-  container: 'examples-container',
-  list: 'examples-list',
-  
-  // Example Cards
-  card: 'example-card',
-  cardTitle: 'example-card-title',
-  cardWidget: 'example-card-widget',
-  cardCode: 'example-card-code',
-  expandButton: 'example-expand-button',
-  
-  // Code Display
-  codeShorthand: 'code-shorthand',
-  codeFull: 'code-full',
-  codeToggle: 'code-toggle',
-  copyButton: 'example-copy-button',
-  copyToChatButton: 'example-copy-to-chat',
-  
-  // Controls
-  expandAllButton: 'examples-expand-all',
-  
-  // Example Widgets
-  simpleWidget: 'simple-widget',
-  chatWidget: 'chat-widget',
-  settingsWidget: 'settings-widget',
-  dataWidget: 'data-widget',
-  
-  // Counter Widget
-  counterWidget: 'examples-counter-widget',
-  counterIncrement: 'examples-counter-increment',
-  counterDecrement: 'examples-counter-decrement',
-  counterReset: 'examples-counter-reset',
-} as const;
-
-/**
- * Settings Modal Components
- */
-export const Settings = {
-  modal: 'settings-modal',
-  title: 'settings-title',
-  themeToggle: 'settings-theme-toggle',
-  notificationsToggle: 'settings-notifications-toggle',
-  close: 'settings-close'
-} as const;
-
-/**
- * Chat Bubble (Global)
- */
 export const Chat = {
   bubble: 'chat-bubble',
-  input: 'chat-input',
-  sendButton: 'chat-send-button',
-  messages: 'chat-messages',
   clearButton: 'chat-clear-button',
+  input: 'chat-input',
+  messages: 'chat-messages',
   minimizeButton: 'chat-minimize',
+  sendButton: 'chat-send-button',
   unreadBadge: 'chat-unread-badge'
 } as const;
 
-/**
- * Counter Component (for story testing)
- * Uses the actual testids from the Examples page counter widget
- */
 export const Counter = {
-  widget: 'examples-counter-widget',
-  increment: 'examples-counter-increment',
   decrement: 'examples-counter-decrement',
-  reset: 'examples-counter-reset'
+  increment: 'examples-counter-increment',
+  reset: 'examples-counter-reset',
+  widget: 'examples-counter-widget'
 } as const;
 
-/**
- * Dashboard Page Components
- */
 export const Dashboard = {
   title: 'dashboard-title'
 } as const;
 
-/**
- * Blog Page Components
- */
-export const Blog = {
-  container: 'blog-container',
-  searchInput: 'blog-search-input',
-  categoryFilter: 'blog-category-filter',
-  postCard: 'blog-post-card',
-  postTitle: 'blog-post-title',
-  postLink: 'blog-post-link',
-  backButton: 'blog-back-button',
-
-  // Individual post page
-  postContainer: 'blog-post-container',
-  postHeader: 'blog-post-header',
-  postContent: 'blog-post-content',
-  postBackButton: 'blog-post-back-button'
+export const Demo = {
+  closeMainMenu: 'close-main-menu',
+  container: 'demo-container',
+  Example: 'execute-open-main-menu',
+  featureToggle: 'feature-toggle',
+  formName: 'form-name',
+  formSubmit: 'form-submit',
+  mainMenu: 'main-menu',
+  notificationToggle: 'notification-toggle',
+  openMainMenu: 'open-main-menu',
+  priorityHigh: 'priority-high',
+  priorityLow: 'priority-low',
+  priorityMedium: 'priority-medium',
+  statusCompleted: 'status-completed',
+  statusDropdown: 'status-dropdown',
+  statusInProgress: 'status-in-progress',
+  statusPending: 'status-pending',
+  themeToggle: 'theme-toggle',
+  title: 'demo-title',
+  toolListContainer: 'tool-list-container'
 } as const;
 
-/**
- * Showcase Page Components
- */
-export const Showcase = {
-  container: 'showcase-container',
-  title: 'showcase-title',
-  siteCard: 'showcase-site-card',
-  siteTitle: 'showcase-site-title',
-  siteDescription: 'showcase-site-description',
-  siteLink: 'showcase-site-link',
-  categoryFilter: 'showcase-category-filter'
+export const Examples = {
+  card: 'example-card',
+  cardCode: 'example-card-code',
+  cardTitle: 'example-card-title',
+  cardWidget: 'example-card-widget',
+  chatWidget: 'chat-widget',
+  codeFull: 'code-full',
+  codeShorthand: 'code-shorthand',
+  codeToggle: 'code-toggle',
+  container: 'examples-container',
+  copyButton: 'example-copy-button',
+  copyToChatButton: 'example-copy-to-chat',
+  counterDecrement: 'examples-counter-decrement',
+  counterIncrement: 'examples-counter-increment',
+  counterReset: 'examples-counter-reset',
+  counterWidget: 'examples-counter-widget',
+  dataWidget: 'data-widget',
+  expandAllButton: 'examples-expand-all',
+  expandButton: 'example-expand-button',
+  list: 'examples-list',
+  settingsWidget: 'settings-widget',
+  simpleWidget: 'simple-widget',
+  title: 'examples-title'
 } as const;
 
-/**
- * Testing Page Components
- */
-export const Testing = {
-  container: 'testing-container',
-  title: 'testing-title',
-  featureCard: 'testing-feature-card',
-  featureTitle: 'testing-feature-title',
-  featureDescription: 'testing-feature-description',
-  codeExample: 'testing-code-example'
+export const GlobalNav = {
+  blog: 'nav-blog',
+  demo: 'nav-demo',
+  docs: 'nav-docs',
+  home: 'nav-home',
+  showcase: 'nav-showcase',
+  stories: 'nav-stories',
+  testing: 'nav-testing'
 } as const;
 
-/**
- * Stories Page Components (Walkthroughs)
- */
-export const Stories = {
-  container: 'stories-container',
-  title: 'stories-title',
-  featureCard: 'stories-feature-card',
-  executeButton: 'stories-execute-button',
-  viewButton: 'stories-view-button',
-  resultsContainer: 'stories-results-container'
+export const Landing = {
+  description: 'landing-description',
+  hero: 'landing-hero',
+  title: 'landing-title'
 } as const;
 
-/**
- * 404 Not Found Page Components
- */
 export const NotFound = {
   container: 'not-found-container',
-  title: 'not-found-title',
+  homeButton: 'not-found-home-button',
   message: 'not-found-message',
-  homeButton: 'not-found-home-button'
+  title: 'not-found-title'
+} as const;
+
+export const Settings = {
+  close: 'settings-close',
+  modal: 'settings-modal',
+  notificationsToggle: 'settings-notifications-toggle',
+  themeToggle: 'settings-theme-toggle',
+  title: 'settings-title'
+} as const;
+
+export const Showcase = {
+  categoryFilter: 'showcase-category-filter',
+  container: 'showcase-container',
+  siteCard: 'showcase-site-card',
+  siteDescription: 'showcase-site-description',
+  siteLink: 'showcase-site-link',
+  siteTitle: 'showcase-site-title',
+  title: 'showcase-title'
+} as const;
+
+export const Stories = {
+  container: 'stories-container',
+  executeButton: 'stories-execute-button',
+  featureCard: 'stories-feature-card',
+  resultsContainer: 'stories-results-container',
+  title: 'stories-title',
+  viewButton: 'stories-view-button'
+} as const;
+
+export const Testing = {
+  codeExample: 'testing-code-example',
+  container: 'testing-container',
+  featureCard: 'testing-feature-card',
+  featureDescription: 'testing-feature-description',
+  featureTitle: 'testing-feature-title',
+  title: 'testing-title'
 } as const;
 
 /**
- * All Component Names
- *
- * Organized by container for easy reference and validation.
+ * Aggregate export for all component namespaces
+ * Allows both individual imports (import { Chat } from './Components')
+ * and aggregate access (Components.Chat.input)
  */
-export const ComponentNames = {
-  GlobalNav,
-  Landing,
-  Demo,
-  Examples,
-  Settings,
+export const Components = {
+  Blog,
   Chat,
   Counter,
   Dashboard,
-  Blog,
+  Demo,
+  Examples,
+  GlobalNav,
+  Landing,
+  NotFound,
+  Settings,
   Showcase,
-  Testing,
   Stories,
-  NotFound
+  Testing
 } as const;
 
 /**
  * Alias for backward compatibility
  */
-export const Components = ComponentNames;
+export const ComponentNames = Components;
 
-/**
- * Type helper for component IDs
- */
-export type ComponentId =
-  | typeof Landing[keyof typeof Landing]
-  | typeof Demo[keyof typeof Demo]
-  | typeof Examples[keyof typeof Examples]
-  | typeof Settings[keyof typeof Settings]
-  | typeof Chat[keyof typeof Chat]
-  | typeof Blog[keyof typeof Blog]
-  | typeof Showcase[keyof typeof Showcase]
-  | typeof Testing[keyof typeof Testing]
-  | typeof Stories[keyof typeof Stories]
-  | typeof NotFound[keyof typeof NotFound];
-
-/**
- * Get all component IDs as a flat array
- */
-export function getAllComponentIds(): ComponentId[] {
-  return [
-    ...Object.values(Landing),
-    ...Object.values(Demo),
-    ...Object.values(Examples),
-    ...Object.values(Settings),
-    ...Object.values(Chat),
-    ...Object.values(Blog),
-    ...Object.values(Showcase),
-    ...Object.values(Testing),
-    ...Object.values(Stories),
-    ...Object.values(NotFound)
-  ];
-}
-
-/**
- * Validate that a component ID exists
- */
-export function isValidComponentId(id: string): id is ComponentId {
-  return getAllComponentIds().includes(id as ComponentId);
-}
-
-/**
- * Find which namespace a component belongs to
- */
-export function findComponentNamespace(id: ComponentId): keyof typeof ComponentNames | null {
-  for (const [namespace, components] of Object.entries(ComponentNames)) {
-    if (Object.values(components).includes(id)) {
-      return namespace as keyof typeof ComponentNames;
-    }
-  }
-  return null;
-}
-
+export type ComponentNamespace = keyof typeof Components;
+export type ComponentName<T extends ComponentNamespace> = keyof typeof Components[T];
+export type ComponentTestId<T extends ComponentNamespace> = typeof Components[T][ComponentName<T>];
