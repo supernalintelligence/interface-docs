@@ -38,6 +38,7 @@ const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 // Architecture initialization component - handles demo-specific setup
 function ArchitectureInitializer() {
   const router = useRouter()
+  const [isInitialized, setIsInitialized] = React.useState(false)
 
   useEffect(() => {
     DEBUG && console.log('🚀 [_app] useEffect triggered')
@@ -66,11 +67,17 @@ function ArchitectureInitializer() {
     const handler = createNavigationHandler(router)
     NavigationGraph.getInstance().setNavigationHandler(handler)
     DEBUG && console.log('✅ [_app] Navigation handler set')
+
+    // Mark as initialized and set initial context
+    setIsInitialized(true)
+    NavigationGraph.getInstance().setCurrentContext(router.asPath)
   }, [router])
 
-  // Update context whenever route changes (including initial load)
+  // Update context whenever route changes (only after initialization)
   // 🎯 UNIFIED SCOPING: NavigationGraph.setCurrentContext() now updates LocationContext
   useEffect(() => {
+    if (!isInitialized) return
+
     const currentPath = router.asPath
     DEBUG && console.log('🔄 [_app] Route changed to:', currentPath)
 
@@ -82,7 +89,7 @@ function ArchitectureInitializer() {
       const location = LocationContext.getCurrent()
       console.log('📍 [_app] LocationContext state:', location)
     }
-  }, [router.asPath])
+  }, [router.asPath, isInitialized])
 
   return null
 }
