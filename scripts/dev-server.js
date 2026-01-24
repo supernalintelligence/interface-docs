@@ -16,30 +16,55 @@ const SKIP_BUILD = process.argv.includes('--skip-build');
 const FORCE_BUILD = process.argv.includes('--force-build');
 
 function buildDependencies() {
-  const interfaceNextjsPath = path.join(__dirname, '../../open-source/interface-nextjs');
-  const distPath = path.join(interfaceNextjsPath, 'dist');
-
-  // Check if dist exists
-  const distExists = fs.existsSync(distPath);
-
-  if (!distExists || FORCE_BUILD) {
-    console.log('Building @supernal/interface-nextjs...');
-    try {
-      execSync('npm run build', {
-        cwd: interfaceNextjsPath,
-        stdio: 'inherit',
-        env: {
-          ...process.env,
-          NODE_OPTIONS: '--max-old-space-size=4096'
-        }
-      });
-      console.log('✅ Build complete\n');
-    } catch (error) {
-      console.error('❌ Build failed:', error.message);
-      process.exit(1);
+  const dependencies = [
+    {
+      name: '@supernal/interface-nextjs',
+      path: path.join(__dirname, '../../open-source/interface-nextjs'),
+      distPath: path.join(__dirname, '../../open-source/interface-nextjs/dist')
+    },
+    {
+      name: '@supernalintelligence/interface-enterprise',
+      path: path.join(__dirname, '../../enterprise'),
+      distPath: path.join(__dirname, '../../enterprise/dist')
     }
-  } else {
+  ];
+
+  let needsBuild = false;
+
+  // Check which packages need building
+  for (const dep of dependencies) {
+    if (!fs.existsSync(dep.distPath)) {
+      needsBuild = true;
+      break;
+    }
+  }
+
+  if (!needsBuild && !FORCE_BUILD) {
     console.log('✅ Dependencies already built (use --force-build to rebuild)\n');
+    return;
+  }
+
+  // Build each dependency
+  for (const dep of dependencies) {
+    const shouldBuild = !fs.existsSync(dep.distPath) || FORCE_BUILD;
+
+    if (shouldBuild) {
+      console.log(`Building ${dep.name}...`);
+      try {
+        execSync('npm run build', {
+          cwd: dep.path,
+          stdio: 'inherit',
+          env: {
+            ...process.env,
+            NODE_OPTIONS: '--max-old-space-size=4096'
+          }
+        });
+        console.log(`✅ ${dep.name} build complete\n`);
+      } catch (error) {
+        console.error(`❌ ${dep.name} build failed:`, error.message);
+        process.exit(1);
+      }
+    }
   }
 }
 
