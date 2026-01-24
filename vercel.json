@@ -2,7 +2,7 @@
   "name": "supernal-interface-docs",
   "version": 2,
   "buildCommand": "bash vercel-build.sh",
-  "installCommand": "echo '@supernalintelligence:registry=https://npm.pkg.github.com' >> .npmrc && echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc",
+  "installCommand": "echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc",
   "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
