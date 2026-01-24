@@ -161,49 +161,53 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </motion.div>
 
       {/* Scroll Progress Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4"
-      >
-        <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
-          <span>Reading Progress</span>
-          <span>
-            {Math.min(
-              100,
-              Math.round(
-                (window.pageYOffset /
-                  (document.documentElement.scrollHeight - window.innerHeight)) *
-                  100
-              )
-            )}%
-          </span>
-        </div>
-        <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-            style={{
-              width: `${Math.min(
-                100,
-                (window.pageYOffset /
-                  (document.documentElement.scrollHeight - window.innerHeight)) *
-                  100
-              )}%`
-            }}
-            initial={{ width: 0 }}
-            animate={{
-              width: `${Math.min(
-                100,
-                (window.pageYOffset /
-                  (document.documentElement.scrollHeight - window.innerHeight)) *
-                  100
-              )}%`
-            }}
-          />
-        </div>
-      </motion.div>
+      {typeof window !== 'undefined' && (
+        <ScrollProgressIndicator />
+      )}
     </div>
+  );
+};
+
+/**
+ * Scroll Progress Indicator Component (client-side only)
+ */
+const ScrollProgressIndicator: React.FC = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.pageYOffset;
+      const newProgress = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
+      setProgress(Math.min(100, Math.round(newProgress)));
+    };
+
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    return () => window.removeEventListener('scroll', updateProgress);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+      className="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+    >
+      <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
+        <span>Reading Progress</span>
+        <span>{progress}%</span>
+      </div>
+      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+          style={{ width: `${progress}%` }}
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+        />
+      </div>
+    </motion.div>
   );
 };
 

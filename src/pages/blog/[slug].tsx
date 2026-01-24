@@ -70,7 +70,7 @@ export default function BlogPost({ post }: BlogPostProps) {
   return (
     <>
       <Head>
-        <title>{post.metadata.title} | Supernal Interface Blog</title>
+        <title>{`${post.metadata.title} | Supernal Interface Blog`}</title>
         <meta name="description" content={post.metadata.description || post.excerpt} />
       </Head>
 
