@@ -51,7 +51,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 # Remove lock file and node_modules - the lock is for workspace, not published packages
 echo "Cleaning old workspace dependencies..."
 rm -rf package-lock.json node_modules
-npm install
+npm install --include=dev
 
 # Step 3: Build
 echo ""
