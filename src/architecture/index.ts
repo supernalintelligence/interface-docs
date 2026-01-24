@@ -66,10 +66,6 @@ export const {
   navToContainerMap,
   autoInferEdges: true,
   mirrorTools: [
-    // Mirror tools from DemoSimple to DemoStateful (they share components)
-    { from: 'DemoSimple', to: 'DemoStateful' },
-    // Mirror tools from DemoSimple to Demo (main demo page)
-    { from: 'DemoSimple', to: 'Demo' },
     // Mirror tools from Examples to Demo (main demo page)
     { from: 'Examples', to: 'Demo' }
   ]

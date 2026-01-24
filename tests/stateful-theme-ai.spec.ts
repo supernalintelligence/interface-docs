@@ -10,7 +10,7 @@ const StatefulDemo = {
 
 test.describe('Stateful Demo - AI Theme Control', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     
     // Wait for page to be interactive
     await page.waitForLoadState('networkidle');
@@ -32,7 +32,7 @@ test.describe('Stateful Demo - AI Theme Control', () => {
     });
     
     // Navigate to page
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Wait a bit for module initialization

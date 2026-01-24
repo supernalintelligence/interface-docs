@@ -15,7 +15,7 @@ import { testId } from '@supernal/interface/testing';
 
 test.describe('Simple Demo - Widget State Management', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Minimize chat bubble TWICE to ensure it stays minimized

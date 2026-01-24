@@ -25,13 +25,13 @@ const StatefulDemo = {
 test.describe('Stateful Demo - State Persistence', () => {
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.evaluate(() => localStorage.clear());
     await page.reload();
   });
   
   test('menu state persists across refresh', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     
     // Open menu
     const openButton = page.locator(testId(StatefulDemo.openMenu));
@@ -47,7 +47,7 @@ test.describe('Stateful Demo - State Persistence', () => {
   });
   
   test('feature toggle persists across refresh', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Toggle feature on
@@ -68,7 +68,7 @@ test.describe('Stateful Demo - State Persistence', () => {
   });
   
   test('priority selection persists across refresh', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Select high priority
@@ -89,7 +89,7 @@ test.describe('Stateful Demo - State Persistence', () => {
   });
   
   test('theme selection persists across refresh', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Select dark theme
@@ -110,7 +110,7 @@ test.describe('Stateful Demo - State Persistence', () => {
   });
   
   test('simple demo does NOT persist state', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Toggle feature on
@@ -131,7 +131,7 @@ test.describe('Stateful Demo - State Persistence', () => {
   });
   
   test('localStorage contains demo-widgets key', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Make some changes

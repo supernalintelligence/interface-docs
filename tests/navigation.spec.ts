@@ -6,8 +6,8 @@ import { TestRoutes } from './test-constants';
 test.describe('Navigation via AI Commands', () => {
   
   test.beforeEach(async ({ page }) => {
-    // Start from the simple demo page
-    await page.goto(TestRoutes.demoSimple);
+    // Start from the demo page
+    await page.goto(TestRoutes.demo);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1000); // Let everything initialize
   });

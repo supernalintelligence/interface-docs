@@ -74,58 +74,6 @@ export const DemoContainers = {
   },
 
   /**
-   * Simple Demo (Stateless Pattern)
-   *
-   * HOC-based components with callbacks, no persistence.
-   */
-  DemoSimple: {
-    id: 'DemoSimple',
-    name: 'Simple Demo',
-    type: 'section' as const,
-    parent: 'Demo',
-    route: '/demo/simple',
-    components: [
-      'open-main-menu',
-      'close-main-menu',
-      'feature-toggle',
-      'notification-toggle',
-      'priority-high',
-      'priority-medium',
-      'priority-low',
-      'status-dropdown',
-      'theme-toggle',
-      'form-submit'
-    ],
-    description: 'Stateless pattern with HOCs and callbacks'
-  },
-  
-  /**
-   * Stateful Demo (Persistent State Pattern)
-   * 
-   * StateManager-based components with Component Memory persistence.
-   */
-  DemoStateful: {
-    id: 'DemoStateful',
-    name: 'Stateful Demo',
-    type: 'section' as const,
-    parent: 'Demo',
-    route: '/demo/stateful',
-    components: [
-      'open-main-menu',
-      'close-main-menu',
-      'feature-toggle',
-      'notification-toggle',
-      'priority-high',
-      'priority-medium', 
-      'priority-low',
-      'status-dropdown',
-      'theme-toggle',
-      'form-submit'
-    ],
-    description: 'Stateful pattern with Component Memory persistence'
-  },
-  
-  /**
    * Examples Page
    * 
    * Gallery of example scenarios showing specialized decorators

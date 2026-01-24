@@ -13,8 +13,6 @@ import { DemoContainers, ComponentNames } from '../src/architecture';
 export const TestRoutes = {
   landing: DemoContainers.Landing.route,
   demo: DemoContainers.Demo.route,
-  demoSimple: DemoContainers.DemoSimple.route,
-  demoStateful: DemoContainers.DemoStateful.route,
   examples: DemoContainers.Examples.route,
   dashboard: DemoContainers.Dashboard.route,
   docs: DemoContainers.Docs.route,

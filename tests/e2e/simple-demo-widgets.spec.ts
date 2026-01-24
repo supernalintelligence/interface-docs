@@ -15,7 +15,7 @@ import { assertDemoState, waitForDemoState } from '../state-helpers';
 
 test.describe('Simple Demo - Widget Functionality', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForTimeout(1000);
     
     // Minimize chat bubble
@@ -159,14 +159,6 @@ test.describe('Simple Demo - Widget Functionality', () => {
     await input.fill('Test User');
     await expect(submit).toBeEnabled();
     await submit.click();
-  });
-  
-  test('AI tools section exists', async ({ page }) => {
-    await expect(page.locator('text=🤖 AI TOOLS')).toBeVisible();
-    
-    // Check if tools are listed
-    const toolsSection = page.locator('text=🤖 AI TOOLS').locator('..').locator('..');
-    await expect(toolsSection).toBeVisible();
   });
 });
 

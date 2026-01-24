@@ -14,14 +14,14 @@ import { testId } from '@supernal/interface/testing';
 
 test.describe('Demo Route Navigation', () => {
   test('simple demo route loads successfully', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     
     // Check container exists
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
   });
   
   test('stateful demo route loads successfully', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     
     // Check container exists
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
@@ -29,25 +29,25 @@ test.describe('Demo Route Navigation', () => {
   
   test('can navigate between simple and advanced routes', async ({ page }) => {
     // Start at simple
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
     
     // Navigate to stateful
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
     
     // Navigate back to simple
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
   });
   
   test('routes have independent page structures', async ({ page }) => {
     // Check simple route
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
     
     // Check stateful route  
-    await page.goto(`${getBaseURL()}${TestRoutes.demoStateful}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await expect(page.locator(testId(TestComponents.demo.container))).toBeVisible();
   });
 });

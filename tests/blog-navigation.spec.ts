@@ -18,7 +18,7 @@ test.describe('Blog Post Navigation', () => {
     });
     
     // Go to any page (blog tools are global)
-    await page.goto(TestRoutes.demoSimple);
+    await page.goto(TestRoutes.demo);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
     
@@ -53,7 +53,7 @@ test.describe('Blog Post Navigation', () => {
   });
   
   test('should navigate to blog post with different keywords', async ({ page }) => {
-    await page.goto(TestRoutes.demoSimple);
+    await page.goto(TestRoutes.demo);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
     
@@ -72,7 +72,7 @@ test.describe('Blog Post Navigation', () => {
   });
   
   test('should show suggestions if no exact match', async ({ page }) => {
-    await page.goto(TestRoutes.demoSimple);
+    await page.goto(TestRoutes.demo);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
     

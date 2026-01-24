@@ -6,7 +6,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { Components } from '../src/architecture/Components';
+import { Components } from '../src/architecture/DemoComponentNames';
 import { Routes } from '../src/architecture/Routes';
 
 test.describe('Demo Interactive Widgets', () => {
@@ -17,7 +17,7 @@ test.describe('Demo Interactive Widgets', () => {
 
   test.describe('StatusSelect Widget', () => {
     test('should change status to active', async ({ page }) => {
-      const statusSelect = page.locator(`[data-testid="${Components.DemoStatusDropdown}"]`);
+      const statusSelect = page.locator(`[data-testid="${Components.Demo.statusDropdown}"]`);
 
       await statusSelect.selectOption('active');
 
@@ -27,7 +27,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should change status to processing', async ({ page }) => {
-      const statusSelect = page.locator(`[data-testid="${Components.DemoStatusDropdown}"]`);
+      const statusSelect = page.locator(`[data-testid="${Components.Demo.statusDropdown}"]`);
 
       await statusSelect.selectOption('processing');
 
@@ -36,7 +36,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should change status to complete', async ({ page }) => {
-      const statusSelect = page.locator(`[data-testid="${Components.DemoStatusDropdown}"]`);
+      const statusSelect = page.locator(`[data-testid="${Components.Demo.statusDropdown}"]`);
 
       await statusSelect.selectOption('complete');
 
@@ -45,7 +45,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should change status to inactive', async ({ page }) => {
-      const statusSelect = page.locator(`[data-testid="${Components.DemoStatusDropdown}"]`);
+      const statusSelect = page.locator(`[data-testid="${Components.Demo.statusDropdown}"]`);
 
       // First change to something else
       await statusSelect.selectOption('active');
@@ -59,7 +59,7 @@ test.describe('Demo Interactive Widgets', () => {
 
   test.describe('ThemeSelect Widget', () => {
     test('should change theme to dark', async ({ page }) => {
-      const themeSelect = page.locator(`[data-testid="${Components.DemoThemeToggle}"]`);
+      const themeSelect = page.locator(`[data-testid="${Components.Demo.themeToggle}"]`);
 
       await themeSelect.selectOption('dark');
 
@@ -68,7 +68,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should change theme to light', async ({ page }) => {
-      const themeSelect = page.locator(`[data-testid="${Components.DemoThemeToggle}"]`);
+      const themeSelect = page.locator(`[data-testid="${Components.Demo.themeToggle}"]`);
 
       // First change to dark
       await themeSelect.selectOption('dark');
@@ -80,7 +80,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should change theme to auto', async ({ page }) => {
-      const themeSelect = page.locator(`[data-testid="${Components.DemoThemeToggle}"]`);
+      const themeSelect = page.locator(`[data-testid="${Components.Demo.themeToggle}"]`);
 
       await themeSelect.selectOption('auto');
 
@@ -91,7 +91,7 @@ test.describe('Demo Interactive Widgets', () => {
 
   test.describe('Widget Integration', () => {
     test('should update state display when changing status', async ({ page }) => {
-      const statusSelect = page.locator(`[data-testid="${Components.DemoStatusDropdown}"]`);
+      const statusSelect = page.locator(`[data-testid="${Components.Demo.statusDropdown}"]`);
 
       await statusSelect.selectOption('active');
 
@@ -101,7 +101,7 @@ test.describe('Demo Interactive Widgets', () => {
     });
 
     test('should update state display when changing theme', async ({ page }) => {
-      const themeSelect = page.locator(`[data-testid="${Components.DemoThemeToggle}"]`);
+      const themeSelect = page.locator(`[data-testid="${Components.Demo.themeToggle}"]`);
 
       await themeSelect.selectOption('dark');
 

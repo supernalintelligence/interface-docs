@@ -15,7 +15,7 @@ const Demo = Components.Demo;
 test.describe('@supernal-interface Widget-Tool Integration', () => {
   
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Minimize chat bubble to prevent blocking

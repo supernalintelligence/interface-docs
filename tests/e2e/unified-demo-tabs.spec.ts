@@ -24,7 +24,7 @@ test.describe('Demo Route Navigation', () => {
   });
   
   test('simple demo loads with proper layout', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Check header (be specific - multiple h1s might exist)
@@ -39,7 +39,7 @@ test.describe('Demo Route Navigation', () => {
   
   test('can navigate to stateful demo via tab', async ({ page }) => {
     // Start on simple
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Click stateful/advanced tab (labeled "Stateful")
@@ -54,7 +54,7 @@ test.describe('Demo Route Navigation', () => {
   
   test('can navigate to hierarchical demo via tab', async ({ page }) => {
     // Start on simple
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Click hierarchical tab
@@ -68,7 +68,7 @@ test.describe('Demo Route Navigation', () => {
   });
   
   test('active tab has correct styling', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Simple tab should have active styling
@@ -77,7 +77,7 @@ test.describe('Demo Route Navigation', () => {
   });
   
   test('simple demo shows widgets', async ({ page }) => {
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     // Check for demo widgets
@@ -87,7 +87,7 @@ test.describe('Demo Route Navigation', () => {
   
   test('stateful demo is accessible', async ({ page }) => {
     // Try both routes since naming might vary
-    const statefulRoute = TestRoutes.demoStateful || '/demo/advanced';
+    const statefulRoute = TestRoutes.demo || '/demo/advanced';
     await page.goto(`${getBaseURL()}${statefulRoute}`);
     await page.waitForLoadState('networkidle');
     
@@ -97,7 +97,7 @@ test.describe('Demo Route Navigation', () => {
   
   test('navigation between routes preserves layout', async ({ page }) => {
     // Start on simple
-    await page.goto(`${getBaseURL()}${TestRoutes.demoSimple}`);
+    await page.goto(`${getBaseURL()}${TestRoutes.demo}`);
     await page.waitForLoadState('networkidle');
     
     const header = page.locator('h1').first();
