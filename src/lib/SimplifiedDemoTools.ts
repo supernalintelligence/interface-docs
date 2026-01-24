@@ -17,8 +17,8 @@ import { StatefulDemoNames } from '../names/StatefulDemoNames';
 import { DemoContainers } from '../architecture/DemoContainers';
 import type { ToolOptions } from "@supernalintelligence/interface-enterprise";
 
-// **NEW SHORTHAND SYNTAX** - Just pass containerId string!
-@ToolProvider(DemoContainers.Demo.id)
+// **NEW SHORTHAND SYNTAX** - Pass config with category
+@ToolProvider({ category: DemoContainers.Demo.id })
 export class SimplifiedDemoTools {
   private count: number = 0;
 
