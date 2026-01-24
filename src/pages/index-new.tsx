@@ -23,6 +23,7 @@ import { ShowcasePreview } from '../components/showcase/ShowcasePreview';
 import { PricingSection } from '../components/landing/PricingSection';
 import { ComparisonSection } from '../components/landing/ComparisonSection';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
+import { Routes } from '../architecture/Routes';
 
 export default function NewLandingPage() {
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
@@ -131,12 +132,12 @@ export default function NewLandingPage() {
                 <div>
                   <h3 className="text-white font-semibold mb-4">Product</h3>
                   <ul className="space-y-2 text-sm">
-                    <li><a href="/#users" className="hover:text-white">For Users</a></li>
-                    <li><a href="/#devs" className="hover:text-white">For Developers</a></li>
-                    <li><a href="/#business" className="hover:text-white">For Business</a></li>
-                    <li><a href="/showcase" className="hover:text-white">Showcase</a></li>
-                    <li><a href="/#pricing" className="hover:text-white">Pricing</a></li>
-                    <li><a href="/#comparison" className="hover:text-white">vs Competitors</a></li>
+                    <li><a href={Routes.Home} className="hover:text-white">For Users</a></li>
+                    <li><a href={Routes.Home} className="hover:text-white">For Developers</a></li>
+                    <li><a href={Routes.Home} className="hover:text-white">For Business</a></li>
+                    <li><a href={Routes.Showcase} className="hover:text-white">Showcase</a></li>
+                    <li><a href={Routes.Home} className="hover:text-white">Pricing</a></li>
+                    <li><a href={Routes.Home} className="hover:text-white">vs Competitors</a></li>
                   </ul>
                 </div>
 
@@ -144,8 +145,8 @@ export default function NewLandingPage() {
                 <div>
                   <h3 className="text-white font-semibold mb-4">Developers</h3>
                   <ul className="space-y-2 text-sm">
-                    <li><a href="/docs" className="hover:text-white">Documentation</a></li>
-                    <li><a href="/examples" className="hover:text-white">Examples</a></li>
+                    <li><a href={Routes.Docs} className="hover:text-white">Documentation</a></li>
+                    <li><a href={Routes.Examples} className="hover:text-white">Examples</a></li>
                     <li><a href="https://github.com/supernalintelligence/interface" target="_blank" rel="noopener noreferrer" className="hover:text-white">GitHub</a></li>
                   </ul>
                 </div>
@@ -154,7 +155,7 @@ export default function NewLandingPage() {
                 <div>
                   <h3 className="text-white font-semibold mb-4">Resources</h3>
                   <ul className="space-y-2 text-sm">
-                    <li><a href="/blog" className="hover:text-white">Blog</a></li>
+                    <li><a href={Routes.Blog} className="hover:text-white">Blog</a></li>
                     <li><a href="https://discord.gg/supernal" target="_blank" rel="noopener noreferrer" className="hover:text-white">Community (Discord)</a></li>
                     <li><a href="mailto:support@supernal.ai" className="hover:text-white">Support</a></li>
                   </ul>

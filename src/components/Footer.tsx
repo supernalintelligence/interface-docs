@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { brandAssets, brandText } from '@/lib/brand';
+import { Routes } from '../architecture/Routes';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -74,17 +75,17 @@ export const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-4">Product</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/demo" className="hover:text-white transition-colors">
+                <Link href={Routes.Demo} className="hover:text-white transition-colors">
                   Demo
                 </Link>
               </li>
               <li>
-                <Link href="/showcase" className="hover:text-white transition-colors">
+                <Link href={Routes.Showcase} className="hover:text-white transition-colors">
                   Showcase
                 </Link>
               </li>
               <li>
-                <Link href="/testing" className="hover:text-white transition-colors">
+                <Link href={Routes.Testing} className="hover:text-white transition-colors">
                   Testing
                 </Link>
               </li>
@@ -94,7 +95,7 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/stories" className="hover:text-white transition-colors">
+                <Link href={Routes.Stories} className="hover:text-white transition-colors">
                   Stories
                 </Link>
               </li>
@@ -106,7 +107,7 @@ export const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-4">Developers</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/docs" className="hover:text-white transition-colors">
+                <Link href={Routes.Docs} className="hover:text-white transition-colors">
                   Documentation
                 </Link>
               </li>
@@ -124,7 +125,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
+                <Link href={Routes.Blog} className="hover:text-white transition-colors">
                   Blog
                 </Link>
               </li>

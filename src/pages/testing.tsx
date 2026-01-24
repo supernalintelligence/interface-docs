@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Components } from '../architecture';
+import { Routes } from '../architecture/Routes';
 
 interface TestingFeature {
   title: string;
@@ -117,13 +118,13 @@ export default function TestingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/docs"
+                href={Routes.Docs}
                 className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
               >
                 Read Documentation
               </Link>
               <Link
-                href="/stories"
+                href={Routes.Stories}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 Try Story Examples
@@ -234,13 +235,13 @@ export default function TestingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/docs"
+                href={Routes.Docs}
                 className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
               >
                 Get Started
               </Link>
               <Link
-                href="/demo"
+                href={Routes.Demo}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 See Live Demo

@@ -19,6 +19,7 @@ import {
 import { Info, Zap, Shield, Database, Book, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { Examples } from '../../architecture/DemoComponentNames';
+import { Routes } from '../../architecture/Routes';
 
 export const ExamplesPage: React.FC = () => {
   useContainer('Examples');
@@ -221,7 +222,7 @@ export const ExamplesPage: React.FC = () => {
                 </div>
               </div>
               <Link 
-                href="/examples/chat-adapters"
+                href={Routes.ExamplesChatAdapters}
                 className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
               >
                 View Example →

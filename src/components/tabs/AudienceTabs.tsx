@@ -9,6 +9,7 @@
 
 import React, { useState } from 'react';
 import { ComparisonTable } from '../ComparisonTable';
+import { Routes } from '../../architecture/Routes';
 
 interface AudienceTab {
   id: string;
@@ -101,7 +102,7 @@ const AUDIENCE_TABS: AudienceTab[] = [
         </div>
         <div className="text-center pt-4">
           <a
-            href="/examples#live-demos"
+            href={Routes.Examples}
             className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
           >
             See User Demo
@@ -160,7 +161,7 @@ function resetCounter() {
 
         <div className="text-center pt-4">
           <a
-            href="/docs"
+            href={Routes.Docs}
             className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
           >
             Read Documentation
