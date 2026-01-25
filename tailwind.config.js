@@ -6,6 +6,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
     '../open-source/interface-nextjs/src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@supernal/interface-nextjs/**/*.{js,mjs}',
   ],
   theme: {
     extend: {},
