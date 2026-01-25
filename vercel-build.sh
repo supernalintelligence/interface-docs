@@ -16,16 +16,37 @@ echo "Step 1/3: Configuring dependencies for cloud"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Inline dependency setup - replace file:../ references with published versions
+# Auto-detect versions from source package.json files
 node -e "
 const fs = require('fs');
+const path = require('path');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 let changed = false;
 
+// Read versions from source packages (use fallback if source not available)
+function getVersion(pkgPath, fallback) {
+  try {
+    if (fs.existsSync(pkgPath)) {
+      const sourcePkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+      return '^' + sourcePkg.version;
+    }
+  } catch (e) {
+    console.warn('  ⚠️  Could not read ' + pkgPath + ', using fallback: ' + fallback);
+  }
+  return fallback;
+}
+
 const replacements = {
-  '@supernal/interface': '^1.0.9',
-  '@supernal/interface-nextjs': '^1.0.18',
-  '@supernalintelligence/interface-enterprise': '^1.0.18'
+  '@supernal/interface': getVersion('../open-source/package.json', '^1.0.9'),
+  '@supernal/interface-nextjs': getVersion('../open-source/interface-nextjs/package.json', '^1.0.18'),
+  '@supernalintelligence/interface-enterprise': getVersion('../enterprise/package.json', '^1.0.18')
 };
+
+console.log('📦 Detected versions:');
+for (const [dep, version] of Object.entries(replacements)) {
+  console.log('  ' + dep + ': ' + version);
+}
+console.log('');
 
 for (const [dep, version] of Object.entries(replacements)) {
   if (pkg.dependencies[dep] && pkg.dependencies[dep].startsWith('file:')) {
