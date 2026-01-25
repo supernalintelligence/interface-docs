@@ -60,7 +60,7 @@
     "@supernal/interface": "^1.0.9",
     "@supernal/interface-nextjs": "^1.0.19",
     "@supernal/tts-widget": "^1.0.1",
-    "@supernalintelligence/interface-enterprise": "^1.0.18",
+    "@supernalintelligence/interface-enterprise": "^1.0.19",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",

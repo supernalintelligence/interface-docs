@@ -57,10 +57,10 @@
     "@copilotkit/react-ui": "^1.10.6",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/brand-kit": "^0.3.0",
-    "@supernal/interface": "file:../open-source",
+    "@supernal/interface": "^1.0.4",
     "@supernal/interface-nextjs": "file:../open-source/interface-nextjs",
     "@supernal/tts-widget": "^1.0.1",
-    "@supernalintelligence/interface-enterprise": "file:../enterprise",
+    "@supernalintelligence/interface-enterprise": "^1.0.15",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",
@@ -106,4 +106,4 @@
     "ts-node": "^1.7.1",
     "tsx": "^4.7.0"
   }
-} 
+}
