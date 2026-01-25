@@ -32,6 +32,10 @@ if (changed) {
 }
 EOF
 
+# Install dependencies with corrected package.json
+echo "📦 Installing dependencies..."
+npm install
+
 # Build
 echo "📦 Building Next.js app..."
 npm run build
