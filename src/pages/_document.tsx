@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 import { testId } from '@supernal/interface/testing';
-import { Document as DocumentNames } from '@/architecture/ComponentNames';
+import { DocumentNames } from '@/architecture/ComponentNames';
 export default function Document() {
   return (
     <Html lang="en">

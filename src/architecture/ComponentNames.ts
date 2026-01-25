@@ -23,8 +23,9 @@ import { createNames } from '@supernal/interface';
 /**
  * Document Component Names
  * Prefix: document
+ * Note: Renamed to DocumentNames to avoid conflict with global Document type
  */
-export const Document = createNames('document', {
+export const DocumentNames = createNames('document', {
   link: 'link',
   link2: 'link2',
   link3: 'link3',

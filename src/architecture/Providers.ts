@@ -13,7 +13,7 @@
 import { Tool, ToolProvider } from '@supernal/interface';
 import { testId } from '@supernal/interface/testing';
 import {
-  Document as DocumentNames,
+  DocumentNames,
   BlogPost,
   NewLandingPage,
   Footer,
