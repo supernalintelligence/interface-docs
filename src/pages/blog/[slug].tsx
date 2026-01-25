@@ -18,6 +18,8 @@ import { useCodeBlockEnhancement } from '../../components/blog/CodeBlock';
 import { TableOfContents } from '../../components/blog/TableOfContents';
 import { Routes } from '../../architecture/Routes';
 
+import { testId } from '@supernal/interface/testing';
+import { BlogPost as BlogPostNames } from '@/architecture/ComponentNames';
 interface BlogPostProps {
   post: Post;
 }
@@ -88,7 +90,7 @@ export default function BlogPost({ post }: BlogPostProps) {
               className="mb-8"
             >
               <button
-                onClick={() => router.push(Routes.Blog)}
+                onClick={() => router.push(Routes.blog)}
                 className={`flex items-center ${getSubtextColor()} hover:${getTextColor()} transition-colors text-sm`}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />

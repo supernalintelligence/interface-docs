@@ -23,6 +23,8 @@ import {
 } from '../lib/UIWidgetComponents';
 import type { DemoWidgetState } from '../types/DemoState';
 
+import { testId } from '@supernal/interface/testing';
+import { StatefulInteractiveWidgets as StatefulInteractiveWidgetsNames } from '@/architecture/ComponentNames';
 interface DemoState extends DemoWidgetState {
   highlightedWidget: string | null;
 }
@@ -214,7 +216,7 @@ export const StatefulInteractiveWidgets: React.FC<StatefulInteractiveWidgetsProp
       {/* Form Widget */}
       <div className="mt-6 p-4 bg-white rounded border border-purple-200">
         <h4 className="text-sm font-medium text-purple-700 mb-3">Form Widget</h4>
-        <form onSubmit={handleFormSubmit} className="flex gap-2">
+        <form onSubmit={handleFormSubmit} className="flex gap-2" data-testid={testId(StatefulInteractiveWidgetsNames.form)}>
           <FormNameInput
             value={formName}
             onChange={setFormName}

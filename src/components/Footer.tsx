@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { brandAssets, brandText } from '@/lib/brand';
 import { Routes } from '../architecture/Routes';
 
+import { testId } from '@supernal/interface/testing';
+import { Footer as FooterNames } from '@/architecture/ComponentNames';
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -51,7 +53,7 @@ export const Footer: React.FC = () => {
             {/* Newsletter */}
             <div>
               <h4 className="text-white font-semibold mb-3 text-sm">Stay Updated</h4>
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+              <form onSubmit={handleNewsletterSubmit} className="flex gap-2" data-testid={testId(FooterNames.form)}>
                 <input
                   type="email"
                   value={email}
@@ -75,27 +77,27 @@ export const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-4">Product</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href={Routes.Demo} className="hover:text-white transition-colors">
+                <Link href={Routes.demo} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link)}>
                   Demo
                 </Link>
               </li>
               <li>
-                <Link href={Routes.Showcase} className="hover:text-white transition-colors">
+                <Link href={Routes.showcase} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link2)}>
                   Showcase
                 </Link>
               </li>
               <li>
-                <Link href={Routes.Testing} className="hover:text-white transition-colors">
+                <Link href={Routes.testing} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link3)}>
                   Testing
                 </Link>
               </li>
               <li>
-                <Link href="/tours" className="hover:text-white transition-colors">
+                <Link href="/tours" className="hover:text-white transition-colors" data-testid={testId(FooterNames.link4)}>
                   Feature Tours
                 </Link>
               </li>
               <li>
-                <Link href={Routes.Stories} className="hover:text-white transition-colors">
+                <Link href={Routes.stories} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link5)}>
                   Stories
                 </Link>
               </li>
@@ -107,7 +109,7 @@ export const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-4">Developers</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href={Routes.Docs} className="hover:text-white transition-colors">
+                <Link href={Routes.docs} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link6)}>
                   Documentation
                 </Link>
               </li>
@@ -125,7 +127,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <Link href={Routes.Blog} className="hover:text-white transition-colors">
+                <Link href={Routes.blog} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link7)}>
                   Blog
                 </Link>
               </li>
@@ -202,13 +204,13 @@ export const Footer: React.FC = () => {
 
             {/* Legal Links */}
             <div className="flex items-center gap-6 text-sm">
-              <Link href="/privacy" className="hover:text-white transition-colors">
+              <Link href="/privacy" className="hover:text-white transition-colors" data-testid={testId(FooterNames.link8)}>
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link href="/terms" className="hover:text-white transition-colors" data-testid={testId(FooterNames.link9)}>
                 Terms of Service
               </Link>
-              <Link href="/security" className="hover:text-white transition-colors">
+              <Link href="/security" className="hover:text-white transition-colors" data-testid={testId(FooterNames.link10)}>
                 Security
               </Link>
             </div>

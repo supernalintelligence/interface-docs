@@ -1,0 +1,309 @@
+/**
+ * Example Tools - Real working tools using specialized decorators
+ *
+ * Counter uses new @Component pattern (component-namespacing)
+ * Other tools use flat pattern with specialized decorators
+ */
+
+import {
+  AITool,
+  TestTool,
+  DangerousTool,
+  DestructiveTool,
+  // TODO: OnboardingTool is imported but not yet used - implement onboarding flow
+  // OnboardingTool,
+  DataReadTool,
+  DataWriteTool,
+  AIAndTestTool,
+  ToolPreset,
+  PresetTemplates,
+  ToolCategory,
+  Component,
+  Tool,
+} from "@supernalintelligence/interface-enterprise";
+import { Examples } from '../architecture/DemoComponentNames';
+import { DemoContainers } from '../architecture';
+
+// ============================================
+// NAME CONTRACTS - Counter names moved to DemoComponentNames
+// ============================================
+export const Counter = {
+  root: Examples.counterWidget,
+  incrementButton: Examples.counterIncrement,
+  decrementButton: Examples.counterDecrement,
+  resetButton: Examples.counterReset,
+} as const;
+
+export const Chat = {
+  sendButton: 'examples-chat-send',
+  clearButton: 'examples-chat-clear',
+} as const;
+
+export const Settings = {
+  changeButton: 'examples-settings-change',
+  resetButton: 'examples-settings-reset',
+  deleteButton: 'examples-settings-delete',
+} as const;
+
+export const Data = {
+  addButton: 'examples-data-add',
+  fetchButton: 'examples-data-fetch',
+  deleteButton: 'examples-data-delete',
+} as const;
+
+const DEBUG=false
+// ============================================
+// COUNTER COMPONENT - New Namespace Pattern
+// ============================================
+/**
+ * Counter Component
+ * 
+ * Demonstrates component namespace pattern:
+ * - Component name: 'counter'
+ * - Methods: increment, decrement, reset
+ * - Scoped to: Examples container
+ * 
+ * AI calls: "increment counter", "reset counter"
+ * Tool IDs: counter.increment, counter.decrement, counter.reset
+ */
+@Component({
+  name: 'counter',
+  elementId: Counter.root,
+  description: 'Interactive counter with state',
+  stateful: true,
+})
+export class CounterComponent {
+  private value = 0;
+
+  @Tool({
+    aiEnabled: true,
+    elementId: Counter.incrementButton,
+    description: 'Increment counter by specified amount',
+    examples: ['increment counter by {amount}', 'increase counter by {amount}', 'increment counter'],
+    category: ToolCategory.UTILITY,
+  })
+  increment(amount: number | string = 1) {
+    // Convert to number if string
+    const numAmount = typeof amount === 'string' ? parseInt(amount, 10) : amount;
+    this.value += numAmount;
+    const event = new CustomEvent('example-tool-increment', {
+      detail: { amount: numAmount, newValue: this.value }
+    });
+    window.dispatchEvent(event);
+    return { 
+      success: true, 
+      newValue: this.value, 
+      message: `Counter: ${this.value}` 
+    };
+  }
+
+  @Tool({
+    aiEnabled: false, // Test-only
+    elementId: Counter.decrementButton,
+    description: 'Decrement counter by specified amount',
+    examples: ['decrement counter', 'decrement counter by {amount}', 'decrease counter by {amount}'],
+    category: ToolCategory.UTILITY,
+  })
+  decrement(amount = 1) {
+    this.value -= amount;
+    const event = new CustomEvent('example-tool-decrement', { 
+      detail: { amount, newValue: this.value } 
+    });
+    window.dispatchEvent(event);
+    return { 
+      success: true, 
+      newValue: this.value, 
+      message: `Counter: ${this.value}` 
+    };
+  }
+
+  @Tool({
+    aiEnabled: true,
+    elementId: Counter.resetButton,
+    description: 'Reset counter to zero',
+    examples: ['reset counter', 'set counter to zero'],
+    category: ToolCategory.UTILITY,
+  })
+  reset() {
+    this.value = 0;
+    const event = new CustomEvent('example-tool-reset');
+    window.dispatchEvent(event);
+    return { 
+      success: true, 
+      newValue: 0, 
+      message: 'Counter reset' 
+    };
+  }
+}
+
+
+// ============================================
+// CHAT TOOLS - Using @ToolPreset
+// ============================================
+@ToolPreset(PresetTemplates.Chat)
+export class ChatTools {
+  @AITool({
+    elementId: Chat.sendButton,
+      description: 'Send a chat message',
+    examples: [
+      'send message {message}',
+      'send chat {message}',
+      'send a message {message}',
+      'send a chat saying {message}',
+      'send chat saying {message}'
+    ],
+  })
+  async sendMessage(message: string) {
+    const event = new CustomEvent('example-tool-send-message', {
+      detail: { message }
+    });
+    window.dispatchEvent(event);
+    return { success: true, message: `Sent: "${message}"` };
+  }
+
+  @AITool({
+    elementId: Chat.clearButton,
+      description: 'Clear all chat messages',
+    examples: ['clear chat', 'clear messages', 'delete all messages'],
+  })
+  async clearChat() {
+    const event = new CustomEvent('example-tool-clear-chat');
+    window.dispatchEvent(event);
+    return { success: true, message: 'Chat cleared' };
+  }
+}
+
+// ============================================
+// SETTINGS TOOLS - Using @DangerousTool and @DestructiveTool
+// ============================================
+@ToolPreset({ category: ToolCategory.SETTINGS })
+export class SettingsTools {
+  @AITool({
+    elementId: Settings.changeButton,
+      description: 'Change a setting value',
+    examples: ['change setting to {setting}', 'update setting to {setting}', 'set {setting}'],
+  })
+  async changeSetting(setting: string) {
+    const event = new CustomEvent('example-tool-change-setting', {
+      detail: { setting }
+    });
+    window.dispatchEvent(event);
+    return { success: true, message: `Changed to: ${setting}` };
+  }
+
+  @DangerousTool({
+    elementId: Settings.resetButton,
+      description: 'Reset all settings to defaults',
+    examples: ['reset settings', 'reset all settings', 'restore defaults'],
+  })
+  async resetSettings() {
+    const event = new CustomEvent('example-tool-reset-settings');
+    window.dispatchEvent(event);
+    return { success: true, message: 'Settings reset to defaults' };
+  }
+
+  @DestructiveTool({
+    elementId: Settings.deleteButton,
+      description: 'Permanently delete all user data',
+    examples: ['delete all data', 'clear all data', 'remove everything'],
+  })
+  async deleteAllData() {
+    const event = new CustomEvent('example-tool-delete-data');
+    window.dispatchEvent(event);
+    return { success: true, message: 'All data deleted permanently' };
+  }
+}
+
+// ============================================
+// DATA TOOLS - Using @DataReadTool and @DataWriteTool
+// ============================================
+@ToolPreset({ category: ToolCategory.DATA })
+export class DataTools {
+  @DataReadTool({
+    elementId: Data.fetchButton,
+      description: 'Fetch all items from the list',
+    examples: ['fetch items', 'get items', 'show items', 'list items'],
+  })
+  async fetchItems() {
+    // AI can call this freely - it's read-only
+    const event = new CustomEvent('example-tool-fetch-items');
+    window.dispatchEvent(event);
+    return { success: true, message: 'Items fetched', data: [] };
+  }
+
+  @DataWriteTool({
+    elementId: Data.addButton,
+      description: 'Add a new item to the list',
+    examples: ['add item {item}', 'create item {item}', 'add {item} to list'],
+  })
+  async addItem(item: string) {
+    // AI needs permission for write operations
+    const event = new CustomEvent('example-tool-add-item', {
+      detail: { item }
+    });
+    window.dispatchEvent(event);
+    return { success: true, message: `Added: "${item}"` };
+  }
+
+  @DestructiveTool({
+    // NO elementId - can't use DOM click since each button has different testid
+    // Must use programmatic execution via CustomEvent
+      description: 'Delete an item from the list',
+    examples: ['delete item {index}', 'remove item {index}', 'delete item number {index}'],
+  })
+  async deleteItem(index: number) {
+    const event = new CustomEvent('example-tool-delete-item', {
+      detail: { index }
+    });
+    window.dispatchEvent(event);
+    return { success: true, message: `Deleted item ${index}` };
+  }
+}
+
+// Register all tools
+export function registerExampleTools() {
+  // Import ToolRegistry to update instances
+  if (typeof window !== 'undefined') {
+    try {
+      const registry = (window as any).__SUPERNAL_TOOL_REGISTRY__;
+
+      if (registry) {
+        // Component-namespaced tools
+        const counterComponent = new CounterComponent();
+
+        // Flat-namespaced tools
+        const chatTools = new ChatTools();
+        const settingsTools = new SettingsTools();
+        const dataTools = new DataTools();
+
+        // Update instances in registry
+        const updateInstances = (instance: any, className: string) => {
+          Array.from(registry.values()).forEach((tool: any) => {
+            // Match by class name and update instance
+            const toolId = `${className}.${tool.methodName}`;
+            if (registry.has(toolId)) {
+              const toolMetadata = registry.get(toolId);
+              if (toolMetadata) {
+                toolMetadata.instance = instance;
+                DEBUG && console.log(`✓ Updated instance for: ${tool.name}`);
+              }
+            }
+          });
+        };
+
+        updateInstances(counterComponent, 'CounterComponent');
+        updateInstances(chatTools, 'ChatTools');
+        updateInstances(settingsTools, 'SettingsTools');
+        updateInstances(dataTools, 'DataTools');
+      }
+    } catch (error) {
+      console.error('Failed to update tool instances:', error);
+    }
+  } else {
+    // Fallback: Just create instances (for SSR)
+    new CounterComponent();
+    new ChatTools();
+    new SettingsTools();
+    new DataTools();
+  }
+}

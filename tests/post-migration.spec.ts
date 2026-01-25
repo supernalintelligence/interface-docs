@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { Routes } from '../architecture/Routes';
 
 test.describe('Post-Migration Site Functionality', () => {
   
@@ -27,15 +28,15 @@ test.describe('Post-Migration Site Functionality', () => {
     await page.goto('http://localhost:3000');
     
     // Navigate to dashboard
-    await page.click('a:has-text("Dashboard"), [href="/dashboard"]');
+    await page.click('a:has-text("Dashboard"), [href={Routes.dashboard}]');
     await expect(page).toHaveURL(/.*dashboard/);
     
     // Navigate to architecture
-    await page.click('a:has-text("Architecture"), [href="/architecture"]');
+    await page.click('a:has-text("Architecture"), [href={Routes.architecture}]');
     await expect(page).toHaveURL(/.*architecture/);
     
     // Navigate to examples
-    await page.click('a:has-text("Examples"), [href="/examples"]');
+    await page.click('a:has-text("Examples"), [href={Routes.examples}]');
     await expect(page).toHaveURL(/.*examples/);
   });
 

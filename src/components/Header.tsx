@@ -11,6 +11,8 @@ import { Components } from '../architecture';
 import { brandAssets, brandText } from '@/lib/brand';
 import { Routes } from '../architecture/Routes';
 
+import { testId } from '@supernal/interface/testing';
+import { Header as HeaderNames } from '@/architecture/ComponentNames';
 interface HeaderProps {
   currentPage?: string;
   onNavigate?: (page: string) => void;
@@ -81,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
         <div className="flex justify-between items-center py-4">
           
           {/* Logo and Title - Clickable */}
-          <Link href={Routes.Home} className="flex items-center hover:opacity-80 transition-opacity" style={{gap: '0.75rem'}}>
+          <Link href={Routes.root} className="flex items-center hover:opacity-80 transition-opacity" style={{gap: '0.75rem'}} data-testid={testId(HeaderNames.link)}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

@@ -49,20 +49,20 @@ export default function NotFoundPage() {
             {/* Navigation Options */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
-                href={Routes.Home}
+                href={Routes.root}
                 data-testid={Components.NotFound.homeButton}
                 className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
               >
                 Go Home
               </Link>
               <Link
-                href={Routes.Docs}
+                href={Routes.docs}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 View Documentation
               </Link>
               <Link
-                href={Routes.Demo}
+                href={Routes.demo}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 Try Demo
@@ -76,7 +76,7 @@ export default function NotFoundPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
                 <Link
-                  href={Routes.Showcase}
+                  href={Routes.showcase}
                   className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors border border-white/10"
                 >
                   <h3 className="font-semibold text-purple-400 mb-2">Showcase</h3>
@@ -85,7 +85,7 @@ export default function NotFoundPage() {
                   </p>
                 </Link>
                 <Link
-                  href={Routes.Examples}
+                  href={Routes.examples}
                   className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors border border-white/10"
                 >
                   <h3 className="font-semibold text-purple-400 mb-2">Examples</h3>
@@ -94,7 +94,7 @@ export default function NotFoundPage() {
                   </p>
                 </Link>
                 <Link
-                  href={Routes.Blog}
+                  href={Routes.blog}
                   className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors border border-white/10"
                 >
                   <h3 className="font-semibold text-purple-400 mb-2">Blog</h3>

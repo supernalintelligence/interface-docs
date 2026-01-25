@@ -111,7 +111,7 @@ export const ShowcasePreview: React.FC = () => {
         {/* View All CTA */}
         <div className="text-center">
           <a
-            href={Routes.Showcase}
+            href={Routes.showcase}
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
           >
             <span>View Full Showcase</span>

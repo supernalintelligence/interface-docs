@@ -24,6 +24,8 @@ import {
 import { DemoWidgetState } from '../types/DemoState';
 import { stateToDataAttrs, type DemoWidgetState as DemoWidgetStateContract } from '../contracts/DemoWidgetContract';
 
+import { testId } from '@supernal/interface/testing';
+import { InteractiveWidgets as InteractiveWidgetsNames } from '@/architecture/ComponentNames';
 interface DemoState extends DemoWidgetState {
   highlightedWidget: string | null;
 }
@@ -159,7 +161,7 @@ export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
       {/* Form Widget */}
       <div className="mt-6 p-4 bg-white rounded border border-gray-200">
         <h4 className="text-sm font-medium text-gray-700 mb-3">Form Widget</h4>
-        <form onSubmit={handleFormSubmit} className="flex gap-2">
+        <form onSubmit={handleFormSubmit} className="flex gap-2" data-testid={testId(InteractiveWidgetsNames.form)}>
           <FormNameInput
             value={formName}
             onChange={setFormName}

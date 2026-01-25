@@ -102,7 +102,7 @@ const AUDIENCE_TABS: AudienceTab[] = [
         </div>
         <div className="text-center pt-4">
           <a
-            href={Routes.Examples}
+            href={Routes.examples}
             className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
           >
             See User Demo
@@ -161,7 +161,7 @@ function resetCounter() {
 
         <div className="text-center pt-4">
           <a
-            href={Routes.Docs}
+            href={Routes.docs}
             className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
           >
             Read Documentation

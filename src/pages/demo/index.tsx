@@ -118,7 +118,7 @@ export default function DemoPage() {
             {/* Navigation Buttons */}
             <div className="flex flex-wrap justify-center gap-3">
               <a
-                href={Routes.Home}
+                href={Routes.root}
                 className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-green-500/30"
               >
                 <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export default function DemoPage() {
                 </div>
               </a>
               <a
-                href={Routes.Home}
+                href={Routes.root}
                 className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-yellow-500/30"
               >
                 <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function DemoPage() {
                 </div>
               </a>
               <a
-                href={Routes.Home}
+                href={Routes.root}
                 className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-red-500/30"
               >
                 <div className="flex items-center gap-2">
@@ -145,7 +145,7 @@ export default function DemoPage() {
                 </div>
               </a>
               <a
-                href={Routes.Home}
+                href={Routes.root}
                 className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all shadow-md border border-purple-500/30"
               >
                 <div className="flex items-center gap-2">
@@ -645,13 +645,13 @@ export default function DemoPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={Routes.Docs}
+                href={Routes.docs}
                 className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
               >
                 Read Documentation
               </a>
               <a
-                href={Routes.Testing}
+                href={Routes.testing}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 Learn About Testing

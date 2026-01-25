@@ -21,6 +21,8 @@ import Link from 'next/link';
 import { Examples } from '../../architecture/DemoComponentNames';
 import { Routes } from '../../architecture/Routes';
 
+import { testId } from '@supernal/interface/testing';
+import { pages as pagesNames } from '@/architecture/ComponentNames';
 export const ExamplesPage: React.FC = () => {
   useContainer('Examples');
   const [expandAll, setExpandAll] = useState(true); // Start expanded for easier testing
@@ -221,8 +223,8 @@ export const ExamplesPage: React.FC = () => {
                   <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Audit Trail</span>
                 </div>
               </div>
-              <Link 
-                href={Routes.ExamplesChatAdapters}
+              <Link
+                href={Routes.examplesChat_adapters}
                 className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
               >
                 View Example →

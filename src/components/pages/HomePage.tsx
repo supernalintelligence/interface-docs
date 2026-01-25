@@ -5,6 +5,8 @@
 import React from 'react';
 import { useContainer } from "@supernal/interface/browser";
 
+import { testId } from '@supernal/interface/testing';
+import { pages as pagesNames } from '@/architecture/ComponentNames';
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }

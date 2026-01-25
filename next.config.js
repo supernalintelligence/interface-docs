@@ -53,17 +53,13 @@ const nextConfig = {
       'react/jsx-runtime': path.join(reactPath, 'jsx-runtime'),
       'react/jsx-dev-runtime': path.join(reactPath, 'jsx-dev-runtime'),
     };
-    
-    // Add fallbacks for Node.js modules in browser
+
+    // NOTE: Node.js fallbacks (fs, path) are NO LONGER NEEDED!
+    // @supernal/interface@1.0.10+ uses "browser" conditional export
+    // which automatically excludes server-only code in browser builds
+
+    // Exclude Playwright from client bundle (it's in markdown code examples)
     if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        'fs/promises': false,
-        path: false,
-      };
-      
-      // Exclude Playwright from client bundle (it's in markdown code examples)
       config.externals = config.externals || [];
       config.externals.push({
         '@playwright/test': 'commonjs @playwright/test',
