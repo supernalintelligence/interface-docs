@@ -22,7 +22,7 @@ import { Examples } from '../../architecture/DemoComponentNames';
 import { Routes } from '../../architecture/Routes';
 
 import { testId } from '@supernal/interface/testing';
-import { pages as pagesNames } from '@/architecture/ComponentNames';
+import { Pages as pagesNames } from '@/architecture/ComponentNames';
 export const ExamplesPage: React.FC = () => {
   useContainer('Examples');
   const [expandAll, setExpandAll] = useState(true); // Start expanded for easier testing

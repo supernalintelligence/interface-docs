@@ -44,6 +44,7 @@
     "tests",
     "stories",
     "playwright.config.ts",
-    "playwright.video.config.ts"
+    "playwright.video.config.ts",
+    "src/architecture/Providers.ts"
   ]
 }
