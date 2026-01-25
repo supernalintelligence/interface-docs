@@ -12,7 +12,16 @@
 
 import { Tool, ToolProvider } from '@supernal/interface';
 import { testId } from '@supernal/interface/testing';
-import * as ComponentNames from './ComponentNames';
+import {
+  Document as DocumentNames,
+  BlogPost,
+  NewLandingPage,
+  Footer,
+  Header,
+  InteractiveWidgets,
+  StatefulInteractiveWidgets,
+  Pages
+} from './ComponentNames';
 
 /**
  * Document Tool Provider
@@ -25,53 +34,53 @@ import * as ComponentNames from './ComponentNames';
 })
 export class DocumentProvider {
   @Tool({
-    elementId: Document.link,
+    elementId: DocumentNames.link,
     description: 'click link',
   })
   async link() {
     // TODO: Implement link tool
     // This tool will click the link element
-    await this.page.locator(testId(Document.link)).click();
+    await this.page.locator(testId(DocumentNames.link)).click();
   }
 
   @Tool({
-    elementId: Document.link2,
+    elementId: DocumentNames.link2,
     description: 'click link2',
   })
   async link2() {
     // TODO: Implement link2 tool
     // This tool will click the link element
-    await this.page.locator(testId(Document.link2)).click();
+    await this.page.locator(testId(DocumentNames.link2)).click();
   }
 
   @Tool({
-    elementId: Document.link3,
+    elementId: DocumentNames.link3,
     description: 'click link3',
   })
   async link3() {
     // TODO: Implement link3 tool
     // This tool will click the link element
-    await this.page.locator(testId(Document.link3)).click();
+    await this.page.locator(testId(DocumentNames.link3)).click();
   }
 
   @Tool({
-    elementId: Document.link4,
+    elementId: DocumentNames.link4,
     description: 'click link4',
   })
   async link4() {
     // TODO: Implement link4 tool
     // This tool will click the link element
-    await this.page.locator(testId(Document.link4)).click();
+    await this.page.locator(testId(DocumentNames.link4)).click();
   }
 
   @Tool({
-    elementId: Document.link5,
+    elementId: DocumentNames.link5,
     description: 'click link5',
   })
   async link5() {
     // TODO: Implement link5 tool
     // This tool will click the link element
-    await this.page.locator(testId(Document.link5)).click();
+    await this.page.locator(testId(DocumentNames.link5)).click();
   }
 }
 
