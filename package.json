@@ -8,8 +8,8 @@
     "react-dom": "^19.2.3"
   },
   "scripts": {
-    "dev": "node scripts/dev-server.js",
-    "dev:fast": "node scripts/dev-server.js --skip-build",
+    "dev": "node scripts/dev-server.js --skip-build",
+    "dev:build": "node scripts/dev-server.js",
     "dev:rebuild": "node scripts/dev-server.js --force-build",
     "dev:clean": "npm run clean && npm run rebuild:deps && npm run dev",
     "clean": "rm -rf .next node_modules/.cache",
@@ -57,10 +57,10 @@
     "@copilotkit/react-ui": "^1.10.6",
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/brand-kit": "^0.3.0",
-    "@supernal/interface": "^1.0.4",
+    "@supernal/interface": "file:../open-source",
     "@supernal/interface-nextjs": "file:../open-source/interface-nextjs",
     "@supernal/tts-widget": "^1.0.1",
-    "@supernalintelligence/interface-enterprise": "^1.0.15",
+    "@supernalintelligence/interface-enterprise": "file:../enterprise",
     "@types/geopattern": "^1.2.9",
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",

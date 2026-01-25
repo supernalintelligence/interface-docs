@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import Script from 'next/script'
 import { SupernalProvider } from '@supernal/interface-nextjs'
-import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
+import { NavigationGraph } from "@supernalintelligence/interface-enterprise/browser"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
@@ -96,7 +96,10 @@ function ArchitectureInitializer() {
 
 export default function App({ Component, pageProps }: AppProps) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
+  const glassMode = process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'
 
+  console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
+  console.log('[_app] glassMode prop:', glassMode);
   DEBUG && console.log('[_app] SupernalProvider imported:', SupernalProvider);
   DEBUG && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
 
@@ -120,6 +123,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <SupernalProvider
         mode="fuzzy"
         disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
+        glassMode={process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'}
         // Don't pass routes - AutoNavigationContext causes conflicts with useContainer
         // Pages will set their own context using useContainer() hook
       >
