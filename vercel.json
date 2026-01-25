@@ -2,7 +2,6 @@
   "name": "supernal-interface-docs",
   "version": 2,
   "buildCommand": "cd .. && turbo run build --filter=@supernal-interface/docs-site",
-  "installCommand": "cd .. && npm ci",
   "env": {
     "TURBO_TEAM": "team_supernal",
     "TURBO_REMOTE_ONLY": "true",
