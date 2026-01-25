@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import Script from 'next/script'
 import { SupernalProvider } from '@supernal/interface-nextjs'
-import { NavigationGraph } from "@supernalintelligence/interface-enterprise/browser"
+import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
