@@ -85,10 +85,11 @@ export default function DemoPage() {
         <meta name="description" content="Interactive examples with real working tools" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-x-hidden">
         <Header currentPage="demo" />
 
-        <div className="max-w-6xl ml-8 mr-auto px-4 sm:px-6 lg:px-8 py-12">
+        <main className="pb-20 overflow-x-hidden">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 overflow-x-hidden">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -471,12 +472,12 @@ export default function DemoPage() {
             </div>
           </motion.section>
 
-          {/* REFERENCE: Available AI Tools */}
+          {/* REFERENCE: Available AI Tools - Hidden on mobile */}
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="mb-16"
+            className="mb-16 hidden md:block"
           >
             <ToolList
               tools={availableTools}
@@ -658,7 +659,8 @@ export default function DemoPage() {
               </a>
             </div>
           </div>
-        </div>
+          </div>
+        </main>
       </div>
     </>
   );
