@@ -83,6 +83,9 @@ const nextConfig = {
       config.externals.push({
         '@playwright/test': 'commonjs @playwright/test',
         'jest': 'commonjs jest',
+        // Don't bundle Capacitor deps (mobile-only, optional)
+        '@capacitor/text-to-speech': 'commonjs @capacitor/text-to-speech',
+        '@capacitor-community/speech-recognition': 'commonjs @capacitor-community/speech-recognition',
       });
     }
     
