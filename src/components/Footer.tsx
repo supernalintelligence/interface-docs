@@ -199,7 +199,7 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <p className="text-sm">
-              &copy; {new Date().getFullYear()} Supernal Intelligence. Open source under MIT License.
+              &copy; {new Date().getFullYear()} Supernal Intelligence. 
             </p>
 
             {/* Legal Links */}

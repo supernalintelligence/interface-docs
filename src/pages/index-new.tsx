@@ -165,7 +165,7 @@ export default function NewLandingPage() {
               </div>
 
               <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm">
-                <p>&copy; 2026 Supernal Intelligence. Open source under MIT License.</p>
+                <p>&copy; 2026 Supernal Intelligence. </p>
               </div>
             </div>
           </footer>
