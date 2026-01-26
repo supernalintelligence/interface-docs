@@ -417,6 +417,7 @@ input:focus {
 /* Code Block Enhancements */
 .prose pre {
   position: relative;
+  z-index: 1;
   margin: 2rem 0 !important;
   padding: 1.5rem !important;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
@@ -473,6 +474,7 @@ input:focus {
 /* Copy Button Styling */
 .code-block-wrapper {
   position: relative;
+  z-index: 1;
   margin: 2rem 0;
 }
 
