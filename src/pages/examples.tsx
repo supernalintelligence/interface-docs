@@ -1,6 +1,6 @@
 /**
  * Examples Page Route - /examples
- * Redirects to /demo/live (unified demo page)
+ * Redirects to /demo (unified demo page)
  */
 
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ export default function ExamplesRoute() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/demo/live');
+    router.replace('/demo');
   }, [router]);
 
   return (

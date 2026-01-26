@@ -103,7 +103,7 @@ export const heroVariants: Record<VariantId, HeroVariantConfig> = {
     description: 'Typewriter animation for full customer message',
     primary: {
       text: 'An Agent for your Customers',
-      gradientClass: 'from-blue-400 to-purple-400'
+      gradientClass: 'from-purple-400 to-pink-400'
     },
     secondary: {
       lines: [

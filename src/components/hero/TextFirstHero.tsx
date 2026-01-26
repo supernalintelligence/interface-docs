@@ -82,6 +82,12 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
                 {...cycleAnimation}
                 transition={{ duration: variant.animation.config?.duration || 0.3 }}
                 className={`inline-block bg-gradient-to-r ${gradientClass} bg-clip-text text-transparent`}
+                style={{
+                  lineHeight: '1.3',
+                  paddingBottom: '0.15em',
+                  paddingTop: '0.05em',
+                  marginBottom: '-0.05em'
+                }}
               >
                 {words[wordIndex]}
               </motion.span>
@@ -106,14 +112,23 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
               animate="animate"
               variants={typewriterAnimation}
               custom={{ duration: variant.animation.config?.duration || 1.5 }}
-              className={`inline-block overflow-hidden whitespace-nowrap bg-gradient-to-r ${gradientClass} bg-clip-text text-transparent`}
+              className={`inline-block overflow-hidden whitespace-nowrap`}
               style={{
                 lineHeight: '1.3',
                 paddingBottom: '0.1em',
                 marginTop: '0.1em'
               }}
             >
-              {text as string}
+              <span
+                className={`bg-gradient-to-r ${gradientClass} bg-clip-text text-transparent`}
+                style={{
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                {text as string}
+              </span>
             </motion.span>
           </>
         );
@@ -139,7 +154,7 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
           animate="visible"
           variants={staggerContainerAnimation}
           custom={{ stagger: 0.3, delay: primaryDelay + 0.5 }}
-          className="space-y-3 text-xl md:text-2xl text-gray-300"
+          className="space-y-3 text-xl md:text-2xl"
         >
           {lines.map((line, i) => (
             <motion.p
@@ -147,7 +162,8 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
               custom={i}
               variants={staggerLineAnimation}
               dangerouslySetInnerHTML={{ __html: line }}
-              className="text-gray-300"
+              className="text-gray-100"
+              style={{ color: 'rgb(243, 244, 246)' }}
             />
           ))}
         </motion.div>
@@ -156,9 +172,14 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
 
     // Default: simple static text for Variants A & D
     return (
-      <div className="space-y-2 text-xl md:text-2xl text-gray-300">
+      <div className="space-y-2 text-xl md:text-2xl">
         {lines.map((line, i) => (
-          <p key={i} dangerouslySetInnerHTML={{ __html: line }} />
+          <p
+            key={i}
+            dangerouslySetInnerHTML={{ __html: line }}
+            className="text-gray-100"
+            style={{ color: 'rgb(243, 244, 246)' }}
+          />
         ))}
       </div>
     );
