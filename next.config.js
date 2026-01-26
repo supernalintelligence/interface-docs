@@ -67,6 +67,9 @@ const nextConfig = {
         // Don't bundle CopilotKit if not installed (optional dependency)
         '@copilotkit/react-core': 'commonjs @copilotkit/react-core',
         '@copilotkit/react-ui': 'commonjs @copilotkit/react-ui',
+        // Don't bundle Capacitor deps (mobile-only, optional)
+        '@capacitor/text-to-speech': 'commonjs @capacitor/text-to-speech',
+        '@capacitor-community/speech-recognition': 'commonjs @capacitor-community/speech-recognition',
       });
     }
     
