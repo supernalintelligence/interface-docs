@@ -7,9 +7,10 @@
  * Install guide embedded in Devs tab
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ComparisonTable } from '../ComparisonTable';
 import { Routes } from '../../architecture/Routes';
+import { theme, components, cn } from '@/config/theme';
 
 interface AudienceTab {
   id: string;
@@ -44,8 +45,8 @@ const AUDIENCE_TABS: AudienceTab[] = [
     tagline: 'Users want your app to work, not to learn it.',
     icon: <UserIcon />,
     content: (
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {[
             {
               title: 'Talk Naturally',
@@ -86,24 +87,24 @@ const AUDIENCE_TABS: AudienceTab[] = [
           ].map((feature, idx) => (
             <div
               key={idx}
-              className="bg-white/5 backdrop-blur-sm p-6 rounded-lg border border-white/10 hover:border-purple-400/50 hover:bg-white/10 transition-all group"
+              className={cn(components.card.base)}
             >
-              <div className="flex items-start gap-3">
-                <div className="text-purple-400 mt-1 group-hover:scale-110 transition-transform">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="text-purple-400 mt-0.5 sm:mt-1 group-hover:scale-110 transition-transform flex-shrink-0">
                   {feature.icon}
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-white mb-2">{feature.title}</h4>
-                  <p className="text-gray-400 text-sm">{feature.desc}</p>
+                  <h4 className={cn(components.card.title, 'text-base sm:text-lg mb-1 sm:mb-2')}>{feature.title}</h4>
+                  <p className={cn(components.card.description)}>{feature.desc}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="text-center pt-4">
+        <div className="text-center pt-2 sm:pt-4">
           <a
             href={Routes.examples}
-            className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
+            className={components.button.primary('medium')}
           >
             See User Demo
           </a>
@@ -117,20 +118,20 @@ const AUDIENCE_TABS: AudienceTab[] = [
     tagline: 'Easy to install for your Developers, bringing automated testing, feature tours, and observability',
     icon: <CodeIcon />,
     content: (
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Install Guide */}
-        <div className="bg-slate-900 rounded-lg p-6 border border-slate-700">
-          <h4 className="text-xl font-semibold text-white mb-4">Quick Install</h4>
-          <div className="space-y-4">
+        <div className="bg-slate-900 rounded-lg p-4 sm:p-6 border border-slate-700">
+          <h4 className={cn(theme.typography.heading.h4, theme.colors.text.primary, 'mb-3 sm:mb-4')}>Quick Install</h4>
+          <div className="space-y-3 sm:space-y-4">
             <div>
-              <div className="text-sm text-gray-400 mb-2">1. Install package</div>
-              <pre className="bg-black/50 p-3 rounded text-sm text-green-400 overflow-x-auto">
+              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>1. Install package</div>
+              <pre className="bg-black/50 p-2 sm:p-3 rounded text-xs sm:text-sm text-green-400 overflow-x-auto">
                 npm install @supernal/interface
               </pre>
             </div>
             <div>
-              <div className="text-sm text-gray-400 mb-2">2. Add decorator to your functions</div>
-              <pre className="bg-black/50 p-3 rounded text-sm text-purple-400 overflow-x-auto">
+              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>2. Add decorator to your functions</div>
+              <pre className="bg-black/50 p-2 sm:p-3 rounded text-xs sm:text-sm text-purple-400 overflow-x-auto">
 {`import { Tool } from '@supernal/interface';
 
 @Tool({ description: 'Reset counter' })
@@ -140,29 +141,29 @@ function resetCounter() {
               </pre>
             </div>
             <div>
-              <div className="text-sm text-gray-400 mb-2">3. That's it - your app is now AI-controllable</div>
+              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>3. That's it - your app is now AI-controllable</div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {[
             { title: 'Type-Safe', desc: 'Full TypeScript support with runtime validation' },
             { title: 'Auto-Testing', desc: 'Generate tests from your tool definitions' },
             { title: 'Zero Config', desc: 'No complex setup or infrastructure needed' },
             { title: 'Framework Agnostic', desc: 'Works with Next.js, Remix, Vite, etc.' }
           ].map((feature, idx) => (
-            <div key={idx} className="bg-white/5 p-4 rounded-lg border border-white/10">
-              <h4 className="text-white font-semibold mb-1">{feature.title}</h4>
-              <p className="text-gray-400 text-sm">{feature.desc}</p>
+            <div key={idx} className="bg-white/5 p-3 sm:p-4 rounded-lg border border-white/10">
+              <h4 className={cn(theme.colors.text.primary, 'font-semibold mb-1 text-sm sm:text-base')}>{feature.title}</h4>
+              <p className={cn(theme.colors.text.muted, 'text-xs sm:text-sm')}>{feature.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center pt-4">
+        <div className="text-center pt-2 sm:pt-4">
           <a
             href={Routes.docs}
-            className="inline-block px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors"
+            className={components.button.primary('medium')}
           >
             Read Documentation
           </a>
@@ -184,21 +185,33 @@ function resetCounter() {
 ];
 
 export const AudienceTabs: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string | 'all'>('all');
+  // Always start with 'users' for both SSR and initial client render
+  // This prevents hydration mismatch
+  const [activeTab, setActiveTab] = useState<string | 'all'>('users');
+
+  // After hydration, update to 'all' if on desktop
+  useEffect(() => {
+    if (window.innerWidth >= 640) {
+      setActiveTab('all');
+    }
+  }, []);
 
   const isExpanded = (tabId: string) => activeTab === 'all' || activeTab === tabId;
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={cn(
+      components.section.base,
+      'bg-gradient-to-b from-slate-900 to-slate-950'
+    )}>
+      <div className={components.section.container}>
 
         {/* Folder-Style Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-6 sm:mb-8">
           {AUDIENCE_TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(activeTab === tab.id ? 'all' : tab.id)}
-              className={`group relative flex flex-col items-center px-8 py-4 font-semibold transition-all ${
+              className={`group relative flex flex-col items-center px-4 sm:px-6 md:px-8 py-3 sm:py-4 font-semibold transition-all text-xs sm:text-sm ${
                 isExpanded(tab.id)
                   ? 'bg-slate-800 text-white border-t-4 border-purple-500 rounded-t-lg shadow-lg z-10'
                   : 'bg-slate-900/50 text-gray-400 border-t-4 border-transparent rounded-t-lg hover:bg-slate-800/70 hover:text-gray-200 hover:border-purple-400/50'
@@ -208,12 +221,12 @@ export const AudienceTabs: React.FC = () => {
               }}
             >
               {/* Icon */}
-              <div className="mb-2">
+              <div className="mb-1 sm:mb-2 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center">
                 {tab.icon}
               </div>
 
               {/* Label - Simple, no tagline */}
-              <div className="text-sm font-bold">{tab.label}</div>
+              <div className="text-xs sm:text-sm font-bold whitespace-nowrap">{tab.label}</div>
 
               {/* Active Indicator Line */}
               {isExpanded(tab.id) && (
@@ -222,10 +235,10 @@ export const AudienceTabs: React.FC = () => {
             </button>
           ))}
 
-          {/* "For All" Tab */}
+          {/* "For All" Tab - Hidden on mobile */}
           <button
             onClick={() => setActiveTab('all')}
-            className={`group relative flex flex-col items-center px-8 py-4 font-semibold transition-all ${
+            className={`hidden sm:flex group relative flex-col items-center px-4 sm:px-6 md:px-8 py-3 sm:py-4 font-semibold transition-all text-xs sm:text-sm ${
               activeTab === 'all'
                 ? 'bg-slate-800 text-white border-t-4 border-purple-500 rounded-t-lg shadow-lg z-10'
                 : 'bg-slate-900/50 text-gray-400 border-t-4 border-transparent rounded-t-lg hover:bg-slate-800/70 hover:text-gray-200 hover:border-purple-400/50'
@@ -235,14 +248,14 @@ export const AudienceTabs: React.FC = () => {
             }}
           >
             {/* Icon */}
-            <div className="mb-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="mb-1 sm:mb-2">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </div>
 
             {/* Label - Simple, no tagline */}
-            <div className="text-sm font-bold">For All</div>
+            <div className="text-xs sm:text-sm font-bold whitespace-nowrap">For All</div>
 
             {/* Active Indicator Line */}
             {activeTab === 'all' && (
@@ -252,8 +265,8 @@ export const AudienceTabs: React.FC = () => {
         </div>
 
         {/* Tab Content - Connected to tabs */}
-        <div className="bg-slate-800 rounded-b-xl rounded-tr-xl border-t-0 border-4 border-slate-700 shadow-2xl">
-          <div className="p-8 space-y-8">
+        <div className="bg-slate-800 rounded-b-xl rounded-tr-xl border-t-0 border-2 sm:border-4 border-slate-700 shadow-2xl">
+          <div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
             {AUDIENCE_TABS.map((tab) => (
               <div
                 key={tab.id}
