@@ -26,7 +26,7 @@ The Graph-Based Testing Framework treats your NavigationGraph as a testable exec
 - **🔍 SEO Testing**: Meta tag validation, OpenGraph, Twitter Cards, structured data
 - **📱 Responsive Testing**: Multi-viewport support (Desktop, Tablet, Mobile)
 - **📊 Multi-Format Reports**: HTML dashboard, Markdown, JSON, CSV
-- **🤖 AI-Ready Output**: JSON + PNG format optimized for multimodal AI analysis
+- **🤖 AI-Ready Output**: JSON + PNG format optimized for multimodal AI analysis (Enterprise: automated analysis with GPT-4V/Claude/Ollama)
 
 ---
 
@@ -669,9 +669,8 @@ Schedule weekly reviews of test results:
 
 ## Next Steps
 
-- [Enterprise Features](./enterprise-features.md) - NavigationGraph auto-discovery
+- [Enterprise Features](./enterprise-features.md) - NavigationGraph auto-discovery, AI vision analysis
 - [Custom Test Functions](./custom-test-functions.md) - Build your own test modes
-- [AI Screenshot Analysis](./ai-analysis.md) - GPT-4 Vision integration (coming soon)
 
 ---
 

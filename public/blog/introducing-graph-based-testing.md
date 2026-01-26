@@ -98,7 +98,7 @@ Each JSON file contains rich metadata:
 }
 ```
 
-**AI-ready format** means you can feed screenshots + JSON into GPT-4 Vision or Claude for automated visual QA.
+**AI-ready format** provides rich metadata (bounding boxes, interactions, hierarchy) that can be used for custom analysis. *Enterprise customers get automated AI analysis built-in with GPT-4 Vision, Claude 3.5, or local Ollama models.*
 
 ---
 
@@ -478,43 +478,35 @@ const tester = new GraphTester({
 
 ---
 
-## What's Next: AI Vision Analysis
+## What's Next: AI Vision Analysis 🔒 Enterprise
 
-We're working on **AI-powered screenshot analysis** using multimodal models (GPT-4 Vision, Claude 3.5, Ollama).
+> **Enterprise Feature**: AI-powered screenshot analysis is available exclusively in the Enterprise edition to maintain our competitive advantage and support ongoing development.
 
-### Coming in Phase 3
+We're building **AI-powered screenshot analysis** that automatically reviews every screenshot for visual bugs, accessibility issues, and UX improvements using multimodal vision models.
 
-```typescript
-import { AIScreenshotAnalyzer } from '@supernal/interface/testing/graph-tester';
+**What AI vision detects:**
+- Visual bugs (broken layouts, overlapping elements, cut-off text)
+- Accessibility concerns (low contrast, small text, missing touch targets)
+- UX issues (unclear navigation, poor visual hierarchy)
+- Mobile responsiveness problems
 
-const aiAnalyzer = new AIScreenshotAnalyzer({
-  provider: 'ollama',           // ollama, openai, anthropic
-  model: 'llama3.2-vision',     // Local vision model
-  prompts: [
-    'Identify any visual bugs or layout issues',
-    'Check for accessibility concerns (color contrast, text size)',
-    'Suggest UI improvements for mobile users',
-  ],
-});
+**Example AI insights:**
+- "The navigation menu appears cut off on mobile viewports"
+- "Submit button has low contrast (3.2:1) against background"
+- "Consider larger touch targets for mobile users (current: 32px)"
 
-tester.registerTestFunction(aiAnalyzer);
-
-// AI analyzes every screenshot and provides insights:
-// "The navigation menu appears cut off on mobile viewports"
-// "Submit button has low contrast (3.2:1) against background"
-// "Consider larger touch targets for mobile users (current: 32px)"
-```
-
-**Planned integrations:**
-- **Ollama** - Local, private, fast (llama3.2-vision, llava)
-- **OpenAI GPT-4 Vision** - Highest accuracy
-- **Anthropic Claude 3.5 Sonnet** - Balanced performance
+**Supported providers:**
+- **Ollama** - Local, private, free (llama3.2-vision, llava)
+- **OpenAI GPT-4 Vision** - Highest accuracy ($0.01-0.03 per image)
+- **Anthropic Claude 3.5 Sonnet** - Balanced performance ($0.003-0.015 per image)
 - **Custom models** - Fine-tuned for your domain
 
-**Why AI vision?**
-- Catch **semantic** issues (not just pixel diffs)
-- Get **actionable recommendations** (not just "this changed")
-- **Natural language reports** (not just JSON)
+**Why AI vision matters:**
+- Catch **semantic issues** that pixel diffs miss
+- Get **actionable recommendations** in natural language
+- Automate **human-like visual QA** at scale
+
+**Interested in Enterprise?** Contact us at [enterprise@supernal.ai](mailto:enterprise@supernal.ai) for pricing and early access.
 
 ---
 

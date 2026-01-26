@@ -384,7 +384,7 @@ new VisualRegressionMode({
 
 - [Complete Documentation](./graph-based-testing.md) - Full guide with examples
 - [Blog Post](../../blog/introducing-graph-based-testing.md) - Real-world use cases
-- [Phase 3 Planning](../planning/phase-3-ai-vision-analysis.md) - AI vision roadmap
+- [Enterprise Features](./enterprise-features.md) - AI vision analysis, NavigationGraph auto-discovery
 
 ## Support
 
