@@ -21,8 +21,7 @@ import {
   Component,
   Tool,
 } from "@supernalintelligence/interface-enterprise";
-import { Examples } from '../architecture/DemoComponentNames';
-import { DemoContainers } from '../architecture';
+import { Examples, DemoContainers } from '../architecture';
 
 // ============================================
 // NAME CONTRACTS - Counter names moved to DemoComponentNames

@@ -6,7 +6,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { Components } from '../src/architecture/DemoComponentNames';
+import { Components } from '../src/architecture/ComponentNames';
 import { Routes } from '../src/architecture/Routes';
 
 test.describe('Demo Interactive Widgets', () => {

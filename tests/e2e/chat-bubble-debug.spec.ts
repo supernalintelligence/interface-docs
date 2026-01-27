@@ -3,7 +3,7 @@
  */
 
 import { test, expect, getBaseURL } from '../fixtures';
-import { ComponentNames } from '../../src/architecture/DemoComponentNames';
+import { ComponentNames } from '../../src/architecture/ComponentNames';
 
 test('ChatBubble expands when clicked', async ({ page }) => {
   // Enable console logging
@@ -12,7 +12,7 @@ test('ChatBubble expands when clicked', async ({ page }) => {
 
   await page.goto(`${getBaseURL()}/demo/simple`);
 
-  // Wait for chat bubble using DemoComponentNames
+  // Wait for chat bubble using ComponentNames
   const bubble = page.locator(`[data-testid="${ComponentNames.Chat.bubble}"]`);
   await bubble.waitFor({ timeout: 10000 });
 

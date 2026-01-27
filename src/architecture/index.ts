@@ -32,10 +32,34 @@ export const DemoArchitecture = initializeArchitecture();
 // Currently active for backward compatibility:
 import { createAutoInitializer } from "@supernalintelligence/interface-enterprise/browser";
 import { DemoContainers } from './DemoContainers';
-import { Components } from './DemoComponentNames';
+import { Components } from './ComponentNames';
 
 export { DemoContainers } from './DemoContainers';
-export { Components, ComponentNames } from './DemoComponentNames';
+export {
+  Components,
+  ComponentNames,
+  Blog,
+  BlogPost,
+  Chat,
+  Counter,
+  Dashboard,
+  Demo,
+  DocumentNames,
+  Examples,
+  Footer,
+  GlobalNav,
+  Header,
+  InteractiveWidgets,
+  Landing,
+  NewLandingPage,
+  NotFound,
+  Pages,
+  Settings,
+  Showcase,
+  StatefulInteractiveWidgets,
+  Stories,
+  Testing
+} from './ComponentNames';
 
 /**
  * Navigation mapping (GlobalNav key → Container name)

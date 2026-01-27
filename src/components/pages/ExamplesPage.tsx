@@ -18,7 +18,7 @@ import {
 } from '../../widgets';
 import { Info, Zap, Shield, Database, Book, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
-import { Examples } from '../../architecture/DemoComponentNames';
+import { Examples } from '../../architecture';
 import { Routes } from '../../architecture/Routes';
 
 import { testId } from '@supernal/interface/testing';

@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Terminal, Code, Copy, Check, MessageSquare } from 'lucide-react';
 import { useChatInput } from '@supernal/interface-nextjs';
-import { Examples } from '../architecture/DemoComponentNames';
+import { Examples } from '../architecture';
 
 interface CodeVariants {
   shorthand: string;

@@ -14,8 +14,7 @@ import { Post } from '../../lib/content/types';
 import BlogCard from '../../components/blog/BlogCard';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Search } from 'lucide-react';
-import { Blog } from '../../architecture/DemoComponentNames';
-import { DemoContainers } from '../../architecture';
+import { Blog, DemoContainers } from '../../architecture';
 import { useContainer } from "@supernal/interface/browser";
 
 interface BlogIndexProps {

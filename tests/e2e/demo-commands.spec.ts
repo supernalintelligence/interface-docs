@@ -3,18 +3,18 @@
  */
 
 import { test, expect, getBaseURL, expandChatBubble } from '../fixtures';
-import { Demo, Chat } from '../../src/architecture/DemoComponentNames';
+import { Demo, Chat } from '../../src/architecture/ComponentNames';
 
 test('Simple demo - "open menu" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
 
-  // Wait for page to load using DemoComponentNames contract
+  // Wait for page to load using ComponentNames contract
   await page.waitForSelector(`[data-testid="${Demo.openMainMenu}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  // Find chat input using ComponentNames contract (should be visible after expandChatBubble)
   const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   
@@ -32,13 +32,13 @@ test('Simple demo - "open menu" command works', async ({ page }) => {
 test('Advanced demo - "toggle notifications" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/stateful`);
 
-  // Wait for page to load using DemoComponentNames contract
+  // Wait for page to load using ComponentNames contract
   await page.waitForSelector(`[data-testid="${Demo.notificationToggle}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  // Find chat input using ComponentNames contract (should be visible after expandChatBubble)
   const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   
@@ -59,13 +59,13 @@ test('Advanced demo - "toggle notifications" command works', async ({ page }) =>
 test('Simple demo - "set theme dark" command works', async ({ page }) => {
   await page.goto(`${getBaseURL()}/demo/simple`);
 
-  // Wait for page to load using DemoComponentNames contract
+  // Wait for page to load using ComponentNames contract
   await page.waitForSelector(`[data-testid="${Demo.themeToggle}"]`);
 
   // Expand chat bubble to access input
   await expandChatBubble(page);
 
-  // Find chat input using DemoComponentNames contract (should be visible after expandChatBubble)
+  // Find chat input using ComponentNames contract (should be visible after expandChatBubble)
   const chatInput = page.locator(`[data-testid="${Chat.input}"]`);
   await expect(chatInput).toBeVisible({ timeout: 5000 });
   

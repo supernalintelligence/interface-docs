@@ -5,7 +5,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat, Examples } from '../src/architecture/DemoComponentNames';
+import { Chat, Examples } from '../src/architecture/ComponentNames';
 
 // Counter name constants (avoiding decorator execution)
 const Counter = {

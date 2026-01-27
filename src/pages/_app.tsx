@@ -24,7 +24,7 @@ import '../tools/LocationAwareExampleTools'
 // Without this import, the decorators never execute and tools are never registered!
 import '../tools/ExampleTools'
 
-const DEBUG = process.env.NODE_ENV === 'development'
+const DEBUG = false && process.env.NODE_ENV === 'development'
 // @ts-ignore - CopilotKit is optional
 const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   ? require('../components/CopilotChatWidget').CopilotChatWidget

@@ -1,5 +1,5 @@
 import { test, expect, getBaseURL } from '../fixtures';
-import { Components } from '../../src/architecture/DemoComponentNames';
+import { Components } from '../../src/architecture/ComponentNames';
 
 test.describe('Architecture Page', () => {
   test('should navigate to architecture page and load graph', async ({ page }) => {

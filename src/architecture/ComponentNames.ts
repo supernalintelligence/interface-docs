@@ -1,112 +1,251 @@
 /**
- * Auto-generated Component Names for Next.js project
+ * Component Name Contracts - Auto-generated
+ * Generated from: src/components
+ * Canonical source: src/architecture/DemoComponentNames.ts
+ * Do not edit manually - regenerate with: si scan-names
  *
- * These names provide type-safe access to all interactive elements
- * discovered in the project. Use them with the testId helper:
- *
- * @example
- * import { testId } from '@supernal/interface/testing';
- * import { Blog } from './ComponentNames';
- *
- * // In component:
- * <button data-testid={testId(Blog.submitButton)}>Submit</button>
- *
- * // In test:
- * await page.locator(testId(Blog.submitButton)).click();
- *
- * Generated from: 9 components
- * Total interactive elements: 34
+ * Note: Namespaces that conflict with global types (Document, Window, etc.)
+ * are automatically renamed with "Names" suffix (e.g., Document → DocumentNames)
+ * to avoid TypeScript conflicts.
  */
 
-import { createNames } from '@supernal/interface';
+export const Blog = {
+  backButton: 'blog-back-button',
+  categoryFilter: 'blog-category-filter',
+  container: 'blog-container',
+  postBackButton: 'blog-post-back-button',
+  postCard: 'blog-post-card',
+  postContainer: 'blog-post-container',
+  postContent: 'blog-post-content',
+  postHeader: 'blog-post-header',
+  postLink: 'blog-post-link',
+  postTitle: 'blog-post-title',
+  searchInput: 'blog-search-input'
+} as const;
+
+export const Chat = {
+  bubble: 'chat-bubble',
+  clearButton: 'chat-clear-button',
+  input: 'chat-input',
+  messages: 'chat-messages',
+  minimizeButton: 'chat-minimize',
+  sendButton: 'chat-send-button',
+  unreadBadge: 'chat-unread-badge'
+} as const;
+
+export const Counter = {
+  decrement: 'examples-counter-decrement',
+  increment: 'examples-counter-increment',
+  reset: 'examples-counter-reset',
+  widget: 'examples-counter-widget'
+} as const;
+
+export const Dashboard = {
+  title: 'dashboard-title'
+} as const;
+
+export const Demo = {
+  closeMainMenu: 'close-main-menu',
+  container: 'demo-container',
+  Example: 'execute-open-main-menu',
+  featureToggle: 'feature-toggle',
+  formName: 'form-name',
+  formSubmit: 'form-submit',
+  mainMenu: 'main-menu',
+  notificationToggle: 'notification-toggle',
+  openMainMenu: 'open-main-menu',
+  priorityHigh: 'priority-high',
+  priorityLow: 'priority-low',
+  priorityMedium: 'priority-medium',
+  statusCompleted: 'status-completed',
+  statusDropdown: 'status-dropdown',
+  statusInProgress: 'status-in-progress',
+  statusPending: 'status-pending',
+  themeToggle: 'theme-toggle',
+  title: 'demo-title',
+  toolListContainer: 'tool-list-container'
+} as const;
+
+export const Examples = {
+  card: 'example-card',
+  cardCode: 'example-card-code',
+  cardTitle: 'example-card-title',
+  cardWidget: 'example-card-widget',
+  chatWidget: 'chat-widget',
+  codeFull: 'code-full',
+  codeShorthand: 'code-shorthand',
+  codeToggle: 'code-toggle',
+  container: 'examples-container',
+  copyButton: 'example-copy-button',
+  copyToChatButton: 'example-copy-to-chat',
+  counterDecrement: 'examples-counter-decrement',
+  counterIncrement: 'examples-counter-increment',
+  counterReset: 'examples-counter-reset',
+  counterWidget: 'examples-counter-widget',
+  dataWidget: 'data-widget',
+  expandAllButton: 'examples-expand-all',
+  expandButton: 'example-expand-button',
+  list: 'examples-list',
+  settingsWidget: 'settings-widget',
+  simpleWidget: 'simple-widget',
+  title: 'examples-title'
+} as const;
+
+export const GlobalNav = {
+  blog: 'nav-blog',
+  demo: 'nav-demo',
+  docs: 'nav-docs',
+  home: 'nav-home',
+  showcase: 'nav-showcase',
+  stories: 'nav-stories',
+  testing: 'nav-testing'
+} as const;
+
+export const Landing = {
+  description: 'landing-description',
+  hero: 'landing-hero',
+  title: 'landing-title'
+} as const;
+
+export const NotFound = {
+  container: 'not-found-container',
+  homeButton: 'not-found-home-button',
+  message: 'not-found-message',
+  title: 'not-found-title'
+} as const;
+
+export const Settings = {
+  close: 'settings-close',
+  modal: 'settings-modal',
+  notificationsToggle: 'settings-notifications-toggle',
+  themeToggle: 'settings-theme-toggle',
+  title: 'settings-title'
+} as const;
+
+export const Showcase = {
+  categoryFilter: 'showcase-category-filter',
+  container: 'showcase-container',
+  siteCard: 'showcase-site-card',
+  siteDescription: 'showcase-site-description',
+  siteLink: 'showcase-site-link',
+  siteTitle: 'showcase-site-title',
+  title: 'showcase-title'
+} as const;
+
+export const Stories = {
+  container: 'stories-container',
+  executeButton: 'stories-execute-button',
+  featureCard: 'stories-feature-card',
+  resultsContainer: 'stories-results-container',
+  title: 'stories-title',
+  viewButton: 'stories-view-button'
+} as const;
+
+export const Testing = {
+  codeExample: 'testing-code-example',
+  container: 'testing-container',
+  featureCard: 'testing-feature-card',
+  featureDescription: 'testing-feature-description',
+  featureTitle: 'testing-feature-title',
+  title: 'testing-title'
+} as const;
 
 /**
- * Document Component Names
- * Prefix: document
- * Note: Renamed to DocumentNames to avoid conflict with global Document type
+ * Additional auto-scanned components
+ * Note: DocumentNames renamed to avoid conflict with global Document type
  */
-export const DocumentNames = createNames('document', {
-  link: 'link',
-  link2: 'link2',
-  link3: 'link3',
-  link4: 'link4',
-  link5: 'link5',
-});
+export const DocumentNames = {
+  link: 'document-link',
+  link2: 'document-link2',
+  link3: 'document-link3',
+  link4: 'document-link4',
+  link5: 'document-link5'
+} as const;
+
+export const BlogPost = {
+  link: 'blogPost-link'
+} as const;
+
+export const NewLandingPage = {
+  forUsers: 'newLandingPage-forUsers',
+  forDevelopers: 'newLandingPage-forDevelopers',
+  forBusiness: 'newLandingPage-forBusiness',
+  showcase: 'newLandingPage-showcase',
+  pricing: 'newLandingPage-pricing',
+  vsCompetitors: 'newLandingPage-vsCompetitors',
+  documentation: 'newLandingPage-documentation',
+  examples: 'newLandingPage-examples',
+  gitHub: 'newLandingPage-gitHub',
+  blog: 'newLandingPage-blog',
+  communityDiscord: 'newLandingPage-communityDiscord',
+  support: 'newLandingPage-support'
+} as const;
+
+export const Footer = {
+  form: 'footer-form',
+  link: 'footer-link',
+  link2: 'footer-link2',
+  link3: 'footer-link3',
+  link4: 'footer-link4',
+  link5: 'footer-link5',
+  link6: 'footer-link6',
+  link7: 'footer-link7',
+  link8: 'footer-link8',
+  link9: 'footer-link9',
+  link10: 'footer-link10'
+} as const;
+
+export const Header = {
+  link: 'header-link'
+} as const;
+
+export const InteractiveWidgets = {
+  form: 'interactiveWidgets-form'
+} as const;
+
+export const StatefulInteractiveWidgets = {
+  form: 'statefulInteractiveWidgets-form'
+} as const;
+
+export const Pages = {
+  link: 'pages-link',
+  button: 'pages-button'
+} as const;
 
 /**
- * BlogPost Component Names
- * Prefix: blogPost
+ * Aggregate export for all component namespaces
+ * Allows both individual imports (import { Chat } from './Components')
+ * and aggregate access (Components.Chat.input)
  */
-export const BlogPost = createNames('blogPost', {
-  link: 'link',
-});
+export const Components = {
+  Blog,
+  BlogPost,
+  Chat,
+  Counter,
+  Dashboard,
+  Demo,
+  DocumentNames,
+  Examples,
+  Footer,
+  GlobalNav,
+  Header,
+  InteractiveWidgets,
+  Landing,
+  NewLandingPage,
+  NotFound,
+  Pages,
+  Settings,
+  Showcase,
+  StatefulInteractiveWidgets,
+  Stories,
+  Testing
+} as const;
 
 /**
- * NewLandingPage Component Names
- * Prefix: newLandingPage
+ * Alias for backward compatibility
  */
-export const NewLandingPage = createNames('newLandingPage', {
-  forUsers: 'forUsers',
-  forDevelopers: 'forDevelopers',
-  forBusiness: 'forBusiness',
-  showcase: 'showcase',
-  pricing: 'pricing',
-  vsCompetitors: 'vsCompetitors',
-  documentation: 'documentation',
-  examples: 'examples',
-  gitHub: 'gitHub',
-  blog: 'blog',
-  communityDiscord: 'communityDiscord',
-  support: 'support',
-});
+export const ComponentNames = Components;
 
-/**
- * Footer Component Names
- * Prefix: footer
- */
-export const Footer = createNames('footer', {
-  form: 'form',
-  link: 'link',
-  link2: 'link2',
-  link3: 'link3',
-  link4: 'link4',
-  link5: 'link5',
-  link6: 'link6',
-  link7: 'link7',
-  link8: 'link8',
-  link9: 'link9',
-  link10: 'link10',
-});
-
-/**
- * Header Component Names
- * Prefix: header
- */
-export const Header = createNames('header', {
-  link: 'link',
-});
-
-/**
- * InteractiveWidgets Component Names
- * Prefix: interactiveWidgets
- */
-export const InteractiveWidgets = createNames('interactiveWidgets', {
-  form: 'form',
-});
-
-/**
- * StatefulInteractiveWidgets Component Names
- * Prefix: statefulInteractiveWidgets
- */
-export const StatefulInteractiveWidgets = createNames('statefulInteractiveWidgets', {
-  form: 'form',
-});
-
-/**
- * Pages Component Names
- * Prefix: pages
- */
-export const Pages = createNames('pages', {
-  link: 'link',
-  button: 'button',
-});
+export type ComponentNamespace = keyof typeof Components;
+export type ComponentName<T extends ComponentNamespace> = keyof typeof Components[T];
+export type ComponentTestId<T extends ComponentNamespace> = typeof Components[T][ComponentName<T>];

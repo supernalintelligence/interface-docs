@@ -35,12 +35,12 @@
  * Uses:
  * - Playwright fixtures for dynamic port
  * - testId helper (no magic strings!)
- * - Name contracts from DemoComponentNames
+ * - Name contracts from ComponentNames
  */
 
 import { test, expect, getBaseURL } from '../../fixtures';
 import { testId } from '@supernal/interface/testing';
-import { Examples } from '../../../src/architecture/DemoComponentNames';
+import { Examples } from '../../../src/architecture/ComponentNames';
 
 test.describe('Component: counter', () => {
   test.beforeEach(async ({ page }) => {

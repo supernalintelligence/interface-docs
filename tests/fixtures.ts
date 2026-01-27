@@ -5,7 +5,7 @@
  */
 
 import { test as base, Page } from '@playwright/test';
-import { Chat } from '../src/architecture/DemoComponentNames';
+import { Chat } from '../src/architecture/ComponentNames';
 
 // Get the dynamic base URL
 const getDevPort = require('../scripts/get-port');
