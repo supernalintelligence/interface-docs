@@ -978,3 +978,182 @@ html {
   background: var(--yellow-bg) !important;
   color: var(--yellow-primary) !important;
 }
+
+/* ============================================
+   MOBILE DOCS LAYOUT IMPROVEMENTS
+   ============================================ */
+
+/* Mobile sidebar drawer animation */
+@media (max-width: 1023px) {
+  /* Smooth slide-in animation for mobile drawer */
+  aside[class*="fixed"] {
+    animation: slideInFromLeft 0.3s ease-out;
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* Backdrop fade-in */
+  [data-testid="mobile-docs-sidebar-backdrop"] {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Prevent body scroll when mobile sidebar is open */
+  body.mobile-sidebar-open {
+    overflow: hidden;
+  }
+
+  /* Mobile touch optimization */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobile-specific prose adjustments for docs */
+@media (max-width: 768px) {
+  .prose {
+    font-size: 0.875rem !important;
+    line-height: 1.5rem !important;
+    /* CRITICAL: Prevent horizontal overflow on mobile */
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .prose h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.875rem !important;
+    word-break: break-word !important;
+  }
+
+  .prose h2 {
+    font-size: 1.25rem !important;
+    line-height: 1.625rem !important;
+    word-break: break-word !important;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem !important;
+    line-height: 1.5rem !important;
+    word-break: break-word !important;
+  }
+
+  .prose h4 {
+    font-size: 1rem !important;
+    line-height: 1.375rem !important;
+    word-break: break-word !important;
+  }
+
+  .prose p {
+    font-size: 0.875rem !important;
+    line-height: 1.5rem !important;
+    word-break: break-word !important;
+  }
+
+  .prose ul, .prose ol {
+    font-size: 0.875rem !important;
+  }
+
+  .prose li {
+    word-break: break-word !important;
+  }
+
+  /* Better code block mobile handling */
+  .prose pre {
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    border-radius: 0 !important;
+    font-size: 0.8125rem !important;
+    max-width: 100vw !important;
+    overflow-x: auto !important;
+  }
+
+  .prose code {
+    font-size: 0.8125rem !important;
+    word-break: break-all !important;
+  }
+
+  .prose :not(pre) > code {
+    font-size: 0.8125rem !important;
+    padding: 0.125rem 0.25rem !important;
+    word-break: break-all !important;
+  }
+
+  /* Mobile table scrolling - wrap in container */
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100% !important;
+    font-size: 0.875rem !important;
+    word-break: normal !important;
+  }
+
+  /* Allow table cells to wrap on mobile */
+  .prose td,
+  .prose th {
+    white-space: normal !important;
+    word-break: break-word !important;
+    min-width: 100px;
+  }
+
+  /* Ensure images don't overflow */
+  .prose img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  /* Force long URLs and links to break */
+  .prose a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Blockquotes should not overflow */
+  .prose blockquote {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Ensure mobile menu button has proper touch target */
+[data-testid="mobile-docs-menu-toggle"] {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+}
+
+/* ============================================
+   SCROLLBAR HIDE UTILITY (Mobile Blog)
+   ============================================ */
+
+/* Hide scrollbar for horizontal scroll on mobile category filters */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
