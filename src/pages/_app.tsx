@@ -13,7 +13,6 @@ import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
-import { useLocationTracking } from '../hooks/useLocationTracking'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
 import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
@@ -46,8 +45,8 @@ function ArchitectureInitializer() {
   const router = useRouter()
   const [isInitialized, setIsInitialized] = React.useState(false)
 
-  // CRITICAL: Track location and visible elements for tool scoping
-  useLocationTracking()
+  // NOTE: useLocationTracking() is now automatically called by SupernalProvider
+  // No need to call it manually here - zero boilerplate!
 
   useEffect(() => {
     DEBUG  && console.log('🚀 [_app] useEffect triggered')
