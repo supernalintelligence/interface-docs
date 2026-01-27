@@ -7,6 +7,8 @@
 
 import { DemoAIInterface } from '@supernal/interface-nextjs';
 
+const DEBUG=false
+
 declare global {
   interface Window {
     DemoAIInterface?: DemoAIInterface;
@@ -28,7 +30,7 @@ export function initializeDevTools() {
   // Create and expose AI interface
   if (!window.DemoAIInterface) {
     window.DemoAIInterface = new DemoAIInterface();
-    console.log('✅ [DevTools] DemoAIInterface exposed to window');
+    DEBUG && console.log('✅ [DevTools] DemoAIInterface exposed to window');
   }
 
   // Expose debug utilities using dynamic require to get the SAME instance
@@ -37,7 +39,7 @@ export function initializeDevTools() {
   window.ToolRegistry = ToolRegistry;
   window.LocationContext = LocationContext;
   window.ContainerRegistry = ContainerRegistry;
-  console.log('✅ [DevTools] ToolRegistry, LocationContext, ContainerRegistry exposed to window');
+  DEBUG && console.log('✅ [DevTools] ToolRegistry, LocationContext, ContainerRegistry exposed to window');
 }
 
 // Auto-initialize in browser

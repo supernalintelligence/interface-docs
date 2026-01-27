@@ -264,9 +264,9 @@ class AnalyticsManager {
    * Get initial variant from URL or localStorage
    */
   private getInitialVariant(router: NextRouter): ChatBubbleVariantType {
-    const variantParam = router.query.variant as string | undefined;
-    if (variantParam) {
-      return variantParam as ChatBubbleVariantType;
+    const chatParam = router.query.chat as string | undefined;
+    if (chatParam) {
+      return chatParam as ChatBubbleVariantType;
     }
 
     if (typeof window !== 'undefined') {

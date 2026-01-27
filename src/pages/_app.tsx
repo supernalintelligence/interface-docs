@@ -23,7 +23,7 @@ import '../tools/LocationAwareExampleTools'
 // Without this import, the decorators never execute and tools are never registered!
 import '../tools/ExampleTools'
 
-const DEBUG = false
+const DEBUG = process.env.NODE_ENV === 'development'
 // @ts-ignore - CopilotKit is optional
 const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
   ? require('../components/CopilotChatWidget').CopilotChatWidget
@@ -180,15 +180,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // Initialize variant from localStorage or URL parameter
   // Priority: URL param > localStorage > mobile detection > default
+  // Uses 'chat' param to avoid conflict with hero 'variant' param
   useEffect(() => {
-    const variantParam = router.query.variant as string | undefined
+    const chatParam = router.query.chat as string | undefined
 
     // Priority 1: URL parameter (for testing/sharing + cross-site navigation)
-    if (variantParam && allowedVariants.includes(variantParam as ChatBubbleVariantType)) {
-      setChatVariant(variantParam as ChatBubbleVariantType)
+    if (chatParam && allowedVariants.includes(chatParam as ChatBubbleVariantType)) {
+      setChatVariant(chatParam as ChatBubbleVariantType)
       // Persist to localStorage when set via URL
       if (typeof window !== 'undefined') {
-        localStorage.setItem('chat-variant', variantParam)
+        localStorage.setItem('chat-variant', chatParam)
       }
     } else if (typeof window !== 'undefined') {
       // Priority 2: localStorage (persisted preference)
@@ -196,11 +197,11 @@ export default function App({ Component, pageProps }: AppProps) {
       if (savedVariant && allowedVariants.includes(savedVariant as ChatBubbleVariantType)) {
         setChatVariant(savedVariant as ChatBubbleVariantType)
 
-        // Add variant to URL if not present (enables cross-site navigation)
-        if (!variantParam && savedVariant !== ChatBubbleVariant.full) {
+        // Add chat param to URL if not present (enables cross-site navigation)
+        if (!chatParam && savedVariant !== ChatBubbleVariant.full) {
           router.replace({
             pathname: router.pathname,
-            query: { ...router.query, variant: savedVariant }
+            query: { ...router.query, chat: savedVariant }
           }, undefined, { shallow: true })
         }
       } else {
@@ -211,7 +212,7 @@ export default function App({ Component, pageProps }: AppProps) {
         setChatVariant(defaultVariant)
       }
     }
-  }, [router.query.variant, allowedVariants, isMobile])
+  }, [router.query.chat, allowedVariants, isMobile])
 
   DEBUG && console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
   DEBUG && console.log('[_app] glassMode prop:', glassMode);

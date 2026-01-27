@@ -27,10 +27,10 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
   const variants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[];
 
   const handleVariantChange = (variant: ChatBubbleVariantType) => {
-    // Update URL parameter
+    // Update URL parameter (use 'chat' to avoid conflict with hero 'variant' param)
     router.replace({
       pathname: router.pathname,
-      query: { ...router.query, variant }
+      query: { ...router.query, chat: variant }
     }, undefined, { shallow: true });
 
     // Update localStorage

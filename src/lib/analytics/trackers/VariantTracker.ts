@@ -99,10 +99,10 @@ export class VariantTracker {
    * Handle route change (check URL parameter)
    */
   private handleRouteChange(): void {
-    const variantParam = this.router.query.variant as string | undefined;
+    const chatParam = this.router.query.chat as string | undefined;
 
-    if (variantParam && this.isValidVariant(variantParam)) {
-      const newVariant = variantParam as ChatBubbleVariantType;
+    if (chatParam && this.isValidVariant(chatParam)) {
+      const newVariant = chatParam as ChatBubbleVariantType;
 
       if (newVariant !== this.currentVariant) {
         this.trackVariantChange(
