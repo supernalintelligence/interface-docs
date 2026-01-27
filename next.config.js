@@ -43,10 +43,14 @@ const nextConfig = {
   },
   
   webpack: (config, { isServer }) => {
+    // Suppress "Critical dependency" warning from @supernal/tts-widget
+    // The TTS widget uses dynamic require() for CDN fallback - this is intentional
+    config.module.exprContextCritical = false;
+
     // Resolve React from demo's node_modules for symlinked packages
     const reactPath = path.dirname(require.resolve('react/package.json'));
     const reactDomPath = path.dirname(require.resolve('react-dom/package.json'));
-    
+
     config.resolve.alias = {
       ...config.resolve.alias,
       'react': reactPath,
