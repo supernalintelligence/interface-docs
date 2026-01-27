@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 // import 'reactflow/dist/style.css' // Disabled - reactflow not installed
 import 'highlight.js/styles/github-dark.css'
+import '@supernal/tts-widget/widget.css'
 import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import Head from 'next/head'
