@@ -26,6 +26,7 @@ const nextConfig = {
     '@copilotkitnext/react',
     '@supernal/interface',
     '@supernal/interface-enterprise',
+    '@supernal/tts-widget',
   ],
 
   // Optimize output for smaller serverless functions

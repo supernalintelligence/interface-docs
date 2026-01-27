@@ -45,24 +45,24 @@ function ArchitectureInitializer() {
   const [isInitialized, setIsInitialized] = React.useState(false)
 
   useEffect(() => {
-    DEBUG && console.log('🚀 [_app] useEffect triggered')
+    DEBUG  && console.log('🚀 [_app] useEffect triggered')
 
     // Debug: Check NavigationGraph state BEFORE initialization
     const navGraph = NavigationGraph.getInstance()
     const contextsBefore = navGraph.getAllContexts()
-    DEBUG && console.log('📊 [_app] NavigationGraph state BEFORE init:', {
+    DEBUG  && console.log('📊 [_app] NavigationGraph state BEFORE init:', {
       contextsCount: contextsBefore.length,
       contexts: contextsBefore.map((c: any) => c.name).join(', ')
     })
 
     // Initialize architecture (registers containers and creates nav tools)
     // Even if already initialized, this is idempotent
-    DEBUG && console.log('🚀 [_app] Calling initializeDemoArchitecture()')
+    DEBUG  && console.log('🚀 [_app] Calling initializeDemoArchitecture()')
     initializeDemoArchitecture()
 
     // Debug: Check NavigationGraph state AFTER initialization
     const contextsAfter = navGraph.getAllContexts()
-    DEBUG && console.log('📊 [_app] NavigationGraph state AFTER init:', {
+    DEBUG  && console.log('📊 [_app] NavigationGraph state AFTER init:', {
       contextsCount: contextsAfter.length,
       contexts: contextsAfter.map((c: any) => c.name).join(', ')
     })
@@ -70,7 +70,7 @@ function ArchitectureInitializer() {
     // Always set navigation handler (even on refresh)
     const handler = createNavigationHandler(router)
     NavigationGraph.getInstance().setNavigationHandler(handler)
-    DEBUG && console.log('✅ [_app] Navigation handler set')
+    DEBUG  && console.log('✅ [_app] Navigation handler set')
 
     // Mark as initialized and set initial context
     setIsInitialized(true)
@@ -83,7 +83,7 @@ function ArchitectureInitializer() {
     if (!isInitialized) return
 
     const currentPath = router.asPath
-    DEBUG && console.log('🔄 [_app] Route changed to:', currentPath)
+    DEBUG  && console.log('🔄 [_app] Route changed to:', currentPath)
 
     // Update both systems (NavigationGraph delegates to LocationContext)
     NavigationGraph.getInstance().setCurrentContext(currentPath)
@@ -91,7 +91,7 @@ function ArchitectureInitializer() {
     // For debugging: verify LocationContext is updated
     if (DEBUG) {
       const location = LocationContext.getCurrent()
-      console.log('📍 [_app] LocationContext state:', location)
+      DEBUG && console.log('📍 [_app] LocationContext state:', location)
     }
   }, [router.asPath, isInitialized])
 
@@ -213,11 +213,11 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.query.variant, allowedVariants, isMobile])
 
-  console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
-  console.log('[_app] glassMode prop:', glassMode);
-  console.log('[_app] chatVariant (persistent):', chatVariant);
-  DEBUG && console.log('[_app] SupernalProvider imported:', SupernalProvider);
-  DEBUG && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
+  DEBUG && console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
+  DEBUG && console.log('[_app] glassMode prop:', glassMode);
+  DEBUG && console.log('[_app] chatVariant (persistent):', chatVariant);
+  DEBUG  && console.log('[_app] SupernalProvider imported:', SupernalProvider);
+  DEBUG  && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
 
   useEffect(() => {
     // Initialize GTM dataLayer

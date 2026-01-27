@@ -7,7 +7,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/router';
-import type { Post } from 'supernal-blog/lib';
+import { Post } from '../../lib/content/types';
 import { Blog } from '../../architecture/DemoComponentNames';
 import { SVGGenerator } from '../../lib/svg-generator';
 
