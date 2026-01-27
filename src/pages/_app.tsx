@@ -3,14 +3,17 @@ import '@/styles/globals.css'
 import 'highlight.js/styles/github-dark.css'
 import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
+import Head from 'next/head'
 import Script from 'next/script'
-import { SupernalProvider } from '@supernal/interface-nextjs'
+import { SupernalProvider, ChatBubbleVariant, type ChatBubbleVariantType } from '@supernal/interface-nextjs'
 import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
+import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
+import { useAnalyticsInit } from '../hooks/useAnalyticsInit'
 
 // 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
 import '../tools/LocationAwareExampleTools'
@@ -95,11 +98,75 @@ function ArchitectureInitializer() {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
   const glassMode = process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'
 
+  // 🎯 Initialize analytics (GTM + PostHog)
+  useAnalyticsInit(router)
+
+  // 🎯 Mobile detection for responsive variant
+  const [isMobile, setIsMobile] = React.useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    setIsMobile(mediaQuery.matches)
+
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  // 🎯 Persistent chat variant across page navigation (preserves across sites via URL)
+  // Using ChatBubbleVariant named contract (ComponentNames pattern)
+  // Defaults to 'subtitle' on mobile, 'full' on desktop
+  const [chatVariant, setChatVariant] = React.useState<ChatBubbleVariantType>(
+    ChatBubbleVariant.full as ChatBubbleVariantType
+  )
+
+  // Allowed variants (from ChatBubbleVariant contract)
+  const allowedVariants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[]
+
+  // Initialize variant from localStorage or URL parameter
+  // Priority: URL param > localStorage > mobile detection > default
+  useEffect(() => {
+    const variantParam = router.query.variant as string | undefined
+
+    // Priority 1: URL parameter (for testing/sharing + cross-site navigation)
+    if (variantParam && allowedVariants.includes(variantParam as ChatBubbleVariantType)) {
+      setChatVariant(variantParam as ChatBubbleVariantType)
+      // Persist to localStorage when set via URL
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('chat-variant', variantParam)
+      }
+    } else if (typeof window !== 'undefined') {
+      // Priority 2: localStorage (persisted preference)
+      const savedVariant = localStorage.getItem('chat-variant')
+      if (savedVariant && allowedVariants.includes(savedVariant as ChatBubbleVariantType)) {
+        setChatVariant(savedVariant as ChatBubbleVariantType)
+
+        // Add variant to URL if not present (enables cross-site navigation)
+        if (!variantParam && savedVariant !== ChatBubbleVariant.full) {
+          router.replace({
+            pathname: router.pathname,
+            query: { ...router.query, variant: savedVariant }
+          }, undefined, { shallow: true })
+        }
+      } else {
+        // Priority 3: Mobile detection (default to subtitle on mobile)
+        const defaultVariant = isMobile
+          ? (ChatBubbleVariant.subtitle as ChatBubbleVariantType)
+          : (ChatBubbleVariant.full as ChatBubbleVariantType)
+        setChatVariant(defaultVariant)
+      }
+    }
+  }, [router.query.variant, allowedVariants, isMobile])
+
   console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
   console.log('[_app] glassMode prop:', glassMode);
+  console.log('[_app] chatVariant (persistent):', chatVariant);
   DEBUG && console.log('[_app] SupernalProvider imported:', SupernalProvider);
   DEBUG && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
 
@@ -120,10 +187,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <React.Fragment>
+      <Head>
+        {/* Viewport - CRITICAL for mobile responsiveness */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+      </Head>
       <SupernalProvider
         mode="fuzzy"
         disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
         glassMode={process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'}
+        variant={chatVariant as 'full' | 'floating' | 'drawer' | 'subtitle'}
         // Don't pass routes - AutoNavigationContext causes conflicts with useContainer
         // Pages will set their own context using useContainer() hook
       >
@@ -160,6 +232,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
         {/* CopilotKit chat (if enabled) */}
         {USE_COPILOTKIT && <CopilotChatWidget defaultOpen={false} />}
+
+        {/* Dev-only variant switcher (only renders in development) */}
+        DEBUG && <DevVariantSwitcher currentVariant={chatVariant} />
       </SupernalProvider>
     </React.Fragment>
   )
