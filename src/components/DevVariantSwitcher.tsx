@@ -1,5 +1,5 @@
 /**
- * DevVariantSwitcher - Development-only UI for switching chat variants
+ * DevVariantSwitcher - Development-only UI for switching chat and hero variants
  *
  * Only renders in development mode (process.env.NODE_ENV === 'development')
  * Uses ChatBubbleVariant named contracts for type safety
@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { ChatBubbleVariant } from '@supernal/interface-nextjs';
 
 type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
+type HeroVariantType = 'a' | 'b' | 'c' | 'd' | 'e';
 
 interface DevVariantSwitcherProps {
   currentVariant: ChatBubbleVariantType;
@@ -24,9 +25,11 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
     return null;
   }
 
-  const variants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[];
+  const chatVariants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[];
+  const heroVariants: HeroVariantType[] = ['a', 'b', 'c', 'd', 'e'];
+  const currentHeroVariant = (router.query.variant as HeroVariantType) || 'a';
 
-  const handleVariantChange = (variant: ChatBubbleVariantType) => {
+  const handleChatVariantChange = (variant: ChatBubbleVariantType) => {
     // Update URL parameter (use 'chat' to avoid conflict with hero 'variant' param)
     router.replace({
       pathname: router.pathname,
@@ -35,6 +38,17 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
 
     // Update localStorage
     localStorage.setItem('chat-variant', variant);
+
+    // Collapse after selection
+    setIsExpanded(false);
+  };
+
+  const handleHeroVariantChange = (variant: HeroVariantType) => {
+    // Update URL parameter
+    router.replace({
+      pathname: router.pathname,
+      query: { ...router.query, variant }
+    }, undefined, { shallow: true });
 
     // Collapse after selection
     setIsExpanded(false);
@@ -60,17 +74,29 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
     }
   };
 
+  const getHeroVariantLabel = (variant: HeroVariantType): string => {
+    switch (variant) {
+      case 'a': return 'Hero A (Original)';
+      case 'b': return 'Hero B';
+      case 'c': return 'Hero C';
+      case 'd': return 'Hero D';
+      case 'e': return 'Hero E (Tour)';
+      default: return variant;
+    }
+  };
+
   return (
     <div
-      className="fixed bottom-4 left-4 z-[9999] flex flex-col-reverse items-start gap-2"
+      className="fixed bottom-4 left-4 z-[9999999] flex flex-col-reverse items-start gap-2"
       style={{
         fontFamily: 'system-ui, -apple-system, sans-serif',
+        zIndex: 9999999,
       }}
     >
       {/* Variant options (only show when expanded) */}
       {isExpanded && (
         <div
-          className="flex flex-col gap-1 p-2 rounded-lg"
+          className="flex flex-col gap-3 p-3 rounded-lg"
           style={{
             background: 'rgba(0, 0, 0, 0.85)',
             backdropFilter: 'blur(12px)',
@@ -78,36 +104,74 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {variants.map((variant) => (
-            <button
-              key={variant}
-              onClick={() => handleVariantChange(variant)}
-              className="px-3 py-2 text-xs font-medium rounded transition-all text-left"
-              style={{
-                background: currentVariant === variant
-                  ? 'rgba(59, 130, 246, 0.3)'
-                  : 'transparent',
-                color: currentVariant === variant ? '#60a5fa' : '#d1d5db',
-                border: currentVariant === variant
-                  ? '1px solid rgba(59, 130, 246, 0.5)'
-                  : '1px solid transparent',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                if (currentVariant !== variant) {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (currentVariant !== variant) {
-                  e.currentTarget.style.background = 'transparent';
-                }
-              }}
-            >
-              <span className="mr-2">{getVariantIcon(variant)}</span>
-              {getVariantLabel(variant)}
-            </button>
-          ))}
+          {/* Chat Variants Section */}
+          <div className="flex flex-col gap-1">
+            <div className="text-xs font-bold text-gray-400 px-1 mb-1">CHAT VARIANT</div>
+            {chatVariants.map((variant) => (
+              <button
+                key={variant}
+                onClick={() => handleChatVariantChange(variant)}
+                className="px-3 py-2 text-xs font-medium rounded transition-all text-left"
+                style={{
+                  background: currentVariant === variant
+                    ? 'rgba(59, 130, 246, 0.3)'
+                    : 'transparent',
+                  color: currentVariant === variant ? '#60a5fa' : '#d1d5db',
+                  border: currentVariant === variant
+                    ? '1px solid rgba(59, 130, 246, 0.5)'
+                    : '1px solid transparent',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  if (currentVariant !== variant) {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (currentVariant !== variant) {
+                    e.currentTarget.style.background = 'transparent';
+                  }
+                }}
+              >
+                <span className="mr-2">{getVariantIcon(variant)}</span>
+                {getVariantLabel(variant)}
+              </button>
+            ))}
+          </div>
+
+          {/* Hero Variants Section */}
+          <div className="flex flex-col gap-1 pt-2 border-t border-gray-700">
+            <div className="text-xs font-bold text-gray-400 px-1 mb-1">HERO VARIANT</div>
+            {heroVariants.map((variant) => (
+              <button
+                key={variant}
+                onClick={() => handleHeroVariantChange(variant)}
+                className="px-3 py-2 text-xs font-medium rounded transition-all text-left"
+                style={{
+                  background: currentHeroVariant === variant
+                    ? 'rgba(168, 85, 247, 0.3)'
+                    : 'transparent',
+                  color: currentHeroVariant === variant ? '#c084fc' : '#d1d5db',
+                  border: currentHeroVariant === variant
+                    ? '1px solid rgba(168, 85, 247, 0.5)'
+                    : '1px solid transparent',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  if (currentHeroVariant !== variant) {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (currentHeroVariant !== variant) {
+                    e.currentTarget.style.background = 'transparent';
+                  }
+                }}
+              >
+                {getHeroVariantLabel(variant)}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
@@ -130,6 +194,8 @@ export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) 
         }}
       >
         <span className="mr-2">{getVariantIcon(currentVariant)}</span>
+        <span className="mr-2">+</span>
+        <span className="mr-2">{currentHeroVariant.toUpperCase()}</span>
         {isExpanded ? '✕' : ''}
       </button>
     </div>
