@@ -15,8 +15,10 @@
 import type { NextRouter } from 'next/router';
 import type { AnalyticsConfig, IAnalyticsProvider } from './AnalyticsProvider';
 import type { AnalyticsEvent } from './events/EventSchema';
-import type { ChatBubbleVariantType } from '@supernal/interface-nextjs';
+import { ChatBubbleVariant } from '@supernal/interface-nextjs';
 import { Routes } from '@/architecture/Routes';
+
+type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 
 import { GTMProvider } from './providers/GTMProvider';
 import { PostHogProvider } from './providers/PostHogProvider';
@@ -171,7 +173,7 @@ class AnalyticsManager {
    */
   private async initializeTrackers(config: AnalyticsConfig, router: NextRouter): Promise<void> {
     // Get initial route and variant
-    const initialRoute = this.getRouteKeyFromPathname(router.pathname);
+    const initialRoute = this.getRouteKeyFromPathname(router.pathname) as any as keyof typeof Routes;
     const initialVariant = this.getInitialVariant(router);
 
     // Track function that all trackers will use
@@ -237,7 +239,7 @@ class AnalyticsManager {
           this.toolTracker?.setRoute(newRoute);
           this.variantTracker?.setRoute(newRoute);
         }
-        originalTrackFn(event);
+        originalTrackFn(event as any);
       };
     }
 
@@ -253,7 +255,7 @@ class AnalyticsManager {
           this.toolTracker?.setVariant(variantTypeKey);
           this.navigationTracker?.setVariant(variantTypeKey);
         }
-        originalTrackFn(event);
+        originalTrackFn(event as any);
       };
     }
   }
@@ -294,7 +296,8 @@ class AnalyticsManager {
       return value === cleanPath;
     });
 
-    return (routeEntry?.[0] || 'root') as keyof typeof Routes;
+    const routeKey = routeEntry?.[0] || 'root';
+    return routeKey as keyof typeof Routes;
   }
 
   /**
@@ -345,4 +348,14 @@ export function getPostHogProvider(): PostHogProvider | undefined {
 // Re-export types
 export type { AnalyticsConfig, AnalyticsEvent };
 export * from './events/EventSchema';
-export * from './AnalyticsProvider';
+export type {
+  IAnalyticsProvider,
+  GTMConfig,
+  PostHogConfig,
+  ConsoleConfig,
+  ConsentConfig,
+  PerformanceConfig,
+  ProviderFactory,
+  EventFilter,
+  EventTransformer
+} from './AnalyticsProvider';

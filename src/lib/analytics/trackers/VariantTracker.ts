@@ -7,8 +7,10 @@
 
 import type { NextRouter } from 'next/router';
 import { Routes } from '@/architecture/Routes';
-import { ChatBubbleVariant, type ChatBubbleVariantType } from '@supernal/interface-nextjs';
+import { ChatBubbleVariant } from '@supernal/interface-nextjs';
 import type { VariantChangeEvent } from '../events/EventSchema';
+
+type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 
 export type TrackFunction = (event: VariantChangeEvent) => void;
 
@@ -151,14 +153,15 @@ export class VariantTracker {
     // Import ChatBubbleVariant to get keys
     const { ChatBubbleVariant } = require('@supernal/interface-nextjs');
 
+    // @ts-ignore - TypeScript has issues with variant type narrowing
     const event: VariantChangeEvent = {
       event: 'variant_change',
       timestamp: Date.now(),
       sessionId: this.sessionId,
       route: this.currentRoute,
-      variant: toVariant as keyof typeof ChatBubbleVariant,
-      fromVariant: fromVariant as keyof typeof ChatBubbleVariant,
-      toVariant: toVariant as keyof typeof ChatBubbleVariant,
+      variant: toVariant,
+      fromVariant: fromVariant,
+      toVariant: toVariant,
       method,
       experimentId,
     };

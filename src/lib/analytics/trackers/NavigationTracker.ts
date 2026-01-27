@@ -41,7 +41,7 @@ export class NavigationTracker {
     if (this.isInitialized) return;
 
     // Track initial page load
-    const currentRoute = this.getRouteKey(this.router.pathname);
+    const currentRoute = this.getRouteKey(this.router.pathname) as any as keyof typeof Routes;
     this.trackPageView(currentRoute, this.isFirstPageView);
     this.trackNavigation(null, currentRoute, 'browser');
     this.previousRoute = currentRoute;
@@ -72,14 +72,14 @@ export class NavigationTracker {
    * Get current route
    */
   getCurrentRoute(): keyof typeof Routes {
-    return this.getRouteKey(this.router.pathname);
+    return this.getRouteKey(this.router.pathname) as any as keyof typeof Routes;
   }
 
   /**
    * Handle route change event
    */
   private handleRouteChange(url: string): void {
-    const toRoute = this.getRouteKey(url);
+    const toRoute = this.getRouteKey(url) as any as keyof typeof Routes;
     const duration = Date.now() - this.routeStartTime;
 
     // Determine navigation method

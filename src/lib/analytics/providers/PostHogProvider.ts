@@ -96,7 +96,7 @@ export class PostHogProvider implements IAnalyticsProvider {
   isFeatureFlagEnabled(key: string): boolean {
     if (!this.ready) return false;
 
-    return posthog.isFeatureEnabled(key);
+    return posthog.isFeatureEnabled(key) ?? false;
   }
 
   /**
@@ -226,9 +226,11 @@ export class PostHogProvider implements IAnalyticsProvider {
         };
 
       default:
+        // TypeScript thinks event is never here because all cases are handled
+        // but we keep this for extensibility
         return {
           ...baseProperties,
-          ...event.metadata,
+          ...(event as any).metadata,
         };
     }
   }

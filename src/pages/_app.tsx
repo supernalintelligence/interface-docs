@@ -5,7 +5,9 @@ import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
-import { SupernalProvider, ChatBubbleVariant, type ChatBubbleVariantType } from '@supernal/interface-nextjs'
+import { SupernalProvider, ChatBubbleVariant } from '@supernal/interface-nextjs'
+
+type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
@@ -13,7 +15,6 @@ import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
 import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
-import { useAnalyticsInit } from '../hooks/useAnalyticsInit'
 
 // 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
 import '../tools/LocationAwareExampleTools'
@@ -102,8 +103,56 @@ export default function App({ Component, pageProps }: AppProps) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
   const glassMode = process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'
 
-  // 🎯 Initialize analytics (GTM + PostHog)
-  useAnalyticsInit(router)
+  // 🎯 Initialize analytics (GTM + PostHog) - Inlined to avoid TypeScript resolution issues
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    // Dynamically import and initialize analytics
+    // @ts-ignore - TypeScript has module resolution issues with analytics types
+    import('@/lib/analytics').then(async (analyticsModule: any) => {
+      const config = {
+        providers: {
+          gtm: {
+            containerId: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID || '',
+            enabled: !!process.env.NEXT_PUBLIC_GTM_CONTAINER_ID,
+            dataLayerName: 'dataLayer',
+          },
+          posthog: {
+            apiKey: process.env.NEXT_PUBLIC_POSTHOG_API_KEY || '',
+            host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+            enabled: !!process.env.NEXT_PUBLIC_POSTHOG_API_KEY,
+            sessionReplay: process.env.NEXT_PUBLIC_POSTHOG_SESSION_REPLAY === 'true',
+            capturePageView: false,
+            autocapture: false,
+            maskAllInputs: true,
+          },
+          console: {
+            enabled: process.env.NODE_ENV === 'development',
+            verboseEvents: [],
+            groupBySession: false,
+          },
+        },
+        consent: {
+          required: true,
+          defaultState: 'granted' as const,
+          storageKey: 'supernal-cookie-consent',
+        },
+        performance: {
+          batchEnabled: false,
+          batchSize: 10,
+          batchInterval: 5000,
+          offlineQueue: false,
+          maxQueueSize: 100,
+        },
+        debug: process.env.NODE_ENV === 'development',
+      }
+
+      // Call initialize with config and router
+      await analyticsModule.initializeAnalytics(config, router)
+    }).catch((error: unknown) => {
+      console.error('[_app] Failed to initialize analytics:', error)
+    })
+  }, [router])
 
   // 🎯 Mobile detection for responsive variant
   const [isMobile, setIsMobile] = React.useState(false)

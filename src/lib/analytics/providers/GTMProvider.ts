@@ -248,11 +248,13 @@ export class GTMProvider implements IAnalyticsProvider {
 
       default:
         // Fallback for unknown event types
+        // TypeScript thinks event is never here because all cases are handled
+        // but we keep this for extensibility
         return {
-          action: event.event,
+          action: (event as any).event,
           params: {
             ...baseParams,
-            ...event.metadata
+            ...(event as any).metadata
           }
         };
     }

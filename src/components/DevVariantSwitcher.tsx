@@ -7,7 +7,9 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { ChatBubbleVariant, type ChatBubbleVariantType } from '@supernal/interface-nextjs';
+import { ChatBubbleVariant } from '@supernal/interface-nextjs';
+
+type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 
 interface DevVariantSwitcherProps {
   currentVariant: ChatBubbleVariantType;
