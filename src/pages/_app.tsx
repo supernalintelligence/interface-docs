@@ -9,9 +9,7 @@ import Script from 'next/script'
 import { SupernalProvider, ChatBubbleVariant } from '@supernal/interface-nextjs'
 
 type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
-import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
-import { LocationContext } from "@supernal/interface/browser"
-import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
+import { initializeDemoArchitecture } from '../architecture'
 import { useRouter } from 'next/router'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
@@ -40,64 +38,17 @@ const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 // Toggle between CopilotKit and Supernal native chat
 const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 
-// Architecture initialization component - handles demo-specific setup
+// Architecture initialization component - DEMO-SPECIFIC ONLY
+// Registers custom containers (Blog, Demo, Showcase, etc.)
+// NOTE: General apps wouldn't need this - it's demo-specific
 function ArchitectureInitializer() {
-  const router = useRouter()
-  const [isInitialized, setIsInitialized] = React.useState(false)
-
-  // NOTE: useLocationTracking() is now automatically called by SupernalProvider
-  // No need to call it manually here - zero boilerplate!
-
   useEffect(() => {
-    DEBUG  && console.log('🚀 [_app] useEffect triggered')
-
-    // Debug: Check NavigationGraph state BEFORE initialization
-    const navGraph = NavigationGraph.getInstance()
-    const contextsBefore = navGraph.getAllContexts()
-    DEBUG  && console.log('📊 [_app] NavigationGraph state BEFORE init:', {
-      contextsCount: contextsBefore.length,
-      contexts: contextsBefore.map((c: any) => c.name).join(', ')
-    })
-
-    // Initialize architecture (registers containers and creates nav tools)
-    // Even if already initialized, this is idempotent
-    DEBUG  && console.log('🚀 [_app] Calling initializeDemoArchitecture()')
+    // Initialize demo architecture (registers custom containers)
+    // This is demo-specific - general apps wouldn't need this
     initializeDemoArchitecture()
 
-    // Debug: Check NavigationGraph state AFTER initialization
-    const contextsAfter = navGraph.getAllContexts()
-    DEBUG  && console.log('📊 [_app] NavigationGraph state AFTER init:', {
-      contextsCount: contextsAfter.length,
-      contexts: contextsAfter.map((c: any) => c.name).join(', ')
-    })
-
-    // Always set navigation handler (even on refresh)
-    const handler = createNavigationHandler(router)
-    NavigationGraph.getInstance().setNavigationHandler(handler)
-    DEBUG  && console.log('✅ [_app] Navigation handler set')
-
-    // Mark as initialized and set initial context
-    setIsInitialized(true)
-    NavigationGraph.getInstance().setCurrentContext(router.asPath)
-  }, [router])
-
-  // Update context whenever route changes (only after initialization)
-  // 🎯 UNIFIED SCOPING: NavigationGraph.setCurrentContext() now updates LocationContext
-  useEffect(() => {
-    if (!isInitialized) return
-
-    const currentPath = router.asPath
-    DEBUG  && console.log('🔄 [_app] Route changed to:', currentPath)
-
-    // Update both systems (NavigationGraph delegates to LocationContext)
-    NavigationGraph.getInstance().setCurrentContext(currentPath)
-
-    // For debugging: verify LocationContext is updated
-    if (DEBUG) {
-      const location = LocationContext.getCurrent()
-      DEBUG && console.log('📍 [_app] LocationContext state:', location)
-    }
-  }, [router.asPath, isInitialized])
+    DEBUG && console.log('✅ [_app] Demo architecture initialized')
+  }, [])
 
   return null
 }
