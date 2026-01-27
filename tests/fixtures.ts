@@ -37,12 +37,41 @@ export async function expandChatBubble(page: Page, timeout: number = 5000) {
   await chatInput.waitFor({ state: 'visible', timeout });
 }
 
-// Extend base test with custom fixtures if needed in the future
+/**
+ * Check if dev server is running
+ */
+async function checkDevServer(baseURL: string): Promise<void> {
+  const maxRetries = 3;
+  let lastError: Error | null = null;
+
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch(baseURL);
+      if (response.ok || response.status === 404) {
+        // 404 is fine - server is running, just no route at /
+        return;
+      }
+    } catch (error) {
+      lastError = error as Error;
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+
+  throw new Error(
+    `Dev server not running at ${baseURL}. Please start it with: cd docs-site && npm run dev\n` +
+    `Last error: ${lastError?.message}`
+  );
+}
+
+// Extend base test with server health check
 export const test = base.extend({
-  // Example: Could add custom fixtures here
-  // baseURL: async ({}, use) => {
-  //   await use(getBaseURL());
-  // },
+  page: async ({ page }, use) => {
+    // Check dev server before each test
+    const baseURL = getBaseURL();
+    await checkDevServer(baseURL);
+
+    await use(page);
+  },
 });
 
 export { expect } from '@playwright/test';

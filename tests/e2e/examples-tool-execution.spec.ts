@@ -7,26 +7,28 @@
  * - Tools with parameters should receive them correctly
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, getBaseURL } from '../fixtures';
 import { Components } from '../../src/architecture/ComponentNames';
-
-const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3011';
 
 test.describe('Examples Tool Execution', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${BASE_URL}/examples`);
+    await page.goto(`${getBaseURL()}/examples`);
     await page.waitForLoadState('networkidle', { timeout: 10000 });
 
-    // Wait for chat bubble
-    await page.locator(`[data-testid="${Components.Chat.bubble}"]`).waitFor({ timeout: 30000 });
-
-    // Expand chat if needed
+    // Check if input is already visible (chat already open)
     const chatInput = page.locator(`[data-testid="${Components.Chat.input}"]`);
     const isInputVisible = await chatInput.isVisible().catch(() => false);
-    if (!isInputVisible) {
-      await page.locator(`[data-testid="${Components.Chat.bubble}"]`).click();
-      await chatInput.waitFor({ state: 'visible', timeout: 5000 });
+
+    if (isInputVisible) {
+      // Already open, we're good
+      return;
     }
+
+    // Input not visible, find and click bubble to open
+    const bubble = page.locator(`[data-testid="${Components.Chat.bubble}"]`);
+    await bubble.waitFor({ timeout: 10000 });
+    await bubble.click();
+    await chatInput.waitFor({ state: 'visible', timeout: 5000 });
   });
 
   test('should extract parameter from "send a chat saying test"', async ({ page }) => {

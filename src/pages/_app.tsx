@@ -13,6 +13,7 @@ import { NavigationGraph } from "@supernalintelligence/interface-enterprise"
 import { LocationContext } from "@supernal/interface/browser"
 import { initializeDemoArchitecture, createNavigationHandler } from '../architecture'
 import { useRouter } from 'next/router'
+import { useLocationTracking } from '../hooks/useLocationTracking'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
 import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
@@ -44,6 +45,9 @@ const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 function ArchitectureInitializer() {
   const router = useRouter()
   const [isInitialized, setIsInitialized] = React.useState(false)
+
+  // CRITICAL: Track location and visible elements for tool scoping
+  useLocationTracking()
 
   useEffect(() => {
     DEBUG  && console.log('🚀 [_app] useEffect triggered')

@@ -1,13 +1,41 @@
 /**
- * Component Name Contracts - Auto-generated
- * Generated from: src/components
- * Canonical source: src/architecture/DemoComponentNames.ts
- * Do not edit manually - regenerate with: si scan-names
+ * Component Name Contracts - Auto-generated + Package Inheritance
+ *
+ * This file combines:
+ * 1. Auto-generated contracts from src/components (via `si scan-names`)
+ * 2. Inherited contracts from @supernal/interface-nextjs (Chat components)
+ *
+ * **Precedence Rules:**
+ * - Package components (from @supernal/interface-nextjs) are the source of truth
+ * - Local scanned components complement package components
+ * - Use InterfaceComponents.* for direct package access
+ * - Use semantic namespaces (Chat, Blog, etc.) for app-specific grouping
  *
  * Note: Namespaces that conflict with global types (Document, Window, etc.)
  * are automatically renamed with "Names" suffix (e.g., Document → DocumentNames)
  * to avoid TypeScript conflicts.
  */
+
+// ============================================================================
+// Package Component Inheritance
+// ============================================================================
+
+/**
+ * Re-export components from @supernal/interface-nextjs package
+ * Use these for direct access to package-provided component testids:
+ *
+ * @example
+ * import { InterfaceComponents } from './ComponentNames';
+ * const testId = InterfaceComponents.ChatToggleButton; // 'chat-toggle-button'
+ */
+export { Components as InterfaceComponents } from '@supernal/interface-nextjs';
+
+// Import for mapping to semantic namespaces
+import { Components as IC } from '@supernal/interface-nextjs';
+
+// ============================================================================
+// App-Specific Component Namespaces (Semantic Grouping)
+// ============================================================================
 
 export const Blog = {
   backButton: 'blog-back-button',
@@ -23,13 +51,19 @@ export const Blog = {
   searchInput: 'blog-search-input'
 } as const;
 
+/**
+ * Chat - Semantic namespace for chat-related components
+ * Inherits from @supernal/interface-nextjs package + app-specific components
+ */
 export const Chat = {
-  bubble: 'chat-bubble',
-  clearButton: 'chat-clear-button',
-  input: 'chat-input',
+  // Package-provided components (source of truth)
+  bubble: IC.ChatToggleButton,
+  clearButton: IC.ChatClearButton,
+  input: IC.ChatInput,
+  sendButton: IC.ChatSendButton,
+  // App-specific chat components (not in package)
   messages: 'chat-messages',
   minimizeButton: 'chat-minimize',
-  sendButton: 'chat-send-button',
   unreadBadge: 'chat-unread-badge'
 } as const;
 

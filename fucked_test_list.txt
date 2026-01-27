@@ -1,0 +1,201 @@
+
+  197 failed
+    [chromium] › tests/blog-navigation.spec.ts:8:7 › Blog Post Navigation › should navigate to specific blog post by title keywords 
+    [chromium] › tests/blog-navigation.spec.ts:55:7 › Blog Post Navigation › should navigate to blog post with different keywords 
+    [chromium] › tests/blog-navigation.spec.ts:74:7 › Blog Post Navigation › should show suggestions if no exact match 
+    [chromium] › tests/debug-blog-navigation.spec.ts:30:7 › Blog Navigation Debug › Debug: "open your users" from home page 
+    [chromium] › tests/debug-blog-navigation.spec.ts:52:7 › Blog Navigation Debug › Debug: "open agentic ux" from home page 
+    [chromium] › tests/debug-blog-navigation.spec.ts:65:7 › Blog Navigation Debug › Debug: "open 80% less" from home page 
+    [chromium] › tests/debug-blog-navigation.spec.ts:78:7 › Blog Navigation Debug › Debug: "open agentic ux" from blog page 
+    [chromium] › tests/demo-routes.spec.ts:16:7 › Demo Route Navigation › simple demo route loads successfully 
+    [chromium] › tests/demo-routes.spec.ts:23:7 › Demo Route Navigation › stateful demo route loads successfully 
+    [chromium] › tests/demo-routes.spec.ts:30:7 › Demo Route Navigation › can navigate between simple and advanced routes 
+    [chromium] › tests/demo-routes.spec.ts:44:7 › Demo Route Navigation › routes have independent page structures 
+    [chromium] › tests/demo-widgets.spec.ts:19:9 › Demo Interactive Widgets › StatusSelect Widget › should change status to active 
+    [chromium] › tests/demo-widgets.spec.ts:29:9 › Demo Interactive Widgets › StatusSelect Widget › should change status to processing 
+    [chromium] › tests/demo-widgets.spec.ts:38:9 › Demo Interactive Widgets › StatusSelect Widget › should change status to complete 
+    [chromium] › tests/demo-widgets.spec.ts:47:9 › Demo Interactive Widgets › StatusSelect Widget › should change status to inactive 
+    [chromium] › tests/demo-widgets.spec.ts:61:9 › Demo Interactive Widgets › ThemeSelect Widget › should change theme to dark 
+    [chromium] › tests/demo-widgets.spec.ts:70:9 › Demo Interactive Widgets › ThemeSelect Widget › should change theme to light 
+    [chromium] › tests/demo-widgets.spec.ts:82:9 › Demo Interactive Widgets › ThemeSelect Widget › should change theme to auto 
+    [chromium] › tests/demo-widgets.spec.ts:93:9 › Demo Interactive Widgets › Widget Integration › should update state display when changing status 
+    [chromium] › tests/demo-widgets.spec.ts:103:9 › Demo Interactive Widgets › Widget Integration › should update state display when changing theme 
+    [chromium] › tests/e2e/all-widgets.spec.ts:41:7 › All Demo Widgets - AI Command Execution › Open Menu button 
+    [chromium] › tests/e2e/all-widgets.spec.ts:56:7 › All Demo Widgets - AI Command Execution › Toggle Feature checkbox 
+    [chromium] › tests/e2e/all-widgets.spec.ts:69:7 › All Demo Widgets - AI Command Execution › Enable Feature checkbox 
+    [chromium] › tests/e2e/all-widgets.spec.ts:95:7 › All Demo Widgets - AI Command Execution › Toggle Notifications checkbox 
+    [chromium] › tests/e2e/all-widgets.spec.ts:108:7 › All Demo Widgets - AI Command Execution › Enable Notifications 
+    [chromium] › tests/e2e/all-widgets.spec.ts:119:7 › All Demo Widgets - AI Command Execution › Set Priority to High 
+    [chromium] › tests/e2e/all-widgets.spec.ts:141:7 › All Demo Widgets - AI Command Execution › Set Priority to Low 
+    [chromium] › tests/e2e/all-widgets.spec.ts:152:7 › All Demo Widgets - AI Command Execution › Set Status to Active 
+    [chromium] › tests/e2e/all-widgets.spec.ts:163:7 › All Demo Widgets - AI Command Execution › Change Status to Processing 
+    [chromium] › tests/e2e/all-widgets.spec.ts:174:7 › All Demo Widgets - AI Command Execution › Set Status to Complete 
+    [chromium] › tests/e2e/all-widgets.spec.ts:185:7 › All Demo Widgets - AI Command Execution › Set Theme to Dark 
+    [chromium] › tests/e2e/all-widgets.spec.ts:217:7 › All Demo Widgets - AI Command Execution › Multiple commands in sequence 
+    [chromium] › tests/e2e/architecture-debug.spec.ts:4:7 › Architecture Page Debug › should load and display hierarchical graph 
+    [chromium] › tests/e2e/architecture-page.spec.ts:5:7 › Architecture Page › should navigate to architecture page and load graph 
+    [chromium] › tests/e2e/architecture-page.spec.ts:58:7 › Architecture Page › should display debug info 
+    [chromium] › tests/e2e/architecture-page.spec.ts:88:7 › Architecture Page › should verify @supernal-interface/core exports 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:30:7 › Blog Navigation via Chat › should navigate to blog index with "open blog" command 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:52:7 › Blog Navigation via Chat › should search blog posts when ON blog page (scoped tool) 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:91:7 › Blog Navigation via Chat › should show error message for non-existent blog post 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:122:7 › Blog Navigation via Chat › should work from any page (global tool) 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:152:7 › NavigationGraph Integration › should have navigation handler registered 
+    [chromium] › tests/e2e/blog-navigation.spec.ts:166:7 › NavigationGraph Integration › should update context after navigation via chat 
+    [chromium] › tests/e2e/browser-navigation.spec.ts:18:7 › Browser Navigation Commands › should navigate back to previous page 
+    [chromium] › tests/e2e/browser-navigation.spec.ts:53:7 › Browser Navigation Commands › should navigate to root on home command 
+    [chromium] › tests/e2e/browser-navigation.spec.ts:80:7 › Browser Navigation Commands › should reload page on refresh command 
+    [chromium] › tests/e2e/browser-navigation.spec.ts:143:7 › Browser Navigation Commands › should show error when already at root for go up 
+    [chromium] › tests/e2e/chat-bubble-debug.spec.ts:8:5 › ChatBubble expands when clicked 
+    [chromium] › tests/e2e/chat-bubble-dom-check.spec.ts:8:5 › Check if chat input exists in DOM 
+    [chromium] › tests/e2e/context-debug.spec.ts:7:5 › Simple demo page sets correct context 
+    [chromium] › tests/e2e/cross-container-navigation.spec.ts:14:7 › Cross-Container Navigation › Navigate from Dashboard to Demo and execute tool 
+    [chromium] › tests/e2e/cross-container-navigation.spec.ts:41:7 › Cross-Container Navigation › Direct navigation command works 
+    [chromium] › tests/e2e/dashboard-navigation.spec.ts:16:7 › Dashboard Navigation › should find dashboard navigation tool from blog page 
+    [chromium] › tests/e2e/debug-cross-nav.spec.ts:3:5 › Debug cross-container navigation 
+    [chromium] › tests/e2e/debug.spec.ts:3:5 › debug page state ───────────────────────
+    [chromium] › tests/e2e/demo-commands.spec.ts:8:5 › Simple demo - "open menu" command works 
+    [chromium] › tests/e2e/demo-commands.spec.ts:32:5 › Advanced demo - "toggle notifications" command works 
+    [chromium] › tests/e2e/demo-commands.spec.ts:59:5 › Simple demo - "set theme dark" command works 
+    [chromium] › tests/e2e/demo-routes.spec.ts:15:7 › Demo Route Navigation › simple demo route loads successfully 
+    [chromium] › tests/e2e/demo-routes.spec.ts:29:7 › Demo Route Navigation › stateful demo route loads successfully 
+    [chromium] › tests/e2e/demo-routes.spec.ts:42:7 › Demo Route Navigation › can navigate between simple and advanced routes 
+    [chromium] › tests/e2e/demo-routes.spec.ts:56:7 › Demo Route Navigation › routes have working widgets 
+    [chromium] › tests/e2e/diagnostic.spec.ts:9:5 › Diagnostic: Dump all runtime state 
+    [chromium] › tests/e2e/discovery-tools.spec.ts:20:7 › Tool Discovery Commands › should list context-aware tools on blog page 
+    [chromium] › tests/e2e/discovery-tools.spec.ts:54:7 › Tool Discovery Commands › should show general help with /help command 
+    [chromium] › tests/e2e/discovery-tools.spec.ts:88:7 › Tool Discovery Commands › should show tool details with /help {tool} 
+    [chromium] › tests/e2e/discovery-tools.spec.ts:121:7 › Tool Discovery Commands › should show current context with /where am I 
+    [chromium] › tests/e2e/discovery-tools.spec.ts:154:7 › Tool Discovery Commands › should handle natural language variations 
+    [chromium] › tests/e2e/examples-tool-execution.spec.ts:32:7 › Examples Tool Execution › should extract parameter from "send a chat saying test" 
+    [chromium] › tests/e2e/examples-tool-execution.spec.ts:57:7 › Examples Tool Execution › should extract numeric parameter from "increment counter by 5" 
+    [chromium] › tests/e2e/examples-tool-execution.spec.ts:96:7 › Examples Tool Execution › should handle "increment counter" without explicit parameter 
+    [chromium] › tests/e2e/examples-tool-execution.spec.ts:121:7 › Examples Tool Execution › should log tool execution for debugging 
+    [chromium] › tests/e2e/final-check.spec.ts:3:5 › Check actual AI response in chat ─
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:18:7 › Global Theme Tools › should execute "dark mode" command from Docs page without navigation 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:34:7 › Global Theme Tools › should execute "light mode" command to revert theme 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:50:7 › Global Theme Tools › should find theme tools with various command phrases 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:74:7 › Global Theme Tools › should work from Dashboard page (test true global availability) 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:90:7 › Global Theme Tools › should work from Examples page 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:103:7 › Global Theme Tools › should persist theme across page navigation 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:126:7 › Global Theme Tools › should persist theme across page reload 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:149:7 › Global Theme Tools › should not navigate to Demo page when executing theme command 
+    [chromium] › tests/e2e/global-theme-tools.spec.ts:163:7 › Global Theme Tools › should show error for single-word "dark" or "light" commands 
+    [chromium] › tests/e2e/keyboard-shortcuts.spec.ts:4:7 › Chat keyboard shortcuts › pressing Escape should close expanded chat 
+    [chromium] › tests/e2e/keyboard-shortcuts.spec.ts:22:7 › Chat keyboard shortcuts › pressing / should reopen closed chat 
+    [chromium] › tests/e2e/keyboard-shortcuts.spec.ts:48:7 › Chat keyboard shortcuts › Cmd+/ should open chat 
+    [chromium] › tests/e2e/stateful-state-persistence.spec.ts:33:7 › Stateful Demo - State Persistence › menu state persists across refresh 
+    [chromium] › tests/e2e/stateful-state-persistence.spec.ts:49:7 › Stateful Demo - State Persistence › feature toggle persists across refresh 
+    [chromium] › tests/e2e/stateful-state-persistence.spec.ts:70:7 › Stateful Demo - State Persistence › priority selection persists across refresh 
+    [chromium] › tests/e2e/stateful-state-persistence.spec.ts:91:7 › Stateful Demo - State Persistence › theme selection persists across refresh 
+    [chromium] › tests/e2e/stateful-state-persistence.spec.ts:133:7 › Stateful Demo - State Persistence › localStorage contains demo-widgets key 
+    [chromium] › tests/e2e/tool-id-uniqueness.spec.ts:92:7 › Tool ID Uniqueness › simple demo has expected tool count 
+    [chromium] › tests/e2e/tool-id-uniqueness.spec.ts:105:7 › Tool ID Uniqueness › stateful demo has expected tool count 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:17:7 › Demo Route Navigation › demo index redirects to simple 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:26:7 › Demo Route Navigation › simple demo loads with proper layout 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:40:7 › Demo Route Navigation › can navigate to stateful demo via tab 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:55:7 › Demo Route Navigation › can navigate to hierarchical demo via tab 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:70:7 › Demo Route Navigation › active tab has correct styling 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:88:7 › Demo Route Navigation › stateful demo is accessible 
+    [chromium] › tests/e2e/unified-demo-tabs.spec.ts:98:7 › Demo Route Navigation › navigation between routes preserves layout 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:68:9 › @supernal-interface Widget-Tool Integration › Checkbox Widgets › Toggle Feature - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:86:9 › @supernal-interface Widget-Tool Integration › Checkbox Widgets › Toggle Notifications - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:107:9 › @supernal-interface Widget-Tool Integration › Radio Widget › Set Priority - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:130:9 › @supernal-interface Widget-Tool Integration › Select Widgets › Set Status - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:151:9 › @supernal-interface Widget-Tool Integration › Select Widgets › Set Theme - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:178:9 › @supernal-interface Widget-Tool Integration › Form Widget › Submit Form - widget and tool 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:209:9 › @supernal-interface Widget-Tool Integration › Chat Bubble Integration › Chat bubble auto-opens and can be toggled 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:233:9 › @supernal-interface Widget-Tool Integration › Chat Bubble Integration › AI commands execute corresponding tools via chat bubble 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:273:9 › @supernal-interface Widget-Tool Integration › Chat Bubble Integration › Chat bubble shows unread indicator 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:303:9 › @supernal-interface Widget-Tool Integration › Chat Bubble Integration › Chat can be cleared 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:331:9 › @supernal-interface Widget-Tool Integration › Chat Bubble Integration › Visual highlighting appears when AI commands execute 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:355:9 › @supernal-interface Widget-Tool Integration › Tool Registry Validation › All 10 tools are registered and visible 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:383:9 › @supernal-interface Widget-Tool Integration › Tool Registry Validation › Tool execution provides proper feedback 
+    [chromium] › tests/e2e/widget-tool-integration.spec.ts:413:9 › @supernal-interface Widget-Tool Integration › State Synchronization › Widget changes reflect in tool execution and vice versa 
+    [chromium] › tests/examples-tool-execution.spec.ts:21:7 › Examples Page Tool Execution › should execute "increment counter" command 
+    [chromium] › tests/examples-tool-execution.spec.ts:44:7 › Examples Page Tool Execution › should match "increment the counter" command 
+    [chromium] › tests/examples-tool-execution.spec.ts:62:7 › Examples Page Tool Execution › should filter to Examples container tools only 
+    [chromium] › tests/examples.spec.ts:24:7 › Examples Page › should load examples page 
+    [chromium] › tests/examples.spec.ts:35:7 › Examples Page › should copy command to chat input 
+    [chromium] › tests/examples.spec.ts:60:7 › Examples Page › should execute example tool command 
+    [chromium] › tests/examples.spec.ts:89:7 › Examples Page › should expand and collapse example cards 
+    [chromium] › tests/generated/counter.e2e.spec.ts:43:7 › Component: counter › increment - Increment counter by specified amount 
+    [chromium] › tests/generated/counter.e2e.spec.ts:60:7 › Component: counter › decrement - Decrement counter by specified amount 
+    [chromium] › tests/generated/counter.e2e.spec.ts:77:7 › Component: counter › reset - Reset counter to zero 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:30:7 › Blog Search Navigation › Navigate to blog index without query 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:60:7 › Blog Search Navigation › Search for specific blog post with full query 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:97:7 › Blog Search Navigation › Search with partial match 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:130:7 › Blog Search Navigation › Pattern matching with placeholders 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:157:7 › Blog Search Navigation › Scoped tool prioritization over global navigation 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:191:7 › Blog Search Navigation › UI feedback on successful search 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:221:7 › Blog Search Navigation › UI feedback on failed search 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:244:7 › Blog Search Navigation › Global navigation still works from blog page 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:270:7 › Blog Search Navigation › Tool filtering shows correct counts in console 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:299:7 › Blog Search Navigation › Match query with extra words to pattern 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:322:7 › Blog Search Navigation › Match query without extra words to pattern 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:345:7 › Blog Search Navigation › Blog search input is visible 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:362:7 › Blog Search Navigation › Blog category filter is visible 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:379:7 › Blog Search Navigation › Blog post cards are visible 
+    [chromium] › tests/generated/stories/blog-search-navigation.spec.ts:396:7 › Blog Search Navigation › Can navigate back from blog 
+    [chromium] › tests/generated/stories/cache-demo.spec.ts:30:7 › Cache Demo › Demonstrate cache hits 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:33:7 › Chat Component › Starting with empty chat 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:57:7 › Chat Component › Sending a single message 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:88:7 › Chat Component › Viewing existing conversation 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:109:7 › Chat Component › Adding to existing conversation 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:136:7 › Chat Component › Clearing all messages 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:165:7 › Chat Component › Multiple messages in sequence 
+    [chromium] › tests/generated/stories/chat-component.spec.ts:204:7 › Chat Component › Message persistence across actions 
+    [chromium] › tests/generated/stories/chat-messages.spec.ts:32:7 › Chat Messages › Send one message 
+    [chromium] › tests/generated/stories/chat-messages.spec.ts:56:7 › Chat Messages › Send multiple messages 
+    [chromium] › tests/generated/stories/complete-interface-demo.spec.ts:29:7 › Complete Interface Demo › Opening and using the chat interface 
+    [chromium] › tests/generated/stories/complete-interface-demo.spec.ts:66:7 › Complete Interface Demo › Interacting with the counter 
+    [chromium] › tests/generated/stories/complete-interface-demo.spec.ts:106:7 › Complete Interface Demo › Using AI commands to control the interface 
+    [chromium] › tests/generated/stories/complete-interface-demo.spec.ts:143:7 › Complete Interface Demo › Final demonstration of the complete workflow 
+    [chromium] › tests/generated/stories/counter-tools-demo.spec.ts:29:7 › Counter Tools Demo › Using counter tools 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:31:7 › Demo Interactive Widgets › Change status using dropdown 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:47:7 › Demo Interactive Widgets › Change theme using dropdown 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:63:7 › Demo Interactive Widgets › Change status to processing 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:79:7 › Demo Interactive Widgets › Change theme to light 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:95:7 › Demo Interactive Widgets › Change theme to auto 
+    [chromium] › tests/generated/stories/demo-interactive-widgets.spec.ts:111:7 › Demo Interactive Widgets › Change status to complete 
+    [chromium] › tests/generated/stories/landing-page-navigation.spec.ts:29:7 › Landing Page Navigation › Navigate to demo page from landing 
+    [chromium] › tests/generated/stories/landing-page-navigation.spec.ts:44:7 › Landing Page Navigation › Navigate to blog page from landing 
+    [chromium] › tests/generated/stories/landing-page-navigation.spec.ts:59:7 › Landing Page Navigation › Return to home page 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:30:7 › State Transitions and Caching › Cache hit for identical state sequence 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:61:7 › State Transitions and Caching › Cache miss for different state sequence 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:92:7 › State Transitions and Caching › Resume from checkpoint after failure 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:125:7 › State Transitions and Caching › State-dependent caching 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:153:7 › State Transitions and Caching › State hash verification 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:175:7 › State Transitions and Caching › Transition function execution 
+    [chromium] › tests/generated/stories/state-transitions-and-caching.spec.ts:199:7 › State Transitions and Caching › Immutable state transitions 
+    [chromium] › tests/generated/stories/story-flow-demonstration.spec.ts:32:7 › Story Flow Demonstration › Complete user journey through chat and counter 
+    [chromium] › tests/generated/stories/story-flow-demonstration.spec.ts:96:7 › Story Flow Demonstration › Chat and counter together 
+    [chromium] › tests/navigation-debug.spec.ts:7:7 › Navigation Debug › check if chat sends commands 
+    [chromium] › tests/navigation.spec.ts:15:7 › Navigation via AI Commands › should navigate to dashboard 
+    [chromium] › tests/navigation.spec.ts:34:7 › Navigation via AI Commands › should navigate to blog 
+    [chromium] › tests/navigation.spec.ts:50:7 › Navigation via AI Commands › should navigate to examples 
+    [chromium] › tests/navigation.spec.ts:61:7 › Navigation via AI Commands › should navigate from blog to dashboard 
+    [chromium] › tests/post-migration.spec.ts:6:7 › Post-Migration Site Functionality › Architecture page loads and shows visualization 
+    [chromium] › tests/post-migration.spec.ts:19:7 › Post-Migration Site Functionality › Chat bubble is present and functional 
+    [chromium] › tests/post-migration.spec.ts:27:7 › Post-Migration Site Functionality › Navigation between pages works 
+    [chromium] › tests/post-migration.spec.ts:43:7 › Post-Migration Site Functionality › Tools are registered and visible 
+    [chromium] › tests/post-migration.spec.ts:60:7 › Post-Migration Site Functionality › Blog pages still work after migration 
+    [chromium] › tests/quick-theme-test.spec.ts:3:5 › stateful demo theme change via AI 
+    [chromium] › tests/scoping.spec.ts:13:7 › Tool Scoping Verification › should show scoped tools on /demo page 
+    [chromium] › tests/scoping.spec.ts:29:7 › Tool Scoping Verification › should show scoped tools on /demo/simple page 
+    [chromium] › tests/stateful-state-persistence.spec.ts:21:7 › Stateful Demo - State Persistence › menu state persists across refresh 
+    [chromium] › tests/stateful-state-persistence.spec.ts:40:7 › Stateful Demo - State Persistence › feature toggle persists across refresh 
+    [chromium] › tests/stateful-state-persistence.spec.ts:61:7 › Stateful Demo - State Persistence › priority selection persists across refresh 
+    [chromium] › tests/stateful-state-persistence.spec.ts:82:7 › Stateful Demo - State Persistence › theme selection persists across refresh 
+    [chromium] › tests/stateful-state-persistence.spec.ts:103:7 › Stateful Demo - State Persistence › simple demo does NOT persist state 
+    [chromium] › tests/stateful-state-persistence.spec.ts:124:7 › Stateful Demo - State Persistence › localStorage contains demo-widgets key 
+    [chromium] › tests/stateful-theme-ai.spec.ts:24:7 › Stateful Demo - AI Theme Control › should bind DemoWidgetTools instance methods 
+    [chromium] › tests/stateful-theme-ai.spec.ts:55:7 › Stateful Demo - AI Theme Control › should change theme via AI command 
+    [chromium] › tests/stateful-theme-ai.spec.ts:86:7 › Stateful Demo - AI Theme Control › should persist theme after refresh 
+    [chromium] › tests/test-blog-tools.spec.ts:7:5 › debug: check blog tools registration 
+    [chromium] › tests/tool-id-uniqueness.spec.ts:105:7 › Tool ID Uniqueness › simple demo has expected tool count 
+    [chromium] › tests/tool-id-uniqueness.spec.ts:118:7 › Tool ID Uniqueness › stateful demo has expected tool count 
+    [chromium] › tests/verify-working.spec.ts:11:7 › Verify System is Working › page loads and shows content 
+    [chromium] › tests/verify-working.spec.ts:77:7 › Verify System is Working › check tool registration in console 
+  14 skipped
+  61 passed (4.6m)

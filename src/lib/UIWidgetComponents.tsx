@@ -78,16 +78,16 @@ let isHydrated = false;
 // Hydrate state from localStorage (only on client after mount)
 function hydrateFromStorage() {
   if (typeof window === 'undefined' || isHydrated) return;
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       const loadedState = JSON.parse(stored);
       demoState = { ...demoState, ...loadedState };
-      
+
       // NOTE: Theme is now widget-scoped, not global
       // No longer setting document.documentElement attributes
-      
+
       // Notify all listeners about the hydrated state
       stateChangeCallbacks.forEach(cb => cb(demoState));
     }
@@ -95,6 +95,12 @@ function hydrateFromStorage() {
   } catch {
     // Failed to hydrate state from localStorage
   }
+}
+
+// Hydrate immediately on client-side module load
+// This ensures state is restored before any components mount
+if (typeof window !== 'undefined') {
+  hydrateFromStorage();
 }
 
 // NOTE: Theme is now widget-scoped, not global

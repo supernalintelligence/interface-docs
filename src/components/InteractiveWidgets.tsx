@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   OpenMenuButton,
   CloseMenuButton,
   FeatureToggle,
@@ -20,6 +20,7 @@ import {
   FormSubmitButton,
   getDemoState,
   setStateChangeCallback,
+  hydrateState,
 } from '../lib/UIWidgetComponents';
 import { DemoWidgetState } from '../types/DemoState';
 import { stateToDataAttrs, type DemoWidgetState as DemoWidgetStateContract } from '../contracts/DemoWidgetContract';
@@ -34,17 +35,34 @@ interface InteractiveWidgetsProps {
   onWidgetInteraction?: (widgetType: string, action: string, result: { name: string }) => void;
 }
 
-export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({ 
-  onWidgetInteraction 
+export const InteractiveWidgets: React.FC<InteractiveWidgetsProps> = ({
+  onWidgetInteraction
 }) => {
-  const [demoState, setDemoState] = useState<DemoState>(getDemoState() as DemoState);
+  // Start with default state to match SSR (prevents hydration mismatch)
+  const [demoState, setDemoState] = useState<DemoState>(() => ({
+    kind: 'application',
+    stateId: 'demo-widgets',
+    menuOpen: false,
+    featureEnabled: false,
+    notificationsEnabled: false,
+    priority: 'medium',
+    status: 'inactive',
+    theme: 'light',
+    highlightedWidget: null
+  }));
   const [formName, setFormName] = useState('');
   const [feedback, setFeedback] = useState<string | null>(null);
 
   useEffect(() => {
+    // Hydrate state from localStorage after mount
+    hydrateState();
+
+    // Register callback for state changes
     setStateChangeCallback((newState) => {
       setDemoState(newState as DemoState);
     });
+
+    // Get the hydrated state and update
     setDemoState(getDemoState() as DemoState);
   }, []);
 
