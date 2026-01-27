@@ -14,7 +14,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Chat, Examples } from '../../../src/architecture/DemoComponentNames';
+import { Chat, Examples } from '../../../src/architecture/ComponentNames';
 import { Routes } from '../../../src/architecture/Routes';
 import { setComponentState, getComponentState, initializeTestState } from '@supernal/interface/testing';
 import { ComponentData } from '../../../src/architecture/DemoComponentData';

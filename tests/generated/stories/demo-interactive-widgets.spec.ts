@@ -14,7 +14,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Demo } from '../../../src/architecture/DemoComponentNames';
+import { Demo } from '../../../src/architecture/ComponentNames';
 import { initializeTestState } from '@supernal/interface/testing';
 
 test.describe('Demo Interactive Widgets', () => {
