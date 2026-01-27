@@ -10,6 +10,7 @@ import { generateClientSideLLMGuide } from '../lib/generateLLMGuide';
 import { Components } from '../architecture';
 import { brandAssets, brandText } from '@/lib/brand';
 import { Routes } from '../architecture/Routes';
+import { theme } from '@/config/theme';
 
 import { testId } from '@supernal/interface/testing';
 import { Header as HeaderNames } from '@/architecture/ComponentNames';
@@ -25,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
   const [copiedAI, setCopiedAI] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = React.useState<string | null>('features');
 
   const navItems = [
     {
@@ -265,51 +267,122 @@ export const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onSettings
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-white/10 py-4">
-            <nav className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.path}
-                  data-testid={item.testid}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currentPage === item.id
-                      ? 'bg-purple-500 text-white'
-                      : 'text-gray-300 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-              {onSettingsClick && (
-                <button
-                  onClick={() => {
-                    onSettingsClick();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                  title="Settings"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </button>
-              )}
-              <button
-                onClick={openGitHub}
-                className="p-2 text-gray-400 hover:text-white transition-colors"
-                title="GitHub"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
-                </svg>
-              </button>
+          <>
+            {/* Backdrop Overlay */}
+            <div className="md:hidden fixed inset-0 top-[73px] bg-slate-950/95 backdrop-blur-md z-40" onClick={() => setMobileMenuOpen(false)} />
+
+            {/* Menu Panel - Fixed Layout */}
+            <div className="md:hidden fixed top-[73px] left-0 right-0 bottom-0 bg-slate-900/98 border-t border-white/10 z-50 flex flex-col">
+
+              {/* Scrollable Navigation Section */}
+              <div className="flex-1 overflow-y-auto px-4 py-4">
+                <nav className="flex flex-col space-y-1">
+              {navItems.map((item) => {
+                const itemWithMenu = item as any;
+                const hasSubmenu = !!itemWithMenu.submenu;
+                const isSubmenuOpen = mobileSubmenuOpen === item.id;
+
+                return (
+                  <div key={item.id}>
+                    {hasSubmenu ? (
+                      // Item with submenu - expandable
+                      <>
+                        <button
+                          data-testid={item.testid}
+                          onClick={() => setMobileSubmenuOpen(isSubmenuOpen ? null : item.id)}
+                          className="w-full px-4 py-3 rounded-lg text-base font-semibold transition-all flex items-center justify-between text-white hover:bg-white/10"
+                        >
+                          <span>{item.label}</span>
+                          <svg
+                            className={`w-5 h-5 transition-transform duration-200 ${isSubmenuOpen ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        {isSubmenuOpen && (
+                          <div className="mt-1 ml-2 space-y-1 border-l-2 border-purple-500/30 pl-4">
+                            {itemWithMenu.submenu.map((subitem: any) => (
+                              <Link
+                                key={subitem.id}
+                                href={subitem.path}
+                                onClick={() => {
+                                  setMobileMenuOpen(false);
+                                  setMobileSubmenuOpen(null);
+                                }}
+                                className="block px-4 py-3 rounded-lg text-base text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-500/20 hover:to-pink-500/20 transition-all"
+                              >
+                                {subitem.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      // Regular item without submenu
+                      <Link
+                        href={item.path}
+                        data-testid={item.testid}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all ${
+                          currentPage === item.id
+                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                            : 'text-white hover:bg-white/10'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+                </nav>
+              </div>
+
+              {/* Fixed Bottom Actions - Above Microphone */}
+              <div className="flex-shrink-0 border-t border-white/10 bg-slate-900/95 backdrop-blur-sm px-4 py-3 pb-32">
+                <div className="flex items-center gap-3">
+                  {/* Docs Icon */}
+                  <Link
+                    href={Routes.docs}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2.5 bg-slate-800 text-gray-300 rounded-lg border border-white/10 transition-all hover:bg-slate-700 hover:text-white"
+                    aria-label="Documentation"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </Link>
+
+                  {/* GitHub Icon */}
+                  <button
+                    onClick={openGitHub}
+                    className="p-2.5 bg-slate-800 text-gray-300 rounded-lg border border-white/10 transition-all hover:bg-slate-700 hover:text-white"
+                    aria-label="GitHub"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+
+                  {/* Sign In / Get Access */}
+                  {onEarlyAccessClick && (
+                    <button
+                      onClick={() => {
+                        onEarlyAccessClick();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="flex-1 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg transition-all hover:from-purple-700 hover:to-pink-700 shadow-lg"
+                    >
+                      <span className="text-sm font-semibold">Sign In</span>
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </header>

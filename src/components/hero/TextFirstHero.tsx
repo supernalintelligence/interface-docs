@@ -15,6 +15,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getVariant } from '@/config/hero-variants';
+import { theme, components, cn } from '@/config/theme';
 import {
   cycleAnimation,
   typewriterAnimation,
@@ -154,7 +155,7 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
           animate="visible"
           variants={staggerContainerAnimation}
           custom={{ stagger: 0.3, delay: primaryDelay + 0.5 }}
-          className="space-y-3 text-xl md:text-2xl"
+          className={cn('space-y-3', theme.typography.hero.subtitle)}
         >
           {lines.map((line, i) => (
             <motion.p
@@ -162,7 +163,7 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
               custom={i}
               variants={staggerLineAnimation}
               dangerouslySetInnerHTML={{ __html: line }}
-              className="text-gray-100"
+              className={theme.colors.text.secondary}
               style={{ color: 'rgb(243, 244, 246)' }}
             />
           ))}
@@ -172,12 +173,12 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
 
     // Default: simple static text for Variants A & D
     return (
-      <div className="space-y-2 text-xl md:text-2xl">
+      <div className={cn('space-y-2', theme.typography.hero.subtitle)}>
         {lines.map((line, i) => (
           <p
             key={i}
             dangerouslySetInnerHTML={{ __html: line }}
-            className="text-gray-100"
+            className={theme.colors.text.secondary}
             style={{ color: 'rgb(243, 244, 246)' }}
           />
         ))}
@@ -186,29 +187,43 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
   };
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={cn(
+      'relative overflow-hidden',
+      theme.colors.background.gradient.hero,
+      theme.spacing.hero.paddingTop.mobile,
+      theme.spacing.hero.paddingTop.tablet,
+      theme.spacing.hero.paddingTop.desktop,
+      theme.spacing.hero.paddingBottom.mobile,
+      theme.spacing.hero.paddingBottom.tablet,
+      theme.spacing.hero.paddingBottom.desktop
+    )}>
+      <div className={components.section.container}>
         {/* TEXT ALWAYS AT TOP - NEVER HIDDEN */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+        <div className={cn('text-center', theme.spacing.hero.marginBottom.section)}>
+          <h1 className={cn(
+            theme.typography.hero.title,
+            theme.colors.text.primary,
+            theme.spacing.hero.marginBottom.title,
+            'px-2'
+          )}>
             {renderPrimaryText()}
           </h1>
 
-          <div className="mb-10">
+          <div className={cn(theme.spacing.hero.marginBottom.subtitle, 'px-2')}>
             {renderSecondaryText()}
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
             <button
               onClick={onGetStarted}
-              className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/50"
+              className={components.button.primary('medium')}
             >
               {variant.cta.primary}
             </button>
             <button
               onClick={onTryDemo}
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
+              className={components.button.secondary('medium')}
             >
               {variant.cta.secondary}
             </button>

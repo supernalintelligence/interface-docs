@@ -74,7 +74,7 @@ export default function TTSInit() {
             speed: 1.0,
             clientSideSpeed: true,
             showBranding: true,
-            devMode: window.location.hostname === 'localhost'
+            devMode: false && window.location.hostname === 'localhost'
           });
 
           setIsLoading(false);

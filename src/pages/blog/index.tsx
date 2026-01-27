@@ -3,7 +3,7 @@
  * Server-side rendered with Next.js Pages Router
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Header } from '../../components/Header';
@@ -53,55 +53,60 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
       <div className="min-h-screen bg-gray-50" data-testid={Blog.container}>
         <Header currentPage="blog" onEarlyAccessClick={() => setShowEarlyAccessModal(true)} />
         
-        {/* Hero Header */}
+        {/* Hero Header - Mobile Optimized */}
         <div className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="flex items-center mb-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+            <div className="flex items-center mb-4 sm:mb-6">
               <button
                 onClick={() => window.location.href = '/'}
-                className="flex items-center text-blue-600 hover:text-blue-700 transition-colors mr-4"
+                className="flex items-center text-blue-600 hover:text-blue-700 transition-colors text-sm sm:text-base"
                 data-testid={Blog.backButton}
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
+                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                <span className="hidden xs:inline">Back to Home</span>
+                <span className="xs:hidden">Back</span>
               </button>
             </div>
-            
+
             <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4 leading-tight">
                 Supernal Interface Blog
               </h1>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
                 Insights on type-safe UI automation, AI tool development, and modern testing practices
               </p>
             </div>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Search and Filters */}
-          <div className="mb-12">
-            <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+          {/* Search and Filters - Mobile Optimized */}
+          <div className="mb-8 sm:mb-12">
+            <div className="flex flex-col gap-4 sm:gap-6">
               {/* Search */}
-              <div className="relative flex-1 max-w-md">
+              <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm sm:text-base focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   data-testid={Blog.searchInput}
                 />
               </div>
 
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-2" data-testid={Blog.categoryFilter}>
+              {/* Category Filter - Horizontal Scroll on Mobile */}
+              <div
+                className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide"
+                data-testid={Blog.categoryFilter}
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium border transition-all whitespace-nowrap flex-shrink-0 ${
                       selectedCategory === category
                         ? 'bg-blue-600 text-white border-blue-600'
                         : 'border-gray-300 text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600'
@@ -115,22 +120,22 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
             </div>
           </div>
 
-          {/* Articles Grid */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          {/* Articles Grid - Mobile Optimized */}
+          <div className="mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 px-1">
               {selectedCategory === 'All' ? 'Latest Articles' : `${selectedCategory} Articles`}
             </h2>
-            
+
             {filteredPosts.length === 0 ? (
-              <div className="text-center py-16 bg-gray-50 rounded-xl">
-                <p className="text-gray-600 text-lg">No articles found matching your criteria.</p>
+              <div className="text-center py-12 sm:py-16 bg-gray-50 rounded-xl">
+                <p className="text-gray-600 text-base sm:text-lg px-4">No articles found matching your criteria.</p>
               </div>
             ) : (
-              <div className={`grid gap-6 ${
-                filteredPosts.length === 1 
-                  ? 'grid-cols-1 max-w-2xl mx-auto' 
-                  : filteredPosts.length === 2 
-                    ? 'grid-cols-1 lg:grid-cols-2' 
+              <div className={`grid gap-4 sm:gap-6 ${
+                filteredPosts.length === 1
+                  ? 'grid-cols-1 max-w-2xl mx-auto'
+                  : filteredPosts.length === 2
+                    ? 'grid-cols-1 lg:grid-cols-2'
                     : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
               }`}>
                 {filteredPosts.map((post, index) => (
@@ -140,19 +145,19 @@ export default function BlogIndex({ posts, categories }: BlogIndexProps) {
             )}
           </div>
 
-          {/* More content notice */}
+          {/* More content notice - Mobile Optimized */}
           {posts.length < 4 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-center bg-gray-100 rounded-xl p-6 border border-gray-200"
+              className="text-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-5 sm:p-6 border border-gray-200 shadow-sm"
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
                 More Articles Coming Soon
               </h3>
-              <p className="text-gray-600 max-w-xl mx-auto">
-                Stay tuned for more insights on type-safe UI automation, AI agent development, 
+              <p className="text-sm sm:text-base text-gray-600 max-w-xl mx-auto px-2">
+                Stay tuned for more insights on type-safe UI automation, AI agent development,
                 and modern testing practices.
               </p>
             </motion.div>

@@ -5,7 +5,7 @@
  * Supports A/B testing with different copy, animations, and styles.
  */
 
-export type VariantId = 'a' | 'b' | 'c' | 'd';
+export type VariantId = 'a' | 'b' | 'c' | 'd' | 'e';
 
 export type AnimationType = 'cycle' | 'typewriter' | 'stagger' | 'code';
 
@@ -148,6 +148,32 @@ export const heroVariants: Record<VariantId, HeroVariantConfig> = {
     cta: {
       primary: 'Get Started',
       secondary: 'View Examples'
+    }
+  },
+
+  /**
+   * Variant E: AI-Guided Tour
+   * Full-page interactive tour with scroll and chat navigation
+   * This variant transforms the entire landing page into an interactive experience
+   */
+  e: {
+    id: 'e',
+    name: 'AI-Guided Tour',
+    description: 'Interactive tour with scroll and chat navigation - full page experience',
+    primary: {
+      text: 'I am here to agentify your site',
+      gradientClass: 'from-purple-400 to-pink-400'
+    },
+    secondary: {
+      lines: ['Scroll naturally or let me guide you through']
+    },
+    animation: {
+      type: 'typewriter',
+      config: { duration: 2.0 }
+    },
+    cta: {
+      primary: 'Start Tour',
+      secondary: 'Skip to Docs'
     }
   }
 };
