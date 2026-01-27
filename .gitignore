@@ -60,3 +60,4 @@ mcp-debug.log
 
 archive/
 .tool-cache.json
+.backup-*
