@@ -77,7 +77,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         <meta name="description" content={post.metadata.description || post.excerpt} />
       </Head>
 
-      <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+      <div className="min-h-screen bg-gray-50">
         <Header currentPage="blog" onEarlyAccessClick={() => setShowEarlyAccessModal(true)} />
         
         {/* Hero Header */}
@@ -164,7 +164,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         </div>
 
         {/* Content with TOC */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-12 overflow-x-hidden">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
           <div className="max-w-7xl mx-auto">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               {/* Main Content */}
@@ -173,8 +173,9 @@ export default function BlogPost({ post }: BlogPostProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="lg:col-span-8"
+                style={{ position: 'relative', zIndex: 1 }}
               >
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <article className="bg-white rounded-lg shadow-sm" style={{ position: 'relative', zIndex: 1 }}>
                   {/* TTS Widget wrapper for blog content */}
                   <div 
                     className={`prose prose-slate max-w-none p-4 sm:p-6 md:p-8 lg:p-12 ${post.metadata.tts?.enabled ? 'supernal-tts-widget' : ''}`}

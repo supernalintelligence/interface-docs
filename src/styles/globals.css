@@ -410,6 +410,47 @@ input:focus {
   animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Animation for popup messages (SubtitleOverlay) */
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popupFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.animate-popup-in {
+  animation: popupSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-popup-out {
+  animation: popupFadeOut 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+/* Suggestion scroller smooth scroll */
+.suggestion-scroller {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.suggestion-chip-fade-in {
+  animation: popupSlideIn 0.2s ease-out forwards;
+}
+
 /* ============================================
    BLOG POST STYLING
    ============================================ */
@@ -616,6 +657,8 @@ input:focus {
   line-height: 1.8 !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* Prevent horizontal overflow on mobile */
