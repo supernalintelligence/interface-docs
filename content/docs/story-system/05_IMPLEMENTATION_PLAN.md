@@ -71,7 +71,7 @@ showToc: true
 Each `@Component` should define its **state interface**:
 
 ```typescript
-// core/src/architecture/DemoComponentNames.ts
+// core/src/architecture/ComponentNames.ts
 export const Examples = {
   counterWidget: 'examples-counter-widget',
   counterIncrement: 'examples-counter-increment',

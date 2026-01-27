@@ -19,7 +19,7 @@
    - **Result**: Examples page tools now found correctly
 
 3. **Test fixtures contract** (docs-site/tests/fixtures.ts)
-   - Changed from `DemoComponentNames.Chat.input` to `Components.ChatInput`
+   - Changed from `ComponentNames.Chat.input` to `Components.ChatInput`
    - **Result**: demo-commands tests now pass (3/3 ✅)
 
 ### ✅ Tests Passing
@@ -47,7 +47,7 @@ There are **TWO** component contract files:
    }
    ```
 
-2. **`src/architecture/DemoComponentNames.ts`** (OLD - Demo-specific)
+2. **`src/architecture/ComponentNames.ts`** (OLD - Demo-specific)
    ```typescript
    export const Chat = {
      bubble: 'chat-bubble',
@@ -62,14 +62,14 @@ There are **TWO** component contract files:
 ### The Mismatch
 
 - **Source components** use: `Components.ts` (flat: `ChatInput`)
-- **Test files** use: `DemoComponentNames.ts` (nested: `Chat.input`)
+- **Test files** use: `ComponentNames.ts` (nested: `Chat.input`)
 - **Result**: Tests look for wrong testids
 
 ### Impact
 
 ```bash
-grep -r "from.*DemoComponentNames" tests/ --include="*.ts" | wc -l
-# Result: 12 files importing DemoComponentNames
+grep -r "from.*ComponentNames" tests/ --include="*.ts" | wc -l
+# Result: 12 files importing ComponentNames
 ```
 
 Affected test files:
@@ -95,7 +95,7 @@ Affected test files:
 - ✅ Canonical contract
 - ❌ Requires updating all test files
 
-**Option B: Use DemoComponentNames.ts everywhere**
+**Option B: Use ComponentNames.ts everywhere**
 - ✅ Matches test expectations
 - ❌ Doesn't match actual component testids
 - ❌ Demo-specific, not canonical
@@ -107,7 +107,7 @@ Affected test files:
 
 Replace:
 ```typescript
-import { Chat, Counter, Demo } from '../architecture/DemoComponentNames';
+import { Chat, Counter, Demo } from '../architecture/ComponentNames';
 ```
 
 With:
@@ -139,7 +139,7 @@ Generated story tests use `testId(Chat.input)` helper. Either:
 
 ```bash
 # 1. Update imports (already done via sed)
-find tests/ -name "*.ts" -exec sed -i "s|from.*DemoComponentNames.*|from '../../src/architecture/Components'|g" {} \;
+find tests/ -name "*.ts" -exec sed -i "s|from.*ComponentNames.*|from '../../src/architecture/Components'|g" {} \;
 
 # 2. Update references (manual - too complex for sed)
 # Need to handle:
@@ -155,10 +155,10 @@ npm run story:generate
 
 ## Alternative: Create Adapter
 
-Instead of updating all tests, create an adapter in DemoComponentNames.ts:
+Instead of updating all tests, create an adapter in ComponentNames.ts:
 
 ```typescript
-// DemoComponentNames.ts
+// ComponentNames.ts
 import { Components } from './Components';
 
 // Adapter: Export nested structure backed by flat Components
@@ -194,7 +194,7 @@ export const Counter = {
 ## Recommended Approach
 
 ### Phase 1: Create Adapter (Quick Fix - 1 hour)
-1. Update `DemoComponentNames.ts` to re-export from `Components.ts`
+1. Update `ComponentNames.ts` to re-export from `Components.ts`
 2. Verify tests pass
 3. Deploy
 
@@ -202,7 +202,7 @@ export const Counter = {
 1. Update all test imports to use `Components.ts`
 2. Update all component references to flat structure
 3. Regenerate story tests
-4. Remove DemoComponentNames adapter
+4. Remove ComponentNames adapter
 5. Document Components.ts as canonical
 
 ---
@@ -233,7 +233,7 @@ All others (130 failing)
 ### Short-term (This Week)
 1. Update story test generator
 2. Migrate remaining tests
-3. Remove DemoComponentNames if using adapter approach
+3. Remove ComponentNames if using adapter approach
 
 ### Long-term
 1. Enforce Components.ts usage via linting

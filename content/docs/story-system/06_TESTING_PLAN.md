@@ -359,7 +359,7 @@ describe('Component Decorator + Registry Integration', () => {
 ```typescript
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal-interface/core/testing';
-import { Examples } from '../../../src/architecture/DemoComponentNames';
+import { Examples } from '../../../src/architecture/ComponentNames';
 
 test.describe('Browser State Injection', () => {
   test.beforeEach(async ({ page }) => {

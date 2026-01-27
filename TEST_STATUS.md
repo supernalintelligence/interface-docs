@@ -17,11 +17,11 @@
   - **Result**: Examples page tools now found
 
 ### 2. Hierarchical Component Names (CORRECT Pattern)
-**Confirmed**: `DemoComponentNames.ts` is the canonical source with proper namespace organization:
+**Confirmed**: `ComponentNames.ts` is the canonical source with proper namespace organization:
 
 ```typescript
 // ✅ CORRECT - Hierarchical namespacing
-import { Chat, Demo, Counter } from '../architecture/DemoComponentNames';
+import { Chat, Demo, Counter } from '../architecture/ComponentNames';
 
 // Usage
 Chat.input          // 'chat-input'
@@ -57,14 +57,14 @@ import { Chat } from '../../src/architecture/Components';
 // Components.ts doesn't export Chat!
 
 // ✅ CORRECT
-import { Chat } from '../../src/architecture/DemoComponentNames';
+import { Chat } from '../../src/architecture/ComponentNames';
 ```
 
 ### Affected Files
-The sed command changed ALL imports from DemoComponentNames to Components, but:
+The sed command changed ALL imports from ComponentNames to Components, but:
 1. Components.ts is a flat contract (deprecated/wrong)
-2. DemoComponentNames.ts is hierarchical (correct)
-3. Tests need DemoComponentNames hierarchy
+2. ComponentNames.ts is hierarchical (correct)
+3. Tests need ComponentNames hierarchy
 
 ```bash
 grep -r "from.*Components'" tests/ --include="*.ts" -l
@@ -77,9 +77,9 @@ grep -r "from.*Components'" tests/ --include="*.ts" -l
 
 ### Quick Fix (Automated)
 ```bash
-# Revert sed changes - use DemoComponentNames everywhere
+# Revert sed changes - use ComponentNames everywhere
 find tests/ -name "*.ts" -exec sed -i \
-  "s|from '../../src/architecture/Components'|from '../../src/architecture/DemoComponentNames'|g" {} \;
+  "s|from '../../src/architecture/Components'|from '../../src/architecture/ComponentNames'|g" {} \;
 ```
 
 ### Verify Pattern
@@ -87,15 +87,15 @@ After fix, tests should import like this:
 
 ```typescript
 // For chat components
-import { Chat } from '../architecture/DemoComponentNames';
+import { Chat } from '../architecture/ComponentNames';
 await page.locator(`[data-testid="${Chat.input}"]`);
 
 // For demo widgets
-import { Demo } from '../architecture/DemoComponentNames';
+import { Demo } from '../architecture/ComponentNames';
 await page.locator(`[data-testid="${Demo.openMainMenu}"]`);
 
 // For counter
-import { Counter } from '../architecture/DemoComponentNames';
+import { Counter } from '../architecture/ComponentNames';
 await page.locator(`[data-testid="${Counter.increment}"]`);
 ```
 
@@ -103,7 +103,7 @@ await page.locator(`[data-testid="${Counter.increment}"]`);
 
 ## 📋 Component Name Contracts
 
-### DemoComponentNames.ts (Canonical ✅)
+### ComponentNames.ts (Canonical ✅)
 Hierarchical organization by domain:
 
 - **GlobalNav**: `home`, `demo`, `dashboard`, `architecture`, `docs`, `examples`, `blog`
@@ -124,17 +124,17 @@ Flat structure - DO NOT USE:
 ## 🎯 Next Steps
 
 ### Immediate
-1. Run sed command to fix test imports back to DemoComponentNames
+1. Run sed command to fix test imports back to ComponentNames
 2. Run full test suite
 3. Fix any remaining import issues manually
 
 ### Verification
 ```bash
-# Should find 0 results (all using DemoComponentNames)
+# Should find 0 results (all using ComponentNames)
 grep -r "from.*'/Components'" tests/ --include="*.ts"
 
 # Should find all test files
-grep -r "from.*'DemoComponentNames'" tests/ --include="*.ts"
+grep -r "from.*'ComponentNames'" tests/ --include="*.ts"
 ```
 
 ---
@@ -163,4 +163,4 @@ grep -r "from.*'DemoComponentNames'" tests/ --include="*.ts"
 ---
 
 **Last Updated**: 2026-01-20 23:47
-**Next Action**: Apply sed fix to revert all test imports to DemoComponentNames
+**Next Action**: Apply sed fix to revert all test imports to ComponentNames

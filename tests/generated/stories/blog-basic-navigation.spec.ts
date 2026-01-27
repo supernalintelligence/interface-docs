@@ -27,9 +27,9 @@ test.describe('Blog Basic Navigation', () => {
   });
 
   test('View blog page', async ({ page }) => {
-    // Execution order: View blog page-183 → View blog page-184
+    // Execution order: View blog page-182 → View blog page-183
     // Given I am on Routes.Blog
-    await page.goto(`${Routes.Blog}`);
+    await page.goto(`${Routes.blog}`);
     await initializeTestState(page);
 
     // Then Components.Blog.container should be visible

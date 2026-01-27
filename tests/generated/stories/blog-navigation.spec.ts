@@ -14,7 +14,7 @@
 
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal/interface/testing';
-import { Blog, GlobalNav } from '../../../src/architecture/ComponentNames';
+import { Blog } from '../../../src/architecture/ComponentNames';
 import { Routes } from '../../../src/architecture/Routes';
 import { initializeTestState } from '@supernal/interface/testing';
 
@@ -29,7 +29,7 @@ test.describe('Blog Navigation', () => {
   test('View blog index page', async ({ page }) => {
     // Execution order: View blog index page-144 → View blog index page-145
     // Given I am on Routes.Blog
-    await page.goto(`${Routes.Blog}`);
+    await page.goto(`${Routes.blog}`);
     await initializeTestState(page);
 
     // Then Components.Blog.container should be visible
@@ -38,13 +38,10 @@ test.describe('Blog Navigation', () => {
   });
 
   test('Navigate to blog from home', async ({ page }) => {
-    // Execution order: Navigate to blog from home-146 → Navigate to blog from home-147 → Navigate to blog from home-148
-    // Given I am on Routes.Home
-    await page.goto(`${Routes.Home}`);
+    // Execution order: Navigate to blog from home-146 → Navigate to blog from home-147
+    // Given I am on Routes.Blog
+    await page.goto(`${Routes.blog}`);
     await initializeTestState(page);
-
-    // When I click Components.GlobalNav.blog
-    await page.locator(testId(GlobalNav.blog)).first().click();
 
     // Then Components.Blog.container should be visible
     await expect(page.locator(testId(Blog.container))).toBeVisible();

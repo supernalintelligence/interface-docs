@@ -112,7 +112,7 @@ export type ChatState = typeof ExamplesData.chat.state.empty;
 @supernal-interface/core/
 ├── src/
 │   ├── architecture/
-│   │   ├── DemoComponentNames.ts       # UI element references (existing)
+│   │   ├── ComponentNames.ts       # UI element references (existing)
 │   │   ├── DemoComponentData.ts        # NEW: State/data references
 │   │   └── index.ts                    # Export both
 ```
@@ -496,7 +496,7 @@ export class GraphTestGenerator {
     return `
 import { test, expect } from '@playwright/test';
 import { testId } from '@supernal-interface/core/testing';
-import { Examples, ExamplesData } from '../../../src/architecture/DemoComponentNames';
+import { Examples, ExamplesData } from '../../../src/architecture/ComponentNames';
 
 test.describe('Counter Stories', () => {
   test.beforeEach(async ({ page }) => {

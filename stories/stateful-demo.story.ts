@@ -1,7 +1,7 @@
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
-const { Chat, Examples } = require('../src/architecture/DemoComponentNames');
+const { Chat, Examples } = require('../src/architecture/ComponentNames');
 
 // Import NEW narration helper
 const { initializeNarrationSession, smartNarrationWait, finalizeNarrationSession } = require('../../enterprise/dist/cjs/video/StoryNarrationHelper');

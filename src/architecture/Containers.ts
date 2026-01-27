@@ -18,13 +18,6 @@ export function registerContainers() {
   type: 'page',
   route: '/',
 });
-
-  createContainer({
-  id: 'pages',
-  name: 'Pages',
-  type: 'page',
-  route: '/',
-});
 }
 
 // Auto-register containers on import

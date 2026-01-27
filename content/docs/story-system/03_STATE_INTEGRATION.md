@@ -394,7 +394,7 @@ declare global {
 // demo/src/components/CounterWidget.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Examples } from '../architecture/DemoComponentNames';
+import { Examples } from '../architecture/ComponentNames';
 
 export function CounterWidget() {
   const [count, setCount] = useState(0);

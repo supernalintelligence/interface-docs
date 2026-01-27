@@ -6,7 +6,7 @@
  * NEW PATTERN: Zero-config with auto-inference (96% less code)
  * OLD PATTERN: Manual configuration (shown for comparison)
  * 
- * To migrate: Uncomment NEW, comment OLD, update imports in DemoComponentNames and DemoContainers
+ * To migrate: Uncomment NEW, comment OLD, update imports in ComponentNames and DemoContainers
  */
 
 // ============================================
@@ -15,8 +15,8 @@
 // Uncomment to use zero-config architecture:
 /*
 import { initializeArchitecture } from "@supernalintelligence/interface-enterprise/browser";
-import './DemoComponentNames';  // Auto-registers on import
-import './DemoContainers';       // Auto-registers on import
+import './ComponentNames';  // Auto-registers on import
+import './DemoContainers';  // Auto-registers on import
 
 export const DemoArchitecture = initializeArchitecture();
 // That's it! Everything else is automatic:

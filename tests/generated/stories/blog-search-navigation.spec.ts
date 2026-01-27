@@ -25,7 +25,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Navigate to blog index without query', async ({ page }) => {
-    // Execution order: Navigate to blog index without query-326 → Navigate to blog index without query-327 → Navigate to blog index without query-328 → Navigate to blog index without query-329 → Navigate to blog index without query-330 → Navigate to blog index without query-331 → Navigate to blog index without query-332 → Navigate to blog index without query-333
+    // Execution order: Navigate to blog index without query-325 → Navigate to blog index without query-326 → Navigate to blog index without query-327 → Navigate to blog index without query-328 → Navigate to blog index without query-329 → Navigate to blog index without query-330 → Navigate to blog index without query-331 → Navigate to blog index without query-332
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -55,7 +55,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Search for specific blog post with full query', async ({ page }) => {
-    // Execution order: Search for specific blog post with full query-334 → Search for specific blog post with full query-335 → Search for specific blog post with full query-336 → Search for specific blog post with full query-337 → Search for specific blog post with full query-338 → Search for specific blog post with full query-339 → Search for specific blog post with full query-340 → Search for specific blog post with full query-341 → Search for specific blog post with full query-342 → Search for specific blog post with full query-343
+    // Execution order: Search for specific blog post with full query-333 → Search for specific blog post with full query-334 → Search for specific blog post with full query-335 → Search for specific blog post with full query-336 → Search for specific blog post with full query-337 → Search for specific blog post with full query-338 → Search for specific blog post with full query-339 → Search for specific blog post with full query-340 → Search for specific blog post with full query-341 → Search for specific blog post with full query-342
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -92,7 +92,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Search with partial match', async ({ page }) => {
-    // Execution order: Search with partial match-344 → Search with partial match-345 → Search with partial match-346 → Search with partial match-347 → Search with partial match-348 → Search with partial match-349 → Search with partial match-350 → Search with partial match-351 → Search with partial match-352
+    // Execution order: Search with partial match-343 → Search with partial match-344 → Search with partial match-345 → Search with partial match-346 → Search with partial match-347 → Search with partial match-348 → Search with partial match-349 → Search with partial match-350 → Search with partial match-351
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -125,7 +125,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Pattern matching with placeholders', async ({ page }) => {
-    // Execution order: Pattern matching with placeholders-353 → Pattern matching with placeholders-354 → Pattern matching with placeholders-355 → Pattern matching with placeholders-356 → Pattern matching with placeholders-357 → Pattern matching with placeholders-358 → Pattern matching with placeholders-359
+    // Execution order: Pattern matching with placeholders-352 → Pattern matching with placeholders-353 → Pattern matching with placeholders-354 → Pattern matching with placeholders-355 → Pattern matching with placeholders-356 → Pattern matching with placeholders-357 → Pattern matching with placeholders-358
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -152,7 +152,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Scoped tool prioritization over global navigation', async ({ page }) => {
-    // Execution order: Scoped tool prioritization over global navigation-360 → Scoped tool prioritization over global navigation-361 → Scoped tool prioritization over global navigation-362 → Scoped tool prioritization over global navigation-363 → Scoped tool prioritization over global navigation-364 → Scoped tool prioritization over global navigation-365 → Scoped tool prioritization over global navigation-366 → Scoped tool prioritization over global navigation-367 → Scoped tool prioritization over global navigation-368
+    // Execution order: Scoped tool prioritization over global navigation-359 → Scoped tool prioritization over global navigation-360 → Scoped tool prioritization over global navigation-361 → Scoped tool prioritization over global navigation-362 → Scoped tool prioritization over global navigation-363 → Scoped tool prioritization over global navigation-364 → Scoped tool prioritization over global navigation-365 → Scoped tool prioritization over global navigation-366 → Scoped tool prioritization over global navigation-367
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -186,7 +186,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('UI feedback on successful search', async ({ page }) => {
-    // Execution order: UI feedback on successful search-369 → UI feedback on successful search-370 → UI feedback on successful search-371 → UI feedback on successful search-372 → UI feedback on successful search-373 → UI feedback on successful search-374 → UI feedback on successful search-375 → UI feedback on successful search-376
+    // Execution order: UI feedback on successful search-368 → UI feedback on successful search-369 → UI feedback on successful search-370 → UI feedback on successful search-371 → UI feedback on successful search-372 → UI feedback on successful search-373 → UI feedback on successful search-374 → UI feedback on successful search-375
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -216,7 +216,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('UI feedback on failed search', async ({ page }) => {
-    // Execution order: UI feedback on failed search-377 → UI feedback on failed search-378 → UI feedback on failed search-379 → UI feedback on failed search-380 → UI feedback on failed search-381 → UI feedback on failed search-382
+    // Execution order: UI feedback on failed search-376 → UI feedback on failed search-377 → UI feedback on failed search-378 → UI feedback on failed search-379 → UI feedback on failed search-380 → UI feedback on failed search-381
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -239,7 +239,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Global navigation still works from blog page', async ({ page }) => {
-    // Execution order: Global navigation still works from blog page-383 → Global navigation still works from blog page-384 → Global navigation still works from blog page-385 → Global navigation still works from blog page-386 → Global navigation still works from blog page-387 → Global navigation still works from blog page-388 → Global navigation still works from blog page-389
+    // Execution order: Global navigation still works from blog page-382 → Global navigation still works from blog page-383 → Global navigation still works from blog page-384 → Global navigation still works from blog page-385 → Global navigation still works from blog page-386 → Global navigation still works from blog page-387 → Global navigation still works from blog page-388
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -265,7 +265,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Tool filtering shows correct counts in console', async ({ page }) => {
-    // Execution order: Tool filtering shows correct counts in console-390 → Tool filtering shows correct counts in console-391 → Tool filtering shows correct counts in console-392 → Tool filtering shows correct counts in console-393 → Tool filtering shows correct counts in console-394 → Tool filtering shows correct counts in console-395 → Tool filtering shows correct counts in console-396 → Tool filtering shows correct counts in console-397
+    // Execution order: Tool filtering shows correct counts in console-389 → Tool filtering shows correct counts in console-390 → Tool filtering shows correct counts in console-391 → Tool filtering shows correct counts in console-392 → Tool filtering shows correct counts in console-393 → Tool filtering shows correct counts in console-394 → Tool filtering shows correct counts in console-395 → Tool filtering shows correct counts in console-396
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -294,7 +294,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Match query with extra words to pattern', async ({ page }) => {
-    // Execution order: Match query with extra words to pattern-398 → Match query with extra words to pattern-399 → Match query with extra words to pattern-400 → Match query with extra words to pattern-401 → Match query with extra words to pattern-402 → Match query with extra words to pattern-403
+    // Execution order: Match query with extra words to pattern-397 → Match query with extra words to pattern-398 → Match query with extra words to pattern-399 → Match query with extra words to pattern-400 → Match query with extra words to pattern-401 → Match query with extra words to pattern-402
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -317,7 +317,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Match query without extra words to pattern', async ({ page }) => {
-    // Execution order: Match query without extra words to pattern-404 → Match query without extra words to pattern-405 → Match query without extra words to pattern-406 → Match query without extra words to pattern-407 → Match query without extra words to pattern-408 → Match query without extra words to pattern-409
+    // Execution order: Match query without extra words to pattern-403 → Match query without extra words to pattern-404 → Match query without extra words to pattern-405 → Match query without extra words to pattern-406 → Match query without extra words to pattern-407 → Match query without extra words to pattern-408
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -340,7 +340,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Blog search input is visible', async ({ page }) => {
-    // Execution order: Blog search input is visible-410 → Blog search input is visible-411 → Blog search input is visible-412 → Blog search input is visible-413
+    // Execution order: Blog search input is visible-409 → Blog search input is visible-410 → Blog search input is visible-411 → Blog search input is visible-412
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -357,7 +357,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Blog category filter is visible', async ({ page }) => {
-    // Execution order: Blog category filter is visible-414 → Blog category filter is visible-415 → Blog category filter is visible-416 → Blog category filter is visible-417
+    // Execution order: Blog category filter is visible-413 → Blog category filter is visible-414 → Blog category filter is visible-415 → Blog category filter is visible-416
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -374,7 +374,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Blog post cards are visible', async ({ page }) => {
-    // Execution order: Blog post cards are visible-418 → Blog post cards are visible-419 → Blog post cards are visible-420 → Blog post cards are visible-421
+    // Execution order: Blog post cards are visible-417 → Blog post cards are visible-418 → Blog post cards are visible-419 → Blog post cards are visible-420
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);
@@ -391,7 +391,7 @@ test.describe('Blog Search Navigation', () => {
   });
 
   test('Can navigate back from blog', async ({ page }) => {
-    // Execution order: Can navigate back from blog-422 → Can navigate back from blog-423 → Can navigate back from blog-424 → Can navigate back from blog-425 → Can navigate back from blog-426
+    // Execution order: Can navigate back from blog-421 → Can navigate back from blog-422 → Can navigate back from blog-423 → Can navigate back from blog-424 → Can navigate back from blog-425
     // Given I am on the blog page at "/blog"
     await page.goto('/blog');
     await initializeTestState(page);

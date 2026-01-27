@@ -20,7 +20,7 @@ The demo currently shows **BOTH patterns side-by-side**:
 
 ## Files in This Directory
 
-### DemoComponentNames.ts (226 lines → ~16 lines)
+### ComponentNames.ts (226 lines → ~16 lines)
 
 Shows component name definition patterns:
 
@@ -84,7 +84,7 @@ const config = createAutoInitializer({
 });
 
 // NEW (Zero-config - commented out)
-import './DemoComponentNames';  // Auto-registers
+import './ComponentNames';  // Auto-registers
 import './DemoContainers';       // Auto-registers
 export const DemoArchitecture = initializeArchitecture();
 // Result: Everything auto-discovered and auto-configured!
@@ -103,7 +103,7 @@ export const DemoArchitecture = initializeArchitecture();
 
 ## How to Migrate (When Ready)
 
-1. **Update DemoComponentNames.ts**:
+1. **Update ComponentNames.ts**:
    - Uncomment NEW pattern imports and definitions
    - Comment out OLD pattern exports
 

@@ -27,9 +27,9 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment counter', async ({ page }) => {
-    // Execution order: Increment counter-149 → Increment counter-150 → Increment counter-151 → Increment counter-152
+    // Execution order: Increment counter-148 → Increment counter-149 → Increment counter-150 → Increment counter-151
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible
@@ -44,9 +44,9 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment three times', async ({ page }) => {
-    // Execution order: Increment three times-153 → Increment three times-154 → Increment three times-155 → Increment three times-156
+    // Execution order: Increment three times-152 → Increment three times-153 → Increment three times-154 → Increment three times-155
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible
@@ -63,9 +63,9 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Increment and decrement', async ({ page }) => {
-    // Execution order: Increment and decrement-157 → Increment and decrement-158 → Increment and decrement-159 → Increment and decrement-160 → Increment and decrement-161
+    // Execution order: Increment and decrement-156 → Increment and decrement-157 → Increment and decrement-158 → Increment and decrement-159 → Increment and decrement-160
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible
@@ -85,9 +85,9 @@ test.describe('Counter Basic Operations', () => {
   });
 
   test('Reset counter', async ({ page }) => {
-    // Execution order: Reset counter-162 → Reset counter-163 → Reset counter-164 → Reset counter-165 → Reset counter-166
+    // Execution order: Reset counter-161 → Reset counter-162 → Reset counter-163 → Reset counter-164 → Reset counter-165
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Counter.widget is visible

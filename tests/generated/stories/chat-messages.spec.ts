@@ -27,9 +27,9 @@ test.describe('Chat Messages', () => {
   });
 
   test('Send one message', async ({ page }) => {
-    // Execution order: Send one message-167 → Send one message-168 → Send one message-169 → Send one message-170 → Send one message-171 → Send one message-172
+    // Execution order: Send one message-166 → Send one message-167 → Send one message-168 → Send one message-169 → Send one message-170 → Send one message-171
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Chat.bubble is visible
@@ -51,9 +51,9 @@ test.describe('Chat Messages', () => {
   });
 
   test('Send multiple messages', async ({ page }) => {
-    // Execution order: Send multiple messages-173 → Send multiple messages-174 → Send multiple messages-175 → Send multiple messages-176 → Send multiple messages-177 → Send multiple messages-178 → Send multiple messages-179 → Send multiple messages-180 → Send multiple messages-181 → Send multiple messages-182
+    // Execution order: Send multiple messages-172 → Send multiple messages-173 → Send multiple messages-174 → Send multiple messages-175 → Send multiple messages-176 → Send multiple messages-177 → Send multiple messages-178 → Send multiple messages-179 → Send multiple messages-180 → Send multiple messages-181
     // Given I am on Routes.Demo
-    await page.goto(`${Routes.Demo}`);
+    await page.goto(`${Routes.demo}`);
     await initializeTestState(page);
 
     // Given Components.Chat.bubble is visible

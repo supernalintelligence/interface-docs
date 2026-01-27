@@ -24,7 +24,7 @@ import {
 import { Examples, DemoContainers } from '../architecture';
 
 // ============================================
-// NAME CONTRACTS - Counter names moved to DemoComponentNames
+// NAME CONTRACTS - Counter names moved to ComponentNames
 // ============================================
 export const Counter = {
   root: Examples.counterWidget,

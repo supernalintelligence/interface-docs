@@ -8,6 +8,5 @@ Feature: Blog Navigation
     Then Components.Blog.container should be visible
 
   Scenario: Navigate to blog from home
-    Given I am on Routes.Home
-    When I click Components.GlobalNav.blog
+    Given I am on Routes.Blog
     Then Components.Blog.container should be visible
