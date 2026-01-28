@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
               <h3 className={cn(theme.colors.text.primary, 'font-semibold mb-3 sm:mb-4 text-sm sm:text-base')}>Product</h3>
               <ul className={cn('space-y-2 sm:space-y-3', theme.typography.body.small)}>
               <li>
-                <Link href={Routes.demo} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link)}>
+                <Link href={Routes.demo.root} className="hover:text-white transition-colors" data-testid={testId(FooterNames.link)}>
                   Demo
                 </Link>
               </li>

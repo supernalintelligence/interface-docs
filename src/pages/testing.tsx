@@ -241,7 +241,7 @@ export default function TestingPage() {
                 Get Started
               </Link>
               <Link
-                href={Routes.demo}
+                href={Routes.demo.root}
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all"
               >
                 See Live Demo

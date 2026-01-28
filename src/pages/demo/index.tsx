@@ -2,7 +2,7 @@
  * Demo Page - /demo
  *
  * Main demo page combining:
- * - Interactive widgets (InteractiveWidgets, ToolList)
+ * - Interactive widgets (InteractiveWidgets)
  * - Example cards (code snippets, ExampleCard)
  */
 
@@ -10,10 +10,9 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Header } from '../../components/Header';
 import { motion } from 'framer-motion';
-import { ToolRegistry, useContainer } from "@supernal/interface/browser";
+import { useContainer } from "@supernal/interface/browser";
 import { useChatInput } from '@supernal/interface-nextjs';
 import { ExampleCard } from '../../components/ExampleCard';
-import { ToolList, ToolInfo } from '../../components/ToolList';
 import { InteractiveWidgets } from '../../components/InteractiveWidgets';
 import { enhancedSnippets } from '../../data/enhancedCodeSnippets';
 import {
@@ -25,7 +24,6 @@ import {
 import { Zap, Shield, Code, MessageSquare, Check, FileText } from 'lucide-react';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
-import { NAVIGATION_TOOL_PREFIX } from '../../lib/constants';
 
 // Import widgets to register tools
 import '../../lib/UIWidgetComponents';
@@ -46,7 +44,6 @@ const LevelBadge = ({ level, label }: { level: 1 | 2 | 3; label: string }) => {
 };
 
 export default function DemoPage() {
-  const [availableTools, setAvailableTools] = useState<ToolInfo[]>([]);
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
   const { insertText } = useChatInput();
   const showCode = false; // Code examples always visible
@@ -56,26 +53,7 @@ export default function DemoPage() {
   useContainer(DemoContainers.Demo.id);
 
   useEffect(() => {
-    // Register example-specific tools
     registerExampleTools();
-
-    // Get available tools for the tool list - filter using named contracts
-    const tools = Array.from(ToolRegistry.getAllTools().values())
-      .filter(t => {
-        // Include tools that are AI enabled
-        // TODO: Add container/scope filtering once ToolMetadata includes scope info
-        return t.aiEnabled;
-      })
-      .sort((a, b) => {
-        const order: Record<string, number> = {
-          'Open Menu': 1,
-          'Close Menu': 2,
-          'Toggle Feature': 3,
-          'Toggle Notifications': 4,
-        };
-        return (order[a.name] || 999) - (order[b.name] || 999);
-      });
-    setAvailableTools(tools);
   }, []);
 
   return (
@@ -470,22 +448,6 @@ export default function DemoPage() {
               </button>
             </div>
             </div>
-          </motion.section>
-
-          {/* REFERENCE: Available AI Tools - Hidden on mobile */}
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mb-16 hidden md:block"
-          >
-            <ToolList
-              tools={availableTools}
-              title="Available AI Tools"
-              subtitle="Explore and test all available tools organized by category"
-              color="purple"
-              categorized={true}
-            />
           </motion.section>
 
           {/* EXAMPLES SECTION: Code Examples with Cards */}
