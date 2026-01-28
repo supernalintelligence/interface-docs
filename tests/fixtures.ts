@@ -63,12 +63,19 @@ async function checkDevServer(baseURL: string): Promise<void> {
   );
 }
 
-// Extend base test with server health check
+// Extend base test with server health check and auto-expanded chat
 export const test = base.extend({
   page: async ({ page }, use) => {
     // Check dev server before each test
     const baseURL = getBaseURL();
     await checkDevServer(baseURL);
+
+    // Auto-expand chat bubble on every page load via init script.
+    // This complements the storageState in playwright.config.ts and ensures
+    // the chat stays expanded even after navigations within a test.
+    await page.addInitScript(() => {
+      localStorage.setItem('supernal-chat-expanded', 'true');
+    });
 
     await use(page);
   },
