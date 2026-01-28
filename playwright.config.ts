@@ -32,6 +32,19 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Auto-expand the chat bubble for all tests by pre-populating localStorage.
+     * This ensures chat input is accessible without needing expandChatBubble() in every test. */
+    storageState: {
+      cookies: [],
+      origins: [{
+        origin: BASE_URL,
+        localStorage: [{
+          name: 'supernal-chat-expanded',
+          value: 'true',
+        }],
+      }],
+    },
   },
 
   /* Configure projects for major browsers */
