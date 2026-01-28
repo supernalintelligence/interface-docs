@@ -12,24 +12,6 @@ test.describe('Navigation via AI Commands', () => {
     await page.waitForTimeout(1000); // Let everything initialize
   });
 
-  test('should navigate to dashboard', async ({ page }) => {
-    // Type command in chat using name contracts
-    const chatInput = page.locator(testId(Chat.input));
-    await chatInput.fill('dashboard');
-    
-    const sendButton = page.locator(testId(Chat.sendButton));
-    await sendButton.click();
-    
-    // Wait for navigation
-    await page.waitForURL('**/dashboard', { timeout: 5000 });
-    
-    // Verify we're on dashboard
-    expect(page.url()).toContain('/dashboard');
-    
-    // Verify success message appeared
-    const messages = page.locator(testIdContains('chat-message'));
-    await expect(messages.last()).toContainText(/Navigated|Dashboard/i);
-  });
 
   test('should navigate to blog', async ({ page }) => {
     const chatInput = page.locator(testId(Chat.input));

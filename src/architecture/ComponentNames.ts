@@ -185,6 +185,44 @@ export const Testing = {
 } as const;
 
 /**
+ * SubtitleOverlay - Voice-first chat overlay component
+ * Tests: expansion, dragging, voice input, TTS detection, message history
+ */
+export const SubtitleOverlay = {
+  // Core container elements
+  container: 'subtitle-overlay',
+  collapsedContainer: 'subtitle-overlay-collapsed',
+
+  // Input elements
+  input: 'chat-input',
+  sendButton: 'send-button',
+
+  // Voice/icon button (shows @/, </, or ~/ depending on state)
+  voiceButton: 'voice-input-button',
+
+  // Collapse/expand controls
+  collapseButton: 'collapse-button',
+  dragHandle: 'subtitle-overlay-drag-handle',
+
+  // Completed actions (^ button with badge)
+  actionsToggle: 'completed-actions-toggle',
+  actionsList: 'completed-actions-list',
+
+  // TTS playlist (detects TTS widgets on page)
+  ttsPlaylistButton: 'tts-playlist-button',
+  ttsPlaylistButtonExpanded: 'tts-playlist-button-expanded',
+  ttsPlaylistMenu: 'tts-playlist-menu',
+
+  // Message display
+  aiMessage: 'subtitle-overlay-ai-message',
+  messageHistory: 'subtitle-overlay-message-history',
+  messageHistoryToggle: 'subtitle-overlay-history-toggle',
+
+  // Waveform (visible when listening)
+  waveform: 'subtitle-overlay-waveform'
+} as const;
+
+/**
  * Additional auto-scanned components
  * Note: DocumentNames renamed to avoid conflict with global Document type
  */
@@ -272,6 +310,7 @@ export const Components = {
   Showcase,
   StatefulInteractiveWidgets,
   Stories,
+  SubtitleOverlay,
   Testing
 } as const;
 

@@ -10,7 +10,11 @@ export const Routes = {
   blog: '/blog',
   comparison: '/comparison',
   dashboard: '/dashboard',
-  demo: '/demo',
+  demo: {
+    root: '/demo',
+    subtitle: '/demo?chat=subtitle',
+    full: '/demo?chat=full'
+  },
   docs: '/docs',
   examplesChat_adapters: '/examples/chat-adapters',
   examples: '/examples',
