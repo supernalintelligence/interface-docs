@@ -1,12 +1,11 @@
 /**
  * CodeDisplay Component
- * 
+ *
  * Displays complete implementation code with syntax highlighting
  */
 
 import React, { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { Highlight, themes } from 'prism-react-renderer';
 import { CodeSnippet } from './CodeToggleDemo';
 import styles from './CodeDisplay.module.css';
 
@@ -59,21 +58,48 @@ ${code.component}`;
 
       {/* Syntax Highlighted Code */}
       <div className={styles.codeContent}>
-        <SyntaxHighlighter
+        <Highlight
+          theme={themes.vsDark}
+          code={fullCode.trim()}
           language="typescript"
-          style={vscDarkPlus}
-          showLineNumbers
-          customStyle={{
-            margin: 0,
-            borderRadius: 0,
-            fontSize: '13px',
-            lineHeight: '1.5',
-          }}
         >
-          {fullCode}
-        </SyntaxHighlighter>
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre
+              className={className}
+              style={{
+                ...style,
+                margin: 0,
+                borderRadius: 0,
+                fontSize: '13px',
+                lineHeight: '1.5',
+                padding: '1rem',
+                overflow: 'auto',
+              }}
+            >
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })} style={{ display: 'table-row' }}>
+                  <span
+                    style={{
+                      display: 'table-cell',
+                      textAlign: 'right',
+                      paddingRight: '1em',
+                      userSelect: 'none',
+                      opacity: 0.5,
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span style={{ display: 'table-cell' }}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token })} />
+                    ))}
+                  </span>
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
       </div>
     </div>
   );
 }
-
