@@ -4,9 +4,9 @@ Feature: Blog Navigation
   So that I can read content
 
   Scenario: View blog index page
-    Given I am on Routes.Blog
+    Given I am on Routes.blog
     Then Components.Blog.container should be visible
 
   Scenario: Navigate to blog from home
-    Given I am on Routes.Blog
+    Given I am on Routes.blog
     Then Components.Blog.container should be visible

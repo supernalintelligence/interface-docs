@@ -4,7 +4,7 @@ Feature: Chat Messages
   So that I can communicate
 
   Background:
-    Given I am on Routes.Demo
+    Given I am on Routes.demo
     Given Components.Chat.bubble is visible
     When I click Components.Chat.bubble
 

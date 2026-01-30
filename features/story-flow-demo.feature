@@ -4,7 +4,7 @@ Feature: Story Flow Demonstration
   So that I can understand how components work together
 
   Background:
-    Given I am on Routes.Demo
+    Given I am on Routes.demo
 
   Scenario: Complete user journey through chat and counter
     Given Components.Counter.widget is visible

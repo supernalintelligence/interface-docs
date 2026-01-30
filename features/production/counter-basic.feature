@@ -4,7 +4,7 @@ Feature: Counter Basic Operations
   So that I can increment, decrement, and reset values
 
   Background:
-    Given I am on Routes.Demo
+    Given I am on Routes.demo
     Given Components.Counter.widget is visible
 
   Scenario: Increment counter

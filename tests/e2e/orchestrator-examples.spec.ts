@@ -15,8 +15,8 @@
 
 import { test, expect, getBaseURL, expandChatBubble } from '../fixtures';
 import { Demo, Chat } from '../../src/architecture/ComponentNames';
-import { TestDataOrchestrator } from '@supernal/interface-enterprise/testing';
-import { StoryCache } from '@supernal/interface-enterprise/stories';
+import { TestDataOrchestrator } from '@supernalintelligence/interface-enterprise/testing';
+import { StoryCache } from '@supernalintelligence/interface-enterprise/server';
 
 // Calculate source hash once for cache validation
 const SOURCE_HASH = StoryCache.calculateMD5(__filename, true);

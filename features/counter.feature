@@ -4,7 +4,7 @@ Feature: Counter Component
   So that I can increment, decrement, and reset the count
 
   Background:
-    Given I am on Routes.Demo
+    Given I am on Routes.demo
     And Components.Counter.widget is visible
 
   Scenario: Starting from zero

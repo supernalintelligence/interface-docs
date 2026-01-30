@@ -1,41 +1,20 @@
 /**
- * Component Name Contracts - Auto-generated + Package Inheritance
+ * ⚠️  AUTO-GENERATED FILE - DO NOT EDIT MANUALLY!
  *
- * This file combines:
- * 1. Auto-generated contracts from src/components (via `si scan-names`)
- * 2. Inherited contracts from @supernal/interface-nextjs (Chat components)
+ * ❌ WARNING: ANY MANUAL EDITS WILL BE OVERWRITTEN ON NEXT GENERATION
  *
- * **Precedence Rules:**
- * - Package components (from @supernal/interface-nextjs) are the source of truth
- * - Local scanned components complement package components
- * - Use InterfaceComponents.* for direct package access
- * - Use semantic namespaces (Chat, Blog, etc.) for app-specific grouping
+ * Generated from: src/components
+ * Canonical source: src/architecture/ComponentNames.ts
+ *
+ * To regenerate:
+ *   npx si scan-names --components src/components --output src/architecture/ComponentNames.ts
  *
  * Note: Namespaces that conflict with global types (Document, Window, etc.)
  * are automatically renamed with "Names" suffix (e.g., Document → DocumentNames)
  * to avoid TypeScript conflicts.
- */
-
-// ============================================================================
-// Package Component Inheritance
-// ============================================================================
-
-/**
- * Re-export components from @supernal/interface-nextjs package
- * Use these for direct access to package-provided component testids:
  *
- * @example
- * import { InterfaceComponents } from './ComponentNames';
- * const testId = InterfaceComponents.ChatToggleButton; // 'chat-toggle-button'
+ * Generated at: 2026-01-29T23:48:37.951Z
  */
-export { Components as InterfaceComponents } from '@supernal/interface-nextjs';
-
-// Import for mapping to semantic namespaces
-import { Components as IC } from '@supernal/interface-nextjs';
-
-// ============================================================================
-// App-Specific Component Namespaces (Semantic Grouping)
-// ============================================================================
 
 export const Blog = {
   backButton: 'blog-back-button',
@@ -51,17 +30,17 @@ export const Blog = {
   searchInput: 'blog-search-input'
 } as const;
 
-/**
- * Chat - Semantic namespace for chat-related components
- * Inherits from @supernal/interface-nextjs package + app-specific components
- */
+export const BlogPost = {
+  link: 'blogPost-link'
+} as const;
+
 export const Chat = {
-  // Package-provided components (source of truth)
-  bubble: IC.ChatToggleButton,
-  clearButton: IC.ChatClearButton,
-  input: IC.ChatInput,
-  sendButton: IC.ChatSendButton,
-  // App-specific chat components (not in package)
+  // Package-provided components (from @supernal/interface-nextjs)
+  bubble: 'chat-bubble-toggle',
+  clearButton: 'chat-clear-button',
+  input: 'chat-message-input',
+  sendButton: 'chat-send-button',
+  // App-specific chat components
   messages: 'chat-messages',
   minimizeButton: 'chat-minimize',
   unreadBadge: 'chat-unread-badge'
@@ -100,6 +79,14 @@ export const Demo = {
   toolListContainer: 'tool-list-container'
 } as const;
 
+export const DocumentNames = {
+  link: 'document-link',
+  link2: 'document-link2',
+  link3: 'document-link3',
+  link4: 'document-link4',
+  link5: 'document-link5'
+} as const;
+
 export const Examples = {
   card: 'example-card',
   cardCode: 'example-card-code',
@@ -125,6 +112,20 @@ export const Examples = {
   title: 'examples-title'
 } as const;
 
+export const Footer = {
+  form: 'footer-form',
+  link: 'footer-link',
+  link10: 'footer-link10',
+  link2: 'footer-link2',
+  link3: 'footer-link3',
+  link4: 'footer-link4',
+  link5: 'footer-link5',
+  link6: 'footer-link6',
+  link7: 'footer-link7',
+  link8: 'footer-link8',
+  link9: 'footer-link9'
+} as const;
+
 export const GlobalNav = {
   blog: 'nav-blog',
   demo: 'nav-demo',
@@ -135,10 +136,33 @@ export const GlobalNav = {
   testing: 'nav-testing'
 } as const;
 
+export const Header = {
+  link: 'header-link'
+} as const;
+
+export const InteractiveWidgets = {
+  form: 'interactiveWidgets-form'
+} as const;
+
 export const Landing = {
   description: 'landing-description',
   hero: 'landing-hero',
   title: 'landing-title'
+} as const;
+
+export const NewLandingPage = {
+  blog: 'newLandingPage-blog',
+  communityDiscord: 'newLandingPage-communityDiscord',
+  documentation: 'newLandingPage-documentation',
+  examples: 'newLandingPage-examples',
+  forBusiness: 'newLandingPage-forBusiness',
+  forDevelopers: 'newLandingPage-forDevelopers',
+  forUsers: 'newLandingPage-forUsers',
+  gitHub: 'newLandingPage-gitHub',
+  pricing: 'newLandingPage-pricing',
+  showcase: 'newLandingPage-showcase',
+  support: 'newLandingPage-support',
+  vsCompetitors: 'newLandingPage-vsCompetitors'
 } as const;
 
 export const NotFound = {
@@ -146,6 +170,11 @@ export const NotFound = {
   homeButton: 'not-found-home-button',
   message: 'not-found-message',
   title: 'not-found-title'
+} as const;
+
+export const Pages = {
+  button: 'pages-button',
+  link: 'pages-link'
 } as const;
 
 export const Settings = {
@@ -166,6 +195,10 @@ export const Showcase = {
   title: 'showcase-title'
 } as const;
 
+export const StatefulInteractiveWidgets = {
+  form: 'statefulInteractiveWidgets-form'
+} as const;
+
 export const Stories = {
   container: 'stories-container',
   executeButton: 'stories-execute-button',
@@ -173,6 +206,25 @@ export const Stories = {
   resultsContainer: 'stories-results-container',
   title: 'stories-title',
   viewButton: 'stories-view-button'
+} as const;
+
+export const SubtitleOverlay = {
+  actionsList: 'completed-actions-list',
+  actionsToggle: 'completed-actions-toggle',
+  aiMessage: 'subtitle-overlay-ai-message',
+  collapseButton: 'collapse-button',
+  collapsedContainer: 'subtitle-overlay-collapsed',
+  container: 'subtitle-overlay',
+  dragHandle: 'subtitle-overlay-drag-handle',
+  input: 'chat-input',
+  messageHistory: 'subtitle-overlay-message-history',
+  messageHistoryToggle: 'subtitle-overlay-history-toggle',
+  sendButton: 'send-button',
+  ttsPlaylistButton: 'tts-playlist-button',
+  ttsPlaylistButtonExpanded: 'tts-playlist-button-expanded',
+  ttsPlaylistMenu: 'tts-playlist-menu',
+  voiceButton: 'voice-input-button',
+  waveform: 'subtitle-overlay-waveform'
 } as const;
 
 export const Testing = {
@@ -185,103 +237,22 @@ export const Testing = {
 } as const;
 
 /**
- * SubtitleOverlay - Voice-first chat overlay component
- * Tests: expansion, dragging, voice input, TTS detection, message history
+ * ApiKey - BYOK API key configuration components
+ * These testids match components in @supernal/interface-nextjs ChatBubble
  */
-export const SubtitleOverlay = {
-  // Core container elements
-  container: 'subtitle-overlay',
-  collapsedContainer: 'subtitle-overlay-collapsed',
-
-  // Input elements
-  input: 'chat-input',
-  sendButton: 'send-button',
-
-  // Voice/icon button (shows @/, </, or ~/ depending on state)
-  voiceButton: 'voice-input-button',
-
-  // Collapse/expand controls
-  collapseButton: 'collapse-button',
-  dragHandle: 'subtitle-overlay-drag-handle',
-
-  // Completed actions (^ button with badge)
-  actionsToggle: 'completed-actions-toggle',
-  actionsList: 'completed-actions-list',
-
-  // TTS playlist (detects TTS widgets on page)
-  ttsPlaylistButton: 'tts-playlist-button',
-  ttsPlaylistButtonExpanded: 'tts-playlist-button-expanded',
-  ttsPlaylistMenu: 'tts-playlist-menu',
-
-  // Message display
-  aiMessage: 'subtitle-overlay-ai-message',
-  messageHistory: 'subtitle-overlay-message-history',
-  messageHistoryToggle: 'subtitle-overlay-history-toggle',
-
-  // Waveform (visible when listening)
-  waveform: 'subtitle-overlay-waveform'
-} as const;
-
-/**
- * Additional auto-scanned components
- * Note: DocumentNames renamed to avoid conflict with global Document type
- */
-export const DocumentNames = {
-  link: 'document-link',
-  link2: 'document-link2',
-  link3: 'document-link3',
-  link4: 'document-link4',
-  link5: 'document-link5'
-} as const;
-
-export const BlogPost = {
-  link: 'blogPost-link'
-} as const;
-
-export const NewLandingPage = {
-  forUsers: 'newLandingPage-forUsers',
-  forDevelopers: 'newLandingPage-forDevelopers',
-  forBusiness: 'newLandingPage-forBusiness',
-  showcase: 'newLandingPage-showcase',
-  pricing: 'newLandingPage-pricing',
-  vsCompetitors: 'newLandingPage-vsCompetitors',
-  documentation: 'newLandingPage-documentation',
-  examples: 'newLandingPage-examples',
-  gitHub: 'newLandingPage-gitHub',
-  blog: 'newLandingPage-blog',
-  communityDiscord: 'newLandingPage-communityDiscord',
-  support: 'newLandingPage-support'
-} as const;
-
-export const Footer = {
-  form: 'footer-form',
-  link: 'footer-link',
-  link2: 'footer-link2',
-  link3: 'footer-link3',
-  link4: 'footer-link4',
-  link5: 'footer-link5',
-  link6: 'footer-link6',
-  link7: 'footer-link7',
-  link8: 'footer-link8',
-  link9: 'footer-link9',
-  link10: 'footer-link10'
-} as const;
-
-export const Header = {
-  link: 'header-link'
-} as const;
-
-export const InteractiveWidgets = {
-  form: 'interactiveWidgets-form'
-} as const;
-
-export const StatefulInteractiveWidgets = {
-  form: 'statefulInteractiveWidgets-form'
-} as const;
-
-export const Pages = {
-  link: 'pages-link',
-  button: 'pages-button'
+export const ApiKey = {
+  section: 'api-key-section',
+  input: 'api-key-input',
+  submitButton: 'api-key-submit-button',
+  clearButton: 'api-key-clear-button',
+  configureButton: 'api-key-configure-button',
+  status: 'api-key-status',
+  masked: 'api-key-masked',
+  error: 'api-key-error',
+  showToggle: 'api-key-show-toggle',
+  cancelButton: 'api-key-cancel-button',
+  moreMenu: 'chat-more-menu',
+  moreMenuButton: 'chat-more-menu-button'
 } as const;
 
 /**
@@ -290,6 +261,7 @@ export const Pages = {
  * and aggregate access (Components.Chat.input)
  */
 export const Components = {
+  ApiKey,
   Blog,
   BlogPost,
   Chat,

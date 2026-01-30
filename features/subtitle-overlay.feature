@@ -8,19 +8,19 @@ Feature: SubtitleOverlay Component
   # ============================================================================
 
   Scenario: Collapsed state shows @/ icon
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Then Components.SubtitleOverlay.collapsedContainer should be visible
     Then Components.SubtitleOverlay.voiceButton should contain "@/"
 
   Scenario: Clicking @/ expands the overlay
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     Then Components.SubtitleOverlay.container should be visible
     Then Components.SubtitleOverlay.input should be visible
 
   Scenario: Clicking X collapses the overlay
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I click Components.SubtitleOverlay.collapseButton
@@ -32,7 +32,7 @@ Feature: SubtitleOverlay Component
   # ============================================================================
 
   Scenario: Expanded state shows </ icon (not listening)
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     Then Components.SubtitleOverlay.voiceButton should contain "</"
@@ -47,7 +47,7 @@ Feature: SubtitleOverlay Component
   # ============================================================================
 
   Scenario: Typing in input field
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I type "Hello AI" in Components.SubtitleOverlay.input
@@ -55,7 +55,7 @@ Feature: SubtitleOverlay Component
     Then Components.SubtitleOverlay.sendButton should be visible
 
   Scenario: Sending a message shows AI response
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I type "What time is it?" in Components.SubtitleOverlay.input
@@ -75,7 +75,7 @@ Feature: SubtitleOverlay Component
   # ============================================================================
 
   Scenario: Drag handle is visible on desktop
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     Then Components.SubtitleOverlay.dragHandle should be visible
@@ -95,12 +95,12 @@ Feature: SubtitleOverlay Component
   # When TTS widgets are present, ~+ button should appear
 
   Scenario: TTS button hidden when no TTS widgets on page
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Then Components.SubtitleOverlay.ttsPlaylistButton should be hidden
 
   # For pages WITH TTS widgets:
   # Scenario: TTS button visible when TTS widgets detected
-  #   Given I am on Routes.Blog  # Assuming blog has TTS
+  #   Given I am on Routes.blog  # Assuming blog has TTS
   #   Then Components.SubtitleOverlay.ttsPlaylistButton should be visible
 
   # ============================================================================
@@ -108,14 +108,14 @@ Feature: SubtitleOverlay Component
   # ============================================================================
 
   Scenario: Completed actions toggle hidden when no actions
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     Then Components.SubtitleOverlay.actionsToggle should be hidden
 
   # After sending a message, completed actions should appear
   Scenario: Completed actions toggle visible after sending message
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I type "Test message" in Components.SubtitleOverlay.input
@@ -123,7 +123,7 @@ Feature: SubtitleOverlay Component
     Then Components.SubtitleOverlay.actionsToggle should be visible
 
   Scenario: Clicking completed actions toggle shows list
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I type "Test message" in Components.SubtitleOverlay.input
@@ -142,7 +142,7 @@ Feature: SubtitleOverlay Component
   # This requires custom test implementation with localStorage checks
 
   Scenario: AI message fades out after display time
-    Given I am on Routes.Demo.Subtitle
+    Given I am on Routes.demo.subtitle
     Given Components.SubtitleOverlay.collapsedContainer is visible
     When I click Components.SubtitleOverlay.voiceButton
     And I type "Hello" in Components.SubtitleOverlay.input
@@ -161,7 +161,7 @@ Feature: SubtitleOverlay Component
   # This feature needs to be implemented first
 
   # Scenario: Message history toggle visible
-  #   Given I am on Routes.Demo.Subtitle
+  #   Given I am on Routes.demo.subtitle
   #   Given subtitle state is Components.SubtitleOverlay.state.withMessages
   #   Then Components.SubtitleOverlay.messageHistoryToggle should be visible
 
