@@ -1,17 +1,14 @@
 #!/usr/bin/env tsx
 /**
  * Sync Architecture Docs to Demo Site
- * 
- * Copies /docs/architecture/story-system/ to demo/content/docs/story-system/ 
- * so they're visible on the demo site.
+ *
+ * Previously copied docs from external location to content/docs/story-system/.
+ * Now the docs are maintained directly in content/docs/story-system/, so this
+ * script simply validates they exist.
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const colors = {
   reset: '\x1b[0m',
@@ -24,60 +21,25 @@ function log(message: string, color: keyof typeof colors = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
-// Paths - try multiple locations for source
-const possibleSourceDirs = [
-  path.join(__dirname, '../../../docs/architecture/story-system'),  // Local dev
-  path.join(__dirname, '../../docs/architecture/story-system'),     // Alternative
-  path.join(process.cwd(), '../docs/architecture/story-system'),    // Vercel with include outside root
-];
+// Docs are now maintained directly in content/docs/story-system/
+// Use process.cwd() for consistency with src/lib/content/filesystem.ts
+const docsDir = path.join(process.cwd(), 'content/docs/story-system');
 
-const destDir = path.join(__dirname, '../content/docs/story-system');
+log('\n📚 Checking Story System Docs\n', 'cyan');
 
-log('\n📚 Syncing Story System Docs to Demo Site\n', 'cyan');
-
-// Find the source directory that exists
-let sourceDir: string | null = null;
-for (const dir of possibleSourceDirs) {
-  log(`Checking: ${dir}`, 'cyan');
-  if (fs.existsSync(dir)) {
-    sourceDir = dir;
-    log(`Found source at: ${dir}`, 'green');
-    break;
+if (fs.existsSync(docsDir)) {
+  const files = fs.readdirSync(docsDir).filter(f => f.endsWith('.md'));
+  if (files.length > 0) {
+    log(`✅ Story System docs found: ${files.length} files in content/docs/story-system/`, 'green');
+    log('   Docs are maintained directly in this location - no sync needed.\n', 'cyan');
+  } else {
+    log('⚠️  Story System docs directory exists but contains no .md files', 'yellow');
+    log(`   Path: ${docsDir}\n`, 'yellow');
   }
+} else {
+  log('⚠️  Story System docs directory not found at:', 'yellow');
+  log(`   ${docsDir}`, 'yellow');
+  log('   This is expected if docs have not been added yet.\n', 'yellow');
 }
 
-if (!sourceDir) {
-  log('⚠️  Source docs directory not found. Tried:', 'yellow');
-  possibleSourceDirs.forEach(d => log(`   - ${d}`, 'yellow'));
-  log('Skipping sync - docs may need to be added manually.\n', 'yellow');
-  process.exit(0);
-}
-
-// Ensure destination exists
-if (!fs.existsSync(destDir)) {
-  fs.mkdirSync(destDir, { recursive: true });
-  log('✓ Created story-system docs directory', 'green');
-}
-
-// Copy all markdown files from source to dest
-// Files already have frontmatter, so we just copy them directly
-const files = fs.readdirSync(sourceDir).filter(f => f.endsWith('.md'));
-
-let syncedCount = 0;
-for (const file of files) {
-  const sourcePath = path.join(sourceDir, file);
-  const destPath = path.join(destDir, file);
-  
-  // Read and copy
-  const content = fs.readFileSync(sourcePath, 'utf-8');
-  fs.writeFileSync(destPath, content, 'utf-8');
-  
-  log(`✓ Synced ${file}`, 'green');
-  syncedCount++;
-}
-
-log(`\n✅ Synced ${syncedCount} documentation files\n`, 'green');
-log('📍 Files available at:', 'cyan');
-log(`   ${path.relative(process.cwd(), destDir)}\n`, 'cyan');
-log('💡 These docs will now appear in the demo site under "Story System"\n', 'yellow');
-
+process.exit(0);
