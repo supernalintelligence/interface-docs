@@ -5,7 +5,7 @@
  * Tools are automatically available based on element visibility.
  */
 
-import { createContainer } from '@supernal/interface';
+import { createContainer } from '@supernal/interface/browser';
 
 /**
  * Register all containers

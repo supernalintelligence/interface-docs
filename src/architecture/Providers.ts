@@ -10,7 +10,7 @@
  * 3. Tests are auto-generated using TestGenerator
  */
 
-import { Tool, ToolProvider } from '@supernal/interface';
+import { Tool, ToolProvider } from '@supernal/interface/browser';
 import { testId } from '@supernal/interface/testing';
 import * as ComponentNames from './ComponentNames';
 
