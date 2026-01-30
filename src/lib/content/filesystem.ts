@@ -3,23 +3,18 @@ import path from 'path';
 
 /**
  * Get the root docs directory
- * Tries multiple paths to handle local dev vs Vercel deployment
+ *
+ * SECURITY FIX: This function now returns ONLY the content/docs directory.
+ * Previously it could expose private documentation from ../../docs.
+ * All public documentation should be placed in docs-site/content/docs/
+ *
+ * @deprecated Use getContentDirectory() instead. This function now returns
+ * the same path as getContentDirectory() for backwards compatibility.
  */
 export function getDocsRootDirectory(): string {
-  const possiblePaths = [
-    path.join(process.cwd(), '../../docs'),           // Local: demo -> core -> @supernal-interface/docs
-    path.join(process.cwd(), '../docs'),              // Vercel with include outside root
-    path.join(__dirname, '../../../../docs'),         // Relative to this file
-  ];
-  
-  for (const docsPath of possiblePaths) {
-    if (fs.existsSync(docsPath)) {
-      return docsPath;
-    }
-  }
-  
-  // No docs directory found - return the expected path anyway (will be empty)
-  return path.join(process.cwd(), '../../docs');
+  // SECURITY: Only serve content from the public content/docs directory
+  // Do NOT read from ../../docs as it contains private documentation
+  return path.join(process.cwd(), 'content/docs');
 }
 
 /**
@@ -30,21 +25,17 @@ export function getContentDirectory(): string {
 }
 
 /**
- * Get absolute path for a file, checking both locations
+ * Get absolute path for a file in the content directory
+ *
+ * SECURITY: Only resolves paths within content/docs directory.
  */
 export function getAbsolutePath(filePath: string): string {
   if (path.isAbsolute(filePath)) {
     return filePath;
   }
-  
-  // Check content/docs first (demo-specific)
-  const contentPath = path.join(getContentDirectory(), filePath);
-  if (fs.existsSync(contentPath)) {
-    return contentPath;
-  }
-  
-  // Fall back to ../../docs (shared docs)
-  return path.join(getDocsRootDirectory(), filePath);
+
+  // Only read from content/docs (public documentation)
+  return path.join(getContentDirectory(), filePath);
 }
 
 /**
@@ -67,7 +58,11 @@ export async function readMarkdownFile(filePath: string): Promise<string | null>
 }
 
 /**
- * Read directory recursively from BOTH content/docs and ../../docs
+ * Read directory recursively from content/docs
+ *
+ * SECURITY FIX: Previously read from both content/docs and ../../docs,
+ * which exposed private internal documentation. Now only reads from
+ * content/docs to ensure only public documentation is served.
  */
 export async function readDirectoryRecursively(
   dirPath: string,
@@ -108,11 +103,9 @@ export async function readDirectoryRecursively(
     }
   };
   
-  // Read from both locations
+  // SECURITY: Only read from content/docs (public documentation)
   readFromRoot(getContentDirectory(), dirPath);
-  readFromRoot(getDocsRootDirectory(), dirPath);
-  
-  // Remove duplicates
-  return Array.from(new Set(files));
+
+  return files;
 }
 

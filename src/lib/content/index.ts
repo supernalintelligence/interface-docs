@@ -190,7 +190,7 @@ export async function getAllDocs(): Promise<Doc[]> {
     // Wait for all promises to resolve
     const allDocs = (await Promise.all(docsPromises)).filter((doc): doc is Doc => doc !== null);
 
-    // Deduplicate by slug - keep first occurrence (content/docs takes priority over ../../docs)
+    // Deduplicate by slug (in case of any duplicate paths)
     const slugMap = new Map<string, Doc>();
     for (const doc of allDocs) {
       if (!slugMap.has(doc.slug)) {

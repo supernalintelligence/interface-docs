@@ -30,8 +30,8 @@ export const DocsPage: React.FC = () => {
         <h3 className="text-xl font-semibold mt-6 mb-3">Documentation Structure</h3>
         <div className="bg-gray-50 p-4 rounded border border-gray-200">
           <p className="text-sm text-gray-600">
-            📝 Full markdown-based documentation system coming soon.<br/>
-            Current docs available in: <code className="bg-gray-200 px-2 py-1 rounded">../../docs/</code>
+            📝 Full markdown-based documentation system.<br/>
+            Documentation available in: <code className="bg-gray-200 px-2 py-1 rounded">content/docs/</code>
           </p>
         </div>
       </div>
