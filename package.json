@@ -1,6 +1,6 @@
 {
   "name": "@supernal-interface/docs-site",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Documentation site and working demo for @supernal/interface",
   "private": true,
   "overrides": {
