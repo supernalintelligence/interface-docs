@@ -1,25 +1,65 @@
 # Supernal Interface CLI
 
-The Supernal Interface CLI (`si`) is part of **@supernal/interface-enterprise** and provides tools for test generation, contract scanning, validation, and performance benchmarking.
+The Supernal Interface CLI (`si`) is part of **@supernalintelligence/interface-enterprise** and provides tools for test generation, contract scanning, validation, and performance benchmarking.
 
 **🔒 Enterprise Feature**: The CLI is proprietary and included with the enterprise package.
 
-## Installation
+## Quick Start (One-Liner)
 
-The `si` CLI is automatically available when you install the enterprise package:
+Get started instantly with the install script:
 
 ```bash
-npm install @supernal/interface-enterprise
+# Default AI-agent optimized setup
+curl -fsSL https://raw.githubusercontent.com/supernalintelligence/supernal-interface/main/enterprise/scripts/install.sh | bash
+
+# With specific pack
+curl -fsSL ... | bash -s -- --pack basic      # Contracts only
+curl -fsSL ... | bash -s -- --pack testing    # Contracts + testing
+curl -fsSL ... | bash -s -- --pack full       # Everything
+curl -fsSL ... | bash -s -- --pack ai-agent   # Optimized for AI agents (default)
+```
+
+### Installation Packs
+
+| Pack | What's Included |
+|------|-----------------|
+| `basic` | Routes.ts, ComponentNames.ts, validation |
+| `testing` | Basic + test generation, Gherkin story system |
+| `full` | Testing + MCP server, Claude Code skills/agents |
+| `ai-agent` | Full + AI-friendly permissions, verbose logging |
+
+### Script Options
+
+| Option | Description |
+|--------|-------------|
+| `--pack <name>` | Installation pack (default: `ai-agent`) |
+| `--output <dir>` | Contract output directory (default: `src/architecture`) |
+| `--global` | Install `si` globally instead of as devDependency |
+| `--skip-install` | Use existing installation |
+| `--skip-claude` | Skip Claude Code setup |
+| `--dry-run` | Preview without changes |
+| `--verbose` | Detailed output |
+
+---
+
+## Manual Installation
+
+Install the enterprise package manually:
+
+```bash
+npm install @supernalintelligence/interface-enterprise
 
 # The si command is now available
+npx si --help
+
+# Or install globally
+npm install -g @supernalintelligence/interface-enterprise
 si --help
 ```
 
 ---
 
-## Quick Start
-
-The `si` CLI is globally linked for this project:
+## CLI Overview
 
 ```bash
 # See all commands
@@ -192,6 +232,99 @@ si validate --routes src/architecture/Routes.ts --names src/architecture/Compone
 
 ---
 
+### 6. Setup Claude Code Integration
+
+Install Claude Code skills (slash commands) and agents for AI-assisted development:
+
+```bash
+si setup-claude
+```
+
+**Options**:
+- `-f, --force` - Overwrite existing files
+- `--skills-only` - Only install skills (slash commands)
+- `--agents-only` - Only install agents (subagents)
+- `--list` - List available skills and agents without installing
+- `-v, --verbose` - Verbose output
+
+**What gets installed**:
+
+**Skills (Slash Commands)**:
+| Command | Description |
+|---------|-------------|
+| `/si-init` | Initialize project with contracts |
+| `/si-scan-routes` | Generate route contracts |
+| `/si-scan-names` | Generate component contracts |
+| `/si-validate` | Validate all contracts |
+| `/si-validate-graph` | Validate navigation graph |
+| `/si-story-validate` | Validate Gherkin features |
+| `/si-story-list-steps` | Show allowed Gherkin patterns |
+| `/si-generate-story-tests` | Generate tests from features |
+| `/si-generate-tests` | Generate tests from @Tool decorators |
+| `/si-setup-mcp` | Setup MCP server |
+| `/si-feedback` | File GitHub issues |
+| `/si-benchmark-cache` | Benchmark caching performance |
+
+**Agents (Subagents)**:
+| Agent | Description |
+|-------|-------------|
+| `si-contracts` | Contract generation and management specialist |
+| `si-test-generator` | Test generation specialist (Gherkin + @Tool) |
+| `si-story` | Story system specialist (full testing workflow) |
+
+**Usage in Claude Code**:
+```bash
+# After setup, use slash commands
+/si-init .
+/si-validate --all
+/si-generate-tests
+
+# Or invoke specialized agents
+# "Use the si-contracts agent to scan my Next.js project"
+```
+
+---
+
+### 7. Setup MCP Server
+
+Configure Model Context Protocol for AI assistant integration:
+
+```bash
+si setup-mcp
+```
+
+**Options**:
+- `-f, --force` - Overwrite existing files
+- `--skip-test` - Skip server startup test
+- `--skip-restart` - Don't restart IDEs
+- `--manual` - Only create files, skip auto-config
+
+**What it does**:
+- Creates `mcp-server.js`
+- Adds npm scripts: `mcp`, `mcp:debug`
+- Configures Claude Desktop and Cursor IDE
+- Tests server connection
+
+---
+
+### 8. File GitHub Issues
+
+Simplified interface for filing bugs, features, and questions:
+
+```bash
+si feedback bug "Issue title" "Description"
+si feedback feature "Request title" "Description"
+si feedback question "Question title" "Description"
+```
+
+**Options**:
+- `--body-file <file>` - Read body from file
+- `--attach-diagnostics` - Include system info
+- `--repo <owner/repo>` - Target repository
+- `-w, --web` - Preview in browser before submitting
+
+---
+
 ## Development Workflow
 
 ### Complete workflow for adding a new feature:
@@ -358,24 +491,31 @@ si benchmark-cache \
 
 ## Package Details
 
-**Package**: `@supernal/interface-enterprise`  
-**License**: Proprietary  
+**Package**: `@supernalintelligence/interface-enterprise`
+**License**: Proprietary
 **Included Features**:
 - Story System (6,000x+ caching speedup)
 - TestGenerator (auto-test generation)
 - CLI Tools (`si` command)
 - NavigationGraph (proprietary)
+- Claude Code Integration (12 skills, 3 agents)
+- MCP Server Setup
+- GitHub Issue Filing
 
 **Installation**:
 ```bash
-npm install @supernal/interface-enterprise
+# Quick setup (recommended)
+curl -fsSL https://raw.githubusercontent.com/supernalintelligence/supernal-interface/main/enterprise/scripts/install.sh | bash
+
+# Manual installation
+npm install @supernalintelligence/interface-enterprise
 ```
 
 ---
 
 ## Support
 
-- **GitHub Issues**: [Report issues](https://github.com/supernal-nova/supernal-interface/issues)
-- **Documentation**: See `../cli/README.md` for detailed CLI docs
+- **GitHub Issues**: Use `si feedback bug` to file issues directly
+- **Documentation**: See CLAUDE.md for complete CLI reference
 - **Examples**: This docs-site is a working example of using all `si` commands
 

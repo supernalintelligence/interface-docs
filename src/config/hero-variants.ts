@@ -45,15 +45,19 @@ export const heroVariants: Record<VariantId, HeroVariantConfig> = {
    */
   a: {
     id: 'a',
-    name: 'Control - Current Design',
-    description: 'Cycling word animation with original messaging',
+    name: 'Agentification + Testing',
+    description: 'Cycling animation emphasizing AI agents and fast testing',
     primary: {
-      text: ['React App', 'React Website', 'Future'],
+      text: ['React App', 'Testing', 'Development'],
       cycleInterval: 3000,
       gradientClass: 'from-purple-400 to-pink-400'
     },
     secondary: {
-      lines: ['Easy for your users', 'Fast for devs', 'Value for you']
+      lines: [
+        'Easy for your <strong>users</strong>',
+        '6,000x faster <strong>testing</strong> for devs',
+        'Real <strong>value</strong> for your business'
+      ]
     },
     animation: {
       type: 'cycle',
@@ -130,15 +134,15 @@ export const heroVariants: Record<VariantId, HeroVariantConfig> = {
     name: 'Value Proposition',
     description: 'Cycling animation highlighting key product benefits',
     primary: {
-      text: ['Agentic', 'Automatically testable', 'Supernal'],
+      text: ['Agentic', 'Auto-Tested', 'AI-Powered'],
       cycleInterval: 3000,
       gradientClass: 'from-purple-400 to-pink-400' // Better contrast
     },
     secondary: {
       lines: [
-        'Easy for your users',
-        'Fast for devs',
-        'Value for business'
+        '<strong>Easy</strong> for your users',
+        '<strong>6,000x faster</strong> testing for devs',
+        '<strong>Real value</strong> for your business'
       ]
     },
     animation: {

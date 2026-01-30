@@ -115,43 +115,46 @@ const AUDIENCE_TABS: AudienceTab[] = [
   {
     id: 'devs',
     label: 'For Developers',
-    tagline: 'Easy to install for your Developers, bringing automated testing, feature tours, and observability',
+    tagline: 'Fast testing, AI-assisted development, instant setup',
     icon: <CodeIcon />,
     content: (
       <div className="space-y-4 sm:space-y-6">
         {/* Install Guide */}
         <div className="bg-slate-900 rounded-lg p-4 sm:p-6 border border-slate-700">
-          <h4 className={cn(theme.typography.heading.h4, theme.colors.text.primary, 'mb-3 sm:mb-4')}>Quick Install</h4>
+          <h4 className={cn(theme.typography.heading.h4, theme.colors.text.primary, 'mb-3 sm:mb-4')}>One-Command Setup</h4>
           <div className="space-y-3 sm:space-y-4">
             <div>
-              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>1. Install package</div>
-              <pre className="bg-black/50 p-2 sm:p-3 rounded text-xs sm:text-sm text-green-400 overflow-x-auto">
-                npm install @supernal/interface
+              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>Install with curl (sets up everything)</div>
+              <pre className="bg-black/50 p-2 sm:p-3 rounded text-xs sm:text-sm text-green-400 overflow-x-auto whitespace-pre-wrap break-all">
+{`curl -fsSL https://raw.githubusercontent.com/supernalintelligence/supernal-interface/main/enterprise/scripts/install.sh | bash`}
               </pre>
             </div>
             <div>
-              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>2. Add decorator to your functions</div>
-              <pre className="bg-black/50 p-2 sm:p-3 rounded text-xs sm:text-sm text-purple-400 overflow-x-auto">
-{`import { Tool } from '@supernal/interface';
-
-@Tool({ description: 'Reset counter' })
-function resetCounter() {
-  setCount(0);
-}`}
-              </pre>
-            </div>
-            <div>
-              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>3. That's it - your app is now AI-controllable</div>
+              <div className={cn(theme.typography.body.small, theme.colors.text.muted, 'mb-2')}>What you get:</div>
+              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                <div className="flex items-center gap-2 text-purple-300">
+                  <span className="text-green-400">+</span> Type-safe contracts
+                </div>
+                <div className="flex items-center gap-2 text-purple-300">
+                  <span className="text-green-400">+</span> Auto-generated tests
+                </div>
+                <div className="flex items-center gap-2 text-purple-300">
+                  <span className="text-green-400">+</span> 6,000x faster E2E tests
+                </div>
+                <div className="flex items-center gap-2 text-purple-300">
+                  <span className="text-green-400">+</span> Claude Code integration
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {[
-            { title: 'Type-Safe', desc: 'Full TypeScript support with runtime validation' },
-            { title: 'Auto-Testing', desc: 'Generate tests from your tool definitions' },
-            { title: 'Zero Config', desc: 'No complex setup or infrastructure needed' },
-            { title: 'Framework Agnostic', desc: 'Works with Next.js, Remix, Vite, etc.' }
+            { title: '6,000x Faster Tests', desc: 'Story System caching eliminates redundant setup' },
+            { title: 'AI-Assisted Dev', desc: '12 Claude Code skills + 3 specialized agents' },
+            { title: 'Auto Test Generation', desc: 'Generate tests from Gherkin or @Tool decorators' },
+            { title: 'Works Everywhere', desc: 'Next.js, React, Remix - any framework' }
           ].map((feature, idx) => (
             <div key={idx} className="bg-white/5 p-3 sm:p-4 rounded-lg border border-white/10">
               <h4 className={cn(theme.colors.text.primary, 'font-semibold mb-1 text-sm sm:text-base')}>{feature.title}</h4>
@@ -174,10 +177,28 @@ function resetCounter() {
   {
     id: 'business',
     label: 'For Business',
-    tagline: 'Easier for your customers means reduced churn and increased satisfaction.',
+    tagline: 'Reduce costs, increase quality, ship faster.',
     icon: <ChartIcon />,
     content: (
       <div className="space-y-6">
+        {/* Value Props */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-gradient-to-br from-green-900/30 to-green-800/10 p-4 rounded-lg border border-green-500/30">
+            <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">90%</div>
+            <div className="text-sm text-green-200">Faster Test Execution</div>
+            <div className="text-xs text-gray-400 mt-1">Story System caching</div>
+          </div>
+          <div className="bg-gradient-to-br from-purple-900/30 to-purple-800/10 p-4 rounded-lg border border-purple-500/30">
+            <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">10x</div>
+            <div className="text-sm text-purple-200">Developer Productivity</div>
+            <div className="text-xs text-gray-400 mt-1">AI-assisted development</div>
+          </div>
+          <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/10 p-4 rounded-lg border border-blue-500/30">
+            <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-2">Zero</div>
+            <div className="text-sm text-blue-200">Config Required</div>
+            <div className="text-xs text-gray-400 mt-1">One-command setup</div>
+          </div>
+        </div>
         <ComparisonTable />
       </div>
     )
