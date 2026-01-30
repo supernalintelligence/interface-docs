@@ -31,7 +31,12 @@ const nextConfig = {
 
   // Optimize output for smaller serverless functions
   output: 'standalone',
-  
+
+  // Include content/docs in serverless functions (needed for runtime API routes)
+  outputFileTracingIncludes: {
+    '/api/docs/*': ['./content/docs/**/*'],
+  },
+
   // Exclude unnecessary files from serverless functions
   outputFileTracingExcludes: {
     '*': [
