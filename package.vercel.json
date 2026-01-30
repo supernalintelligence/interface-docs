@@ -59,7 +59,7 @@
     "@copilotkit/runtime": "^1.10.6",
     "@supernal/brand-kit": "^0.3.0",
     "@supernal/interface": "^1.0.13",
-    "@supernal/interface-nextjs": "^1.0.28",
+    "@supernal/interface-nextjs": "^1.0.29",
     "@supernal/tts-widget": "^1.0.10",
     "@supernalintelligence/interface-enterprise": "^1.0.25",
     "@types/geopattern": "^1.2.9",
