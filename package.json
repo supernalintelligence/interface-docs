@@ -5,7 +5,13 @@
   "private": true,
   "overrides": {
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "hono": "^4.11.7",
+    "axios": "^1.7.0",
+    "prismjs": "^1.30.0",
+    "lodash-es": "^4.17.23",
+    "extend": "^3.0.2",
+    "diff": "^5.2.2"
   },
   "scripts": {
     "dev": "node scripts/dev-server.js --skip-build",
@@ -80,7 +86,7 @@
     "js-cookie": "^3.0.5",
     "katex": "^0.16.27",
     "lucide-react": "^0.561.0",
-    "next": "^15.5.9",
+    "next": "^15.5.10",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
@@ -103,7 +109,7 @@
     "@typescript-eslint/parser": "^6.12.0",
     "autoprefixer": "^10.4.23",
     "eslint": "^8.0.0",
-    "eslint-config-next": "^15.5.9",
+    "eslint-config-next": "^15.5.10",
     "eslint-plugin-react": "^7.33.0",
     "postcss": "^8.5.6",
     "posthog-js": "^1.336.4",
