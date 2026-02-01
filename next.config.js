@@ -3,11 +3,14 @@ const path = require('path');
 
 const nextConfig = {
   reactStrictMode: true,
-  
+
   // Disable ESLint during build (fix config later)
   eslint: {
     ignoreDuringBuilds: true,
   },
+
+  // Next.js 16 uses Turbopack by default - empty config silences webpack migration warning
+  turbopack: {},
   
   // Allow importing from parent core/src directory
   experimental: {
