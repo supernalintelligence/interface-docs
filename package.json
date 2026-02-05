@@ -60,6 +60,7 @@
     "mcp:debug": "node mcp-server.js 2>&1 | tee mcp-debug.log"
   },
   "dependencies": {
+    "@auth/core": "^0.37.0",
     "@copilotkit/react-core": "^1.10.6",
     "@copilotkit/react-textarea": "^1.10.6",
     "@copilotkit/react-ui": "^1.10.6",
@@ -88,6 +89,7 @@
     "katex": "^0.16.27",
     "lucide-react": "^0.561.0",
     "next": "^16.1.6",
+    "next-auth": "^5.0.0-beta.25",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",

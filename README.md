@@ -38,6 +38,39 @@ npm run si:validate
 
 ---
 
+## 🔐 Authentication & Security
+
+The dashboard uses GitHub OAuth for authentication with a **fail-closed** security model.
+
+### Quick Setup
+
+```bash
+# 1. Generate auth secret
+openssl rand -base64 32
+
+# 2. Create GitHub OAuth App at https://github.com/settings/developers
+# Callback URL: http://localhost:3000/api/auth/callback/github
+
+# 3. Add to .env.local
+AUTH_SECRET=your-generated-secret
+GITHUB_CLIENT_ID=your-client-id
+GITHUB_CLIENT_SECRET=your-client-secret
+
+# Optional: Restrict access to specific emails
+ALLOWED_EMAILS=alice@example.com,bob@example.com
+```
+
+### Security Model
+
+- **FAIL CLOSED**: Missing auth config = no access (not open access)
+- **Build-time validation**: Production builds fail without auth vars
+- **Protected routes**: `/dashboard`, `/admin/*` require authentication
+- **Public routes**: `/`, `/docs/*`, `/blog/*` are accessible to everyone
+
+**📖 Full security documentation**: [docs/SECURITY.md](./docs/SECURITY.md)
+
+---
+
 ## What This Demonstrates
 
 This demo shows how to transform any React application into an AI-controllable system using simple decorators.
