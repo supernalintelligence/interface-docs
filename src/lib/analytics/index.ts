@@ -15,10 +15,10 @@
 import type { NextRouter } from 'next/router';
 import type { AnalyticsConfig, IAnalyticsProvider } from './AnalyticsProvider';
 import type { AnalyticsEvent } from './events/EventSchema';
-import { ChatBubbleVariant } from '@supernal/interface-nextjs';
+// ChatBubbleVariant defined locally to avoid external package dependency
+// Previously: import { ChatBubbleVariant } from '@supernal/interface-nextjs';
+type ChatBubbleVariantType = string;
 import { Routes } from '@/architecture/Routes';
-
-type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 
 import { GTMProvider } from './providers/GTMProvider';
 import { PostHogProvider } from './providers/PostHogProvider';
