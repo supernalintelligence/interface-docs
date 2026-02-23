@@ -44,6 +44,8 @@ export class PostHogProvider implements IAnalyticsProvider {
       }),
       loaded: (posthogInstance) => {
         this.ready = true;
+        // Tag all events with site identifier for cross-site filtering in PostHog
+        posthogInstance.register({ site: 'supernal-docs' });
         if (config.debug) {
           console.log('[PostHog] Initialized');
           posthogInstance.debug();
