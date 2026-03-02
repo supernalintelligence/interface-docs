@@ -17,7 +17,6 @@
  */
 
 import type { Session, User } from 'next-auth';
-import { getServerSession } from 'next-auth';
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 
 // ============================================================================
@@ -104,76 +103,15 @@ export function isUserAllowed(email: string | null | undefined): boolean {
 // ============================================================================
 
 /**
- * Get the NextAuth options for API routes.
- * This is used by [...nextauth].ts
- */
-export function getAuthOptions() {
-  const GitHub = require('next-auth/providers/github').default;
-  
-  return {
-    providers: [
-      GitHub({
-        clientId: process.env.GITHUB_CLIENT_ID!,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      }),
-    ],
-    
-    pages: {
-      signIn: '/auth/signin',
-      error: '/auth/error',
-    },
-    
-    callbacks: {
-      async signIn({ user }: { user: User }) {
-        if (!user.email) {
-          console.error('[AUTH] Sign-in denied: No email from provider');
-          return false;
-        }
-        
-        if (!isUserAllowed(user.email)) {
-          console.warn(`[AUTH] Sign-in denied: ${user.email} not in allowlist`);
-          return '/auth/unauthorized';
-        }
-        
-        console.log(`[AUTH] Sign-in allowed: ${user.email}`);
-        return true;
-      },
-      
-      async session({ session, token }: { session: Session; token: { sub?: string } }) {
-        if (session.user && token.sub) {
-          (session.user as any).id = token.sub;
-        }
-        return session;
-      },
-      
-      async jwt({ token, user }: { token: any; user?: User }) {
-        if (user) {
-          token.id = user.id;
-        }
-        return token;
-      },
-    },
-    
-    session: {
-      strategy: 'jwt' as const,
-    },
-    
-    secret: process.env.AUTH_SECRET,
-    
-    debug: process.env.NODE_ENV === 'development',
-  };
-}
-
-/**
  * Safe auth wrapper that returns null if auth is not configured.
- * Use this in pages/API routes instead of raw getServerSession().
+ * Use this in pages/API routes instead of raw auth().
  * 
  * SECURITY: If auth is not configured in production, this throws.
- * If getServerSession() fails, this returns null (which should trigger fail-closed behavior).
+ * If auth fails, this returns null (which should trigger fail-closed behavior).
  */
 export async function getSession(
-  req?: GetServerSidePropsContext['req'] | NextApiRequest,
-  res?: GetServerSidePropsContext['res'] | NextApiResponse
+  _req?: GetServerSidePropsContext['req'] | NextApiRequest,
+  _res?: GetServerSidePropsContext['res'] | NextApiResponse
 ): Promise<Session | null> {
   const status = getAuthConfigStatus();
   
@@ -189,15 +127,14 @@ export async function getSession(
     return null;
   }
   
-  // Wrap getServerSession() in try/catch - NEVER allow exceptions to grant access
+  // Wrap session check in try/catch - NEVER allow exceptions to grant access
   try {
-    if (req && res) {
-      return await getServerSession(req, res, getAuthOptions());
-    }
-    // For middleware/edge, session check is done via cookie presence
-    return null;
+    // Import auth from the API route which has the configured NextAuth instance
+    const { auth } = await import('../pages/api/auth/[...nextauth]');
+    const session = await auth();
+    return session;
   } catch (error) {
-    console.error('[AUTH SECURITY] getServerSession() threw an error:', error);
+    console.error('[AUTH SECURITY] Session check threw an error:', error);
     // FAIL CLOSED: errors = no session = no access
     return null;
   }

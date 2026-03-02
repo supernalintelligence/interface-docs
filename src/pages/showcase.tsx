@@ -7,6 +7,12 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Components } from '../architecture';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 interface ShowcaseItem {
   name: string;

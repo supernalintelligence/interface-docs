@@ -4,9 +4,9 @@
  */
 
 import React, { useState } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, User, Clock } from 'lucide-react';
 import { Header } from '../../components/Header';
@@ -39,11 +39,17 @@ function formatDate(dateString: string): string {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
-  const router = useRouter();
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
   
   // Add copy buttons to code blocks
   useCodeBlockEnhancement();
+  
+  // Navigation helper using browser APIs
+  const goBack = () => {
+    if (typeof window !== 'undefined') {
+      window.history.back();
+    }
+  };
 
   if (!post) {
     return <div>Post not found</div>;
@@ -89,13 +95,13 @@ export default function BlogPost({ post }: BlogPostProps) {
               animate={{ opacity: 1, x: 0 }}
               className="mb-8"
             >
-              <button
-                onClick={() => router.push(Routes.blog)}
+              <Link
+                href={Routes.blog}
                 className={`flex items-center ${getSubtextColor()} hover:${getTextColor()} transition-colors text-sm`}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Blog
-              </button>
+              </Link>
             </motion.div>
 
             {/* Title */}
@@ -223,18 +229,7 @@ export default function BlogPost({ post }: BlogPostProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getBlogPosts();
-  
-  return {
-    paths: posts.map(post => ({
-      params: { slug: post.slug },
-    })),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = getPostBySlug(params?.slug as string);
 
   if (!post) {

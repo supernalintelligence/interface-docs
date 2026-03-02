@@ -9,6 +9,12 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Components } from '../architecture';
 import { Routes } from '../architecture/Routes';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues with enterprise imports
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 interface TestingFeature {
   title: string;

@@ -40,8 +40,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // Next.js 16 uses Turbopack by default - empty config silences webpack migration warning
-  turbopack: {},
+  // Disable Turbopack to use webpack (Turbopack has issues with certain import patterns)
+  // turbopack: {},
   
   // Allow importing from parent core/src directory
   experimental: {

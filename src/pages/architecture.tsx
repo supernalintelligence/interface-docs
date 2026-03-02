@@ -7,6 +7,12 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { ArchitecturePage } from '../components/pages/ArchitecturePage';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 export default function ArchitectureRoute() {
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);

@@ -9,9 +9,8 @@
  * No emojis, dark theme, professional
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { TextFirstHero } from '../components/hero/TextFirstHero';
@@ -20,16 +19,32 @@ import { ShowcasePreview } from '../components/showcase/ShowcasePreview';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { TourLandingPage } from '../components/tour/TourLandingPage';
 import { theme, components, cn } from '../config/theme';
+import type { GetServerSideProps } from 'next';
 
-export default function LandingPage() {
+interface LandingPageProps {
+  initialVariant: string;
+}
+
+// Read variant server-side to avoid useRouter SSG issues
+export const getServerSideProps: GetServerSideProps<LandingPageProps> = async (context) => {
+  const variant = (context.query.variant as string) || process.env.NEXT_PUBLIC_HERO_VARIANT || 'a';
+  return { props: { initialVariant: variant } };
+};
+
+export default function LandingPage({ initialVariant }: LandingPageProps) {
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
-  const router = useRouter();
+  const [variantId, setVariantId] = useState(initialVariant);
 
-  // Variant detection: Query param > Env var > Default
-  const variantId =
-    (router.query.variant as string) ||
-    process.env.NEXT_PUBLIC_HERO_VARIANT ||
-    'a';
+  // Update variant if URL changes (client-side navigation)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlVariant = params.get('variant');
+      if (urlVariant) {
+        setVariantId(urlVariant);
+      }
+    }
+  }, []);
 
   // Variant E: Full tour experience (different layout from variants a-d)
   if (variantId === 'e') {

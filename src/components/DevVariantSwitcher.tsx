@@ -3,10 +3,11 @@
  *
  * Only renders in development mode (process.env.NODE_ENV === 'development')
  * Uses ChatBubbleVariant named contracts for type safety
+ * 
+ * Uses browser APIs to avoid SSG issues with Next.js router hooks
  */
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import { ChatBubbleVariant } from '@supernal/interface-nextjs';
 
 type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
@@ -17,41 +18,51 @@ interface DevVariantSwitcherProps {
 }
 
 export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) {
-  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [currentHeroVariant, setCurrentHeroVariant] = useState<HeroVariantType>('a');
 
-  // Only render in development
-  if (process.env.NODE_ENV !== 'development') {
+  // Only mount on client in development
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      setMounted(true);
+      // Get hero variant from URL
+      const params = new URLSearchParams(window.location.search);
+      const variant = params.get('variant') as HeroVariantType;
+      if (variant) setCurrentHeroVariant(variant);
+    }
+  }, []);
+
+  // Don't render during SSR or in production
+  if (!mounted) {
     return null;
   }
 
   const chatVariants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[];
   const heroVariants: HeroVariantType[] = ['a', 'b', 'c', 'd', 'e'];
-  const currentHeroVariant = (router.query.variant as HeroVariantType) || 'a';
 
   const handleChatVariantChange = (variant: ChatBubbleVariantType) => {
-    // Update URL parameter (use 'chat' to avoid conflict with hero 'variant' param)
-    router.replace({
-      pathname: router.pathname,
-      query: { ...router.query, chat: variant }
-    }, undefined, { shallow: true });
+    // Update URL parameter using browser APIs
+    const url = new URL(window.location.href);
+    url.searchParams.set('chat', variant);
+    window.history.replaceState({}, '', url.toString());
 
     // Update localStorage
     localStorage.setItem('chat-variant', variant);
 
-    // Collapse after selection
-    setIsExpanded(false);
+    // Force reload to apply new variant
+    window.location.reload();
   };
 
   const handleHeroVariantChange = (variant: HeroVariantType) => {
-    // Update URL parameter
-    router.replace({
-      pathname: router.pathname,
-      query: { ...router.query, variant }
-    }, undefined, { shallow: true });
+    // Update URL parameter using browser APIs
+    const url = new URL(window.location.href);
+    url.searchParams.set('variant', variant);
+    window.history.replaceState({}, '', url.toString());
+    setCurrentHeroVariant(variant);
 
-    // Collapse after selection
-    setIsExpanded(false);
+    // Force reload to apply new variant
+    window.location.reload();
   };
 
   const getVariantIcon = (variant: ChatBubbleVariantType): string => {

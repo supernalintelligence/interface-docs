@@ -12,7 +12,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getVariant } from '@/config/hero-variants';
 import { theme, components, cn } from '@/config/theme';
@@ -26,19 +25,30 @@ import {
 interface TextFirstHeroProps {
   onGetStarted?: () => void;
   onTryDemo?: () => void;
+  initialVariant?: string;
 }
 
 export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
   onGetStarted = () => window.location.href = '/docs',
-  onTryDemo = () => window.location.href = '/examples'
+  onTryDemo = () => window.location.href = '/examples',
+  initialVariant,
 }) => {
-  const router = useRouter();
-
-  // Variant detection: Query param > Env var > Default
-  const variantId =
-    (router.query.variant as string) ||
-    process.env.NEXT_PUBLIC_HERO_VARIANT ||
-    'a';
+  // Variant detection: Prop > Env var > Default
+  // Read from URL on client side only
+  const [variantId, setVariantId] = useState(
+    initialVariant || process.env.NEXT_PUBLIC_HERO_VARIANT || 'a'
+  );
+  
+  // Update variant from URL on client mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlVariant = params.get('variant');
+      if (urlVariant) {
+        setVariantId(urlVariant);
+      }
+    }
+  }, []);
 
   const variant = getVariant(variantId);
 

@@ -6,7 +6,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { Post } from '../../lib/content/types';
 import { Blog } from '../../architecture';
 import { SVGGenerator } from '../../lib/svg-generator';
@@ -32,7 +32,6 @@ function formatDate(dateString: string): string {
 }
 
 export default function BlogCard({ post, featured = false, index = 0 }: BlogCardProps) {
-  const router = useRouter();
   
   // Generate dynamic background pattern based on post
   const backgroundSvg = React.useMemo(
@@ -47,7 +46,9 @@ export default function BlogCard({ post, featured = false, index = 0 }: BlogCard
   );
 
   const handleClick = () => {
-    router.push(`/blog/${post.slug}`);
+    if (typeof window !== 'undefined') {
+      window.location.href = `/blog/${post.slug}`;
+    }
   };
 
   const category = post.metadata.categories?.[0];

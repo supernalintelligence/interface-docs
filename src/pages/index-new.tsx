@@ -18,6 +18,12 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { TextFirstHero } from '../components/hero/TextFirstHero';
 import { AudienceTabs } from '../components/tabs/AudienceTabs';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 import { JourneyTabs } from '../components/tabs/JourneyTabs';
 import { ShowcasePreview } from '../components/showcase/ShowcasePreview';
 import { PricingSection } from '../components/landing/PricingSection';

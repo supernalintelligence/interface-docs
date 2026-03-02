@@ -24,6 +24,12 @@ import {
 import { Zap, Shield, Code, MessageSquare, Check, FileText } from 'lucide-react';
 import { DemoContainers } from '../../architecture';
 import { registerExampleTools } from '../../tools/ExampleTools';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 // Import widgets to register tools
 import '../../lib/UIWidgetComponents';

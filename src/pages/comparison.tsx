@@ -8,6 +8,12 @@
 import React from 'react';
 import { InteractiveWidgets } from '../components/InteractiveWidgets';
 import { SimplifiedInteractiveWidgets } from '../components/SimplifiedInteractiveWidgets';
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 export default function ComparisonPage() {
   return (

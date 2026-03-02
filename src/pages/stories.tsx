@@ -9,6 +9,12 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { DemoContainers as Containers } from "@/architecture";
+import type { GetServerSideProps } from 'next';
+
+// Skip static generation to avoid SSR issues
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 interface FeatureFile {
   name: string;
