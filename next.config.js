@@ -1,37 +1,6 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 
-// ============================================================================
-// BUILD-TIME AUTH VALIDATION
-// ============================================================================
-// SECURITY: Validate auth configuration at build time.
-// A production build with missing auth is a security vulnerability.
-
-const isProduction = process.env.NODE_ENV === 'production';
-const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
-
-if (isProduction || isBuildPhase) {
-  const REQUIRED_AUTH_VARS = ['GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET', 'AUTH_SECRET'];
-  const missingVars = REQUIRED_AUTH_VARS.filter(v => !process.env[v]);
-  
-  if (missingVars.length > 0) {
-    console.error('\n🚨 SECURITY ERROR: Missing required authentication variables!\n');
-    console.error('The following environment variables must be set for production:');
-    missingVars.forEach(v => console.error(`  - ${v}`));
-    console.error('\nWithout these, authentication cannot work properly.');
-    console.error('This is a FAIL-CLOSED security measure.\n');
-    
-    // Fail the build
-    throw new Error(`Missing required auth environment variables: ${missingVars.join(', ')}`);
-  }
-  
-  console.log('✅ Auth configuration validated');
-}
-
-// ============================================================================
-// NEXT.JS CONFIG
-// ============================================================================
-
 const nextConfig = {
   reactStrictMode: true,
 

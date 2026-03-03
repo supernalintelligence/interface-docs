@@ -9,6 +9,12 @@
 
 import React from 'react';
 import Head from 'next/head';
+import type { GetServerSideProps } from 'next';
+
+// Force server-side rendering to avoid static generation issues with router
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 export default function AuthUnavailable() {
   return (
