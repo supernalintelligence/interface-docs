@@ -17,7 +17,7 @@ import type { AnalyticsConfig, IAnalyticsProvider } from './AnalyticsProvider';
 import type { AnalyticsEvent } from './events/EventSchema';
 // ChatBubbleVariant defined locally to avoid external package dependency
 // Previously: import { ChatBubbleVariant } from '@supernal/interface-nextjs';
-type ChatBubbleVariantType = string;
+type ChatBubbleVariantType = 'drawer' | 'full' | 'floating' | 'subtitle';
 import { Routes } from '@/architecture/Routes';
 
 import { GTMProvider } from './providers/GTMProvider';
