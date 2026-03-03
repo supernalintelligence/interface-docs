@@ -16,8 +16,20 @@
  * - ALLOWED_EMAILS: Comma-separated list of allowed email addresses
  */
 
-import type { Session, User } from 'next-auth';
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
+
+// Inline types to avoid next-auth dependency (auth is stubbed for this demo site)
+interface User {
+  id?: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+interface Session {
+  user?: User;
+  expires: string;
+}
 
 // ============================================================================
 // AUTH CONFIGURATION VALIDATION
