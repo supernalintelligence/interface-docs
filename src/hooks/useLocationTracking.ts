@@ -4,12 +4,11 @@
  * Automatically tracks route changes and updates LocationContext so
  * ToolRegistry can correctly filter scoped tools.
  *
- * Uses browser APIs to avoid SSR/SSG issues with Next.js router hooks.
- *
  * CRITICAL: This must be called in _app.tsx to enable tool scoping!
  */
 
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { LocationContext } from '@supernal/interface/browser';
 
 /**
@@ -34,47 +33,41 @@ function arraysEqual(a: string[], b: string[]): boolean {
 }
 
 export function useLocationTracking() {
+  const router = useRouter();
   const lastLocationRef = useRef<string>('');
   const lastElementsRef = useRef<string[]>([]);
 
   useEffect(() => {
-    // Only run on client
-    if (typeof window === 'undefined') return;
-
     const updateLocation = () => {
-      const pathname = window.location.pathname;
-      const search = window.location.search;
-      const asPath = pathname + search;
-      
       // Scan DOM for visible elements
       const visibleElements = getVisibleElements();
 
       // Check if anything has actually changed
-      const locationChanged = lastLocationRef.current !== pathname;
+      const locationChanged = lastLocationRef.current !== router.pathname;
       const elementsChanged = !arraysEqual(lastElementsRef.current, visibleElements);
 
       // Only update and log if something changed
       if (locationChanged || elementsChanged) {
         LocationContext.setCurrent({
-          page: pathname,
-          route: pathname,
+          page: router.pathname,
+          route: router.route,
           elements: visibleElements,
           metadata: {
-            search,
-            asPath,
+            query: router.query,
+            asPath: router.asPath,
           },
         });
 
         // Only log if there's an actual change
         if (locationChanged) {
-          console.log(`[LocationTracking] Updated location: ${pathname}`);
+          console.log(`[LocationTracking] Updated location: ${router.pathname}`);
         }
         if (elementsChanged) {
           console.log(`[LocationTracking] Visible elements changed: ${visibleElements.length} elements`);
         }
 
         // Update refs
-        lastLocationRef.current = pathname;
+        lastLocationRef.current = router.pathname;
         lastElementsRef.current = visibleElements;
       }
     };
@@ -85,13 +78,18 @@ export function useLocationTracking() {
     // Periodically re-scan for elements (handles dynamic content)
     const intervalId = setInterval(updateLocation, 1000);
 
-    // Listen for browser navigation
-    window.addEventListener('popstate', updateLocation);
+    // Subscribe to route changes
+    const handleRouteChange = () => {
+      // Delay to ensure new page DOM is rendered
+      setTimeout(updateLocation, 100);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
       clearTimeout(initialTimer);
       clearInterval(intervalId);
-      window.removeEventListener('popstate', updateLocation);
+      router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, []);
+  }, [router.pathname, router.route, router.asPath]);
 }

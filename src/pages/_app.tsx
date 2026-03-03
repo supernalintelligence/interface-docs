@@ -1,77 +1,69 @@
 import '@/styles/globals.css'
+// import 'reactflow/dist/style.css' // Disabled - reactflow not installed
 import 'highlight.js/styles/github-dark.css'
 import '@supernal/tts-widget/widget.css'
 import type { AppProps } from 'next/app'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
-import dynamic from 'next/dynamic'
+import { SupernalProvider, ChatBubbleVariant } from '@supernal/interface-nextjs'
 
-// Dynamically import heavy components to avoid SSG issues
-const SupernalProvider = dynamic(
-  () => import('@supernal/interface-nextjs').then(mod => mod.SupernalProvider),
-  { ssr: false }
-)
+type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
+import { initializeDemoArchitecture } from '../architecture'
+import { useRouter } from 'next/router'
+import TTSInit from '../components/TTSInitializer'
+import '../lib/DevTools'  // Expose AI interface for testing
+import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
 
-const TTSInit = dynamic(
-  () => import('../components/TTSInitializer'),
-  { ssr: false }
-)
+// 🎯 NEW: Import location-aware tools (demonstrates unified scoping system)
+import '../tools/LocationAwareExampleTools'
 
-const DevVariantSwitcher = dynamic(
-  () => import('../components/DevVariantSwitcher').then(mod => mod.DevVariantSwitcher),
-  { ssr: false }
-)
+// ✅ CRITICAL: Import ExampleTools to trigger @Component/@Tool decorators
+// Without this import, the decorators never execute and tools are never registered!
+import '../tools/ExampleTools'
 
 const DEBUG = false && process.env.NODE_ENV === 'development'
+// @ts-ignore - CopilotKit is optional
+const CopilotChatWidget = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
+  ? require('../components/CopilotChatWidget').CopilotChatWidget
+  : () => null;
+
+// NOTE: GlobalThemeTools disabled - using widget-scoped theming instead
+// Each demo widget controls its own theme via data-theme attribute
+// import '../lib/GlobalThemeTools'
+
+// NOTE: BlogNavigationTools removed - blog navigation is now auto-generated
+// via ContentResolver in DemoContainers.ts (see Blog container definition)
 
 // Toggle between CopilotKit and Supernal native chat
 const USE_COPILOTKIT = process.env.NEXT_PUBLIC_USE_COPILOTKIT === 'true'
 
-// Architecture initialization component - loads on client only
+// Architecture initialization component - DEMO-SPECIFIC ONLY
+// Registers custom containers (Blog, Demo, Showcase, etc.)
+// NOTE: General apps wouldn't need this - it's demo-specific
 function ArchitectureInitializer() {
   useEffect(() => {
-    // Dynamically import to avoid SSG issues
-    import('../architecture').then(({ initializeDemoArchitecture }) => {
-      initializeDemoArchitecture()
-      DEBUG && console.log('✅ [_app] Demo architecture initialized')
-    })
-    
-    // Also import tools
-    import('../tools/LocationAwareExampleTools')
-    import('../tools/ExampleTools')
-    import('../lib/DevTools')
+    // Initialize demo architecture (registers custom containers)
+    // This is demo-specific - general apps wouldn't need this
+    initializeDemoArchitecture()
+
+    DEBUG && console.log('✅ [_app] Demo architecture initialized')
   }, [])
 
   return null
 }
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [mounted, setMounted] = useState(false)
+  const router = useRouter()
   const gtmId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
+  const glassMode = process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'
 
-  // Only render full app after mount to avoid SSG issues
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // 🎯 Persistent chat variant across page navigation
-  const [chatVariant, setChatVariant] = React.useState<'full' | 'floating' | 'drawer' | 'subtitle'>('full')
-
-  // Initialize variant from localStorage on client
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('chat-variant')
-      if (saved && ['full', 'floating', 'drawer', 'subtitle'].includes(saved)) {
-        setChatVariant(saved as typeof chatVariant)
-      }
-    }
-  }, [])
-
-  // 🎯 Initialize analytics
+  // 🎯 Initialize analytics (GTM + PostHog) - Inlined to avoid TypeScript resolution issues
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    // Dynamically import and initialize analytics
+    // @ts-ignore - TypeScript has module resolution issues with analytics types
     import('@/lib/analytics').then(async (analyticsModule: any) => {
       const config = {
         providers: {
@@ -110,48 +102,107 @@ export default function App({ Component, pageProps }: AppProps) {
         debug: process.env.NODE_ENV === 'development',
       }
 
-      await analyticsModule.initializeAnalytics(config, null)
+      // Call initialize with config and router
+      await analyticsModule.initializeAnalytics(config, router)
     }).catch((error: unknown) => {
       console.error('[_app] Failed to initialize analytics:', error)
     })
+  }, [router])
+
+  // 🎯 Mobile detection for responsive variant
+  const [isMobile, setIsMobile] = React.useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    setIsMobile(mediaQuery.matches)
+
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
-  // GTM initialization
+  // 🎯 Persistent chat variant across page navigation (preserves across sites via URL)
+  // Using ChatBubbleVariant named contract (ComponentNames pattern)
+  // Defaults to 'subtitle' on mobile, 'full' on desktop
+  const [chatVariant, setChatVariant] = React.useState<ChatBubbleVariantType>(
+    ChatBubbleVariant.full as ChatBubbleVariantType
+  )
+
+  // Allowed variants (from ChatBubbleVariant contract)
+  const allowedVariants = Object.keys(ChatBubbleVariant) as ChatBubbleVariantType[]
+
+  // Initialize variant from localStorage or URL parameter
+  // Priority: URL param > localStorage > mobile detection > default
+  // Uses 'chat' param to avoid conflict with hero 'variant' param
   useEffect(() => {
-    if (gtmId && typeof window !== 'undefined') {
-      // @ts-ignore
-      window.dataLayer = window.dataLayer || []
-      // @ts-ignore
-      function gtag(...args: any[]) { window.dataLayer.push(args) }
-      // @ts-ignore
+    const chatParam = router.query.chat as string | undefined
+
+    // Priority 1: URL parameter (for testing/sharing + cross-site navigation)
+    if (chatParam && allowedVariants.includes(chatParam as ChatBubbleVariantType)) {
+      setChatVariant(chatParam as ChatBubbleVariantType)
+      // Persist to localStorage when set via URL
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('chat-variant', chatParam)
+      }
+    } else if (typeof window !== 'undefined') {
+      // Priority 2: localStorage (persisted preference)
+      const savedVariant = localStorage.getItem('chat-variant')
+      if (savedVariant && allowedVariants.includes(savedVariant as ChatBubbleVariantType)) {
+        setChatVariant(savedVariant as ChatBubbleVariantType)
+
+        // Add chat param to URL if not present (enables cross-site navigation)
+        if (!chatParam && savedVariant !== ChatBubbleVariant.full) {
+          router.replace({
+            pathname: router.pathname,
+            query: { ...router.query, chat: savedVariant }
+          }, undefined, { shallow: true })
+        }
+      } else {
+        // Priority 3: Mobile detection (default to subtitle on mobile)
+        const defaultVariant = isMobile
+          ? (ChatBubbleVariant.subtitle as ChatBubbleVariantType)
+          : (ChatBubbleVariant.full as ChatBubbleVariantType)
+        setChatVariant(defaultVariant)
+      }
+    }
+  }, [router.query.chat, allowedVariants, isMobile])
+
+  DEBUG && console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
+  DEBUG && console.log('[_app] glassMode prop:', glassMode);
+  DEBUG && console.log('[_app] chatVariant (persistent):', chatVariant);
+  DEBUG  && console.log('[_app] SupernalProvider imported:', SupernalProvider);
+  DEBUG  && console.log('[_app] USE_COPILOTKIT:', USE_COPILOTKIT);
+
+  useEffect(() => {
+    // Initialize GTM dataLayer
+    if (typeof window !== 'undefined' && gtmId) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer = (window as any).dataLayer || []
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function gtag(...args: unknown[]) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).dataLayer.push(args)
+      }
       gtag('js', new Date())
-      // @ts-ignore
       gtag('config', gtmId)
     }
   }, [gtmId])
 
-  // For SSG/SSR, render minimal version
-  if (!mounted) {
-    return (
-      <React.Fragment>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-        </Head>
-        <Component {...pageProps} />
-      </React.Fragment>
-    )
-  }
-
   return (
     <React.Fragment>
       <Head>
+        {/* Viewport - CRITICAL for mobile responsiveness */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
       </Head>
       <SupernalProvider
         mode="fuzzy"
-        disabled={USE_COPILOTKIT}
+        disabled={USE_COPILOTKIT}  // Disable Supernal chat when using CopilotKit
         glassMode={process.env.NEXT_PUBLIC_GLASS_MODE !== 'false'}
-        variant={chatVariant}
+        variant={chatVariant as 'full' | 'floating' | 'drawer' | 'subtitle'}
+        // Don't pass routes - AutoNavigationContext causes conflicts with useContainer
+        // Pages will set their own context using useContainer() hook
       >
         <ArchitectureInitializer />
         <TTSInit />
@@ -184,10 +235,11 @@ export default function App({ Component, pageProps }: AppProps) {
         )}
         <Component {...pageProps} />
 
-        {/* Dev-only variant switcher */}
-        {process.env.NODE_ENV === 'development' && (
-          <DevVariantSwitcher currentVariant={chatVariant} />
-        )}
+        {/* CopilotKit chat (if enabled) */}
+        {USE_COPILOTKIT && <CopilotChatWidget defaultOpen={false} />}
+
+        {/* Dev-only variant switcher (only renders in development) */}
+        DEBUG && <DevVariantSwitcher currentVariant={chatVariant} />
       </SupernalProvider>
     </React.Fragment>
   )
