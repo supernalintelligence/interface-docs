@@ -9,6 +9,47 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
 import { DocMetadata } from './types';
+import { visit } from 'unist-util-visit';
+import type { Root, Element } from 'hast';
+
+/**
+ * Rehype plugin to rewrite relative markdown links to web routes.
+ * Fixes links like "./introduction" → "/docs/introduction"
+ * and removes leaked filesystem paths like "/var/task/docs/"
+ */
+function rehypeFixLinks() {
+  return (tree: Root) => {
+    visit(tree, 'element', (node: Element) => {
+      if (node.tagName === 'a' && node.properties?.href) {
+        let href = String(node.properties.href);
+        
+        // Fix leaked filesystem paths (e.g., /var/task/docs/introduction)
+        if (href.includes('/var/task/')) {
+          href = href.replace(/.*\/var\/task\/docs\//, '/docs/');
+        }
+        
+        // Convert relative .md/.mdx links to clean routes
+        // ./introduction.md → /docs/introduction
+        // ../guides/foo.md → /docs/guides/foo
+        if (href.startsWith('./') || href.startsWith('../')) {
+          href = href.replace(/\.(md|mdx)$/, '');
+          // For relative links starting with ./, assume they're docs
+          if (href.startsWith('./')) {
+            href = '/docs/' + href.slice(2).replace(/^\/+/, '');
+          }
+          // For ../ links, we can't resolve without context, leave as-is for now
+        }
+        
+        // Remove trailing slashes from internal links
+        if (href.startsWith('/') && href.endsWith('/') && href.length > 1) {
+          href = href.slice(0, -1);
+        }
+        
+        node.properties.href = href;
+      }
+    });
+  };
+}
 
 export function parseFrontmatter(content: string): {
   metadata: DocMetadata;
@@ -78,6 +119,7 @@ export async function markdownToHtml(content: string): Promise<string> {
         ignoreMissing: true,
         subset: ['typescript', 'javascript', 'jsx', 'tsx', 'bash', 'json', 'css', 'html']
       })
+      .use(rehypeFixLinks)
       .use(rehypeSanitize, {
         ...defaultSchema,
         attributes: {
