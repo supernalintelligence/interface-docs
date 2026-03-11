@@ -6,8 +6,14 @@
  */
 
 import React from 'react';
+import { GetServerSideProps } from 'next';
 import { InteractiveWidgets } from '../components/InteractiveWidgets';
 import { SimplifiedInteractiveWidgets } from '../components/SimplifiedInteractiveWidgets';
+
+// Force SSR to avoid SSG issues with @supernalintelligence/interface-enterprise
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
 
 export default function ComparisonPage() {
   return (

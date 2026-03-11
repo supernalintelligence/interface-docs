@@ -8,6 +8,13 @@ import { Header } from '../components/Header';
 import { EarlyAccessModal } from '../components/EarlyAccessModal';
 import { ArchitecturePage } from '../components/pages/ArchitecturePage';
 
+import { GetServerSideProps } from 'next';
+
+// Force SSR to avoid static generation issues with SupernalProvider
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};
+
 export default function ArchitectureRoute() {
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
 

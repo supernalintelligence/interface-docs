@@ -3,14 +3,21 @@ import '@/styles/globals.css'
 import 'highlight.js/styles/github-dark.css'
 import '@supernal/tts-widget/widget.css'
 import type { AppProps } from 'next/app'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
-import { SupernalProvider, ChatBubbleVariant } from '@supernal/interface-nextjs'
+import dynamic from 'next/dynamic'
+import { ChatBubbleVariant } from '@supernal/interface-nextjs'
+
+// Dynamic import SupernalProvider to avoid SSG issues with next/document
+const SupernalProvider = dynamic(
+  () => import('@supernal/interface-nextjs').then((mod) => mod.SupernalProvider),
+  { ssr: false }
+);
 
 type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
 import { initializeDemoArchitecture } from '../architecture'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/compat/router'
 import TTSInit from '../components/TTSInitializer'
 import '../lib/DevTools'  // Expose AI interface for testing
 import { DevVariantSwitcher } from '../components/DevVariantSwitcher'
@@ -102,8 +109,10 @@ export default function App({ Component, pageProps }: AppProps) {
         debug: process.env.NODE_ENV === 'development',
       }
 
-      // Call initialize with config and router
-      await analyticsModule.initializeAnalytics(config, router)
+      // Call initialize with config and router (router may be null during SSR)
+      if (router) {
+        await analyticsModule.initializeAnalytics(config, router)
+      }
     }).catch((error: unknown) => {
       console.error('[_app] Failed to initialize analytics:', error)
     })
@@ -137,7 +146,8 @@ export default function App({ Component, pageProps }: AppProps) {
   // Priority: URL param > localStorage > mobile detection > default
   // Uses 'chat' param to avoid conflict with hero 'variant' param
   useEffect(() => {
-    const chatParam = router.query.chat as string | undefined
+    if (!router) return;
+    const chatParam = router.query?.chat as string | undefined
 
     // Priority 1: URL parameter (for testing/sharing + cross-site navigation)
     if (chatParam && allowedVariants.includes(chatParam as ChatBubbleVariantType)) {
@@ -153,7 +163,7 @@ export default function App({ Component, pageProps }: AppProps) {
         setChatVariant(savedVariant as ChatBubbleVariantType)
 
         // Add chat param to URL if not present (enables cross-site navigation)
-        if (!chatParam && savedVariant !== ChatBubbleVariant.full) {
+        if (!chatParam && savedVariant !== ChatBubbleVariant.full && router.pathname) {
           router.replace({
             pathname: router.pathname,
             query: { ...router.query, chat: savedVariant }
@@ -167,7 +177,7 @@ export default function App({ Component, pageProps }: AppProps) {
         setChatVariant(defaultVariant)
       }
     }
-  }, [router.query.chat, allowedVariants, isMobile])
+  }, [router?.query?.chat, allowedVariants, isMobile, router])
 
   DEBUG && console.log('[_app] NEXT_PUBLIC_GLASS_MODE:', process.env.NEXT_PUBLIC_GLASS_MODE);
   DEBUG && console.log('[_app] glassMode prop:', glassMode);

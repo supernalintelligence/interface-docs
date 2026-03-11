@@ -5,8 +5,8 @@
  * Uses ChatBubbleVariant named contracts for type safety
  */
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/compat/router';
 import { ChatBubbleVariant } from '@supernal/interface-nextjs';
 
 type ChatBubbleVariantType = keyof typeof ChatBubbleVariant;
@@ -19,9 +19,14 @@ interface DevVariantSwitcherProps {
 export function DevVariantSwitcher({ currentVariant }: DevVariantSwitcherProps) {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Only render in development
-  if (process.env.NODE_ENV !== 'development') {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only render in development and on client
+  if (process.env.NODE_ENV !== 'development' || !mounted || !router) {
     return null;
   }
 

@@ -11,7 +11,7 @@
 
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/compat/router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { TextFirstHero } from '../components/hero/TextFirstHero';
@@ -27,7 +27,7 @@ export default function LandingPage() {
 
   // Variant detection: Query param > Env var > Default
   const variantId =
-    (router.query.variant as string) ||
+    (router?.query?.variant as string) ||
     process.env.NEXT_PUBLIC_HERO_VARIANT ||
     'a';
 

@@ -12,7 +12,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/compat/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getVariant } from '@/config/hero-variants';
 import { theme, components, cn } from '@/config/theme';
@@ -36,7 +36,7 @@ export const TextFirstHero: React.FC<TextFirstHeroProps> = ({
 
   // Variant detection: Query param > Env var > Default
   const variantId =
-    (router.query.variant as string) ||
+    (router?.query?.variant as string) ||
     process.env.NEXT_PUBLIC_HERO_VARIANT ||
     'a';
 

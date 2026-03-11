@@ -7,7 +7,7 @@
 
 import React from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/compat/router';
 import { GetServerSideProps } from 'next';
 import { signIn } from 'next-auth/react';
 import { getSession } from '../../lib/auth';

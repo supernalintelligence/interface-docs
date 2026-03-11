@@ -7,7 +7,7 @@
 
 import React from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/compat/router';
 import type { GetServerSideProps } from 'next';
 
 // Force server-side rendering to avoid static generation issues with router
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function AuthError() {
   const router = useRouter();
-  const { error } = router.query;
+  const error = router?.query?.error;
   
   // Map error codes to user-friendly messages
   const getErrorInfo = (errorCode?: string | string[]): { title: string; message: string } => {
