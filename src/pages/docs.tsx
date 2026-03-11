@@ -2,7 +2,7 @@
  * Docs Page Route - /docs
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Head from 'next/head';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -85,6 +85,8 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
   const [loading, setLoading] = useState(false);
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [commandQuery, setCommandQuery] = useState('');
 
   const handleDocSelect = useCallback(async (slug: string) => {
     setSelectedSlug(slug);
@@ -111,6 +113,40 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
       handleDocSelect(firstDocSlug);
     }
   }, [firstDocSlug, selectedDoc, handleDocSelect]);
+
+  const commandItems = useMemo(() => {
+    return sections.flatMap(section =>
+      section.docs.map(doc => ({
+        slug: doc.slug,
+        title: doc.title,
+        section: section.name,
+      }))
+    );
+  }, [sections]);
+
+  const filteredCommandItems = useMemo(() => {
+    const q = commandQuery.trim().toLowerCase();
+    if (!q) return commandItems.slice(0, 20);
+    return commandItems
+      .filter(item => `${item.title} ${item.slug} ${item.section}`.toLowerCase().includes(q))
+      .slice(0, 20);
+  }, [commandItems, commandQuery]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const isCommandK = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k';
+      if (isCommandK) {
+        event.preventDefault();
+        setIsCommandOpen(true);
+      }
+      if (event.key === 'Escape') {
+        setIsCommandOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown, { capture: true });
+    return () => window.removeEventListener('keydown', onKeyDown, { capture: true });
+  }, []);
 
   if (!sections || sections.length === 0) {
     return (
@@ -163,7 +199,16 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
           <div className="grid lg:grid-cols-12 gap-6 px-1 md:px-4 overflow-x-hidden">
             {/* Desktop Sidebar */}
             <aside className="hidden lg:block lg:col-span-3 bg-white rounded-lg shadow-sm p-6 sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto">
-              <h2 className="text-lg font-bold mb-4 text-gray-900">📚 Documentation</h2>
+              <div className="flex items-center justify-between mb-4 gap-2">
+                <h2 className="text-lg font-bold text-gray-900">📚 Documentation</h2>
+                <button
+                  onClick={() => setIsCommandOpen(true)}
+                  className="px-2 py-1 text-xs rounded border border-gray-300 text-gray-600 hover:bg-gray-100"
+                  title="Open command navigation"
+                >
+                  ⌘K
+                </button>
+              </div>
               <nav className="space-y-6">
                 {sections.map(section => {
                   // Define section order and better names
@@ -329,6 +374,45 @@ export default function DocsRoute({ sections, firstDocSlug }: DocsProps) {
           isOpen={showEarlyAccessModal}
           onClose={() => setShowEarlyAccessModal(false)}
         />
+
+        {isCommandOpen && (
+          <div className="fixed inset-0 z-[60] bg-black/40 flex items-start justify-center pt-24 px-4" onClick={() => setIsCommandOpen(false)}>
+            <div className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+              <div className="p-3 border-b border-gray-200">
+                <input
+                  autoFocus
+                  value={commandQuery}
+                  onChange={(e) => setCommandQuery(e.target.value)}
+                  placeholder="Search docs… (Cmd/Ctrl+K)"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                />
+              </div>
+              <div className="max-h-[55vh] overflow-y-auto">
+                {filteredCommandItems.length === 0 ? (
+                  <div className="p-4 text-sm text-gray-500">No matching docs</div>
+                ) : (
+                  <ul>
+                    {filteredCommandItems.map((item) => (
+                      <li key={item.slug}>
+                        <button
+                          onClick={() => {
+                            handleDocSelect(item.slug);
+                            setIsCommandOpen(false);
+                            setCommandQuery('');
+                          }}
+                          className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100"
+                        >
+                          <div className="text-sm font-medium text-gray-900">{item.title}</div>
+                          <div className="text-xs text-gray-500">{item.section} · /docs/{item.slug}</div>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Footer */}
