@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, User, Clock } from 'lucide-react';
 import { Header } from '../../components/Header';
@@ -39,9 +39,18 @@ function formatDate(dateString: string): string {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
-  const router = useRouter();
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
-  
+
+  const cover = (() => {
+    const c = post?.metadata?.coverImage;
+    if (typeof c === 'string' && c.trim()) return { url: c.trim(), alt: post.metadata.title, caption: undefined as string | undefined };
+    if (c && typeof c === 'object' && 'url' in c && c.url) {
+      return { url: c.url, alt: c.alt || post.metadata.title, caption: c.caption };
+    }
+    if (post?.metadata?.image?.trim()) return { url: post.metadata.image.trim(), alt: post.metadata.title, caption: undefined as string | undefined };
+    return null;
+  })();
+
   // Add copy buttons to code blocks
   useCodeBlockEnhancement();
 
@@ -75,6 +84,8 @@ export default function BlogPost({ post }: BlogPostProps) {
       <Head>
         <title>{`${post.metadata.title} | Supernal Interface Blog`}</title>
         <meta name="description" content={post.metadata.description || post.excerpt} />
+        {cover?.url && <meta property="og:image" content={cover.url} />}
+        {cover?.url && <meta name="twitter:image" content={cover.url} />}
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -89,13 +100,13 @@ export default function BlogPost({ post }: BlogPostProps) {
               animate={{ opacity: 1, x: 0 }}
               className="mb-8"
             >
-              <button
-                onClick={() => router.push(Routes.blog)}
+              <Link
+                href={Routes.blog}
                 className={`flex items-center ${getSubtextColor()} hover:${getTextColor()} transition-colors text-sm`}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Blog
-              </button>
+              </Link>
             </motion.div>
 
             {/* Title */}
@@ -162,6 +173,29 @@ export default function BlogPost({ post }: BlogPostProps) {
             </motion.div>
           </div>
         </div>
+
+        {/* Hero Cover Image (if provided) */}
+        {cover?.url && (
+          <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-2 mb-8">
+            <motion.figure
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="rounded-xl overflow-hidden shadow-lg"
+            >
+              <img
+                src={cover.url}
+                alt={cover.alt || post.metadata.title}
+                className="w-full h-auto object-cover"
+              />
+              {cover.caption && (
+                <figcaption className="bg-gray-100 px-4 py-2 text-sm text-gray-600 text-center">
+                  {cover.caption}
+                </figcaption>
+              )}
+            </motion.figure>
+          </div>
+        )}
 
         {/* Content with TOC */}
         <div className="w-full px-4 sm:px-6 lg:px-8 py-4">

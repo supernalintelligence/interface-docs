@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/router';
 import { Post } from '../../lib/content/types';
 import { Blog } from '../../architecture';
 import { SVGGenerator } from '../../lib/svg-generator';
@@ -32,47 +32,60 @@ function formatDate(dateString: string): string {
 }
 
 export default function BlogCard({ post, featured = false, index = 0 }: BlogCardProps) {
-  const router = useRouter();
-  
-  // Generate dynamic background pattern based on post
+  const cover = React.useMemo(() => {
+    const c = post.metadata.coverImage;
+    if (typeof c === 'string' && c.trim()) return { url: c.trim(), alt: post.metadata.title };
+    if (c && typeof c === 'object' && 'url' in c && c.url) {
+      return { url: c.url, alt: c.alt || post.metadata.title };
+    }
+    if (post.metadata.image?.trim()) return { url: post.metadata.image.trim(), alt: post.metadata.title };
+    return null;
+  }, [post]);
+
+  // Generate dynamic background pattern fallback when no explicit cover image.
   const backgroundSvg = React.useMemo(
     () => SVGGenerator.generateForPost(post),
     [post]
   );
-  
+
   // Convert to data URL for background-image
   const backgroundPattern = React.useMemo(
     () => SVGGenerator.toDataURL(backgroundSvg),
     [backgroundSvg]
   );
 
-  const handleClick = () => {
-    router.push(`/blog/${post.slug}`);
-  };
-
   const category = post.metadata.categories?.[0];
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group flex flex-col h-full"
-      onClick={handleClick}
-      data-testid={Blog.postCard}
-      data-post-slug={post.slug}
-    >
-      {/* Dynamic Geopattern Header */}
-      <div 
-        className="h-48 relative flex-shrink-0"
-        style={{
+    <Link href={`/blog/${post.slug}`} className="block h-full">
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1 }}
+        className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group flex flex-col h-full"
+        data-testid={Blog.postCard}
+        data-post-slug={post.slug}
+      >
+      {/* Header media: explicit cover image first, then generated pattern fallback */}
+      <div
+        className="h-48 relative flex-shrink-0 overflow-hidden"
+        style={cover ? undefined : {
           backgroundImage: `url("${backgroundPattern}")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
+        {cover && (
+          <img
+            src={cover.url}
+            alt={cover.alt}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+        )}
+
         {/* Overlay for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/30" />
         
         {/* Category Badge */}
         {category && (
@@ -125,7 +138,8 @@ export default function BlogCard({ post, featured = false, index = 0 }: BlogCard
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
-    </motion.article>
+      </motion.article>
+    </Link>
   );
 }
 
