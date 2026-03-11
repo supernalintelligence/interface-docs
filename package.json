@@ -57,7 +57,9 @@
     "si:benchmark": "si benchmark-cache --runs 5 --output benchmark-results.json",
     "si:validate": "si validate --routes src/architecture/Routes.ts --names src/architecture/ComponentNames.ts --tools",
     "mcp": "node mcp-server.js",
-    "mcp:debug": "node mcp-server.js 2>&1 | tee mcp-debug.log"
+    "mcp:debug": "node mcp-server.js 2>&1 | tee mcp-debug.log",
+    "images:migrate": "node scripts/migrate-blog-images-to-hosted.mjs",
+    "images:migrate:write": "node scripts/migrate-blog-images-to-hosted.mjs --write"
   },
   "dependencies": {
     "@copilotkit/react-core": "^1.10.6",
